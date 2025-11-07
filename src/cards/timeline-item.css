@@ -1,0 +1,21 @@
+.timeline-item {
+  @apply relative pl-8 mb-4;
+}
+.timeline-dot {
+  @apply absolute left-0 top-1 w-5 h-5 rounded-full bg-emerald-500 shadow;
+}
+.timeline-time {
+  @apply text-sm opacity-60;
+}
+.timeline-title {
+  @apply font-semibold;
+}
+.timeline-org {
+  @apply text-sm opacity-80;
+}
+.timeline-where {
+  @apply opacity-70;
+}
+.timeline-bullets {
+  @apply list-disc ml-5 mt-2 text-sm space-y-1;
+}

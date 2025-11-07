@@ -1,0 +1,6 @@
+.achievements-list {
+  @apply list-none p-0 m-0 flex flex-col gap-2 text-sm;
+}
+.achievements-detail {
+  @apply block opacity-80;
+}

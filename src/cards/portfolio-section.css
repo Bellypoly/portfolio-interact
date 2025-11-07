@@ -1,0 +1,8 @@
+.portfolio-grid {
+  @apply grid gap-4;
+}
+@media (min-width: 768px) {
+  .portfolio-grid {
+    @apply grid-cols-2;
+  }
+}

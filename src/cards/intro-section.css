@@ -1,0 +1,12 @@
+.intro-title {
+  @apply text-3xl md:text-4xl font-extrabold tracking-tight;
+}
+.intro-position {
+  @apply mt-2 text-base md:text-lg opacity-80;
+}
+.intro-role {
+  @apply inline-block mr-3;
+}
+.intro-actions {
+  @apply mt-4 flex gap-3 flex-wrap;
+}

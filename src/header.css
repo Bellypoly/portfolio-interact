@@ -1,0 +1,55 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.headerInner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.headerTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+.headerProgress {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 10rem;
+}
+@media (min-width: 768px) {
+  .headerProgress {
+    width: 14rem;
+  }
+}
+.headerProgressLabel {
+  font-size: 0.75rem;
+}
+.headerProgressBar {
+  height: 0.5rem;
+  flex: 1;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  display: flex;
+}
+.headerProgressBarFill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 9999px;
+  transition: width 0.2s;
+}
+.headerProgressNum {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  width: 2.5rem;
+  text-align: right;
+}

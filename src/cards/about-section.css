@@ -1,0 +1,15 @@
+.about-container {
+  @apply flex items-start gap-4;
+}
+.about-img {
+  @apply w-20 h-20 rounded-xl object-cover shadow;
+}
+.about-desc {
+  @apply leading-relaxed;
+}
+.about-highlight {
+  @apply font-semibold;
+}
+.about-actions {
+  @apply mt-3;
+}

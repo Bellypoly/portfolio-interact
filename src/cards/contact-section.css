@@ -1,0 +1,17 @@
+.contact-grid {
+  @apply grid gap-4 text-sm;
+}
+@media (min-width: 768px) {
+  .contact-grid {
+    @apply grid-cols-3;
+  }
+}
+.contact-card {
+  @apply bg-white/70 border border-white/60 rounded-xl p-4;
+}
+.contact-title {
+  @apply font-semibold mb-1;
+}
+.contact-link {
+  @apply underline;
+}
