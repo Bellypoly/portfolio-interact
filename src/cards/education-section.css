@@ -1,0 +1,18 @@
+.resume-container {
+  @apply flex flex-col gap-6;
+}
+.resume-title {
+  @apply font-bold text-lg;
+}
+.resume-timeline {
+  @apply flex flex-col gap-4;
+}
+.resume-education {
+  @apply list-none p-0 m-0 flex flex-col gap-2;
+}
+.resume-school {
+  @apply font-semibold;
+}
+.resume-degree {
+  @apply opacity-80;
+}
