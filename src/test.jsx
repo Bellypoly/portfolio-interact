@@ -8,9 +8,9 @@ import {
 import { SECTIONS } from "./App.jsx";
 import JobCard from "./cards/job-card.jsx";
 import ProjectCard from "./cards/project-card.jsx";
-import IntroSection from "./cards/intro-section.jsx";
 import AboutSection from "./cards/about-section.jsx";
 
+// DevTestsContent: concise, useful diagnostics for development
 export const DevTestsContent = ({ progress }) => {
   const mv = useMotionValue(0);
   const widthMV = useTransform(progress, (v) => `${Math.round(v * 100)}%`);
@@ -31,9 +31,7 @@ export const DevTestsContent = ({ progress }) => {
       },
       {
         name: "Section component mapping exists",
-        pass:
-          typeof IntroSection === "function" &&
-          typeof AboutSection === "function",
+        pass: typeof AboutSection === "function",
       },
     ]);
   }, [progress, widthMV]);

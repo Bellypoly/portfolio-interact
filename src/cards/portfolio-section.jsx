@@ -1,9 +1,8 @@
 import React from "react";
-import "./portfolio-section.css";
 import ProjectCard from "../cards/project-card";
 
 const PortfolioSection = () => (
-  <div className="portfolio-grid">
+  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     <ProjectCard
       name="RDFD — Discovering Fake Drivers"
       desc="Machine learning approach for driver identification."
@@ -18,7 +17,7 @@ const PortfolioSection = () => (
       alt="MapMagic"
       link="https://maps.thinknet.co.th/"
     />
-    {/* <ProjectCard
+    <ProjectCard
       name="JobThai"
       desc="Thailand job search platform — search/recommendations, resume creator."
       img="images/portfolio/jobthai.jpg"
@@ -45,7 +44,7 @@ const PortfolioSection = () => (
       img="images/portfolio/coe.jpg"
       alt="PEA E-Service"
       link="https://peacos.pea.co.th/views/paperex/"
-    /> */}
+    />
   </div>
 );
 

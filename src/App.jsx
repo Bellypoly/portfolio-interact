@@ -9,10 +9,9 @@ import {
   isMotionValue,
 } from "framer-motion";
 import "./app.css";
-import Header from "./header.jsx";
-import IntroSection from "./cards/intro-section.jsx";
 import AboutSection from "./cards/about-section.jsx";
-import ResumeSection from "./cards/resume-section.jsx";
+import ExperienceSection from "./cards/experience-section.jsx";
+import EducationSection from "./cards/education-section.jsx";
 import AchievementsSection from "./cards/achievements-section.jsx";
 import PortfolioSection from "./cards/portfolio-section.jsx";
 import ContactSection from "./cards/contact-section.jsx";
@@ -21,108 +20,90 @@ export default function InteractiveResume() {
   const { scrollYProgress } = useScroll();
   const smooth = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
 
-  // Character horizontal progress across the world (0 → 100vw)
-  const charX = useTransform(smooth, [0, 1], ["0%", "100%"]);
-  // Leg swing and bob as functions of scroll
+  // Character motion
+  const charX = useTransform(smooth, [0, 1], ["0vw", "100vw"]);
   const step = useTransform(smooth, (v) => Math.sin(v * Math.PI * 40));
   const bob = useTransform(smooth, (v) => Math.sin(v * Math.PI * 20) * 4);
 
-  // Parallax layers move at different rates
+  // Parallax layers
   const skyX = useTransform(smooth, [0, 1], ["0%", "-15%"]);
   const farX = useTransform(smooth, [0, 1], ["0%", "-30%"]);
   const midX = useTransform(smooth, [0, 1], ["0%", "-50%"]);
   const nearX = useTransform(smooth, [0, 1], ["0%", "-75%"]);
 
-  const markers = useMemo(
-    () =>
-      SECTIONS.map((s, i) => ({
-        id: s.id,
-        left: `${(i / (SECTIONS.length - 1)) * 100}%`,
-        title: s.title,
-      })),
-    []
-  );
+  // Milestones from sections
+  const markers = useMemo(() => {
+    const n = SECTIONS.length;
+    return SECTIONS.map((s, i) => ({
+      id: s.id,
+      title: s.title,
+      left: n > 1 ? `${(i / (n - 1)) * 100}%` : "0%",
+      index: i + 1,
+    }));
+  }, []);
 
   return (
     <main className="min-h-screen w-full text-slate-800">
-      <Header progress={smooth} />
+      {/* Top overlay with content + quick tabs */}
+      <ContentPanel progress={smooth} sections={SECTIONS} />
 
-      {/* WORLD — fullscreen sticky; content panel overlays at the top */}
-      <section className="sticky h-[210vh] top-0">
-        {/* Sticky viewport holds parallax world */}
+      {/* World height grows with section count so each milestone has space */}
+      <section
+        className="relative"
+        style={{ height: `${140 + Math.max(0, SECTIONS.length - 1) * 80}vh` }}
+      >
         <div className="sticky top-0 h-screen overflow-hidden">
-          {/* Sky gradient */}
+          {/* Sky */}
           <div className="absolute inset-0 bg-gradient-to-b from-sky-200 via-white to-emerald-100" />
 
-          {/* Top content panel that updates as you walk */}
-          <ContentPanel progress={smooth} sections={SECTIONS} />
-
-          {/* Clouds (sky layer) */}
-          {/* Cloud groups at different heights for depth and coverage */}
+          {/* Clouds: three parallax bands */}
           <motion.div
             style={{ x: skyX }}
-            aria-hidden
-            className="absolute inset-x-5 top-1 flex gap-60 opacity-80"
+            className="absolute inset-x-0 top-6 flex gap-16 opacity-80"
           >
-            <Cloud size={180} />
-            <Cloud size={120} />
-            <Cloud size={60} />
-            <Cloud size={160} />
-          </motion.div>
-          <motion.div
-            style={{ x: skyX }}
-            aria-hidden
-            className="absolute inset-x-0 top-96 flex gap-42 opacity-60"
-          >
-            <Cloud size={320} />
-            <Cloud size={80} />
-          </motion.div>
-          <motion.div
-            style={{ x: skyX }}
-            aria-hidden
-            className="absolute inset-x-0 top-[32rem] flex gap-40 opacity-50"
-          >
-            <Cloud size={400} />
-            <Cloud size={220} />
-          </motion.div>
-          <motion.div
-            style={{ x: skyX }}
-            aria-hidden
-            className="absolute inset-x-0 top-56 flex gap-60 opacity-70"
-          >
-            <Cloud size={280} />
             <Cloud size={200} />
-            <Cloud size={150} />
+            <Cloud size={140} />
+            <Cloud size={260} />
+            <Cloud size={180} />
+          </motion.div>
+          <motion.div
+            style={{ x: farX }}
+            className="absolute inset-x-0 top-24 flex gap-24 opacity-70"
+          >
+            <Cloud size={160} />
+            <Cloud size={120} />
+            <Cloud size={200} />
+          </motion.div>
+          <motion.div
+            style={{ x: midX }}
+            className="absolute inset-x-0 top-36 flex gap-28 opacity-60"
+          >
+            <Cloud size={110} />
+            <Cloud size={140} />
           </motion.div>
 
-          {/* Far mountains */}
+          {/* Terrain */}
           <motion.div
             style={{ x: farX }}
             className="absolute bottom-28 inset-x-0"
           >
             <Mountains variant="far" />
           </motion.div>
-
-          {/* Mid hills */}
           <motion.div
             style={{ x: midX }}
             className="absolute bottom-16 inset-x-0"
           >
             <Hills />
           </motion.div>
-
-          {/* Near trees & props */}
           <motion.div
             style={{ x: nearX }}
-            className="absolute bottom-14 inset-x-0"
+            className="absolute bottom-10 inset-x-0"
           >
             <DecorRow markers={markers} />
           </motion.div>
+          <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-b from-emerald-400 to-emerald-600 shadow-inner" />
 
-          {/* Ground */}
-          <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-b from-emerald-400 to-emerald-600 shadow-inner z-0" />
-
-          {/* Character */}
+          {/* Walker */}
           <motion.div
             style={{ x: charX, y: bob }}
             className="absolute bottom-20 left-0 -translate-x-1/2"
@@ -132,11 +113,7 @@ export default function InteractiveResume() {
         </div>
       </section>
 
-      <footer className="fixed bottom-0 left-0 w-full text-center text-xs z-50 pb-8">
-        © Suwaphit Buabuthr • Built with React + Framer Motion + Tailwind
-      </footer>
-
-      {/* {process.env.NODE_ENV !== "production" && <DevTests progress={smooth} />} */}
+      {process.env.NODE_ENV !== "production" && <DevTests progress={smooth} />}
     </main>
   );
 }
@@ -145,66 +122,42 @@ export default function InteractiveResume() {
  * CONTENT OVERLAY   *
  *********************/
 function ContentPanel({ progress, sections }) {
-  // progress: 0..1 MotionValue. Map to discrete section index.
   const [idx, setIdx] = useState(0);
   const total = sections.length;
   useMotionValueEvent(progress, "change", (v) => {
-    const i = Math.min(total - 1, Math.max(0, Math.round(v * (total - 1))));
+    const i = Math.min(
+      total - 1,
+      Math.max(0, Math.round(v * Math.max(1, total - 1)))
+    );
     setIdx(i);
   });
-
-  // Panel progress bar
-  const pct = useTransform(progress, [0, 1], [0, 100]);
-  const widthMV = useSpring(
-    useTransform(pct, (p) => `${p}%`),
-    { stiffness: 120, damping: 20 }
-  );
-
   const active = sections[idx];
-
-  const SectionComponents = {
-    intro: IntroSection,
-    about: AboutSection,
-    resume: ResumeSection,
-    achievements: AchievementsSection,
-    portfolio: PortfolioSection,
-    contact: ContactSection,
-  };
-  const ActiveSection = SectionComponents[active.id];
-
   return (
-    <div className="absolute top-0 inset-x-0 mt-12 mx-3 md:mx-10 z-10">
-      <div className="mx-auto max-w-5xl">
-        <div className="rounded-3xl border border-white/60 bg-white/70 backdrop-blur-md shadow-xl p-5 md:p-7">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">{active.title}</h2>
-          </div>
-          <div className="prose prose-slate max-w-none mt-3 prose-p:my-2">
-            <ActiveSection />
+    <div className="fixed top-0 inset-x-0 pt-6 px-4 md:px-6 z-50">
+      <div className="mx-auto max-w-5xl rounded-3xl border border-white/60 bg-white/70 backdrop-blur-md shadow-xl p-5 md:p-7 max-h-[82vh]">
+        <div className="flex items-center gap-3 flex-wrap">
+          <h2 className="text-xl md:text-2xl font-bold">{active.title}</h2>
+          {/* Quick tabs */}
+          <div className="ml-auto flex flex-wrap gap-2 text-xs">
+            {sections.map((s, i) => (
+              <button
+                key={s.id}
+                aria-label={`Jump to ${s.title}`}
+                className={`px-3 py-1 rounded-full border transition-colors ${
+                  i === idx
+                    ? "bg-emerald-500 text-white border-emerald-500"
+                    : "bg-white/70 border-white/60 hover:bg-white"
+                }`}
+                onClick={() => jumpToMarker(i)}
+              >
+                {s.title}
+              </button>
+            ))}
           </div>
         </div>
-        {/* Section tabs (click to jump) */}
-        <div className="mt-3 flex flex-wrap gap-2 text-xs">
-          {sections.map((s, i) => (
-            <button
-              key={s.id}
-              className={`px-3 py-1 rounded-full border ${
-                i === idx
-                  ? "bg-emerald-500 text-white border-emerald-500"
-                  : "bg-white/70 border-white/60"
-              }`}
-              onClick={() =>
-                window.scrollTo({
-                  top:
-                    (i / (total - 1)) *
-                    (document.body.scrollHeight - window.innerHeight),
-                  behavior: "smooth",
-                })
-              }
-            >
-              {s.title}
-            </button>
-          ))}
+        {/* Scrollable content so long sections fit without leaving the page */}
+        <div className="prose prose-slate max-w-none mt-3 max-h-[60vh] md:max-h-[64vh] overflow-y-auto pr-3 overscroll-contain">
+          {active.body}
         </div>
       </div>
     </div>
@@ -215,12 +168,7 @@ function ContentPanel({ progress, sections }) {
  *******************/
 function Cloud({ size = 220 }) {
   return (
-    <svg
-      width={size}
-      height={(size * 2) / 3}
-      viewBox="0 0 220 140"
-      className="drop-shadow"
-    >
+    <svg width={size} height={(size * 2) / 3} viewBox="0 0 220 140">
       <defs>
         <linearGradient id="cg" x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor="#fff" />
@@ -374,25 +322,60 @@ function Walker({ step }) {
   );
 }
 
+// Scroll to section by index for quick tab navigation
+function jumpToMarker(i) {
+  const total = SECTIONS.length;
+  if (total <= 1) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  const doc = document.documentElement;
+  const full =
+    Math.max(doc.scrollHeight, document.body.scrollHeight) - window.innerHeight;
+  const target = (i / (total - 1)) * full;
+  window.scrollTo({ top: target, behavior: "smooth" });
+}
 /*******************
  * DEV RUNTIME TESTS*
  *******************/
 import { DevTestsContent } from "./test.jsx";
 export const SECTIONS = [
-  { id: "intro", title: "About me", color: "from-emerald-100 to-white" },
-  // { id: "about", title: "About", color: "from-amber-200 to-amber-100" },
-  { id: "resume", title: "Resume", color: "from-sky-200 to-sky-100" },
+  {
+    id: "intro",
+    title: "About me",
+    color: "from-emerald-100 to-white",
+    body: <AboutSection />,
+  },
+  {
+    id: "work",
+    title: "Work Experience",
+    color: "from-sky-200 to-sky-100",
+    body: <ExperienceSection />,
+  },
+  {
+    id: "education",
+    title: "Education",
+    color: "from-sky-50 to-white",
+    body: <EducationSection />,
+  },
   {
     id: "achievements",
     title: "Achievements",
     color: "from-rose-200 to-rose-100",
+    body: <AchievementsSection />,
   },
   {
     id: "portfolio",
     title: "Portfolio",
     color: "from-fuchsia-200 to-fuchsia-100",
+    body: <PortfolioSection />,
   },
-  { id: "contact", title: "Contact", color: "from-lime-200 to-lime-100" },
+  {
+    id: "contact",
+    title: "Contact",
+    color: "from-lime-200 to-lime-100",
+    body: <ContactSection />,
+  },
 ];
 export const DevTests = ({ progress }) => (
   <DevTestsContent progress={progress} />

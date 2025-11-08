@@ -1,5 +1,3 @@
-import React from "react";
-
 const JobCard = ({ company, role, time, points }) => (
   <div className="rounded-2xl bg-white/70 border border-white/60 p-4">
     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
