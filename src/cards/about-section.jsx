@@ -4,7 +4,7 @@ const AboutSection = () => {
   return (
     <div className="flex items-start gap-4">
       <img
-        src="images/profile-pic.jpg"
+        src="/images/profile-pic.jpg"
         alt="Profile"
         className="rounded-full w-32 h-32 object-cover shadow"
       />
@@ -31,6 +31,7 @@ const AboutSection = () => {
             href="RESUME_suwaphit.pdf"
             target="_blank"
             rel="noreferrer"
+            download
           >
             Download CV
           </a>
