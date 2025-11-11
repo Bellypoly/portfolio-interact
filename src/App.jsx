@@ -1,3 +1,6 @@
+// =====================
+// Imports
+// =====================
 import React, { useMemo, useState } from "react";
 import {
   motion,
@@ -182,7 +185,7 @@ function NameHero({ opacityMV }) {
         <div className="text-3xl md:text-6xl lg:text-7xl font-extrabold tracking-tight drop-shadow-[0_6px_20px_rgba(0,0,0,0.55)] leading-tight">
           <span className="block text-white mt-2">{"Suwaphit Buabuthr"}</span>
         </div>
-        <div className="mt-5 text-base md:text-lg lg:text-xl text-white/80 font-light flex flex-col md:flex-row items-center justify-center gap-0.5 md:gap-2">
+        <div className="mt-5 text-lg md:text-xl lg:text-2xl text-white/80 font-light flex flex-col md:flex-row items-center justify-center gap-0.5 md:gap-2">
           <span>Full-Stack Developer</span>
           <span aria-hidden>•</span>
           <span>Software Engineer</span>
