@@ -9,10 +9,7 @@ const ContactSection = () => (
     </div>
     <div className="rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm">
       <div className="font-semibold mb-1">Email Me At</div>
-      <a
-        className="text-emerald-600 underline"
-        href="mailto:suwaphit.b@gmail.com"
-      >
+      <a className="text-cyan-600 underline" href="mailto:suwaphit.b@gmail.com">
         suwaphit.b@gmail.com
       </a>
     </div>

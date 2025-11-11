@@ -1,10 +1,10 @@
 import React from "react";
 import TimelineItem from "./timeline-item.jsx";
 
-const ExperienceSection = () => (
+const WorkSection = () => (
   <div className="flex flex-col gap-6">
     <h3 className="font-bold text-lg">Work Experience</h3>
-    <div className="flex flex-col gap-4 border-l-2 border-emerald-200 pl-3">
+    <div className="flex flex-col gap-4 border-l-2 border-cyan-200 pl-3">
       <TimelineItem
         title="Senior Full‑Stack Developer"
         time="Nov 2021 – Present"
@@ -52,4 +52,4 @@ const ExperienceSection = () => (
   </div>
 );
 
-export default ExperienceSection;
+export default WorkSection;

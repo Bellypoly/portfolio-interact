@@ -45,7 +45,7 @@ export const DevTestsContent = ({ progress }) => {
             key={i}
             className={`rounded border px-3 py-2 ${
               t.pass
-                ? "bg-emerald-50 border-emerald-200"
+                ? "bg-cyan-50 border-cyan-200"
                 : "bg-rose-50 border-rose-200"
             }`}
           >

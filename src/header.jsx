@@ -21,10 +21,7 @@ const Header = ({ progress }) => {
     <div className="headerProgress fixed top-0 right-0 z-10 m-4">
       <span className="headerProgressLabel">Progress</span>
       <div className="headerProgressBar">
-        <motion.div
-          className="h-full bg-emerald-500"
-          style={{ width: widthMV }}
-        />
+        <motion.div className="h-full bg-cyan-500" style={{ width: widthMV }} />
       </div>
       <span className="tabular-nums text-xs w-10 text-right">{pctNum}%</span>
     </div>

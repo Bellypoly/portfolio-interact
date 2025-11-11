@@ -4,7 +4,7 @@ import TimelineItem from "./timeline-item.jsx";
 const EducationSection = () => (
   <div className="flex flex-col gap-6">
     <h3 className="font-bold text-lg">Education</h3>
-    <div className="flex flex-col gap-4 border-l-2 border-emerald-200 pl-3">
+    <div className="flex flex-col gap-4 border-l-2 border-cyan-200 pl-3">
       <TimelineItem
         title="M.S. in Computer Science"
         time="2019 – 2020"

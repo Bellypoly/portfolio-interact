@@ -27,7 +27,7 @@ const AboutSection = () => {
         </p>
         <div className="mt-3">
           <a
-            className="inline-flex items-center px-3 py-2 rounded-xl border border-emerald-600/30 bg-white/80 hover:bg-white transition-colors shadow-sm"
+            className="inline-flex items-center px-3 py-2 rounded-xl border border-cyan-600/30 bg-white/80 hover:bg-white transition-colors shadow-sm"
             href="RESUME_suwaphit.pdf"
             target="_blank"
             rel="noreferrer"
