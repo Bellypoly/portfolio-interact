@@ -3,7 +3,7 @@ import React from "react";
 function AchievementsSection() {
   return (
     <div className="flex flex-col gap-6">
-      <h3 className="font-bold text-lg">Achievements</h3>
+      {/* <h3 className="font-bold text-lg">Achievements</h3> */}
       <ul className="list-none p-0 m-0 flex flex-col gap-3">
         <li>
           <strong>

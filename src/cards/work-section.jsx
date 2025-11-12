@@ -3,13 +3,13 @@ import TimelineItem from "./timeline-item.jsx";
 
 const WorkSection = () => (
   <div className="flex flex-col gap-6">
-    <h3 className="font-bold text-lg">Work Experience</h3>
+    {/* <h3 className="font-bold text-lg">Work Experience</h3> */}
     <div className="flex flex-col gap-4 border-l-2 border-cyan-200 pl-3">
       <TimelineItem
         title="Senior Full‑Stack Developer"
         time="Nov 2021 – Present"
         org="The Dallas Morning News / DallasNews Corp"
-        where="Dallas, Texas (remote)"
+        where="Dallas, Texas"
         bullets={[
           "Owned subscription, paywall, and checkout flows; improved conversion and stability.",
           "Integrated Stripe/Braintree; instrumented GA4 & Core Web Vitals; Datadog monitoring.",

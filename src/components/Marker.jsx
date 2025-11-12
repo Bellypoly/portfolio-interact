@@ -9,7 +9,7 @@ export default function Marker({
   gate,
   jumpToMarker,
 }) {
-  const SPACING_VH = 60;
+  const SPACING_VH = 90;
   const OFFSET_VH = 12;
   const topMV = useTransform(
     smooth,
@@ -32,6 +32,10 @@ export default function Marker({
         <>
           <button
             className="text-xs px-3 py-1 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 backdrop-blur-sm"
+            style={{
+              fontFamily: '"Stack Sans Notch", sans-serif',
+              fontWeight: 200,
+            }}
             onClick={() => jumpToMarker(index)}
           >
             {section.title}

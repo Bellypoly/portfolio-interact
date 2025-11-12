@@ -73,8 +73,38 @@ export default function SpaceResume() {
 
   const sceneVH = 160 + Math.max(0, SECTIONS.length - 1) * 140;
 
+  // Move CapsuleRocket to left and stop at About Me marker
+  // About Me marker is at index 1 ("intro"), so progress = 1/(SECTIONS.length-1)
+  const aboutMeProgress = 1 / (SECTIONS.length - 1);
   const rocketY = useTransform(smooth, [0, 1], ["55vh", "15vh"]);
-  const rocketX = useTransform(smooth, (v) => Math.sin(v * Math.PI * 4) * 20);
+  // Move left: more on mobile, less on desktop
+  function getRocketLeft() {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      if (width < 640) return -50; // mobile
+      if (width < 1024) return -50; // tablet
+      return -40; // desktop
+    }
+    return -40;
+  }
+  const [rocketLeft, setRocketLeft] = React.useState(getRocketLeft());
+  React.useEffect(() => {
+    function handleResize() {
+      setRocketLeft(getRocketLeft());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const rocketX = useTransform(smooth, (v) => {
+    if (v < aboutMeProgress) {
+      // Interpolate from 0vw to rocketLeft as v goes from 0 to aboutMeProgress
+      return `${rocketLeft * (v / aboutMeProgress)}vw`;
+    } else {
+      // Stay at rocketLeft after About Me
+      return `${rocketLeft}vw`;
+    }
+  });
 
   const starsFarY = useTransform(smooth, [0, 1], ["-40vh", "0vh"]);
   const starsMidY = useTransform(smooth, [0, 1], ["-80vh", "0vh"]);

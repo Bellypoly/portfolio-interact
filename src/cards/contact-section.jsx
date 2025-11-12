@@ -17,6 +17,18 @@ const ContactSection = () => (
       <div className="font-semibold mb-1">Call Me At</div>
       <div>Phone: (+1) 806‑283‑2312</div>
     </div>
+    <div className="rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm flex flex-col items-start justify-center">
+      <div className="font-semibold mb-1">Download CV</div>
+      <a
+        className="inline-flex items-center px-3 py-2 rounded-xl border border-cyan-600/30 bg-white/80 hover:bg-white transition-colors shadow-sm"
+        href="RESUME_suwaphit.pdf"
+        target="_blank"
+        rel="noreferrer"
+        download
+      >
+        Download CV
+      </a>
+    </div>
   </div>
 );
 
