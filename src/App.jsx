@@ -9,12 +9,12 @@ import {
 // =====================
 // Utility Components
 // =====================
-import Star from "./components/Star";
-import CapsuleRocket from "./components/CapsuleRocket";
-import Marker from "./components/Marker";
-import NameHero from "./components/NameHero";
-import ContentPanel from "./components/ContentPanel";
-import ScrollHint from "./components/ScrollHint";
+import Star from "./components/star.jsx";
+import CapsuleRocket from "./components/rocket.jsx";
+import Marker from "./components/marker.jsx";
+import NameHero from "./components/name-hero.jsx";
+import ContentPanel from "./components/content-panel.jsx";
+import ScrollHint from "./components/scroll-hint.jsx";
 // Import card components
 import Intro from "./cards/about-section.jsx";
 import {

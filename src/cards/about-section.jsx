@@ -74,7 +74,7 @@ function SummaryAndSkills() {
         insights that drive smarter decisions. I enjoy transforming raw data
         into clear, interactive stories that inform and engage readers.
       </p>
-      <div className="flex flex-wrap gap-2 mt-6">
+      <div className="flex flex-wrap gap-2 mt-6 md:my-10">
         {[
           "Python",
           "JavaScript (ES6+)",

@@ -1,16 +1,10 @@
 import React from "react";
 import { motion, useTransform } from "framer-motion";
 
-export default function Marker({
-  index,
-  section,
-  smooth,
-  count,
-  gate,
-  jumpToMarker,
-}) {
-  const SPACING_VH = 90;
-  const OFFSET_VH = 12;
+const SPACING_VH = 90;
+const OFFSET_VH = 12;
+
+const Marker = ({ index, section, smooth, count, gate, jumpToMarker }) => {
   const topMV = useTransform(
     smooth,
     (v) => `${OFFSET_VH + (index - v * (count - 1)) * SPACING_VH}vh`
@@ -45,4 +39,6 @@ export default function Marker({
       )}
     </motion.div>
   );
-}
+};
+
+export default Marker;
