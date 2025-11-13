@@ -1,5 +1,5 @@
 import React from "react";
-import TimelineItem from "./timeline-item.jsx";
+import TimelineItem from "../components/timeline-item.jsx";
 
 const EducationSection = () => (
   <div className="flex flex-col gap-6">
@@ -7,7 +7,7 @@ const EducationSection = () => (
     <div className="flex flex-col gap-4 border-l-2 border-cyan-200 pl-3">
       <TimelineItem
         title="M.S. in Computer Science"
-        time="2019 – 2020"
+        time="2019 - 2020"
         org="Texas Tech University"
         where="Lubbock, TX, USA"
         badges={["Scholarship"]}
@@ -20,7 +20,7 @@ const EducationSection = () => (
       />
       <TimelineItem
         title="M.S. in Technopreneurship (Institute of Field Robotics : FIBO)"
-        time="2015 – 2018"
+        time="2015 - 2018"
         org="King Mongkut's University of Technology Thonburi"
         where="Bangkok, Thailand"
         badges={["Scholarship"]}
@@ -37,7 +37,7 @@ const EducationSection = () => (
       />
       <TimelineItem
         title="B.Eng. in Computer Engineering"
-        time="2010 – 2014"
+        time="2010 - 2014"
         org="King Mongkut's University of Technology Thonburi"
         where="Bangkok, Thailand"
         badges={["Second Class Honor"]}

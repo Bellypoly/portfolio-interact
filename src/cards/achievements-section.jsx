@@ -10,13 +10,13 @@ function AchievementsSection() {
             Recipient of J.T. and Margaret Talkington Graduate Fellowship
           </strong>
           <div className="opacity-80 italic">
-            2019 – Present • Texas Tech University, USA
+            2019 - Present • Texas Tech University, USA
           </div>
         </li>
         <li>
           <strong>Recipient of Petchra Prajomklao Graduate Scholarship</strong>
           <div className="opacity-80 italic">
-            2015 – 2017 • KMUTT, Bangkok, Thailand
+            2015 - 2017 • KMUTT, Bangkok, Thailand
           </div>
         </li>
         <li>

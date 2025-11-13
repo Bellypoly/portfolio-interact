@@ -6,23 +6,27 @@ import {
   useSpring,
   useMotionValueEvent,
 } from "framer-motion";
+// =====================
+// Utility Components
+// =====================
 import Star from "./components/Star";
 import CapsuleRocket from "./components/CapsuleRocket";
 import Marker from "./components/Marker";
 import NameHero from "./components/NameHero";
 import ContentPanel from "./components/ContentPanel";
 import ScrollHint from "./components/ScrollHint";
-// Import card body
+// Import card components
 import Intro from "./cards/about-section.jsx";
-import WorkSection from "./cards/work-section.jsx";
+import {
+  SeniorFullStack,
+  DataEngineer,
+  FullStackII,
+  SoftwareEng,
+} from "./cards/work-section.jsx";
 import EducationSection from "./cards/education-section.jsx";
 import PortfolioSection from "./cards/portfolio-section.jsx";
 import AchievementsSection from "./cards/achievements-section.jsx";
 import ContactSection from "./cards/contact-section.jsx";
-
-// =====================
-// Utility Components
-// =====================
 
 // =====================
 // Section Data
@@ -30,7 +34,10 @@ import ContactSection from "./cards/contact-section.jsx";
 const SECTIONS = [
   { id: "start", title: "" },
   { id: "intro", title: "About Me" },
-  { id: "work", title: "Work Experience" },
+  { id: "work1", title: "Work Experience" },
+  { id: "work2", title: "Work Experience" },
+  { id: "work3", title: "Work Experience" },
+  { id: "work4", title: "Work Experience" },
   { id: "education", title: "Education" },
   { id: "achievements", title: "Achievements" },
   { id: "portfolio", title: "Portfolio" },
@@ -39,12 +46,28 @@ const SECTIONS = [
 
 const BODIES = {
   intro: <Intro />,
-  work: <WorkSection />,
+  work1: <SoftwareEng />,
+  work2: <FullStackII />,
+  work3: <DataEngineer />,
+  work4: <SeniorFullStack />,
   education: <EducationSection />,
   achievements: <AchievementsSection />,
   portfolio: <PortfolioSection />,
   contact: <ContactSection />,
 };
+
+const SECTION_MARKERS = [
+  { id: "start", title: "" },
+  { id: "intro", title: "About Me" },
+  { id: "work1", title: "Work Experience" },
+  { id: "work2", title: "2016" },
+  { id: "work3", title: "2020" },
+  { id: "work4", title: "2021" },
+  { id: "education", title: "Education" },
+  { id: "achievements", title: "Achievements" },
+  { id: "portfolio", title: "Portfolio" },
+  { id: "contact", title: "Contact" },
+];
 
 // =====================
 // Utility Functions
@@ -82,10 +105,10 @@ export default function SpaceResume() {
     if (typeof window !== "undefined") {
       const width = window.innerWidth;
       if (width < 640) return -50; // mobile
-      if (width < 1024) return -50; // tablet
-      return -40; // desktop
+      if (width < 1024) return -36; // tablet
+      return -36; // desktop
     }
-    return -40;
+    return -36;
   }
   const [rocketLeft, setRocketLeft] = React.useState(getRocketLeft());
   React.useEffect(() => {
@@ -241,7 +264,7 @@ export default function SpaceResume() {
           />
 
           {/* Markers */}
-          {SECTIONS.map((s, i) => (
+          {SECTION_MARKERS.map((s, i) => (
             <Marker
               key={s.id}
               index={i}
