@@ -55,24 +55,25 @@ function SummaryAndSkills() {
           textAlign: "justify",
         }}
       >
-        {/* I’m a full-stack software engineer who builds scalable systems that
-            connect storytelling, data, and user experience. My work bridges
-            front-end experience and back-end performance. I design and
-            implement the full technical flow, from how content is delivered to
-            how it’s analyzed and improved. I apply machine learning to uncover
-            insights and recommend solutions that enhance personalization and
-            user experience. I also focus on performance and reliability through
-            CI/CD automation, observability, and AI-assisted development tools
-            that improve testing and delivery. */}
-        I'm a full-stack software engineer who builds scalable, data-driven
+        I’m a full-stack software engineer who builds scalable, data-driven
         systems that connect storytelling, analysis, and user experience. My
-        work bridges front-end experience and back-end performance, combining
-        clean design with reliable data infrastructure.
+        work bridges front-end experience with back-end engineering, combining
+        clean interaction design with reliable, high-performance infrastructure.
         <br />
-        <br />I specialize in analyzing and visualizing large datasets, building
-        APIs and automation pipelines, and applying machine learning to uncover
-        insights that drive smarter decisions. I enjoy transforming raw data
-        into clear, interactive stories that inform and engage readers.
+        <br />
+        I specialize in transforming large and complex datasets into clear,
+        interactive experiences—designing APIs, building automation pipelines,
+        and applying machine learning to uncover insights that drive smarter
+        decisions. Across subscriptions, personalization engines, geospatial
+        mapping, newsroom platforms, and real-time content systems, I enjoy
+        turning ambiguity into products that feel fast, intuitive, and
+        meaningful.
+        <br />
+        <br />I care deeply about code quality, performance, and developer
+        experience. Whether improving conversion funnels, optimizing data flows,
+        or delivering tools that support reporters and editors every day, I
+        focus on building systems that scale smoothly, stay stable under
+        pressure, and inspire trust.
       </p>
       <div className="flex flex-wrap gap-2 mt-6 md:my-10">
         {[
