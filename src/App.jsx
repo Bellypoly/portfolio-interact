@@ -236,16 +236,21 @@ function jumpToMarker(i) {
 // Marker component (right-side navigation pills)
 // =====================
 function Marker({ index, section, smooth, count, gate }) {
-  const SPACING_VH = 16;
-  const OFFSET_VH = 12;
+  const SPACING_VH = 60;
+  const OFFSET_VH = 6;
 
-  const topMV = useTransform(
-    smooth,
-    (v) => `${OFFSET_VH + (index - v * (count - 1)) * SPACING_VH}vh`
-  );
+  const topMV = useTransform(smooth, (v) => {
+    // Map scroll progress to marker positions, starting at 0.48
+    const adjustedProgress = Math.max(0, (v - 0.48) / (1 - 0.48));
+    return `${
+      OFFSET_VH + (index - adjustedProgress * (count - 1)) * SPACING_VH
+    }vh`;
+  });
 
   const baseOpacity = useTransform(smooth, (v) => {
-    const pos = index - v * (count - 1);
+    // Map scroll progress to opacity, starting at 0.48
+    const adjustedProgress = Math.max(0, (v - 0.48) / (1 - 0.48));
+    const pos = index - adjustedProgress * (count - 1);
     const d = Math.min(1, Math.abs(pos));
     return 0.25 + (1 - d) * 0.95;
   });
@@ -409,7 +414,10 @@ export default function SpaceResume() {
 
   // Update active section index based on scroll position
   useMotionValueEvent(smooth, "change", (v) => {
-    const idx = Math.round(v * (SECTIONS.length - 1));
+    // Map scroll progress to sections, starting after panel is visible
+    // Panel is fully visible at 0.42, start sections at 0.48
+    const adjustedProgress = Math.max(0, (v - 0.48) / (1 - 0.48));
+    const idx = Math.round(adjustedProgress * (SECTIONS.length - 1));
     setActiveIndex(Math.min(SECTIONS.length - 1, Math.max(0, idx)));
   });
 
@@ -446,8 +454,8 @@ export default function SpaceResume() {
 
   // UI timings
   const hintOpacity = useTransform(smooth, [0, 0.04, 0.1], [1, 1, 0]);
-  const panelOpacity = useTransform(smooth, [0.3, 0.35, 0.4], [0, 0, 1]);
-  const markersGate = useTransform(smooth, [0.28, 0.38], [0, 1]);
+  const panelOpacity = useTransform(smooth, [0.35, 0.38, 0.42], [0, 0, 1]);
+  const markersGate = useTransform(smooth, [0.35, 0.42], [0, 1]);
 
   // Starfield initialization (random, but stable across renders)
   const STAR_COUNT = 220;
