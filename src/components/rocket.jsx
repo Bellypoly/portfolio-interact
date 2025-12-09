@@ -2,15 +2,25 @@ import React from "react";
 
 export default function CapsuleRocket() {
   return (
-    <div style={{ position: "relative", width: "300px", height: "300px" }}>
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <div
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           width: "100%",
           height: "100%",
-          backgroundImage: "url(/images/rocket.001.png)",
+          backgroundImage: "url(/images/rocket.png)",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -19,8 +29,9 @@ export default function CapsuleRocket() {
       <div
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           width: "100%",
           height: "100%",
           backgroundImage: "url(/images/rocket-sparkle.png)",
