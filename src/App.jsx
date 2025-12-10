@@ -1,3 +1,12 @@
+// FadeParagraph helper for crawl fade effect
+function FadeParagraph({ crawlProgress, stops, className, children }) {
+  const opacity = useTransform(crawlProgress, stops, [1, 1, 0.2, 0]);
+  return (
+    <motion.p className={className} style={{ opacity }}>
+      {children}
+    </motion.p>
+  );
+}
 // src/App.jsx
 import React, { useMemo, useState } from "react";
 import {
@@ -277,7 +286,7 @@ function Marker({ index, section, smooth, count, gate }) {
 // =====================
 // Opening crawl
 // =====================
-function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
+function OpeningCrawl({ opacityMV, yMV, scaleMV, crawlProgress }) {
   return (
     <>
       {/* Static header section */}
@@ -318,7 +327,7 @@ function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
               </p>
 
               <h1
-                className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold"
+                className="mb-4 sm:mb-6 text-4xl sm:text-4xl lg:text-5xl xl:text-5xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold"
                 style={{
                   fontFamily: '"Stack Sans Notch", sans-serif',
                 }}
@@ -372,36 +381,52 @@ function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
                 fontFamily:
                   '"Roboto Condensed", "Helvetica Neue", Arial, system-ui, sans-serif',
                 textTransform: "uppercase",
-                letterSpacing: "0.18em",
+                letterSpacing: "0.2em",
               }}
             >
               {/* Narrative paragraphs */}
-              <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+              <FadeParagraph
+                crawlProgress={crawlProgress}
+                stops={[0, 0.18, 0.32, 0.45]}
+                className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase"
+              >
                 In a galaxy of data and dashboards, one engineer sets out to
                 bring order to chaotic systems and turn raw information into
                 stories.
-              </p>
+              </FadeParagraph>
 
-              <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+              <FadeParagraph
+                crawlProgress={crawlProgress}
+                stops={[0, 0.22, 0.36, 0.55]}
+                className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase"
+              >
                 Guided by curiosity and precision, she travels through worlds of
                 electric-grid intelligence, geospatial mapping, subscription
                 platforms, and personalization engines—places where
                 infrastructure meets imagination.
-              </p>
+              </FadeParagraph>
 
-              <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+              <FadeParagraph
+                crawlProgress={crawlProgress}
+                stops={[0, 0.28, 0.44, 0.65]}
+                className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase"
+              >
                 Across these realms, she engineers the full orbit of modern
                 storytelling—the digital platforms that deliver daily news, deep
                 investigations, real-time coverage, community voices, cultural
                 narratives, breaking alerts, and service journalism, carrying
                 them safely, reliably, and at scale.
-              </p>
+              </FadeParagraph>
 
-              <p className="mb-8 sm:mb-10 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+              <FadeParagraph
+                crawlProgress={crawlProgress}
+                stops={[0, 0.34, 0.52, 0.75]}
+                className="mb-8 sm:mb-10 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase"
+              >
                 Her journey continues through space, code, and carefully crafted
                 user experiences—always learning, iterating, and refining the
                 paths that guide millions through digital worlds.
-              </p>
+              </FadeParagraph>
             </div>
           </motion.div>
         </div>
@@ -620,6 +645,7 @@ export default function SpaceResume() {
             opacityMV={crawlOpacity}
             yMV={crawlY}
             scaleMV={crawlScale}
+            crawlProgress={crawlProgress}
           />
 
           {/* Scroll hint at the very beginning */}
