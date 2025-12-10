@@ -275,7 +275,7 @@ function Marker({ index, section, smooth, count, gate }) {
 }
 
 // =====================
-// Star Wars–style opening crawl
+// Opening crawl
 // =====================
 function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
   return (
@@ -300,9 +300,8 @@ function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
             <div
               className="mx-auto px-4 sm:px-6 md:px-8"
               style={{
-                maxWidth: "min(70rem, 90vw)",
+                maxWidth: "min(70rem, 70vw)",
                 textTransform: "uppercase",
-                // letterSpacing: "0.1em",
               }}
             >
               <p
@@ -354,22 +353,22 @@ function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
       >
         <div
           className="w-full flex justify-center"
-          style={{ perspective: "800px" }}
+          style={{ perspective: "700px" }}
         >
           <motion.div
             style={{
               y: yMV,
               scale: scaleMV,
-              rotateX: 40,
+              rotateX: 45,
               transformOrigin: "50% 100%",
               transformStyle: "preserve-3d",
             }}
             className="text-yellow-300 text-center"
           >
             <div
-              className="mx-auto px-4 sm:px-6 md:px-8"
+              className="mx-auto px-2 sm:px-6 md:px-8"
               style={{
-                maxWidth: "min(45rem, 50vw)",
+                maxWidth: "min(70vw, 32rem)",
                 fontFamily:
                   '"Roboto Condensed", "Helvetica Neue", Arial, system-ui, sans-serif',
                 textTransform: "uppercase",
