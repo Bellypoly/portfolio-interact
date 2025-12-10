@@ -279,90 +279,135 @@ function Marker({ index, section, smooth, count, gate }) {
 // =====================
 function OpeningCrawl({ opacityMV, yMV, scaleMV }) {
   return (
-    <motion.div
-      className="absolute inset-x-0 top-[45%] md:top-1/2 -translate-y-1/2 flex justify-center z-[6000] pointer-events-none"
-      style={{ opacity: opacityMV }}
-    >
-      <div
-        className="w-full flex justify-center"
-        style={{ perspective: "600px" }}
+    <>
+      {/* Static header section */}
+      <motion.div
+        className="absolute inset-x-0 top-[32%] md:top-[36%] -translate-y-1/2 flex justify-center z-[6001] pointer-events-none"
+        style={{ opacity: opacityMV }}
       >
-        <motion.div
-          style={{
-            y: yMV,
-            scale: scaleMV,
-            rotateX: 60, // tilt the text into space
-            transformOrigin: "50% 100%",
-            transformStyle: "preserve-3d",
-          }}
-          className="text-yellow-300 text-center"
+        <div
+          className="w-full flex justify-center"
+          style={{ perspective: "600px" }}
         >
           <div
-            className="mx-auto px-4 sm:px-6 md:px-8"
+            className="text-yellow-300 text-center"
             style={{
-              maxWidth: "min(50rem, 90vw)",
-              fontFamily:
-                '"News Gothic", "Libre Franklin", "Helvetica Neue", Arial, system-ui, sans-serif',
-              textTransform: "uppercase",
-              letterSpacing: "0.18em",
+              rotateX: 60,
+              transformOrigin: "50% 100%",
+              transformStyle: "preserve-3d",
             }}
           >
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-2 sm:mb-3 tracking-[0.15em] sm:tracking-[0.25em]">
-              Welcome to the Portfolio
-            </p>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em]">
-              of
-            </p>
-
-            <h1
-              className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold leading-tight"
+            <div
+              className="mx-auto px-4 sm:px-6 md:px-8"
               style={{
-                fontFamily: '"Stack Sans Notch", sans-serif',
-                fontVariantNumeric: "tabular-nums",
-                fontFeatureSettings: "'tnum' 1",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                lineHeight: "1.2",
+                maxWidth: "min(70rem, 90vw)",
+                textTransform: "uppercase",
+                // letterSpacing: "0.1em",
               }}
             >
-              <span>suwaphit</span>
-              <span>buabuthr</span>
-            </h1>
+              <p
+                className="text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em]"
+                style={{ fontFamily: '"Quicksand", sans-serif' }}
+              >
+                Welcome to the Portfolio
+              </p>
+              <p
+                className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em]"
+                style={{ fontFamily: '"Quicksand", sans-serif' }}
+              >
+                of
+              </p>
 
-            <div className="mb-6 sm:mb-8 md:mb-10 text-xs sm:text-sm md:text-base tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-3 py-1.5 rounded-md w-full text-center">
-              <span className="block sm:inline">Full-Stack Developer</span>
-              <span className="hidden sm:inline"> · </span>
-              <span className="block sm:inline">Software Engineer</span>
-              <span className="hidden sm:inline"> · </span>
-              <span className="block">Data Visualization Engineer</span>
+              <h1
+                className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold"
+                style={{
+                  fontFamily: '"Stack Sans Notch", sans-serif',
+                }}
+              >
+                <span className="block sm:inline">suwaphit </span>
+                <span className="block sm:inline">buabuthr</span>
+              </h1>
+
+              <div
+                className="mb-6 sm:mb-8 md:mb-10 text-[10px] sm:text-xs md:text-xs tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-3 py-1.5 rounded-md w-full text-center"
+                style={{
+                  fontFamily: '"Libre Franklin", sans-serif',
+                }}
+              >
+                <span className="block sm:inline">Full-Stack Developer</span>
+                <span className="hidden sm:inline"> · </span>
+                <span className="block sm:inline">Software Engineer</span>
+                <span className="hidden sm:inline"> · </span>
+                <span className="block sm:inline">
+                  Data Visualization Engineer
+                </span>
+              </div>
             </div>
-            {/* Narrative paragraphs – third one updated with newsroom orbit text */}
-            <p className="mb-1.5 sm:mb-2 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
-              In a galaxy of data and dashboards, one engineer sets out to bring
-              order to chaotic systems and turn raw information into stories.
-            </p>
-            <p className="mb-1.5 sm:mb-2 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
-              Guided by curiosity and precision, she travels through worlds of
-              electric-grid intelligence, geospatial mapping, paywalls, and
-              personalization engines—places where infrastructure meets
-              imagination.
-            </p>
-            <p className="mb-1.5 sm:mb-2 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
-              Across these realms, she supports the full orbit of the newsroom:
-              daily stories, deep investigations, local reporting, sports
-              moments, election nights, community voices, cultural narratives,
-              service journalism, and breaking alerts, engineering the systems
-              that guide them safely, reliably, and at scale.
-            </p>
-            <p className="mb-4 sm:mb-6 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
-              Her journey continues through space, code, and carefully crafted
-              user experiences.
-            </p>
           </div>
-        </motion.div>
-      </div>
-    </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Animated crawl section */}
+      <motion.div
+        className="absolute inset-x-0 top-[55%] md:top-[60%] -translate-y-1/2 flex justify-center z-[6000] pointer-events-none"
+        style={{ opacity: opacityMV }}
+      >
+        <div
+          className="w-full flex justify-center"
+          style={{ perspective: "800px" }}
+        >
+          <motion.div
+            style={{
+              y: yMV,
+              scale: scaleMV,
+              rotateX: 40,
+              transformOrigin: "50% 100%",
+              transformStyle: "preserve-3d",
+            }}
+            className="text-yellow-300 text-center"
+          >
+            <div
+              className="mx-auto px-4 sm:px-6 md:px-8"
+              style={{
+                maxWidth: "min(45rem, 50vw)",
+                fontFamily:
+                  '"Roboto Condensed", "Helvetica Neue", Arial, system-ui, sans-serif',
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+              }}
+            >
+              {/* Narrative paragraphs */}
+              <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+                In a galaxy of data and dashboards, one engineer sets out to
+                bring order to chaotic systems and turn raw information into
+                stories.
+              </p>
+
+              <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+                Guided by curiosity and precision, she travels through worlds of
+                electric-grid intelligence, geospatial mapping, subscription
+                platforms, and personalization engines—places where
+                infrastructure meets imagination.
+              </p>
+
+              <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+                Across these realms, she engineers the full orbit of modern
+                storytelling—the digital platforms that deliver daily news, deep
+                investigations, real-time coverage, community voices, cultural
+                narratives, breaking alerts, and service journalism, carrying
+                them safely, reliably, and at scale.
+              </p>
+
+              <p className="mb-8 sm:mb-10 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase">
+                Her journey continues through space, code, and carefully crafted
+                user experiences—always learning, iterating, and refining the
+                paths that guide millions through digital worlds.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    </>
   );
 }
 
