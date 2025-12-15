@@ -62,9 +62,7 @@ const NameHero = ({ opacityMV }) => (
     {/* Hero text block */}
     <div className="text-center">
       <div className="text-xl md:text-3xl lg:text-4xl font-light tracking-tight drop-shadow-[0_6px_20px_rgba(0,0,0,0.55)] leading-tight">
-        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400">
-          Welcome to the Portfolio
-        </span>
+        Welcome to the Portfolio
       </div>
 
       <div
