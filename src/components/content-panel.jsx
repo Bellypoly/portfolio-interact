@@ -11,7 +11,7 @@ export default function ContentPanel({ activeIndex, opacityMV, SECTIONS }) {
       style={{ opacity: opacityMV }}
     >
       {activeIndex !== 0 && (
-        <h2 className="text-lg md:text-xl font-bold mb-2 text-cyan-300 text-left">
+        <h2 className="text-lg md:text-xl font-bold text-cyan-300 text-left">
           {active.title}
         </h2>
       )}

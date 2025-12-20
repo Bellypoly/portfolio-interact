@@ -212,7 +212,7 @@ function WorkSection() {
 const SECTIONS = [
   {
     id: "intro",
-    title: "Begin Your Journey 🚀",
+    title: " ",
     body: <OpeningCrawl />,
   },
   { id: "about", title: "About Me", body: <AboutSection /> },
@@ -222,28 +222,6 @@ const SECTIONS = [
   { id: "portfolio", title: "Portfolio", body: <PortfolioSection /> },
   { id: "contact", title: "Contact", body: <ContactSection /> },
 ];
-
-// =====================
-// Scroll hint pill
-// =====================
-function ScrollHint({ opacityMV }) {
-  return (
-    <motion.div
-      className="absolute top-[7vh] right-[5vw] flex items-center justify-end z-[6500] pointer-events-none"
-      style={{ opacity: opacityMV }}
-    >
-      <div
-        className="px-4 py-2 rounded-full bg-black/60 border border-white/20 backdrop-blur-md text-yellow-200 text-xs flex items-center gap-2 animate-pulse"
-        style={{
-          fontFamily: '"Stack Sans Notch", sans-serif',
-          fontWeight: 200,
-        }}
-      >
-        <span>Scroll to begin your journey 🚀</span>
-      </div>
-    </motion.div>
-  );
-}
 
 // =====================
 // Main scene component
@@ -335,7 +313,7 @@ export default function SpaceResume() {
     <>
       <main className="min-h-screen w-full text-white bg-black">
         {/* Debug scroll progress overlay */}
-        <div
+        {/* <div
           style={{
             position: "fixed",
             top: 10,
@@ -352,7 +330,7 @@ export default function SpaceResume() {
           <div>Scroll progress: {debugScroll.toFixed(3)}</div>
           <div>Active section: {SECTIONS[activeIndex]?.title}</div>
           <div>Section index: {activeIndex}</div>
-        </div>
+        </div> */}
         <section className="relative">
           {SECTIONS.map((s, i) => (
             <div
@@ -363,9 +341,10 @@ export default function SpaceResume() {
               {/* {s.body} */}
             </div>
           ))}
-          {/* Resume content panel and markers (bottom-left) */}
-          <div className="fixed bottom-3 left-3 flex flex-row items-end gap-4 z-[10001]">
-            <div className="flex flex-col gap-2">
+          {/* Resume content panel and markers (bottom-right, responsive) */}
+          <div className="fixed top-0 flex flex-row items-end gap-4 z-[10001] w-full">
+            {/* Marker group: hidden on screens <768px */}
+            <div className="hidden md:flex flex-col m-2 justify-start items-start">
               {SECTIONS.map((s, i) => (
                 <MarkerChip
                   key={s.id}
@@ -379,11 +358,14 @@ export default function SpaceResume() {
                 />
               ))}
             </div>
-            <ContentPanel
-              activeIndex={activeIndex}
-              opacityMV={1}
-              SECTIONS={SECTIONS}
-            />
+            {/* ContentPanel: always full width/height on mobile */}
+            <div className="flex-1">
+              <ContentPanel
+                activeIndex={activeIndex}
+                opacityMV={1}
+                SECTIONS={SECTIONS}
+              />
+            </div>
           </div>
           {/* Bottom blur gradient */}
           <div className="fixed bottom-0 left-0 right-0 h-32 pointer-events-none z-[10000] bg-gradient-to-t from-black to-transparent" />
