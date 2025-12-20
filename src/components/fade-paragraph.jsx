@@ -7,7 +7,10 @@ export default function FadeParagraph({
   className,
   children,
 }) {
-  const opacity = useTransform(crawlProgress, stops, [1, 1, 0.2, 0]);
+  let opacity = 1;
+  if (crawlProgress && typeof crawlProgress.get === "function") {
+    opacity = useTransform(crawlProgress, stops, [1, 1, 0.2, 0]);
+  }
   return (
     <motion.p className={className} style={{ opacity }}>
       {children}

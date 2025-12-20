@@ -1,0 +1,114 @@
+/* Fullscreen fixed background for card image, centers child */
+.about-bg-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card image: stretch vertically, centered horizontally */
+.about-img-card {
+  height: 100vh;
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  pointer-events: none;
+  user-select: none;
+}
+/* Root container for About section */
+.about-section-root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive flex layout for About section content */
+.about-section-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+@media (min-width: 768px) {
+  .about-section-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+@media (max-width: 640px) {
+  .about-section-content {
+    width: 75vw;
+  }
+}
+
+/* Info flex layout */
+.about-info-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .about-info-flex {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2.5rem;
+  }
+  .about-info-content {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+/* Title font and layout */
+.about-section-title {
+  font-family: "Stack Sans Notch", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .about-section-title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    text-align: left;
+  }
+}
+
+/* Summary paragraph */
+.about-section-summary {
+  text-align: justify;
+  line-height: 1.625;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  max-height: 20vh;
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .about-section-summary {
+    max-height: 30vh;
+  }
+}

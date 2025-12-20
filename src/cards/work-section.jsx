@@ -38,11 +38,11 @@ export const FullStackII = () => (
     org="Provincial Electricity Authority"
     where="Bangkok, Thailand"
     bullets={[
-      "Improved outage management and grid-monitoring reliability by implementing and supporting a nationwide Outage Management System (OMS) that integrated geospatial data from ArcGIS to track faults, crew locations, and real-time service restoration.",
+      "Improved outage management and grid-carding reliability by implementing and supporting a nationwide Outage Management System (OMS) that integrated geospatial data from ArcGIS to track faults, crew locations, and real-time service restoration.",
       "Built and maintained ETL pipelines that processed high-volume energy and geographic data from ArcGIS, Oracle, and field devices, ensuring accurate and timely datasets for reporting and operational dashboards.",
       "Improved payment processing reliability for 20M+ customers by developing and automating integration tests with REST/SOAP services using C#, PHP (Laravel), Python, and Selenium.",
       "Designed and optimized PL/SQL stored procedures and Oracle scripts, ensuring accurate, high-volume data feeds across multiple enterprise systems.",
-      "Built responsive web and mobile UIs to track energy consumption in real time, enabling millions of users to monitor and manage energy usage.",
+      "Built responsive web and mobile UIs to track energy consumption in real time, enabling millions of users to card and manage energy usage.",
       "Provided post-implementation support and troubleshooting, reducing downtime and increasing adoption of customer-facing platforms.",
     ]}
   />

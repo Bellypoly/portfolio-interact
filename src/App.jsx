@@ -1,5 +1,5 @@
 // src/App.jsx
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -7,11 +7,17 @@ import {
   useSpring,
   useMotionValueEvent,
 } from "framer-motion";
-import CapsuleRocket from "./components/rocket.jsx";
 import FadeParagraph from "./components/fade-paragraph.jsx";
 import ContentPanel from "./components/content-panel.jsx";
-
+import AboutSection from "./cards/about-section.jsx";
+// import WorkSection from "./cards/work-section.jsx";
+import EducationSection from "./cards/education-section.jsx";
+import AchievementsSection from "./cards/achievements-section.jsx";
+import PortfolioSection from "./cards/portfolio-section.jsx";
+import ContactSection from "./cards/contact-section.jsx";
 import Star from "./components/Star.jsx";
+import MarkerChip from "./components/marker-chip.jsx";
+import CapsuleRocket from "./components/rocket.jsx";
 
 function ShootingStar({ delay = 0 }) {
   return (
@@ -30,6 +36,7 @@ function ShootingStar({ delay = 0 }) {
       transition={{
         duration: 2,
         delay: delay,
+        // (moved inside component)
         repeat: Infinity,
         repeatDelay: Math.random() * 10 + 5,
         ease: "easeOut",
@@ -40,128 +47,6 @@ function ShootingStar({ delay = 0 }) {
   );
 }
 
-// =====================
-// Content sections
-// =====================
-
-import AboutSection from "./cards/about-section.jsx";
-
-function WorkSection() {
-  return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
-      <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
-    </div>
-  );
-}
-
-function EducationSection() {
-  return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
-      <p>Education goes here (TTU, KMUTT FIBO, BBA Marketing, B.Eng CPE…)</p>
-    </div>
-  );
-}
-
-function AchievementsSection() {
-  return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
-      <p>Achievements and scholarships list goes here.</p>
-    </div>
-  );
-}
-
-function PortfolioSection() {
-  return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
-      <p>Selected projects and case studies go here.</p>
-    </div>
-  );
-}
-
-function ContactSection() {
-  return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
-      <p>Contact info, email, location, and CV download go here.</p>
-    </div>
-  );
-}
-
-// =====================
-// Section metadata
-// =====================
-const SECTIONS = [
-  { id: "intro", title: "About Me" },
-  { id: "work", title: "Work Experience" },
-  { id: "education", title: "Education" },
-  { id: "achievements", title: "Achievements" },
-  { id: "portfolio", title: "Portfolio" },
-  { id: "contact", title: "Contact" },
-];
-
-const BODIES = {
-  intro: <AboutSection />,
-  work: <WorkSection />,
-  education: <EducationSection />,
-  achievements: <AchievementsSection />,
-  portfolio: <PortfolioSection />,
-  contact: <ContactSection />,
-};
-
-// =====================
-// Marker jump utility
-// =====================
-function jumpToMarker(i) {
-  const total = SECTIONS.length;
-  const doc = document.documentElement;
-  const full =
-    Math.max(doc.scrollHeight, document.body.scrollHeight) - window.innerHeight;
-  const top = total <= 1 ? 0 : (i / (total - 1)) * full;
-  window.scrollTo({ top, behavior: "smooth" });
-}
-
-// =====================
-// Marker component (right-side navigation pills)
-// =====================
-function Marker({ index, section, smooth, count, gate }) {
-  const SPACING_VH = 60;
-  const OFFSET_VH = 6;
-
-  const topMV = useTransform(smooth, (v) => {
-    // Map scroll progress to marker positions, starting at 0.48
-    const adjustedProgress = Math.max(0, (v - 0.48) / (1 - 0.48));
-    return `${
-      OFFSET_VH + (index - adjustedProgress * (count - 1)) * SPACING_VH
-    }vh`;
-  });
-
-  const baseOpacity = useTransform(smooth, (v) => {
-    // Map scroll progress to opacity, starting at 0.48
-    const adjustedProgress = Math.max(0, (v - 0.48) / (1 - 0.48));
-    const pos = index - adjustedProgress * (count - 1);
-    const d = Math.min(1, Math.abs(pos));
-    return 0.25 + (1 - d) * 0.95;
-  });
-
-  const combinedOpacity = useTransform([baseOpacity, gate], ([o, g]) => o * g);
-  const scale = useTransform(baseOpacity, [0.25, 1], [0.95, 1.05]);
-
-  return (
-    <motion.div
-      className="absolute right-[3vw] flex items-center gap-2 z-[10000]"
-      style={{ top: topMV, opacity: combinedOpacity, scale }}
-    >
-      <button
-        className="text-xs px-3 py-1 rounded-full border border-[#8BC7FF]/40 bg-white/5 hover:bg-white/10 backdrop-blur-sm"
-        onClick={() => jumpToMarker(index)}
-      >
-        {section.title}
-      </button>
-      <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow" />
-    </motion.div>
-  );
-}
-
-// =====================
 // Opening crawl
 // =====================
 function OpeningCrawl({ opacityMV, yMV, scaleMV, crawlProgress }) {
@@ -313,6 +198,31 @@ function OpeningCrawl({ opacityMV, yMV, scaleMV, crawlProgress }) {
   );
 }
 
+function WorkSection() {
+  return (
+    <div className="text-sm md:text-base text-slate-100 space-y-2">
+      <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
+    </div>
+  );
+}
+// =====================
+// Section metadata
+// =====================
+
+const SECTIONS = [
+  {
+    id: "intro",
+    title: "Begin Your Journey 🚀",
+    body: <OpeningCrawl />,
+  },
+  { id: "about", title: "About Me", body: <AboutSection /> },
+  { id: "work", title: "Work Experience", body: <WorkSection /> },
+  { id: "education", title: "Education", body: <EducationSection /> },
+  { id: "achievements", title: "Achievements", body: <AchievementsSection /> },
+  { id: "portfolio", title: "Portfolio", body: <PortfolioSection /> },
+  { id: "contact", title: "Contact", body: <ContactSection /> },
+];
+
 // =====================
 // Scroll hint pill
 // =====================
@@ -322,7 +232,13 @@ function ScrollHint({ opacityMV }) {
       className="absolute top-[7vh] right-[5vw] flex items-center justify-end z-[6500] pointer-events-none"
       style={{ opacity: opacityMV }}
     >
-      <div className="px-4 py-2 rounded-full bg-black/60 border border-white/20 backdrop-blur-md text-yellow-200 text-sm md:text-base flex items-center gap-2 animate-pulse">
+      <div
+        className="px-4 py-2 rounded-full bg-black/60 border border-white/20 backdrop-blur-md text-yellow-200 text-xs flex items-center gap-2 animate-pulse"
+        style={{
+          fontFamily: '"Stack Sans Notch", sans-serif',
+          fontWeight: 200,
+        }}
+      >
         <span>Scroll to begin your journey 🚀</span>
       </div>
     </motion.div>
@@ -333,20 +249,38 @@ function ScrollHint({ opacityMV }) {
 // Main scene component
 // =====================
 export default function SpaceResume() {
+  // Create refs for each section
+  const sectionRefs = useRef(SECTIONS.map(() => React.createRef()));
+
+  // Marker jump utility
+  function jumpToMarker(i) {
+    const ref = sectionRefs.current[i];
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: "auto", block: "start" });
+    }
+  }
   const { scrollYProgress } = useScroll();
 
   // Smooth spring based on scroll, for general UI elements (rocket, stars, panel, markers)
   const smooth = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [debugScroll, setDebugScroll] = useState(0);
 
-  // Update active section index based on scroll position
-  useMotionValueEvent(smooth, "change", (v) => {
-    // Map scroll progress to sections, starting after panel is visible
-    // Panel is fully visible at 0.42, start sections at 0.48
-    const adjustedProgress = Math.max(0, (v - 0.48) / (1 - 0.48));
-    const idx = Math.round(adjustedProgress * (SECTIONS.length - 1));
-    setActiveIndex(Math.min(SECTIONS.length - 1, Math.max(0, idx)));
-  });
+  // Update active section index based on scroll position using refs
+  useEffect(() => {
+    function onScroll() {
+      const offsets = sectionRefs.current.map((ref) => {
+        if (!ref.current) return Infinity;
+        return Math.abs(ref.current.getBoundingClientRect().top);
+      });
+      const min = Math.min(...offsets);
+      const idx = offsets.indexOf(min);
+      setActiveIndex(idx);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Total scene height in viewport units
   const sceneVH = 160 + Math.max(0, SECTIONS.length - 1) * 140;
@@ -360,27 +294,27 @@ export default function SpaceResume() {
   // Fade out more slowly: start fade at 0.6, finish at 1
   const crawlOpacity = useTransform(crawlProgress, [0, 0.6, 1], [1, 1, 0]);
 
-  // Rocket: slides in from bottom, moves up, then flies out of the screen
-  // 0.1: offscreen bottom, 0.38: visible, 0.7: offscreen top
+  // Rocket: only appears and moves up between About Me and Work Experience
+  // Find scroll range for About Me to Work Experience
+  // About Me = section 0, Work = section 1
+  // Panel is fully visible at 0.42, start sections at 0.48
+  // We'll use a range from 0.48 (start About Me) to midpoint between About Me and Work (0.48 + 1/(SECTIONS.length-1)*0.52)
+  const aboutIdx = 0;
+
+  // ...existing code...
+  const panelOpacity = useTransform(smooth, [0.35, 0.38, 0.42], [0, 0, 1]);
+  // Markers always visible on page load
+  const markersGate = 1;
+  // Opacity for the scroll hint (fades out as you scroll)
+  const hintOpacity = useTransform(smooth, [0, 0.05, 0.12], [1, 1, 0]);
+
+  // Rocket Y position and opacity (appears and moves up between About Me and Work Experience)
   const rocketY = useTransform(
     smooth,
-    [0.1, 0.38, 0.7],
-    ["110vh", "15vh", "-60vh"]
+    [0.42, 0.48, 0.65],
+    ["80vh", "40vh", "-30vh"]
   );
-  const rocketOpacity = useTransform(smooth, [0.1, 0.1], [0, 1]);
-
-  // Star parallax layers
-  const starsFarY = useTransform(smooth, [0, 1], ["-40vh", "0vh"]);
-  const starsMidY = useTransform(smooth, [0, 1], ["-80vh", "0vh"]);
-  const starsNearY = useTransform(smooth, [0, 1], ["-120vh", "0vh"]);
-
-  // Dark vignette that lightens as we scroll into the resume content
-  const dimOverlayOpacity = useTransform(smooth, [0, 0.25, 0.45], [1, 0.7, 0]);
-
-  // UI timings
-  const hintOpacity = useTransform(smooth, [0, 0.04, 0.1], [1, 1, 0]);
-  const panelOpacity = useTransform(smooth, [0.35, 0.38, 0.42], [0, 0, 1]);
-  const markersGate = useTransform(smooth, [0.35, 0.42], [0, 1]);
+  const rocketOpacity = useTransform(smooth, [0.42, 0.48, 0.65], [0, 1, 0]);
 
   // Starfield initialization (random, but now covers the full viewport)
   const STAR_COUNT = 220;
@@ -397,166 +331,64 @@ export default function SpaceResume() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const starsFar = useMemo(
-    () =>
-      Array.from({ length: STAR_COUNT }).map(() => ({
-        x: Math.random() * windowSize.width,
-        y: Math.random() * windowSize.height,
-        size: 0.6,
-        o: 0.3 + Math.random() * 0.3,
-      })),
-    [windowSize]
-  );
-  const starsMid = useMemo(
-    () =>
-      Array.from({ length: STAR_COUNT }).map(() => ({
-        x: Math.random() * windowSize.width,
-        y: Math.random() * windowSize.height,
-        size: 0.6,
-        o: 0.4 + Math.random() * 0.3,
-      })),
-    [windowSize]
-  );
-  const starsNear = useMemo(
-    () =>
-      Array.from({ length: STAR_COUNT }).map(() => ({
-        x: Math.random() * windowSize.width,
-        y: Math.random() * windowSize.height,
-        size: 0.9,
-        o: 0.5 + Math.random() * 0.3,
-      })),
-    [windowSize]
-  );
-
   return (
-    <main className="min-h-screen w-full text-white">
-      <section className="relative" style={{ height: `${sceneVH}vh` }}>
-        <div className="sticky top-0 h-screen overflow-hidden bg-black">
-          {/* Deep space starfield - three layers for parallax */}
-          <motion.svg
-            className="absolute inset-0 w-full h-full"
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            style={{ y: starsFarY }}
-          >
-            <g>
-              {starsFar.map((s, i) => (
-                <Star key={`far-${i}`} {...s} />
-              ))}
-            </g>
-          </motion.svg>
-
-          <motion.svg
-            className="absolute inset-0 w-full h-full"
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            style={{ y: starsMidY }}
-          >
-            <g>
-              {starsMid.map((s, i) => (
-                <Star key={`mid-${i}`} {...s} />
-              ))}
-            </g>
-          </motion.svg>
-
-          <motion.svg
-            className="absolute inset-0 w-full h-full"
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            style={{ y: starsNearY }}
-          >
-            <g>
-              {starsNear.map((s, i) => (
-                <Star key={`near-${i}`} {...s} />
-              ))}
-            </g>
-          </motion.svg>
-
-          {/* Dark vignette that fades away as we scroll */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{ opacity: dimOverlayOpacity }}
-          >
-            <div className="w-full h-full bg-[radial-gradient(circle_at_center,_rgba(0,0,0,1)_0,_rgba(0,0,0,1)_55%,_rgba(0,0,0,0.96)_100%)]" />
-          </motion.div>
-
-          {/* Shooting stars (behind crawl text) */}
-          <div className="absolute inset-0 pointer-events-none z-[3000]">
-            <ShootingStar delay={2} />
-            <ShootingStar delay={5} />
-            <ShootingStar delay={10} />
-          </div>
-
-          {/* Static stars in front of opening crawl black background */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none z-[5500]"
-            style={{ opacity: crawlOpacity }}
-          >
-            <svg
-              className="w-full h-full"
-              viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            >
-              <g>
-                {starsFar.map((s, i) => (
-                  <Star
-                    key={`crawl-star-far-${i}`}
-                    {...s}
-                    twinkle={i % 4 === 0}
-                  />
-                ))}
-                {starsMid.map((s, i) => (
-                  <Star
-                    key={`crawl-star-mid-${i}`}
-                    {...s}
-                    twinkle={i % 5 === 0}
-                  />
-                ))}
-              </g>
-            </svg>
-          </motion.div>
-
-          {/* Opening crawl */}
-          <OpeningCrawl
-            opacityMV={crawlOpacity}
-            yMV={crawlY}
-            scaleMV={crawlScale}
-            crawlProgress={crawlProgress}
-          />
-
-          {/* Scroll hint at the very beginning */}
-          <ScrollHint opacityMV={hintOpacity} />
-
-          {/* Rocket – slides in from bottom, then moves up */}
-          <motion.div
-            className="absolute left-1/2 -translate-x-1/2 z-[9999] pointer-events-none"
-            style={{ top: rocketY, opacity: rocketOpacity }}
-          >
-            <div className="w-[30vh] h-[30vh] md:w-[40vh] md:h-[40vh] max-w-[500px] max-h-[500px]">
-              <CapsuleRocket />
-            </div>
-          </motion.div>
-
-          {/* Resume content panel (top-right) */}
-          <ContentPanel
-            activeIndex={activeIndex}
-            opacityMV={panelOpacity}
-            SECTIONS={SECTIONS}
-            BODIES={BODIES}
-          />
-
-          {/* Section markers on the right, appear after intro crawl */}
+    <>
+      <main className="min-h-screen w-full text-white bg-black">
+        {/* Debug scroll progress overlay */}
+        <div
+          style={{
+            position: "fixed",
+            top: 10,
+            left: 10,
+            zIndex: 99999,
+            background: "rgba(0,0,0,0.7)",
+            color: "#fff",
+            padding: "8px 16px",
+            borderRadius: 8,
+            fontSize: 14,
+            fontFamily: "monospace",
+          }}
+        >
+          <div>Scroll progress: {debugScroll.toFixed(3)}</div>
+          <div>Active section: {SECTIONS[activeIndex]?.title}</div>
+          <div>Section index: {activeIndex}</div>
+        </div>
+        <section className="relative">
           {SECTIONS.map((s, i) => (
-            <Marker
+            <div
               key={s.id}
-              index={i}
-              section={s}
-              smooth={smooth}
-              count={SECTIONS.length}
-              gate={markersGate}
-            />
+              ref={sectionRefs.current[i]}
+              className="min-h-[100vh] flex items-center justify-center"
+            >
+              {/* {s.body} */}
+            </div>
           ))}
-
+          {/* Resume content panel and markers (bottom-left) */}
+          <div className="fixed bottom-3 left-3 flex flex-row items-end gap-4 z-[10001]">
+            <div className="flex flex-col gap-2">
+              {SECTIONS.map((s, i) => (
+                <MarkerChip
+                  key={s.id}
+                  index={i}
+                  section={s}
+                  smooth={smooth}
+                  count={SECTIONS.length}
+                  gate={1}
+                  jumpToMarker={jumpToMarker}
+                  active={activeIndex === i}
+                />
+              ))}
+            </div>
+            <ContentPanel
+              activeIndex={activeIndex}
+              opacityMV={1}
+              SECTIONS={SECTIONS}
+            />
+          </div>
           {/* Bottom blur gradient */}
           <div className="fixed bottom-0 left-0 right-0 h-32 pointer-events-none z-[10000] bg-gradient-to-t from-black to-transparent" />
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }

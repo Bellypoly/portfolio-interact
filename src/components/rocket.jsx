@@ -12,7 +12,8 @@ export default function CapsuleRocket() {
         justifyContent: "center",
       }}
     >
-      <div
+      {/* Rocket body with webp and png fallback */}
+      <picture
         style={{
           position: "absolute",
           top: "50%",
@@ -20,13 +21,24 @@ export default function CapsuleRocket() {
           transform: "translate(-50%, -50%)",
           width: "100%",
           height: "100%",
-          backgroundImage: "url(/images/rocket.png)",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          display: "block",
         }}
-      />
-      <div
+      >
+        <source srcSet="/images/rocket.webp" type="image/webp" />
+        <img
+          src="/images/rocket.png"
+          alt="Rocket"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            display: "block",
+          }}
+          draggable={false}
+        />
+      </picture>
+      {/* Rocket sparkle with webp and png fallback */}
+      <picture
         style={{
           position: "absolute",
           top: "50%",
@@ -34,13 +46,25 @@ export default function CapsuleRocket() {
           transform: "translate(-50%, -50%)",
           width: "100%",
           height: "100%",
-          backgroundImage: "url(/images/rocket-sparkle.png)",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          display: "block",
           animation: "sparkle 2s ease-in-out infinite",
+          pointerEvents: "none",
         }}
-      />
+      >
+        <source srcSet="/images/rocket-sparkle.webp" type="image/webp" />
+        <img
+          src="/images/rocket-sparkle.png"
+          alt="Rocket Sparkle"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            display: "block",
+            pointerEvents: "none",
+          }}
+          draggable={false}
+        />
+      </picture>
       <style>{`
         @keyframes sparkle {
           0%, 100% {
