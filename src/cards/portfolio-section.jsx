@@ -2,7 +2,7 @@ import React from "react";
 import ProjectCard from "../cards/project-card";
 
 const PortfolioSection = () => (
-  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div className="portfolio-section">
     <ProjectCard
       name="RDFD — Discovering Fake Drivers"
       desc="Machine learning approach for driver identification."

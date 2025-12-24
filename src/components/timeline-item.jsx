@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./timeline-item.css";
+import cc from "classcat";
 
 const TimelineItem = ({
   title,
@@ -17,29 +19,26 @@ const TimelineItem = ({
   };
 
   return (
-    <div className="relative pl-8 mb-4">
-      <span className="absolute left-0 top-1 w-5 h-5 rounded-full bg-cyan-500 shadow" />
-      <div className="opacity-60">{time}</div>
-      <div className="flex flex-wrap items-center gap-2 mb-1">
-        <h4 className="font-semibold m-0 p-0">{title}</h4>
+    <div className="timeline-item">
+      <span className="timeline-dot" />
+      <div className="timeline-time">{time}</div>
+      <div className="timeline-header">
+        <h4 className="timeline-title">{title}</h4>
         {badges &&
           badges.length > 0 &&
           badges.map((badge, idx) => (
-            <span
-              key={idx}
-              className="inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full"
-            >
+            <span key={idx} className="timeline-badge">
               {badge}
             </span>
           ))}
       </div>
-      <div className="opacity-80">
+      <div className="timeline-desc">
         {org}
         {where ? <span className="opacity-70"> • {where}</span> : null}
       </div>
-      <span className="max-h-[68vh] overflow-auto flex">
+      <span className="timeline-bullets">
         {bullets.length > 0 && (
-          <ul className="list-disc ml-5 mt-2 space-y-2 text-sm">
+          <ul className="timeline-bullet-list">
             {bullets.map((b, i) => {
               // Split bullet into summary and detail if possible
               const match = b.match(/^(.*?): (.*)$/);
@@ -47,19 +46,20 @@ const TimelineItem = ({
               const detail = match ? match[2] : null;
               const isOpen = openIndexes.includes(i);
               return (
-                <li key={i} className="list-item list-disc ml-0 pl-0 align-top">
-                  <div className="flex flex-col items-start min-w-0">
+                <li key={i} className="timeline-bullet-item">
+                  <div className="timeline-bullet-content">
                     <button
                       type="button"
-                      className={`text-left w-full focus:outline-none${
-                        detail ? " hover:underline" : ""
-                      }`}
+                      className={cc([
+                        "timeline-bullet-btn",
+                        { "timeline-bullet-btn-detail": detail },
+                      ])}
                       onClick={() => (detail ? toggleBullet(i) : undefined)}
                       disabled={!detail}
                     >
                       {summary}
                       {detail && (
-                        <span className="ml-1 text-cyan-500">
+                        <span className="timeline-bullet-toggle">
                           <b>{isOpen ? "-" : "+"}</b>
                         </span>
                       )}
@@ -75,7 +75,7 @@ const TimelineItem = ({
                           const [full, href, linkText] = linkMatch;
                           const before = detail.replace(full, "").trim();
                           return (
-                            <div className="mt-1 ml-2 text-xs opacity-80 border-l-2 border-cyan-100 pl-2 leading-relaxed">
+                            <div className="timeline-bullet-detail">
                               <div
                                 dangerouslySetInnerHTML={{ __html: before }}
                               />

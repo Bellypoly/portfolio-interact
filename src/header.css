@@ -1,51 +1,23 @@
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  @apply sticky top-0 z-50 backdrop-blur bg-white/60 border-b border-white/50;
 }
 .headerInner {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  @apply max-w-7xl mx-auto py-3 px-4 flex items-center gap-4;
 }
 .headerTitle {
-  font-size: 1.125rem;
-  font-weight: bold;
+  @apply text-lg font-bold;
 }
 .headerProgress {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: 10rem;
-}
-@media (min-width: 768px) {
-  .headerProgress {
-    width: 14rem;
-  }
+  @apply ml-auto flex items-center gap-2 w-40 md:w-56;
 }
 .headerProgressLabel {
-  font-size: 0.75rem;
+  @apply text-xs;
 }
 .headerProgressBar {
-  height: 0.5rem;
-  flex: 1;
-  border-radius: 9999px;
-  background: #e2e8f0;
-  overflow: hidden;
-  display: flex;
+  @apply h-2 flex-1 rounded-full bg-slate-200 overflow-hidden flex;
 }
 .headerProgressBarFill {
-  height: 100%;
-  background: #10b981;
-  border-radius: 9999px;
-  transition: width 0.2s;
+  @apply h-full bg-emerald-500 rounded-full transition-all duration-200;
 }
 .headerProgressNum {
   font-variant-numeric: tabular-nums;

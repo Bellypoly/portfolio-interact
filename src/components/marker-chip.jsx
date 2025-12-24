@@ -1,59 +1,69 @@
+// MarkerChip: Single marker navigation chip
 import React from "react";
-import { motion, useTransform, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import "./marker-chip.css";
+import cc from "classcat";
 
 const MarkerChip = ({
   index,
   section,
-  smooth,
-  count,
-  gate,
   jumpToMarker,
   active,
-}) => {
-  // Opacity logic
-  const gateMV =
-    typeof gate === "number"
-      ? useSpring(gate, { stiffness: 100, damping: 20 })
-      : gate;
-  const baseOpacity = useTransform(
-    smooth,
-    (v) => 0.25 + (1 - Math.min(1, Math.abs(index - v * (count - 1)))) * 0.95
-  );
-  const combinedOpacity = useTransform(
-    [baseOpacity, gateMV],
-    ([o, g]) => o * g
-  );
+  visible = true,
+}) => (
+  <AnimatePresence>
+    {visible && (
+      <motion.div
+        className={cc(["marker-chip-container"])}
+        initial={false}
+        animate={{ opacity: 1, height: "auto" }}
+        exit={{ opacity: 0, height: 0 }}
+      >
+        {section.title && (
+          <a
+            href={`#${section.id}`}
+            className={cc([
+              "marker-chip-btn",
+              { active: active, "marker-glow": active, inactive: !active },
+            ])}
+            onClick={(e) => {
+              e.preventDefault();
+              if (typeof jumpToMarker === "function") jumpToMarker(index);
+            }}
+          >
+            {active && (
+              <span className={index === 0 ? "marker-blink" : undefined}>
+                {"▶ "}
+              </span>
+            )}
+            {index === 0
+              ? active
+                ? "Scroll to Begin Journey 🚀"
+                : "Launch Mission 🚀"
+              : section.title}
+          </a>
+        )}
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
 
+// MarkerChipGroup: renders the group of marker chips
+export function MarkerChipGroup({ SECTIONS, jumpToMarker, activeIndex }) {
   return (
-    <motion.div
-      className="hidden md:flex relative items-center gap-1 z-[10003] font-quicksand"
-      style={{ opacity: combinedOpacity }}
-    >
-      {section.title && (
-        <button
-          className={`text-xs px-1 py-1 min-w-[165px] font-stacknotch font-light text-left w-full ${
-            active
-              ? `text-cyan-400 hover:text-cyan-200 marker-glow ${
-                  index === 0 && "marker-glow-blink"
-                }`
-              : "text-cyan-200 hover:text-cyan-500"
-          }`}
-          onClick={() => {
-            if (typeof jumpToMarker === "function") {
-              jumpToMarker(index);
-            }
-          }}
-        >
-          {active && <span className="marker-glow">▶ </span>}
-          {index === 0
-            ? active
-              ? "Scroll to Begin Journey 🚀"
-              : "Launch Mission 🚀"
-            : section.title}
-        </button>
-      )}
-    </motion.div>
+    <div className="flex flex-col m-2 justify-start items-start">
+      {SECTIONS.map((s, i) => (
+        <MarkerChip
+          key={s.id}
+          index={i}
+          section={s}
+          jumpToMarker={jumpToMarker}
+          active={activeIndex === i}
+          visible={activeIndex === 0 ? i === 0 : true}
+        />
+      ))}
+    </div>
   );
-};
+}
 
 export default MarkerChip;

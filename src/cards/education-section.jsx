@@ -2,9 +2,9 @@ import React from "react";
 import TimelineItem from "../components/timeline-item.jsx";
 
 const EducationSection = () => (
-  <div className="flex flex-col gap-6">
+  <div className="education-section">
     {/* <h3 className="font-bold text-lg">Education</h3> */}
-    <div className="flex flex-col gap-4 border-l-2 border-cyan-200 pl-3">
+    <div className="education-list">
       <TimelineItem
         title="M.S. in Computer Science"
         time="2019 - 2020"

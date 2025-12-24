@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import cc from "classcat";
+import "./content-panel.css";
 
 export default function ContentPanel({ activeIndex, opacityMV, SECTIONS }) {
   // Show the correct section for the current activeIndex
@@ -7,17 +9,16 @@ export default function ContentPanel({ activeIndex, opacityMV, SECTIONS }) {
 
   return (
     <motion.div
-      className="relative w-screen h-screen flex flex-col justify-center items-start z-[10002]"
+      className={cc([
+        "content-panel-container",
+        { "content-panel-active": activeIndex !== 0 },
+      ])}
       style={{ opacity: opacityMV }}
     >
       {activeIndex !== 0 && (
-        <h2 className="text-lg md:text-xl font-bold text-cyan-300 text-left">
-          {active.title}
-        </h2>
+        <h2 className="content-panel-title">{active.title}</h2>
       )}
-      <div className="w-screen flex-1 flex flex-col justify-center items-start">
-        {active.body}
-      </div>
+      <div className="content-panel-body">{active.body}</div>
     </motion.div>
   );
 }
