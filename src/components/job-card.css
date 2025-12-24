@@ -1,0 +1,19 @@
+/* Styles for JobCard component */
+.job-card {
+  @apply rounded-2xl bg-white/70 border border-white/60 p-4;
+}
+.job-card-header {
+  @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
+}
+.job-card-role {
+  @apply font-semibold text-base md:text-lg;
+}
+.job-card-company {
+  @apply opacity-70;
+}
+.job-card-time {
+  @apply ml-auto text-sm opacity-60;
+}
+.job-card-list {
+  @apply mt-2 list-disc ml-5 space-y-1 text-sm;
+}

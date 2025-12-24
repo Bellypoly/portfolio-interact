@@ -1,0 +1,70 @@
+/* Reordered to match JSX usage */
+.crawl-header {
+  @apply absolute inset-x-0 top-[32%] md:top-[36%] -translate-y-1/2 flex justify-center z-[6001] pointer-events-none;
+  @apply text-yellow-300 text-center;
+}
+.crawl-header-content {
+  @apply mx-auto px-4 sm:px-6 md:px-8;
+  max-width: min(70rem, 90vw);
+  text-transform: uppercase;
+}
+.crawl-welcome {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
+  font-family: "Quicksand", sans-serif;
+}
+.crawl-of {
+  @apply text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em];
+  font-family: "Quicksand", sans-serif;
+}
+.crawl-name {
+  @apply mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl xl:text-6xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold;
+  font-family: "Stack Sans Notch", sans-serif;
+}
+.crawl-name-block {
+  @apply block sm:inline;
+}
+.crawl-role {
+  @apply mb-6 sm:mb-8 md:mb-10 text-[10px] sm:text-xs md:text-xs tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-3 py-1.5 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
+  font-family: "Libre Franklin", sans-serif;
+}
+.crawl-role-block {
+  @apply block sm:inline;
+}
+.crawl-role-dot {
+  @apply hidden sm:inline;
+}
+.crawl-container {
+  @apply absolute inset-x-0 top-[50vh] -translate-y-1/2 flex justify-center z-[6000] pointer-events-none;
+}
+.crawl-inner {
+  @apply w-full flex justify-center;
+  perspective: 800px;
+}
+.crawl-title {
+  @apply text-yellow-300 text-center;
+  rotate: x 50deg;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transform: scale(1.8);
+}
+.crawl-content {
+  @apply mx-auto px-2 sm:px-6 md:px-8;
+  max-width: min(90vw, 35rem);
+  font-family: "Roboto Condensed", "Helvetica Neue", Arial, system-ui,
+    sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.crawl-paragraph {
+  @apply mb-6 sm:mb-8 text-sm sm:text-base md:text-lg leading-relaxed break-words font-bold text-justify uppercase text-yellow-300;
+}
+@media (min-width: 640px) {
+  .crawl-paragraph {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 768px) {
+  .crawl-paragraph {
+    font-size: 1.25rem;
+  }
+}

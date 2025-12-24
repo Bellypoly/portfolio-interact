@@ -1,0 +1,21 @@
+.timeline-item {
+  @apply relative pl-8 mb-4;
+}
+.timeline-dot {
+  @apply absolute left-0 top-1 w-5 h-5 rounded-full bg-cyan-500 shadow;
+}
+.timeline-time {
+  @apply opacity-60;
+}
+.timeline-header {
+  @apply flex flex-wrap items-center gap-2 mb-1;
+}
+.timeline-title {
+  @apply font-semibold m-0 p-0;
+}
+.timeline-badge {
+  @apply inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full;
+}
+.timeline-desc {
+  @apply opacity-80;
+}

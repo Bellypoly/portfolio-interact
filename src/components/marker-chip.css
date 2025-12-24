@@ -1,0 +1,34 @@
+/* Styles for MarkerChip component */
+.marker-chip-container {
+  @apply flex items-center gap-1 font-quicksand;
+  position: relative;
+  z-index: 10010;
+  transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.marker-chip-btn {
+  @apply text-sm px-1 py-1 min-w-[185px] font-stacknotch font-light text-left w-full border-none bg-none outline-none transition-colors;
+}
+.marker-chip-btn.active {
+  @apply text-cyan-400 hover:text-cyan-200 marker-glow;
+}
+.marker-chip-btn.inactive {
+  @apply text-cyan-200 hover:text-cyan-500;
+}
+.marker-glow {
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 12px rgba(0, 255, 255, 0.6);
+}
+.marker-blink {
+  animation: blink-opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes blink-opacity {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.6),
+      0 0 15px rgba(0, 255, 255, 0.6);
+  }
+  50% {
+    opacity: 0;
+  }
+}
