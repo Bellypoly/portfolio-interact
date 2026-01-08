@@ -1,5 +1,6 @@
 // Responsive hook for breakpoints
 import { useEffect, useState } from "react";
+import "./opening-crawl.css";
 
 function useBreakpointStops() {
   const [breakpoint, setBreakpoint] = useState("desktop");
@@ -18,24 +19,24 @@ function useBreakpointStops() {
   // Define stops for each paragraph and breakpoint
   const stops = {
     para1: {
-      mobile: [0, 0.3, 0.35, 0.45],
-      tablet: [0, 0.13, 0.19, 0.23],
-      desktop: [0, 0.15, 0.21, 0.24],
+      mobile: [0, 0.124, 0.125, 0.126],
+      tablet: [0, 0.23, 0.24, 0.25],
+      desktop: [0, 0.14, 0.16, 0.18],
     },
     para2: {
-      mobile: [0, 0.45, 0.5, 0.65],
-      tablet: [0, 0.3, 0.34, 0.38],
-      desktop: [0, 0.35, 0.38, 0.41],
+      mobile: [0, 0.24, 0.26, 0.29],
+      tablet: [0, 0.29, 0.31, 0.32],
+      desktop: [0, 0.24, 0.26, 0.28],
     },
     para3: {
-      mobile: [0, 0.65, 0.7, 0.85],
-      tablet: [0, 0.45, 0.48, 0.51],
-      desktop: [0, 0.5, 0.52, 0.54],
+      mobile: [0, 0.43, 0.44, 0.5],
+      tablet: [0, 0.37, 0.38, 0.39],
+      desktop: [0, 0.36, 0.38, 0.39],
     },
     para4: {
       mobile: [0, 0.85, 0.9, 1.5],
-      tablet: [0, 0.57, 0.6, 0.63],
-      desktop: [0, 0.61, 0.62, 0.65],
+      tablet: [0, 0.45, 0.46, 0.47],
+      desktop: [0, 0.47, 0.49, 0.51],
     },
   };
   return {
@@ -56,6 +57,39 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
   const { stops1, stops2, stops3, stops4 } = useBreakpointStops();
   return (
     <>
+      {/* Debug overlay for progress and stops */}
+      <div
+        style={{
+          position: "fixed",
+          top: 8,
+          right: 8,
+          zIndex: 99999,
+          background: "rgba(0,0,0,0.7)",
+          color: "#ffe066",
+          fontSize: 12,
+          padding: "8px 12px",
+          borderRadius: 8,
+          pointerEvents: "none",
+        }}
+      >
+        <div>
+          <strong>crawlProgress:</strong>{" "}
+          {crawlProgress?.get?.().toFixed?.(3) ?? crawlProgress}
+        </div>
+        <div>
+          <strong>stops1:</strong> [{stops1.join(", ")}]
+        </div>
+        <div>
+          <strong>stops2:</strong> [{stops2.join(", ")}]
+        </div>
+        <div>
+          <strong>stops3:</strong> [{stops3.join(", ")}]
+        </div>
+        <div>
+          <strong>stops4:</strong> [{stops4.join(", ")}]
+        </div>
+      </div>
+
       {/* Static header section */}
       <motion.div className="crawl-header" style={{ opacity: opacityMV }}>
         <div className="crawl-header-content">
@@ -86,44 +120,44 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
               <FadeParagraph
                 crawlProgress={crawlProgress}
                 stops={stops1}
-                className="crawl-paragraph"
+                className="crawl-paragraph-margin"
               >
-                In a galaxy of data and dashboards, one engineer sets out to
-                bring order to chaotic systems and turn raw information into
-                stories.
+                In a galaxy of data, systems, and dashboards, one full-stack
+                engineer sets out to bring order to chaotic systems and turn raw
+                information into stories.
               </FadeParagraph>
 
               <FadeParagraph
                 crawlProgress={crawlProgress}
                 stops={stops2}
-                className="crawl-paragraph"
+                className="crawl-paragraph-margin"
               >
-                Guided by curiosity and precision, she travels through worlds of
-                electric-grid intelligence, geospatial mapping, subscription
-                platforms, and personalization engines—places where
-                infrastructure meets imagination.
+                Guided by curiosity and precision, she journeys through worlds
+                of electric-grid intelligence, geospatial mapping, subscription
+                platforms, and personalization—where software engineering meets
+                imagination.
               </FadeParagraph>
 
               <FadeParagraph
                 crawlProgress={crawlProgress}
                 stops={stops3}
-                className="crawl-paragraph"
+                className="crawl-paragraph-margin"
               >
-                Across these realms, she engineers the full orbit of modern
-                storytelling—the digital platforms that deliver daily news, deep
-                investigations, real-time coverage, community voices, cultural
-                narratives, breaking alerts, and service journalism, carrying
-                them safely, reliably, and at scale.
+                Across these worlds, she engineers the full orbit of modern
+                systems—designing scalable, data-driven platforms that bridge
+                front-end experience with back-end performance and transform
+                complex datasets into clear, visual narratives.
               </FadeParagraph>
 
               <FadeParagraph
                 crawlProgress={crawlProgress}
                 stops={stops4}
-                className="crawl-paragraph"
+                className="crawl-paragraph-margin"
               >
                 Her journey continues through space, code, and carefully crafted
-                user experiences—always learning, iterating, and refining the
-                paths that guide millions through digital worlds.
+                experiences—building reliable platforms, insightful
+                visualizations, and software that guides millions through
+                digital worlds.
               </FadeParagraph>
             </div>
           </motion.div>

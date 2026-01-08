@@ -1,4 +1,5 @@
 import React from "react";
+import "./portfolio-section.css";
 import ProjectCard from "../cards/project-card";
 
 const PortfolioSection = () => (

@@ -7,7 +7,7 @@
     transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .marker-chip-btn {
-  @apply text-sm px-1 py-1 min-w-[185px] font-stacknotch font-light text-left w-full border-none bg-none outline-none transition-colors;
+  @apply text-sm px-0 md:px-2 py-1 min-w-fit font-stacknotch font-light text-left border-none bg-none outline-none transition-colors;
 }
 .marker-chip-btn.active {
   @apply text-cyan-400 hover:text-cyan-200 marker-glow;

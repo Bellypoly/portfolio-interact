@@ -1,4 +1,5 @@
 import React from "react";
+import "./education-section.css";
 import TimelineItem from "../components/timeline-item.jsx";
 
 const EducationSection = () => (

@@ -1,11 +1,5 @@
 /* Global styles can be added here */
-@import "./components/marker-chip.css";
-@import "./components/job-card.css";
-@import "./components/timeline-item.css";
-@import "./components/fade-paragraph.css";
-@import "./cards/education-section.css";
-@import "./cards/portfolio-section.css";
-@import "./components/opening-crawl.css";
+/* Component CSS imports moved to their respective files */
 
 @tailwind base;
 @tailwind components;

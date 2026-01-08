@@ -31,10 +31,12 @@ const MarkerChip = ({
               if (typeof jumpToMarker === "function") jumpToMarker(index);
             }}
           >
-            {active && (
+            {active ? (
               <span className={index === 0 ? "marker-blink" : undefined}>
                 {"▶ "}
               </span>
+            ) : (
+              <span className="ml-3"></span>
             )}
             {index === 0
               ? active

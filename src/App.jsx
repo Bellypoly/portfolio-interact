@@ -98,26 +98,43 @@ export default function SpaceResume() {
   // Create refs for each section
   const sectionRefs = useRef(SECTIONS.map(() => React.createRef()));
 
-  // Marker jump utility
-  // Progress thresholds for each section (should match activation logic)
-  const sectionProgressThresholds = [
-    0.0, // intro
-    0.28, // about
-    0.38, // work
-    0.58, // education
-    0.68, // achievements
-    0.78, // portfolio
-    0.9, // contact
-  ];
+  // Progress thresholds for each section (used for jumping and activation)
+  // Distribute sections evenly across scroll progress
+  const sectionProgressThresholds = Array.from(
+    { length: SECTIONS.length },
+    (_, i) => i / (SECTIONS.length - 1)
+  );
 
-  function jumpToMarker(i) {
-    const targetProgress = sectionProgressThresholds[i] ?? 0;
+  // Utility: progress <-> pixel conversion
+  function progressToY(progress) {
     const scrollHeight =
       document.documentElement.scrollHeight - window.innerHeight;
-    const targetY = Math.round(targetProgress * scrollHeight);
-    window.scrollTo({ top: targetY, behavior: "smooth" });
-    if (SECTIONS[i]?.id) {
-      window.location.hash = `#${SECTIONS[i].id}`;
+    console.log(
+      "Calculating progressToY for progress:",
+      progress,
+      "scrollHeight:",
+      scrollHeight,
+      "result:",
+      Math.round(progress * scrollHeight)
+    );
+    return Math.round(progress * scrollHeight);
+  }
+  function yToProgress(y) {
+    const scrollHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    return scrollHeight > 0 ? y / scrollHeight : 0;
+  }
+
+  function jumpToMarker(i) {
+    // Scroll to the actual DOM position of the section for accuracy
+    const ref = sectionRefs.current[i];
+    if (ref && ref.current) {
+      const y = ref.current.offsetTop;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      setDebugScroll(yToProgress(y));
+      if (SECTIONS[i]?.id) {
+        window.location.hash = `#${SECTIONS[i].id}`;
+      }
     }
   }
 
@@ -126,19 +143,20 @@ export default function SpaceResume() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [debugScroll, setDebugScroll] = useState(0);
 
-  // Update active section index based on scroll position using refs
+  // Update active section index based on scroll progress (debugScroll)
   useEffect(() => {
     function onScroll() {
-      const offsets = sectionRefs.current.map((ref) => {
-        if (!ref.current) return Infinity;
-        return Math.abs(ref.current.getBoundingClientRect().top);
-      });
-      const progress = scrollYProgress.get();
-      // Always use closest to top logic for all sections
-      const min = Math.min(...offsets);
-      const idx = offsets.indexOf(min);
+      // Use scroll position to get progress
+      const y = window.scrollY;
+      const progress = yToProgress(y);
+      // Find the last threshold less than or equal to progress
+      let idx = 0;
+      for (let i = 0; i < sectionProgressThresholds.length; i++) {
+        if (progress >= sectionProgressThresholds[i]) {
+          idx = i;
+        }
+      }
       setActiveIndex(idx);
-      // Update debugScroll with current scroll progress
       setDebugScroll(progress);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -156,7 +174,9 @@ export default function SpaceResume() {
   // We'll use a range from 0.48 (start About Me) to midpoint between About Me and Work (0.48 + 1/(SECTIONS.length-1)*0.52)
   const aboutIdx = 0;
 
-  // ...existing code...
+  // Panel Y position: starts at 0.42 (after intro), ends at 0.78 (before contact)
+  const panelY = useTransform(smooth, [0.42, 0.78], ["100vh", "0vh"]);
+  // Panel opacity: fades in from 0.35 to 0.42, then stays at 1
   const panelOpacity = useTransform(smooth, [0.35, 0.38, 0.42], [0, 0, 1]);
   // Opacity for the scroll hint (fades out as you scroll)
   const hintOpacity = useTransform(smooth, [0, 0.05, 0.12], [1, 1, 0]);
@@ -187,25 +207,8 @@ export default function SpaceResume() {
   return (
     <>
       <main className="min-h-screen w-full text-white bg-black">
-        {/* Debug scroll progress overlay */}
-        <div
-          style={{
-            position: "fixed",
-            bottom: 10,
-            left: 10,
-            zIndex: 99999,
-            background: "rgba(0,0,0,0.7)",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: 8,
-            fontSize: 14,
-            fontFamily: "monospace",
-          }}
-        >
-          <div>Scroll progress: {debugScroll.toFixed(3)}</div>
-          <div>Active section: {SECTIONS[activeIndex]?.title}</div>
-          <div>Section index: {activeIndex}</div>
-        </div>
+        <Star />
+        <CapsuleRocket yMV={rocketY} opacityMV={rocketOpacity} />
         <section className="relative">
           {SECTIONS.map((s, i) => (
             <div
