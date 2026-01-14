@@ -222,26 +222,47 @@ export default function SpaceResume() {
       let x = Math.sin(seed) * 10000;
       return x - Math.floor(x);
     }
+    // For blinking: assign a random phase and a fixed duration per star
+    function makeTwinkle(i, layer) {
+      // Only some stars twinkle
+      const shouldTwinkle = seededRandom(i + 42 + layer * 1000) < 0.15;
+      if (!shouldTwinkle) return null;
+      // Each twinkle star gets a random phase offset and a fixed duration
+      const phase = seededRandom(i + 99 + layer * 1000) * 2 * Math.PI;
+      const duration = 2.5 + seededRandom(i + 123 + layer * 1000) * 1.5; // 2.5s to 4s
+      return { phase, duration };
+    }
     starsRef.current = {
-      far: Array.from({ length: STAR_COUNT }).map((_, i) => ({
-        x: Math.random() * windowSize.width,
-        y: Math.random() * windowSize.height,
-        size: 0.4,
-        o: 0.3 + Math.random() * 0.3,
-      })),
-      mid: Array.from({ length: STAR_COUNT }).map((_, i) => ({
-        x: Math.random() * windowSize.width,
-        y: Math.random() * windowSize.height,
-        size: 0.5,
-        o: 0.4 + Math.random() * 0.3,
-      })),
-      near: Array.from({ length: STAR_COUNT }).map((_, i) => ({
-        x: Math.random() * windowSize.width,
-        y: Math.random() * windowSize.height,
-        size: 0.6,
-        o: 0.5 + Math.random() * 0.3,
-        twinkle: seededRandom(i + 42) < 0.15,
-      })),
+      far: Array.from({ length: STAR_COUNT }).map((_, i) => {
+        const twinkle = makeTwinkle(i, 0);
+        return {
+          x: Math.random() * windowSize.width,
+          y: Math.random() * windowSize.height,
+          size: 0.39,
+          o: 0.3 + Math.random() * 0.3,
+          twinkle,
+        };
+      }),
+      mid: Array.from({ length: STAR_COUNT }).map((_, i) => {
+        const twinkle = makeTwinkle(i, 1);
+        return {
+          x: Math.random() * windowSize.width,
+          y: Math.random() * windowSize.height,
+          size: 0.42,
+          o: 0.4 + Math.random() * 0.3,
+          twinkle,
+        };
+      }),
+      near: Array.from({ length: STAR_COUNT }).map((_, i) => {
+        const twinkle = makeTwinkle(i, 2);
+        return {
+          x: Math.random() * windowSize.width,
+          y: Math.random() * windowSize.height,
+          size: 0.45,
+          o: 0.5 + Math.random() * 0.3,
+          twinkle,
+        };
+      }),
     };
   }
   const starsFar = starsRef.current.far;
@@ -260,7 +281,7 @@ export default function SpaceResume() {
         <div className="sticky top-0 h-screen overflow-hidden bg-black">
           {/* Animated shooting stars */}
           <div className="absolute inset-0 pointer-events-none z-[3000]">
-            <ShootingStar delay={2} />
+            <ShootingStar delay={0} />
             <ShootingStar delay={5} />
             <ShootingStar delay={10} />
           </div>
@@ -271,7 +292,7 @@ export default function SpaceResume() {
           >
             <g>
               {starsFar.map((s, i) => (
-                <Star key={`far-${i}`} {...s} twinkle={!!s.twinkle} />
+                <Star key={`far-${i}`} {...s} twinkle={s.twinkle} />
               ))}
             </g>
           </motion.svg>
@@ -282,7 +303,7 @@ export default function SpaceResume() {
           >
             <g>
               {starsMid.map((s, i) => (
-                <Star key={`mid-${i}`} {...s} />
+                <Star key={`mid-${i}`} {...s} twinkle={s.twinkle} />
               ))}
             </g>
           </motion.svg>
@@ -293,7 +314,7 @@ export default function SpaceResume() {
           >
             <g>
               {starsNear.map((s, i) => (
-                <Star key={`near-${i}`} {...s} />
+                <Star key={`near-${i}`} {...s} twinkle={s.twinkle} />
               ))}
             </g>
           </motion.svg>

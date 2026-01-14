@@ -1,3 +1,7 @@
+.crawl-role-nowrap {
+  display: inline-block;
+  white-space: nowrap;
+}
 /* Utility classes for repeated patterns */
 .block-sm-inline {
   @apply block sm:inline;
@@ -10,17 +14,17 @@
 }
 .crawl-header-content {
   @apply mx-auto px-4 sm:px-6 md:px-8;
-  max-width: min(100vw, 22rem);
+  max-width: min(100vw, 40rem);
   text-transform: uppercase;
 }
 @media (min-width: 640px) {
   .crawl-header-content {
-    max-width: min(90vw, 40rem);
+    max-width: min(80vw, 50rem);
   }
 }
 @media (min-width: 1440px) {
   .crawl-header-content {
-    max-width: min(90vw, 75rem);
+    max-width: min(90vw, 100rem);
   }
 }
 .crawl-welcome {
