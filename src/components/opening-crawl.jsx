@@ -1,5 +1,11 @@
-// Responsive hook for breakpoints
+// =====================
+// Opening crawl
+// =====================
+import React from "react";
+import FadeParagraph from "./fade-paragraph.jsx";
 import { useEffect, useState } from "react";
+import { motion, useTransform } from "framer-motion";
+import Star from "./Star.jsx";
 import "./opening-crawl.css";
 
 function useBreakpointStops() {
@@ -46,12 +52,6 @@ function useBreakpointStops() {
     stops4: stops.para4[breakpoint],
   };
 }
-// =====================
-// Opening crawl
-// =====================
-import React from "react";
-import { motion } from "framer-motion";
-import FadeParagraph from "./fade-paragraph.jsx";
 
 export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
   const { stops1, stops2, stops3, stops4 } = useBreakpointStops();

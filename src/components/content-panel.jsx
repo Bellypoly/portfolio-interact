@@ -15,9 +15,6 @@ export default function ContentPanel({ activeIndex, opacityMV, SECTIONS }) {
       ])}
       style={{ opacity: opacityMV }}
     >
-      {activeIndex !== 0 && (
-        <h2 className="content-panel-title">{active.title}</h2>
-      )}
       <div className="content-panel-body">{active.body}</div>
     </motion.div>
   );

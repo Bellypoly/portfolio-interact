@@ -20,13 +20,24 @@ import { MarkerChipGroup } from "./components/marker-chip.jsx";
 import CapsuleRocket from "./components/rocket.jsx";
 
 function ShootingStar({ delay = 0 }) {
+  // Memoize position and repeatDelay so they never change on re-render
+  const memo = React.useRef();
+  if (!memo.current) {
+    // Use a seeded random based on delay to ensure stable values per ShootingStar
+    function seededRandom(seed) {
+      let x = Math.sin(seed * 9999.123) * 10000;
+      return x - Math.floor(x);
+    }
+    const left = 10 + seededRandom(delay + 1) * 80; // 10% to 90%
+    const top = 10 + seededRandom(delay + 2) * 40; // 10% to 50%
+    const repeatDelay = 5 + seededRandom(delay + 3) * 10; // 5s to 15s
+    memo.current = { left, top, repeatDelay };
+  }
+  const { left, top, repeatDelay } = memo.current;
   return (
     <motion.div
       className="absolute"
-      style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 50}%`,
-      }}
+      style={{ left: `${left}%`, top: `${top}%` }}
       initial={{ opacity: 0, x: 0, y: 0 }}
       animate={{
         opacity: [0, 1, 1, 0],
@@ -36,9 +47,8 @@ function ShootingStar({ delay = 0 }) {
       transition={{
         duration: 2,
         delay: delay,
-        // (moved inside component)
         repeat: Infinity,
-        repeatDelay: Math.random() * 10 + 5,
+        repeatDelay,
         ease: "easeOut",
       }}
     >
@@ -177,7 +187,7 @@ export default function SpaceResume() {
   // Panel Y position: starts at 0.42 (after intro), ends at 0.78 (before contact)
   const panelY = useTransform(smooth, [0.42, 0.78], ["100vh", "0vh"]);
   // Panel opacity: fades in from 0.35 to 0.42, then stays at 1
-  const panelOpacity = useTransform(smooth, [0.35, 0.38, 0.42], [0, 0, 1]);
+  const panelOpacity = useTransform(smooth, [0.35, 0.4, 0.42], [0, 0, 1]);
   // Opacity for the scroll hint (fades out as you scroll)
   const hintOpacity = useTransform(smooth, [0, 0.05, 0.12], [1, 1, 0]);
 
@@ -190,7 +200,7 @@ export default function SpaceResume() {
   const rocketOpacity = useTransform(smooth, [0.42, 0.48, 0.65], [0, 1, 0]);
 
   // Starfield initialization (random, but now covers the full viewport)
-  const STAR_COUNT = 220;
+  const STAR_COUNT = 300;
   const [windowSize, setWindowSize] = React.useState({
     width: 1920,
     height: 1080,
@@ -204,10 +214,90 @@ export default function SpaceResume() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // 3 layers of stars
+  // Generate all stars only once on mount, so twinkle is never affected by scroll or resize
+  const starsRef = React.useRef();
+  if (!starsRef.current) {
+    function seededRandom(seed) {
+      let x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    }
+    starsRef.current = {
+      far: Array.from({ length: STAR_COUNT }).map((_, i) => ({
+        x: Math.random() * windowSize.width,
+        y: Math.random() * windowSize.height,
+        size: 0.4,
+        o: 0.3 + Math.random() * 0.3,
+      })),
+      mid: Array.from({ length: STAR_COUNT }).map((_, i) => ({
+        x: Math.random() * windowSize.width,
+        y: Math.random() * windowSize.height,
+        size: 0.5,
+        o: 0.4 + Math.random() * 0.3,
+      })),
+      near: Array.from({ length: STAR_COUNT }).map((_, i) => ({
+        x: Math.random() * windowSize.width,
+        y: Math.random() * windowSize.height,
+        size: 0.6,
+        o: 0.5 + Math.random() * 0.3,
+        twinkle: seededRandom(i + 42) < 0.15,
+      })),
+    };
+  }
+  const starsFar = starsRef.current.far;
+  const starsMid = starsRef.current.mid;
+  const starsNear = starsRef.current.near;
+
+  // No parallax: all star layers are static
+  const starsFarY = 0;
+  const starsMidY = 0;
+  const starsNearY = 0;
+
   return (
     <>
       <main className="min-h-screen w-full text-white bg-black">
-        <Star />
+        {/* 3-layer starfield background */}
+        <div className="sticky top-0 h-screen overflow-hidden bg-black">
+          {/* Animated shooting stars */}
+          <div className="absolute inset-0 pointer-events-none z-[3000]">
+            <ShootingStar delay={2} />
+            <ShootingStar delay={5} />
+            <ShootingStar delay={10} />
+          </div>
+          <motion.svg
+            className="absolute inset-0 w-full h-full"
+            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+            style={{ y: starsFarY }}
+          >
+            <g>
+              {starsFar.map((s, i) => (
+                <Star key={`far-${i}`} {...s} twinkle={!!s.twinkle} />
+              ))}
+            </g>
+          </motion.svg>
+          <motion.svg
+            className="absolute inset-0 w-full h-full"
+            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+            style={{ y: starsMidY }}
+          >
+            <g>
+              {starsMid.map((s, i) => (
+                <Star key={`mid-${i}`} {...s} />
+              ))}
+            </g>
+          </motion.svg>
+          <motion.svg
+            className="absolute inset-0 w-full h-full"
+            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+            style={{ y: starsNearY }}
+          >
+            <g>
+              {starsNear.map((s, i) => (
+                <Star key={`near-${i}`} {...s} />
+              ))}
+            </g>
+          </motion.svg>
+        </div>
         <CapsuleRocket yMV={rocketY} opacityMV={rocketOpacity} />
         <section className="relative">
           {SECTIONS.map((s, i) => (
