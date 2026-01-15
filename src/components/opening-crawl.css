@@ -19,7 +19,7 @@
 }
 @media (min-width: 640px) {
   .crawl-header-content {
-    max-width: min(80vw, 50rem);
+    max-width: min(90vw, 60rem);
   }
 }
 @media (min-width: 1440px) {
@@ -43,7 +43,7 @@
   @apply block-sm-inline;
 }
 .crawl-role {
-  @apply mb-6 sm:mb-8 md:mb-10 text-[10px] sm:text-xs md:text-xs tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-3 py-1.5 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
+  @apply mb-6 sm:mb-8 md:mb-10 text-[11px] sm:text-xs md:text-xs lg:text-sm tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
   font-family: "Libre Franklin", sans-serif;
 }
 .crawl-role-block {
@@ -51,6 +51,14 @@
 }
 .crawl-role-dot {
   @apply hidden sm:inline;
+}
+.crawl-role-dot-last {
+  @apply hidden sm:inline sm:invisible;
+}
+@media (min-width: 852px) {
+  .crawl-role-dot-last {
+    visibility: visible;
+  }
 }
 .crawl-container {
   @apply absolute inset-x-0 top-[32vh] md:top-[35vh] -translate-y-1/2 flex justify-center z-[6000] pointer-events-none;

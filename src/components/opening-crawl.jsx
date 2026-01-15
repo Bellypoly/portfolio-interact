@@ -8,13 +8,14 @@ import { motion } from "framer-motion";
 import "./opening-crawl.css";
 
 function useBreakpointStops() {
-  const [breakpoint, setBreakpoint] = useState("desktop");
+  const [breakpoint, setBreakpoint] = useState("lg");
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
-      if (width < 640) setBreakpoint("mobile");
-      else if (width < 1024) setBreakpoint("tablet");
-      else setBreakpoint("desktop");
+      if (width < 640) setBreakpoint("xs");
+      else if (width < 768) setBreakpoint("sm");
+      else if (width < 1024) setBreakpoint("md");
+      else setBreakpoint("lg");
     }
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -24,24 +25,28 @@ function useBreakpointStops() {
   // Define stops for each paragraph and breakpoint
   const stops = {
     para1: {
-      mobile: [0, 0.124, 0.125, 0.126],
-      tablet: [0, 0.23, 0.24, 0.25],
-      desktop: [0, 0.14, 0.16, 0.18],
+      xs: [0, 0.124, 0.134, 0.144],
+      sm: [0, 0.23, 0.24, 0.25],
+      md: [0, 0.14, 0.16, 0.18],
+      lg: [0, 0.14, 0.16, 0.18],
     },
     para2: {
-      mobile: [0, 0.24, 0.26, 0.29],
-      tablet: [0, 0.29, 0.31, 0.32],
-      desktop: [0, 0.24, 0.26, 0.28],
+      xs: [0, 0.265, 0.285, 0.31],
+      sm: [0, 0.29, 0.31, 0.32],
+      md: [0, 0.24, 0.26, 0.28],
+      lg: [0, 0.24, 0.26, 0.28],
     },
     para3: {
-      mobile: [0, 0.43, 0.44, 0.5],
-      tablet: [0, 0.37, 0.38, 0.39],
-      desktop: [0, 0.36, 0.38, 0.39],
+      xs: [0, 0.43, 0.45, 0.5],
+      sm: [0, 0.37, 0.38, 0.39],
+      md: [0, 0.38, 0.395, 0.42],
+      lg: [0, 0.36, 0.38, 0.39],
     },
     para4: {
-      mobile: [0, 0.85, 0.9, 1.5],
-      tablet: [0, 0.45, 0.46, 0.47],
-      desktop: [0, 0.47, 0.49, 0.51],
+      xs: [0, 0.85, 0.9, 1.5],
+      sm: [0, 0.45, 0.46, 0.47],
+      md: [0, 0.49, 0.51, 0.53],
+      lg: [0, 0.47, 0.49, 0.51],
     },
   };
   return {
@@ -56,6 +61,38 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
   const { stops1, stops2, stops3, stops4 } = useBreakpointStops();
   return (
     <>
+      {/* Debug overlay for progress and stops */}
+      <div
+        style={{
+          position: "fixed",
+          top: 8,
+          right: 8,
+          zIndex: 99999,
+          background: "rgba(0,0,0,0.7)",
+          color: "#ffe066",
+          fontSize: 12,
+          padding: "8px 12px",
+          borderRadius: 8,
+          pointerEvents: "none",
+        }}
+      >
+        <div>
+          <strong>crawlProgress:</strong>{" "}
+          {crawlProgress?.get?.().toFixed?.(3) ?? crawlProgress}
+        </div>
+        <div>
+          <strong>stops1:</strong> [{stops1.join(", ")}]
+        </div>
+        <div>
+          <strong>stops2:</strong> [{stops2.join(", ")}]
+        </div>
+        <div>
+          <strong>stops3:</strong> [{stops3.join(", ")}]
+        </div>
+        <div>
+          <strong>stops4:</strong> [{stops4.join(", ")}]
+        </div>
+      </div>
       {/* Static header section */}
       <motion.div className="crawl-header" style={{ opacity: opacityMV }}>
         <div className="crawl-header-content">
@@ -68,8 +105,10 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
           <div className="crawl-role">
             <span className="crawl-role-block">Full-Stack Developer</span>
             <span className="crawl-role-dot"> · </span>
-            <span className="crawl-role-block">Software Engineer</span>
-            <span className="crawl-role-dot"> · </span>
+            <span className="crawl-role-block crawl-role-nowrap">
+              Software Engineer
+            </span>
+            <span className="crawl-role-dot crawl-role-dot-last"> · </span>
             <span className="crawl-role-block crawl-role-nowrap">
               Data Visualization Engineer
             </span>
