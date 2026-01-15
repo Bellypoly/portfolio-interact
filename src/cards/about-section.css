@@ -25,6 +25,9 @@
 }
 .about-section-content {
   @apply relative w-full h-full flex flex-col items-center justify-center px-2;
+  max-width: min(90vw, 800px);
+  max-height: 85vh;
+  overflow: hidden;
 }
 
 /* Info flex layout */

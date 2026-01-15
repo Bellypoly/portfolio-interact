@@ -10,7 +10,7 @@ const AboutSection = () => {
           <source srcSet="/images/card.webp" type="image/webp" />
           <img
             src="/images/card.png"
-            alt="Control Panel Screen"
+            alt="astronaut id card"
             className="about-img-card"
             draggable="false"
           />
@@ -23,7 +23,7 @@ const AboutSection = () => {
           <img
             src="images/profile-pic.jpg"
             alt="Profile"
-            className="rounded-full w-40 h-40 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover shadow mx-auto mb-4 md:mx-0 md:mb-0"
+            className="rounded-xl w-40 h-40 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover shadow mx-auto mb-4 md:mx-0 md:mb-0"
           />
           {/* Name and position: center on mobile, right of image on tablet/desktop */}
           <div className="about-info-content flex flex-col flex-1 w-full md:justify-center md:items-start">

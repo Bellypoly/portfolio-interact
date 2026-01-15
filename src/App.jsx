@@ -269,10 +269,10 @@ export default function SpaceResume() {
   const starsMid = starsRef.current.mid;
   const starsNear = starsRef.current.near;
 
-  // No parallax: all star layers are static
-  const starsFarY = 0;
-  const starsMidY = 0;
-  const starsNearY = 0;
+  // Parallax: star layers start moving at crawlProgress 0.4 and continue through the page
+  const starsFarY = useTransform(crawlProgress, [0.4, 1], ["0vh", "-30vh"]);
+  const starsMidY = useTransform(crawlProgress, [0.4, 1], ["0vh", "-60vh"]);
+  const starsNearY = useTransform(crawlProgress, [0.4, 1], ["0vh", "-100vh"]);
 
   return (
     <>
@@ -348,8 +348,6 @@ export default function SpaceResume() {
               />
             </div>
           </div>
-          {/* Bottom blur gradient */}
-          <div className="fixed bottom-0 left-0 right-0 h-32 pointer-events-none z-[10000] bg-gradient-to-t from-black to-transparent" />
         </section>
       </main>
     </>

@@ -61,38 +61,6 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
   const { stops1, stops2, stops3, stops4 } = useBreakpointStops();
   return (
     <>
-      {/* Debug overlay for progress and stops */}
-      <div
-        style={{
-          position: "fixed",
-          top: 8,
-          right: 8,
-          zIndex: 99999,
-          background: "rgba(0,0,0,0.7)",
-          color: "#ffe066",
-          fontSize: 12,
-          padding: "8px 12px",
-          borderRadius: 8,
-          pointerEvents: "none",
-        }}
-      >
-        <div>
-          <strong>crawlProgress:</strong>{" "}
-          {crawlProgress?.get?.().toFixed?.(3) ?? crawlProgress}
-        </div>
-        <div>
-          <strong>stops1:</strong> [{stops1.join(", ")}]
-        </div>
-        <div>
-          <strong>stops2:</strong> [{stops2.join(", ")}]
-        </div>
-        <div>
-          <strong>stops3:</strong> [{stops3.join(", ")}]
-        </div>
-        <div>
-          <strong>stops4:</strong> [{stops4.join(", ")}]
-        </div>
-      </div>
       {/* Static header section */}
       <motion.div className="crawl-header" style={{ opacity: opacityMV }}>
         <div className="crawl-header-content">
@@ -115,7 +83,6 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
           </div>
         </div>
       </motion.div>
-
       {/* Animated crawl section */}
       <motion.div className="crawl-container" style={{ opacity: opacityMV }}>
         <div className="crawl-inner">
@@ -167,7 +134,9 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
             </div>
           </motion.div>
         </div>
-      </motion.div>
+      </motion.div>{" "}
+      {/* Bottom blur gradient */}
+      <div className="crawl-bottom-blur" />
     </>
   );
 }
