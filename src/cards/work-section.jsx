@@ -1,7 +1,13 @@
+// =====================
+// Imports
+// =====================
 import React from "react";
 import TimelineItem from "../components/timeline-item.jsx";
 
-export const SeniorFullStack = () => (
+// =====================
+// Job Timeline Components (private to this module)
+// =====================
+const SeniorFullStack = () => (
   <TimelineItem
     title="Senior Full-Stack Developer"
     time="Nov 2021 - Present"
@@ -17,7 +23,7 @@ export const SeniorFullStack = () => (
   />
 );
 
-export const DataEngineer = () => (
+const DataEngineer = () => (
   <TimelineItem
     title="Data Engineer"
     time="May 2020 – Mar 2021"
@@ -31,7 +37,7 @@ export const DataEngineer = () => (
   />
 );
 
-export const FullStackII = () => (
+const FullStackII = () => (
   <TimelineItem
     title="Full Stack Developer II"
     time="Jul 2016 – Jul 2019"
@@ -48,7 +54,7 @@ export const FullStackII = () => (
   />
 );
 
-export const SoftwareEng = () => (
+const SoftwareEng = () => (
   <TimelineItem
     title="Software Engineer"
     time="Jul 2014 – Jun 2016"
@@ -63,3 +69,20 @@ export const SoftwareEng = () => (
     ]}
   />
 );
+
+// =====================
+// Main WorkSection Export
+// =====================
+function WorkSection() {
+  return (
+    <div className="text-sm md:text-base text-slate-100 space-y-2">
+      <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
+      <SeniorFullStack />
+      {/* <DataEngineer />
+      <FullStackII />
+      <SoftwareEng /> */}
+    </div>
+  );
+}
+
+export default WorkSection;

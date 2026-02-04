@@ -1,16 +1,10 @@
 // src/App.jsx
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValueEvent,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import OpeningCrawl from "./components/opening-crawl.jsx";
 import ContentPanel from "./components/content-panel.jsx";
-import AboutSection from "./cards/about-section.jsx";
-// import WorkSection from "./cards/work-section.jsx";
+import ProfileIcon from "./components/profile-icon.jsx";
+import WorkSection from "./cards/work-section.jsx";
 import EducationSection from "./cards/education-section.jsx";
 import AchievementsSection from "./cards/achievements-section.jsx";
 import PortfolioSection from "./cards/portfolio-section.jsx";
@@ -57,19 +51,6 @@ function ShootingStar({ delay = 0 }) {
   );
 }
 
-function WorkSection() {
-  return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
-      <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
-    </div>
-  );
-}
-// =====================
-// Section metadata
-// =====================
-
-// Section metadata will be created inside the component
-
 // =====================
 // Main scene component
 // =====================
@@ -77,6 +58,8 @@ export default function SpaceResume() {
   // Opening crawl uses raw scrollYProgress for consistent speed
   const { scrollYProgress } = useScroll();
   const crawlProgress = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
+  const profileIconY = useTransform(crawlProgress, [0.2, 1], [0, -56]);
+  const profileIconOpacity = useTransform(scrollYProgress, [0.16, 0.2], [0, 1]);
   // Crawl positioning: starts around middle of screen, moves upward
   const crawlY = useTransform(crawlProgress, [0, 1], ["90vh", "-150vh"]);
   const crawlScale = useTransform(crawlProgress, [0, 1], [1.8, 0.35]);
@@ -94,7 +77,6 @@ export default function SpaceResume() {
         />
       ),
     },
-    { id: "about", title: "About Me", body: <AboutSection /> },
     { id: "work", title: "Work Experience", body: <WorkSection /> },
     { id: "education", title: "Education", body: <EducationSection /> },
     {
@@ -112,7 +94,7 @@ export default function SpaceResume() {
   // Distribute sections evenly across scroll progress
   const sectionProgressThresholds = Array.from(
     { length: SECTIONS.length },
-    (_, i) => i / (SECTIONS.length - 1)
+    (_, i) => i / (SECTIONS.length - 1),
   );
 
   // Utility: progress <-> pixel conversion
@@ -125,7 +107,7 @@ export default function SpaceResume() {
       "scrollHeight:",
       scrollHeight,
       "result:",
-      Math.round(progress * scrollHeight)
+      Math.round(progress * scrollHeight),
     );
     return Math.round(progress * scrollHeight);
   }
@@ -195,7 +177,7 @@ export default function SpaceResume() {
   const rocketY = useTransform(
     smooth,
     [0.42, 0.48, 0.65],
-    ["80vh", "40vh", "-30vh"]
+    ["80vh", "40vh", "-30vh"],
   );
   const rocketOpacity = useTransform(smooth, [0.42, 0.48, 0.65], [0, 1, 0]);
 
@@ -321,6 +303,9 @@ export default function SpaceResume() {
         </div>
         <CapsuleRocket yMV={rocketY} opacityMV={rocketOpacity} />
         <section className="relative">
+          {/* Profile Icon: fixed at top right, hidden on OpeningCrawl */}
+          {/* ProfileIcon animates up and fades in as OpeningCrawl disappears */}
+          <ProfileIcon crawlProgress={crawlProgress} />
           {SECTIONS.map((s, i) => (
             <div
               key={s.id}

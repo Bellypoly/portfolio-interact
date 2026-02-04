@@ -1,9 +1,15 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "./about-section.css";
 
 const AboutSection = () => {
   return (
-    <div className="about-section-root">
+    <motion.div
+      className="about-section-root"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       {/* Card image wrapper for aspect ratio and rotation */}
       <div className="about-bg-card">
         <picture>
@@ -18,10 +24,10 @@ const AboutSection = () => {
       </div>
       {/* Content overlay, always centered and responsive */}
       <div className="about-section-content">
-        <div className="about-info-flex">
+        <div className="about-info-flex px-10 md:px-12 lg:px-14">
           {/* Image: always on left/top */}
           <img
-            src="images/profile-pic.jpg"
+            src="/images/profile-pic.jpg"
             alt="Profile"
             className="rounded-xl w-40 h-40 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover shadow mx-auto mb-4 md:mx-0 md:mb-0"
           />
@@ -53,7 +59,7 @@ const AboutSection = () => {
         </div>
       </div>
       {/* Responsive style for rotation on small screens is now in about-section.css */}
-    </div>
+    </motion.div>
   );
 };
 
@@ -62,24 +68,22 @@ function SummaryAndSkills() {
     <>
       <p className="about-section-summary">
         I’m a full-stack software engineer who builds scalable, data-driven
-        systems that connect storytelling, analysis, and user experience. My
-        work bridges front-end experience with back-end engineering, combining
-        clean interaction design with reliable, high-performance infrastructure.
+        systems that connect storytelling, analysis, and user
+        experience—bridging front-end design with reliable, high-performance
+        back-end engineering.
         <br />
-        <br />
-        I specialize in transforming large and complex datasets into clear,
-        interactive experiences—designing APIs, building automation pipelines,
-        and applying machine learning to uncover insights that drive smarter
-        decisions. Across subscriptions, personalization engines, geospatial
-        mapping, newsroom platforms, and real-time content systems, I enjoy
-        turning ambiguity into products that feel fast, intuitive, and
-        meaningful.
+        <br />I specialize in transforming complex datasets into clear,
+        interactive experiences by designing APIs, building automation
+        pipelines, and applying machine learning to uncover insights that drive
+        smarter decisions. From subscriptions and personalization engines to
+        geospatial mapping and real-time newsroom platforms, I enjoy turning
+        ambiguity into products that feel fast, intuitive, and meaningful.
         <br />
         <br />I care deeply about code quality, performance, and developer
-        experience. Whether improving conversion funnels, optimizing data flows,
-        or delivering tools that support reporters and editors every day, I
-        focus on building systems that scale smoothly, stay stable under
-        pressure, and inspire trust.
+        experience. Whether optimizing data flows, improving conversion funnels,
+        or delivering tools that support reporters and editors, I focus on
+        systems that scale smoothly, remain stable under pressure, and inspire
+        trust.
       </p>
       <div className="flex flex-wrap gap-2 mt-6 md:my-10">
         {[

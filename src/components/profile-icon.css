@@ -1,0 +1,57 @@
+/* --- Profile Icon Floating Button --- */
+.profile-icon {
+  position: fixed;
+  bottom: -20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10002;
+  overflow: visible;
+}
+
+/* Icon stack container (holds radio, image, svg) */
+.profile-icon-stack {
+  position: relative;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animated radio signal */
+.radio-signal-wave {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(45, 212, 191, 0.5);
+  width: 55px;
+  height: 55px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Profile image */
+.profile-icon-img {
+  position: relative;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 55px;
+  background: #17677a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  border: 2px solid #fff;
+  z-index: 2;
+}
+
+/* Curved Astronaut ID label */
+.astronaut-id-label {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 3;
+}

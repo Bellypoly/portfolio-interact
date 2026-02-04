@@ -20,12 +20,20 @@
 .about-img-card {
   @apply h-screen w-auto max-w-none object-cover object-center block mx-auto pointer-events-none select-none;
 }
+@media (max-width: 767px) {
+  .about-img-card {
+    transform: rotate(90deg);
+    width: 100vh;
+    height: auto;
+    min-height: 100vw;
+  }
+}
 .about-section-root {
   @apply relative w-full min-h-screen flex items-center justify-center;
 }
 .about-section-content {
   @apply relative w-full h-full flex flex-col items-center justify-center px-2;
-  max-width: min(90vw, 800px);
+  max-width: min(90vw, 80rem);
   max-height: 85vh;
   overflow: hidden;
 }
