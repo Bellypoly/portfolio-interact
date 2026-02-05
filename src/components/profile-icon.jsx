@@ -33,11 +33,11 @@ export default function ProfileIcon({ crawlProgress }) {
         title="Astronaut Profile"
         initial={false}
       >
-        <div className="profile-icon-stack">
+        <div className="profile-icon-stack" onClick={handleProfileClick}>
           {/* Animated Radio Signal */}
           <motion.span
             className="radio-signal-wave"
-            initial={{ scale: 0.7, opacity: 0.6 }}
+            initial={{ scale: 0.7, opacity: 0.85 }}
             animate={{ scale: 2, opacity: 0 }}
             transition={{
               duration: 1.8,
@@ -54,7 +54,6 @@ export default function ProfileIcon({ crawlProgress }) {
               src="/images/profile-pic-2.png"
               alt="Profile"
               className="profile-icon-img"
-              onClick={handleProfileClick}
             />
           </picture>
           {/* Curved Astronaut ID label on the outer edge */}

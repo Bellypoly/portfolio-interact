@@ -1,3 +1,8 @@
+.profile-icon-stack:hover .radio-signal-wave {
+  border-color: rgba(94, 234, 212, 0.95);
+  background: rgba(94, 234, 212, 0.25);
+  filter: brightness(1.5) drop-shadow(0 0 8px #5eead4);
+}
 /* --- Profile Icon Floating Button --- */
 .profile-icon {
   position: fixed;
@@ -19,6 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 /* Animated radio signal */
@@ -41,7 +47,6 @@
   border-radius: 55px;
   background: #17677a;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
   border: 2px solid #fff;
   z-index: 2;
 }
