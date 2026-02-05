@@ -89,15 +89,15 @@ export default function ProfileIcon({ crawlProgress }) {
 
       {/* About Me Modal */}
       {showAboutMe && (
-        <div className="fixed inset-0 z-[20000] bg-[#05090c] flex flex-col">
+        <div className="about-me-modal">
           <button
-            className="absolute top-4 right-4 text-white text-3xl bg-black/40 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition z-10"
+            className="about-me-modal-close"
             onClick={handleProfileClick}
             aria-label="Close About Me"
           >
             ×
           </button>
-          <div className="flex-1 overflow-auto">
+          <div className="about-me-modal-content">
             <AboutMe />
           </div>
         </div>

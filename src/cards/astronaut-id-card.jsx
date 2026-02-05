@@ -50,33 +50,12 @@ export default function AstronautCard({
             className="hudPortrait"
             aria-label="Profile portrait placeholder"
           >
-            <picture
-              className="hudPortraitImage"
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "inherit",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: 1,
-                pointerEvents: "none",
-                overflow: "hidden",
-                display: "block",
-              }}
-              aria-hidden="true"
-            >
+            <picture className="hudPortraitImg" aria-hidden="true">
               <source srcSet="/images/profile-pic.webp" type="image/webp" />
               <img
                 src="/images/profile-pic.png"
                 alt="astronaut id card"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  borderRadius: "inherit",
-                  display: "block",
-                }}
+                className="hudPortraitImg__img"
                 draggable="false"
               />
             </picture>

@@ -1,3 +1,37 @@
+.about-me-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #fff;
+  font-size: 1.875rem; /* text-3xl */
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 31;
+  border: none;
+  cursor: pointer;
+}
+.about-me-modal-close:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.about-me-modal-content {
+  flex: 1;
+  overflow: auto;
+}
 .profile-icon-stack:hover .radio-signal-wave {
   border-color: rgba(94, 234, 212, 0.95);
   background: rgba(94, 234, 212, 0.25);
@@ -12,7 +46,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 10002;
+  z-index: 10003;
   overflow: visible;
 }
 
@@ -35,7 +69,7 @@
   width: 55px;
   height: 55px;
   pointer-events: none;
-  z-index: 1;
+  z-index: 21;
 }
 
 /* Profile image */
@@ -48,7 +82,7 @@
   background: #17677a;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border: 2px solid #fff;
-  z-index: 2;
+  z-index: 22;
 }
 
 /* Curved Astronaut ID label */
@@ -58,5 +92,5 @@
   top: 60%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  z-index: 3;
+  z-index: 23;
 }
