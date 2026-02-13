@@ -1,4 +1,11 @@
-/* Fullscreen fixed background for card image, centers child */
+/* === About Section CSS (ordered by JSX usage) === */
+
+/* 1. Root container */
+.about-section-root {
+  @apply relative w-full min-h-screen flex items-center justify-center;
+}
+
+/* 2. Background card image wrapper */
 .about-bg-card {
   position: fixed;
   top: 0;
@@ -11,12 +18,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Card image: stretch vertically, centered horizontally */
-.about-bg-card {
   @apply fixed top-0 left-0 w-screen h-screen -z-10 pointer-events-none select-none flex items-center justify-center;
 }
+
+/* 3. Card image */
 .about-img-card {
   @apply h-screen w-auto max-w-none object-cover object-center block mx-auto pointer-events-none select-none;
 }
@@ -28,9 +33,8 @@
     min-height: 100vw;
   }
 }
-.about-section-root {
-  @apply relative w-full min-h-screen flex items-center justify-center;
-}
+
+/* 4. Content overlay */
 .about-section-content {
   @apply relative w-full h-full flex flex-col items-center justify-center px-2;
   max-width: min(90vw, 80rem);
@@ -38,8 +42,9 @@
   overflow: hidden;
 }
 
-/* Info flex layout */
+/* 5. Info flex layout (outer flex) */
 .about-info-flex {
+  @apply px-10 md:px-12 lg:px-14;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,14 +56,27 @@
     align-items: flex-start;
     gap: 2.5rem;
   }
+}
+
+/* 6. Profile image */
+.about-profile-pic {
+  @apply rounded-xl w-40 h-40 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover shadow mx-auto mb-4 md:mx-0 md:mb-0;
+}
+
+/* 7. Info content (right of image) */
+.about-info-content {
+  @apply flex flex-col flex-1 w-full md:justify-center md:items-start;
+}
+@media (min-width: 768px) {
   .about-info-content {
     text-align: left;
     align-items: flex-start;
   }
 }
 
-/* Title font and layout */
+/* 8. Title */
 .about-section-title {
+  @apply hidden md:block;
   font-family: "Stack Sans Notch", ui-sans-serif, system-ui, sans-serif;
   font-weight: 800;
   font-size: 1.875rem;
@@ -74,7 +92,25 @@
   }
 }
 
-/* Summary paragraph */
+/* 9. Roles/positions paragraph */
+.about-section-roles {
+  @apply my-2 text-sm md:text-base flex flex-col md:flex-row items-center justify-center md:justify-start gap-0.5 md:gap-2 opacity-70;
+}
+
+/* 10. Dot separator */
+.about-section-dot {
+  @apply hidden md:inline;
+}
+
+/* 11. Summary/skills desktop and mobile wrappers */
+.about-section-summary-desktop {
+  @apply hidden lg:block w-full;
+}
+.about-section-summary-mobile {
+  @apply block w-full md:block lg:hidden;
+}
+
+/* 12. Summary paragraph */
 .about-section-summary {
   text-align: justify;
   line-height: 1.625;
@@ -89,4 +125,14 @@
   .about-section-summary {
     max-height: 30vh;
   }
+}
+
+/* 13. Skills flex container */
+.about-section-skills {
+  @apply flex flex-wrap gap-2 mt-6 md:my-10;
+}
+
+/* 14. Skill chip */
+.about-section-skill-chip {
+  @apply bg-cyan-100 text-cyan-900 text-xs font-semibold px-2 py-1 rounded-full shadow-sm;
 }

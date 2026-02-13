@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./astronaut-id-card.css";
 
 export default function AstronautCard({
@@ -8,7 +8,6 @@ export default function AstronautCard({
   role = "FULL-STACK · SWE · DATA VIS",
   clearance = "ALPHA",
   mission = "TURN AMBIGUITY → PRODUCTS",
-  status = "LINK STABLE",
   ctaLabel = "Launch Mission",
   onCtaClick,
   paragraphs = [
@@ -27,65 +26,103 @@ export default function AstronautCard({
     "CI/CD",
   ],
 }) {
-  return (
-    <section className="hudCard" aria-label="Astronaut ID Dashboard">
-      <header className="hudTop">
-        <div className="hudBadge">
-          <span className="hudBadgeIcon" aria-hidden="true" />
-          <span className="hudBadgeLabel">ASTRONAUT ID</span>
-        </div>
+  const [flipped, setFlipped] = useState(false);
+  const handlePortraitClick = () => setFlipped((v) => !v);
 
-        <div className="hudStatus" aria-label="System status">
-          <span className="hudDot" />
-          <span className="hudDot" />
-          <span className="hudDot" />
-          <span className="hudStatusText">{status}</span>
+  // Memoize the random star-dot block so it only generates once
+  const starDots = React.useMemo(() => {
+    const dots = [];
+    const hudTopWidth = 1000; // Approximate max width
+    const hudTopHeight = 80; // Approximate max height
+    for (let i = 0; i < 32; i++) {
+      const size = 1 + Math.random() * 3; // 1px to 4px
+      dots.push(
+        <span
+          key={i}
+          className="star-dot"
+          style={{
+            top: `${Math.random() * hudTopHeight}px`,
+            left: `${Math.random() * hudTopWidth}px`,
+            width: `${size}px`,
+            height: `${size}px`,
+            opacity: 0.7 + Math.random() * 0.3,
+          }}
+          aria-hidden="true"
+        />,
+      );
+    }
+    return dots;
+  }, []);
+
+  return (
+    <section className="card" aria-label="Astronaut ID Dashboard">
+      <header className="top">
+        {/* Random small yellow circles spread across top */}
+        {starDots}
+        <div className="badge">
+          <picture>
+            <source srcSet="/images/rocket_icon.webp" type="image/webp" />
+            <img
+              src="/images/rocket_icon.png"
+              alt="Rocket Icon"
+              className="badge-rocket__Img"
+              draggable="false"
+            />
+          </picture>
+          <span className="badge-label">ASTRONAUT ID</span>
         </div>
       </header>
 
-      <div className="hudGrid">
+      <div className="hud-grid">
         {/* Left: portrait placeholder + meta */}
-        <aside className="hudPanel hudPortraitPanel">
-          <div
-            className="hudPortrait"
-            aria-label="Profile portrait placeholder"
-          >
-            <picture className="hudPortraitImg" aria-hidden="true">
-              <source srcSet="/images/profile-pic.webp" type="image/webp" />
+        <aside className="panel portrait-panel">
+          <div className="portrait" aria-label="Profile portrait placeholder">
+            <picture
+              className="portrait__img"
+              aria-hidden="true"
+              onClick={handlePortraitClick}
+            >
+              <source
+                srcSet={
+                  flipped
+                    ? "/images/profile-pic.webp"
+                    : "/images/profile-pic-2.webp"
+                }
+                type="image/webp"
+              />
               <img
-                src="/images/profile-pic.png"
+                src={
+                  flipped
+                    ? "/images/profile-pic.png"
+                    : "/images/profile-pic-2.png"
+                }
                 alt="astronaut id card"
-                className="hudPortraitImg__img"
                 draggable="false"
               />
             </picture>
-            <div className="hudPortraitRing" />
-            <div className="hudPortraitScan" />
-            {/* <div className="hudPortraitText">
-              <div className="hudSmall">CREW PHOTO</div>
-              <div className="hudTiny">Upload / Replace</div>
-              <picture>
-                <source srcSet="/images/profile-pic.webp" type="image/webp" />
-                <img
-                  src="/images/profile-pic.png"
-                  alt="astronaut id card"
-                  className="about-img-card"
-                  draggable="false"
-                />
-              </picture> 
-            </div>*/}
+            <div className="portrait-scan" />
+            <span
+              className="material-symbols-outlined portrait-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePortraitClick();
+              }}
+              aria-label="Toggle portrait"
+            >
+              {flipped ? "identity_platform" : "sentiment_excited"}
+            </span>
           </div>
 
-          <div className="hudMeta">
-            <div className="hudMetaRow">
+          <div className="meta">
+            <div className="meta-row">
               <span className="k">CALLSIGN</span>
               <span className="v">{callsign}</span>
             </div>
-            <div className="hudMetaRow">
+            <div className="meta-row">
               <span className="k">ROLE</span>
               <span className="v">{role}</span>
             </div>
-            <div className="hudMetaRow">
+            <div className="meta-row">
               <span className="k">CLEARANCE</span>
               <span className="v">{clearance}</span>
             </div>
@@ -93,35 +130,35 @@ export default function AstronautCard({
         </aside>
 
         {/* Right: narrative + skills */}
-        <main className="hudPanel hudBioPanel">
-          <h1 className="hudName">{name}</h1>
-          <p className="hudSubtitle">{title}</p>
+        <main className="panel panel-bio">
+          <h1 className="bio-name">{name}</h1>
+          <p className="bio-subtitle">{title}</p>
 
-          <div className="hudDivider" aria-hidden="true" />
+          <div className="bio-divider" aria-hidden="true" />
 
           {paragraphs.map((p, idx) => (
-            <p className="hudParagraph" key={idx}>
+            <p className="bio-paragraph" key={idx}>
               {p}
             </p>
           ))}
 
-          <div className="hudDivider" aria-hidden="true" />
+          <div className="bio-divider" aria-hidden="true" />
 
-          <div className="hudChips" aria-label="Skills">
+          <div className="skill-chips" aria-label="Skills">
             {skills.map((s) => (
-              <span className="hudChip" key={s}>
+              <span className="skill-chip" key={s}>
                 {s}
               </span>
             ))}
           </div>
 
-          <footer className="hudFooter">
-            <div className="hudReadout">
-              <span className="hudReadoutK">MISSION</span>
-              <span className="hudReadoutV">{mission}</span>
+          <footer className="bio-footer">
+            <div className="bio-readout">
+              <span className="bio-readout-k">MISSION</span>
+              <span className="bio-readout-v">{mission}</span>
             </div>
 
-            <button className="hudBtn" type="button" onClick={onCtaClick}>
+            <button className="panel-btn" type="button" onClick={onCtaClick}>
               {ctaLabel} <span aria-hidden="true">🚀</span>
             </button>
           </footer>
@@ -129,14 +166,14 @@ export default function AstronautCard({
       </div>
 
       {/* Decorative screws */}
-      <span className="hudScrew s1" aria-hidden="true" />
-      <span className="hudScrew s2" aria-hidden="true" />
-      <span className="hudScrew s3" aria-hidden="true" />
-      <span className="hudScrew s4" aria-hidden="true" />
-      <span className="hudScrew s5" aria-hidden="true" />
-      <span className="hudScrew s6" aria-hidden="true" />
-      <span className="hudScrew s7" aria-hidden="true" />
-      <span className="hudScrew s8" aria-hidden="true" />
+      <span className="screw s1" aria-hidden="true" />
+      <span className="screw s2" aria-hidden="true" />
+      <span className="screw s3" aria-hidden="true" />
+      <span className="screw s4" aria-hidden="true" />
+      <span className="screw s5" aria-hidden="true" />
+      <span className="screw s6" aria-hidden="true" />
+      <span className="screw s7" aria-hidden="true" />
+      <span className="screw s8" aria-hidden="true" />
     </section>
   );
 }

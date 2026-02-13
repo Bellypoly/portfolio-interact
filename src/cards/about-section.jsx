@@ -24,37 +24,35 @@ const AboutSection = () => {
       </div>
       {/* Content overlay, always centered and responsive */}
       <div className="about-section-content">
-        <div className="about-info-flex px-10 md:px-12 lg:px-14">
+        <div className="about-info-flex">
           {/* Image: always on left/top */}
           <img
             src="/images/profile-pic.jpg"
             alt="Profile"
-            className="rounded-xl w-40 h-40 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover shadow mx-auto mb-4 md:mx-0 md:mb-0"
+            className="about-profile-pic"
           />
           {/* Name and position: center on mobile, right of image on tablet/desktop */}
-          <div className="about-info-content flex flex-col flex-1 w-full md:justify-center md:items-start">
-            <h1 className="about-section-title hidden md:block">
-              Suwaphit Buabuthr
-            </h1>
-            <p className="my-2 text-sm md:text-base flex flex-col md:flex-row items-center justify-center md:justify-start gap-0.5 md:gap-2 opacity-70">
+          <div className="about-info-content">
+            <h1 className="about-section-title">Suwaphit Buabuthr</h1>
+            <p className="about-section-roles">
               <span>Full-Stack Developer</span>
-              <span aria-hidden className="hidden md:inline">
+              <span aria-hidden className="about-section-dot">
                 {" • "}
               </span>
               <span>Software Engineer</span>
-              <span aria-hidden className="hidden md:inline">
+              <span aria-hidden className="about-section-dot">
                 {" • "}
               </span>
               <span>Data Visualization Engineer</span>
             </p>
             {/* Desktop: summary/skills stack under name/position only on lg+ */}
-            <div className="hidden lg:block w-full">
+            <div className="about-section-summary-desktop">
               <SummaryAndSkills />
             </div>
           </div>
         </div>
         {/* Tablet: summary/skills at bottom, full width; Mobile: stack under name/position; Desktop: already shown right */}
-        <div className="block w-full md:block lg:hidden">
+        <div className="about-section-summary-mobile">
           <SummaryAndSkills />
         </div>
       </div>
@@ -85,7 +83,7 @@ function SummaryAndSkills() {
         systems that scale smoothly, remain stable under pressure, and inspire
         trust.
       </p>
-      <div className="flex flex-wrap gap-2 mt-6 md:my-10">
+      <div className="about-section-skills">
         {[
           "Python",
           "JavaScript (ES6+)",
@@ -101,10 +99,7 @@ function SummaryAndSkills() {
           "Statistical Modeling",
           "ArcGIS",
         ].map((skill) => (
-          <span
-            key={skill}
-            className="bg-cyan-100 text-cyan-900 text-xs font-semibold px-2 py-1 rounded-full shadow-sm"
-          >
+          <span key={skill} className="about-section-skill-chip">
             {skill}
           </span>
         ))}

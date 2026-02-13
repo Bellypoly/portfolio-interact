@@ -3,7 +3,7 @@
 // =====================
 import React, { useState } from "react";
 import { motion, useTransform } from "framer-motion";
-import AboutMe from "../cards/about-me.jsx";
+import AstronautCard from "../cards/astronaut-id-card";
 import "./profile-icon.css";
 
 // =====================
@@ -71,13 +71,13 @@ export default function ProfileIcon({ crawlProgress }) {
               />
             </defs>
             <text
+              className="astronaut-id-label-text"
               fill="#fff"
               fontSize="8.5"
               fontWeight="400"
               letterSpacing="0.11em"
               textAnchor="middle"
               dominantBaseline="middle"
-              style={{ textShadow: "0 1px 2px #0e2233" }}
             >
               <textPath xlinkHref="#astronaut-id-curve" startOffset="50%">
                 ASTRONAUT ID
@@ -98,7 +98,10 @@ export default function ProfileIcon({ crawlProgress }) {
             ×
           </button>
           <div className="about-me-modal-content">
-            <AboutMe />
+            <AstronautCard
+              onCtaClick={() => console.log("Launch!")}
+              ctaLabel="Begin Your Journey"
+            />
           </div>
         </div>
       )}
