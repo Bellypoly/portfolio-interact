@@ -1,0 +1,42 @@
+/* Space Resume layout – Tailwind @apply */
+
+.app-main {
+  @apply min-h-screen w-full text-white bg-black;
+}
+
+.app-starfield {
+  @apply sticky top-0 h-screen overflow-hidden bg-black;
+}
+
+.app-shooting-stars {
+  @apply absolute inset-0 pointer-events-none z-[3000];
+}
+
+.app-star-layer {
+  @apply absolute inset-0 w-full h-full;
+}
+
+.app-section {
+  @apply relative;
+}
+
+.app-section-item {
+  @apply min-h-[100vh] flex items-center justify-center;
+}
+
+.app-panel-row {
+  @apply fixed top-0 flex flex-row items-end gap-4 z-[10001] w-full;
+}
+
+.app-panel-flex {
+  @apply flex-1;
+}
+
+/* Shooting star */
+.shooting-star {
+  @apply absolute;
+}
+
+.shooting-star-line {
+  @apply w-40 h-0.5 bg-gradient-to-r from-white to-transparent -rotate-45;
+}

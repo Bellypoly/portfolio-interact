@@ -1,0 +1,4 @@
+/* Work section – Tailwind @apply */
+.work-section {
+  @apply text-sm md:text-base text-slate-100 space-y-2;
+}
