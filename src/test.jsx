@@ -5,7 +5,14 @@ import {
   useMotionValueEvent,
   isMotionValue,
 } from "framer-motion";
-import { SECTIONS } from "./App.jsx";
+// Minimal SECTIONS shape for dev tests (real SECTIONS live in SpaceResume.jsx)
+const SECTIONS = [
+  { id: "intro", title: " ", body: null },
+  { id: "work", title: "Work Experience", body: null },
+  { id: "education", title: "Education", body: null },
+  { id: "achievements", title: "Achievements", body: null },
+  { id: "portfolio", title: "Portfolio", body: null },
+];
 import JobCard from "./cards/job-card.jsx";
 import ProjectCard from "./cards/project-card.jsx";
 import AboutSection from "./cards/about-section.jsx";

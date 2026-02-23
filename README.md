@@ -12,11 +12,20 @@ A modern, interactive resume built with React, Framer Motion, and Tailwind CSS. 
 
 ## Technology Stack
 
-- **React 18**: Modern React with hooks and functional components
-- **Framer Motion**: Advanced animation library for React
-- **Tailwind CSS**: Utility-first CSS framework
-- **Vite**: Fast build tool and development server
-- **PostCSS**: CSS processing with autoprefixer
+*(Same idea as “what runs this site?” — here’s what this project uses.)*
+
+| Category        | Technology        | Purpose |
+|----------------|-------------------|--------|
+| **UI framework** | React 18          | Components, hooks, DOM rendering |
+| **Build / dev**  | Vite 5            | Dev server, HMR, production bundles |
+| **Styling**      | Tailwind CSS 3    | Utility-first CSS, design tokens |
+| **Animation**    | Framer Motion 10  | Scroll-linked motion, springs, layout animations |
+| **CSS pipeline** | PostCSS + Autoprefixer | Tailwind processing, vendor prefixes |
+| **Utilities**    | classcat          | Conditional class names (e.g. content panel, markers) |
+
+- **Entry**: `index.html` → `src/main.jsx` → `SpaceResume.jsx`
+- **Fonts**: Google Fonts (Orbitron, Silkscreen, DotGothic16, etc.) + Material Symbols Rounded
+- **No backend**: Static SPA; resume PDF and images live in `public/`
 
 ## Getting Started
 
@@ -65,7 +74,8 @@ npm run preview
 │   ├── images/            # Image assets
 │   └── RESUME_*.pdf       # Resume PDF files
 ├── src/
-│   ├── App.jsx            # Main interactive resume component
+│   ├── SpaceResume.jsx    # Main interactive resume component
+│   ├── SpaceResume.css    # Layout styles (Tailwind @apply)
 │   ├── main.jsx           # React app entry point
 │   └── index.css          # Global styles with Tailwind
 ├── package.json           # Dependencies and scripts
@@ -78,7 +88,7 @@ npm run preview
 
 ### Adding Your Content
 
-1. **Profile Information**: Edit the `SECTIONS` array in `src/App.jsx`
+1. **Profile Information**: Edit the `SECTIONS` array in `src/SpaceResume.jsx`
 2. **Images**: Add your images to `public/images/` and `public/images/portfolio/`
 3. **Resume PDF**: Add your resume as `public/RESUME_suwaphit.pdf`
 4. **Styling**: Modify colors and styling in the component or Tailwind config

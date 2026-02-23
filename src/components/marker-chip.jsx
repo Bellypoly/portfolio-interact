@@ -36,7 +36,7 @@ const MarkerChip = ({
                 {"▶ "}
               </span>
             ) : (
-              <span className="ml-3"></span>
+              <span className="marker-chip-spacer" />
             )}
             {index === 0
               ? active
@@ -53,7 +53,7 @@ const MarkerChip = ({
 // MarkerChipGroup: renders the group of marker chips
 export function MarkerChipGroup({ SECTIONS, jumpToMarker, activeIndex }) {
   return (
-    <div className="flex flex-col m-2 justify-start items-start">
+    <div className="marker-chip-group">
       {SECTIONS.map((s, i) => (
         <MarkerChip
           key={s.id}

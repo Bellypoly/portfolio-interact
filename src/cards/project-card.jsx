@@ -1,21 +1,23 @@
+import "./project-card.css";
+
 const ProjectCard = ({ name, desc, img, alt, link }) => {
   return (
     <a
       href={link}
       target="_blank"
-      rel="noreferrer"
-      className="group rounded-2xl overflow-hidden border border-slate-200 bg-white/80 hover:bg-white transition shadow-sm hover:shadow-md"
+      rel="noopener noreferrer"
+      className="project-card"
     >
-      <div className="aspect-[16/10] w-full overflow-hidden bg-slate-100">
+      <div className="project-card-image-wrap">
         <img
           src={img}
           alt={alt || name}
-          className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform"
+          className="project-card-image"
         />
       </div>
-      <div className="p-4">
-        <div className="font-semibold">{name}</div>
-        <div className="text-sm opacity-80 mt-1">{desc}</div>
+      <div className="project-card-body">
+        <div className="project-card-name">{name}</div>
+        <div className="project-card-desc">{desc}</div>
       </div>
     </a>
   );

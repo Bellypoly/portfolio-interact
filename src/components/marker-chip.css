@@ -1,4 +1,8 @@
 /* Styles for MarkerChip component */
+.marker-chip-group {
+  @apply flex flex-col m-2 justify-start items-start;
+}
+
 .marker-chip-container {
   @apply flex items-center gap-1 font-quicksand;
   position: relative;
@@ -21,6 +25,10 @@
     0 0 15px rgba(0, 255, 255, 0.6),
     0 0 12px rgba(0, 255, 255, 0.6);
 }
+.marker-chip-spacer {
+  @apply ml-3;
+}
+
 .marker-blink {
   animation: blink-opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

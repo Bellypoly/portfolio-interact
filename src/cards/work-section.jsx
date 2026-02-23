@@ -3,6 +3,7 @@
 // =====================
 import React from "react";
 import TimelineItem from "../components/timeline-item.jsx";
+import "./work-section.css";
 
 // =====================
 // Job Timeline Components (private to this module)
@@ -75,7 +76,7 @@ const SoftwareEng = () => (
 // =====================
 function WorkSection() {
   return (
-    <div className="text-sm md:text-base text-slate-100 space-y-2">
+    <div className="work-section">
       <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
       <SeniorFullStack />
       {/* <DataEngineer />
