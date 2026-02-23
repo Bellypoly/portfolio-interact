@@ -171,7 +171,7 @@ export default function AstronautCard({
             <div className="meta-row meta-row--transmission-mobile">
               <span className="k">TRANSMISSION:</span>
               <span className="v v--transmission">
-                <a className="transmission-link" href={`mailto:${email}`}>
+                <a className="transmission-link" href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
                   <span className="material-symbols-rounded transmission-email-icon">
                     mail
                   </span>
@@ -179,15 +179,17 @@ export default function AstronautCard({
                 <a
                   className="transmission-link transmission-link--call"
                   href={`tel:${tel}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span className="material-symbols-rounded transmission-call-icon">
                     call
                   </span>
                 </a>
-                <a className="transmission-link" href={linkedin}>
+                <a className="transmission-link" href={linkedin} target="_blank" rel="noopener noreferrer">
                   LinkedIn
                 </a>
-                <a className="transmission-link" href={resume}>
+                <a className="transmission-link" href={resume} target="_blank" rel="noopener noreferrer">
                   Resume
                 </a>
               </span>
@@ -236,13 +238,13 @@ export default function AstronautCard({
           <div className="meta-row meta-row--transmission-desktop">
             <span className="k">TRANSMISSION:</span>
             <span className="v v--transmission">
-              <a className="transmission-link" href={`mailto:${email}`}>
+              <a className="transmission-link" href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
                 <span className="transmission-email-text">{email}</span>
               </a>
-              <a className="transmission-link" href={linkedin}>
+              <a className="transmission-link" href={linkedin} target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
-              <a className="transmission-link" href={resume}>
+              <a className="transmission-link" href={resume} target="_blank" rel="noopener noreferrer">
                 Resume
               </a>
             </span>
