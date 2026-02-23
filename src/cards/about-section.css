@@ -7,55 +7,25 @@
 
 /* 2. Background card image wrapper */
 .about-bg-card {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  pointer-events: none;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   @apply fixed top-0 left-0 w-screen h-screen -z-10 pointer-events-none select-none flex items-center justify-center;
 }
 
 /* 3. Card image */
 .about-img-card {
   @apply h-screen w-auto max-w-none object-cover object-center block mx-auto pointer-events-none select-none;
-}
-@media (max-width: 767px) {
-  .about-img-card {
-    transform: rotate(90deg);
-    width: 100vh;
-    height: auto;
-    min-height: 100vw;
-  }
+  @apply max-md:rotate-90 max-md:w-[100vh] max-md:h-auto max-md:min-h-[100vw];
 }
 
 /* 4. Content overlay */
 .about-section-content {
-  @apply relative w-full h-full flex flex-col items-center justify-center px-2;
-  max-width: min(90vw, 80rem);
-  max-height: 85vh;
-  overflow: hidden;
+  @apply relative w-full h-full flex flex-col items-center justify-center px-2 overflow-hidden;
+  @apply max-w-[min(90vw,80rem)] max-h-[85vh];
 }
 
 /* 5. Info flex layout (outer flex) */
 .about-info-flex {
-  @apply px-10 md:px-12 lg:px-14;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .about-info-flex {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2.5rem;
-  }
+  @apply flex flex-col items-center w-full px-10 md:px-12 lg:px-14;
+  @apply md:flex-row md:items-start md:gap-10;
 }
 
 /* 6. Profile image */
@@ -65,31 +35,13 @@
 
 /* 7. Info content (right of image) */
 .about-info-content {
-  @apply flex flex-col flex-1 w-full md:justify-center md:items-start;
-}
-@media (min-width: 768px) {
-  .about-info-content {
-    text-align: left;
-    align-items: flex-start;
-  }
+  @apply flex flex-col flex-1 w-full md:justify-center md:items-start md:text-left;
 }
 
 /* 8. Title */
 .about-section-title {
-  @apply hidden md:block;
-  font-family: "Stack Sans Notch", ui-sans-serif, system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  letter-spacing: 0.04em;
-  text-align: center;
-}
-@media (min-width: 1024px) {
-  .about-section-title {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    text-align: left;
-  }
+  @apply hidden md:block font-stacknotch font-extrabold text-3xl leading-9 tracking-wide text-center;
+  @apply lg:text-4xl lg:leading-10 lg:text-left;
 }
 
 /* 9. Roles/positions paragraph */
@@ -112,19 +64,8 @@
 
 /* 12. Summary paragraph */
 .about-section-summary {
-  text-align: justify;
-  line-height: 1.625;
-  font-size: 0.875rem;
-  opacity: 0.8;
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-  max-height: 20vh;
-  overflow-y: auto;
-}
-@media (min-width: 768px) {
-  .about-section-summary {
-    max-height: 30vh;
-  }
+  @apply text-justify leading-relaxed text-sm opacity-80 mt-3 mb-3 max-h-[20vh] overflow-y-auto;
+  @apply md:max-h-[30vh];
 }
 
 /* 13. Skills flex container */

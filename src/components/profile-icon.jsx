@@ -1,8 +1,8 @@
 // =====================
 // Imports
 // =====================
-import React, { useState } from "react";
-import { motion, useTransform } from "framer-motion";
+import React, { useState, useCallback } from "react";
+import { motion, useTransform, AnimatePresence } from "framer-motion";
 import AstronautCard from "../cards/astronaut-id-card";
 import "./profile-icon.css";
 
@@ -15,6 +15,7 @@ import "./profile-icon.css";
  * @param {{ crawlProgress: import('framer-motion').MotionValue<number> }} props
  */
 export default function ProfileIcon({ crawlProgress }) {
+  // Modal open state
   const [showAboutMe, setShowAboutMe] = useState(false);
 
   // Animate Y from 0px (start) to -48px (up) as crawlProgress goes 0.35 -> 0.5
@@ -22,7 +23,16 @@ export default function ProfileIcon({ crawlProgress }) {
   const y = useTransform(crawlProgress, [0.35, 0.5], [0, -48]);
   const opacity = useTransform(crawlProgress, [0.35, 0.42], [0, 1]);
 
-  const handleProfileClick = () => setShowAboutMe((v) => !v);
+  // Toggle About Me modal
+  const handleProfileClick = useCallback(() => setShowAboutMe((v) => !v), []);
+
+  // Modal animation config
+  const modalMotion = {
+    initial: { x: "100vw", opacity: 1 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: "100vw", opacity: 1 },
+    transition: { type: "spring", stiffness: 300, damping: 40 },
+  };
 
   return (
     <>
@@ -88,23 +98,22 @@ export default function ProfileIcon({ crawlProgress }) {
       </motion.div>
 
       {/* About Me Modal */}
-      {showAboutMe && (
-        <div className="about-me-modal">
-          <button
-            className="about-me-modal-close"
-            onClick={handleProfileClick}
-            aria-label="Close About Me"
-          >
-            ×
-          </button>
-          <div className="about-me-modal-content">
-            <AstronautCard
-              onCtaClick={() => console.log("Launch!")}
-              ctaLabel="Begin Your Journey"
-            />
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {showAboutMe && (
+          <motion.div className="about-me-modal" {...modalMotion}>
+            <button
+              className="about-me-modal-close"
+              onClick={handleProfileClick}
+              aria-label="Close About Me"
+            >
+              <span className="material-symbols-rounded">close</span>
+            </button>
+            <div className="about-me-modal-content">
+              <AstronautCard />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

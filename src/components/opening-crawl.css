@@ -1,31 +1,16 @@
 .crawl-role-nowrap {
-  display: inline-block;
-  white-space: nowrap;
+  @apply inline-block whitespace-nowrap;
 }
 /* Utility classes for repeated patterns */
 .block-sm-inline {
   @apply block sm:inline;
 }
-.font-quicksand {
-  font-family: "Quicksand", sans-serif;
-}
 .crawl-header {
   @apply absolute inset-x-0 top-[32%] md:top-[36%] -translate-y-1/2 flex justify-center z-[6001] pointer-events-none text-yellow-300 text-center;
 }
 .crawl-header-content {
-  @apply mx-auto px-4 sm:px-6 md:px-8;
-  max-width: min(100vw, 40rem);
-  text-transform: uppercase;
-}
-@media (min-width: 640px) {
-  .crawl-header-content {
-    max-width: min(90vw, 60rem);
-  }
-}
-@media (min-width: 1440px) {
-  .crawl-header-content {
-    max-width: min(90vw, 100rem);
-  }
+  @apply mx-auto px-4 sm:px-6 md:px-8 uppercase;
+  @apply max-w-[min(100vw,40rem)] sm:max-w-[min(90vw,60rem)] min-[1440px]:max-w-[min(90vw,100rem)];
 }
 .crawl-welcome {
   @apply text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
@@ -36,71 +21,49 @@
   @apply font-quicksand;
 }
 .crawl-name {
-  @apply mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl xl:text-6xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold;
-  font-family: "Stack Sans Notch", sans-serif;
+  @apply font-stacknotch mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl xl:text-6xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold;
 }
 .crawl-name-block {
-  @apply block-sm-inline;
+  @apply block sm:inline;
 }
 .crawl-role {
-  @apply mb-6 sm:mb-8 md:mb-10 text-[11px] sm:text-xs md:text-xs lg:text-sm tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
-  font-family: "Libre Franklin", sans-serif;
+  @apply font-libre mb-6 sm:mb-8 md:mb-10 text-[11px] sm:text-xs md:text-xs lg:text-sm tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
 }
 .crawl-role-block {
-  @apply block-sm-inline;
+  @apply block sm:inline;
 }
 .crawl-role-dot {
   @apply hidden sm:inline;
 }
 .crawl-role-dot-last {
-  @apply hidden sm:inline sm:invisible;
-}
-@media (min-width: 852px) {
-  .crawl-role-dot-last {
-    visibility: visible;
-  }
+  @apply hidden sm:inline sm:invisible min-[852px]:visible;
 }
 .crawl-container {
   @apply absolute inset-x-0 top-[32vh] md:top-[35vh] -translate-y-1/2 flex justify-center z-[6000] pointer-events-none;
 }
 .crawl-inner {
-  @apply w-full flex justify-center;
-  perspective: 800px;
+  @apply w-full flex justify-center [perspective:800px];
 }
 .crawl-title {
-  @apply text-yellow-300 text-center;
+  @apply text-yellow-300 text-center origin-bottom scale-[1.8];
   rotate: x 45deg;
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
-  transform: scale(1.8);
 }
 .crawl-content {
-  @apply mx-auto;
-  max-width: min(100vw, 22rem);
-  font-family: "Roboto Condensed", "Helvetica Neue", Arial, system-ui,
-    sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  max-height: 200vh;
-  overflow-y: auto;
-  /* Custom black scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: #000000ff #000000ff;
+  @apply mx-auto font-roboto uppercase tracking-[0.2em] max-h-[200vh] overflow-y-auto;
+  @apply max-w-[min(100vw,22rem)] sm:max-w-[min(90vw,45rem)];
+  @apply [scrollbar-width:thin] [scrollbar-color:#000000ff_#000000ff];
+  @apply [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar]:bg-black;
+  @apply [&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb]:rounded-lg;
 }
 
-/* For Webkit browsers */
-.crawl-content::-webkit-scrollbar {
-  width: 10px;
-  background: #000000ff;
-}
-.crawl-content::-webkit-scrollbar-thumb {
-  background: #000000ff;
-  border-radius: 8px;
-}
-@media (min-width: 640px) {
-  .crawl-content {
-    max-width: min(90vw, 45rem);
-  }
+.crawl-content {
+  @apply mx-auto font-roboto uppercase tracking-[0.2em] max-h-[200vh] overflow-y-auto;
+  @apply max-w-[min(100vw,22rem)] sm:max-w-[min(90vw,45rem)];
+  @apply [scrollbar-width:thin] [scrollbar-color:#000000ff_#000000ff];
+  @apply [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar]:bg-black;
+  @apply [&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb]:rounded-lg;
 }
 
 .crawl-paragraph {

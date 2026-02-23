@@ -1,33 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "./astronaut-id-card.css";
 
 export default function AstronautCard({
-  name = "Suwaphit Buabuthr",
-  title = "Full-Stack Developer · Software Engineer · Data Visualization Engineer",
-  callsign = "SUWAPHIT",
-  role = "FULL-STACK · SWE · DATA VIS",
-  clearance = "ALPHA",
-  mission = "TURN AMBIGUITY → PRODUCTS",
-  ctaLabel = "Launch Mission",
-  onCtaClick,
+  fname = "SUWAPHIT",
+  lname = "BUABUTHR",
+  callsign = "BELLE",
+  role = ["Sr. Full-Stack", "Software Engineer", "Data Visualization"],
+  email = "suwaphit.b@gmail.com",
+  tel = "+1 (806) 283-2312",
+  linkedin = "https://www.linkedin.com/in/suwaphit-buabuthr/",
+  resume = "./RESUME_suwaphit.pdf",
+  location = ["Earth (US)", "Relocation & Remote ✅"],
   paragraphs = [
-    "I build scalable, data-driven systems that connect storytelling, analysis, and user experience—bridging front-end design with reliable, high-performance back-end engineering.",
-    "I translate complex datasets into clear, interactive experiences: APIs, automation pipelines, and ML-assisted insights across subscriptions, personalization, geospatial mapping, and real-time content systems.",
-    "I care deeply about code quality, performance, and developer experience—building systems that scale smoothly, stay stable under pressure, and inspire trust.",
+    "I design and build scalable, distributed systems across front-end, back-end, and cloud infrastructure—building platforms where product experience and resilient engineering move in orbit together.",
+    "I specialize in complex, real-time systems: content delivery, personalization engines, subscription platforms, and data-intensive applications. I architect production-grade APIs and event-driven services that handle high-volume traffic with low latency—transforming complex data into clear, interactive experiences.",
+    "My work centers on clean architecture, performance optimization, and observability. I build reliable, fault-tolerant software that scales smoothly, stays measurable under pressure, and enables teams to ship with confidence",
   ],
   skills = [
-    "Python",
-    "JavaScript (ES6+)",
+    // Languages & runtime
     "React",
+    "JavaScript",
     "Node.js",
+    "Python",
+    "R",
+    // Data & infra
     "PostgreSQL",
-    "Data Visualization",
-    "APIs",
+    "API",
+    "AWS",
     "CI/CD",
+    "Git",
+    // Data & viz
+    "Data Visualization",
+    "ArcGIS",
+    // Analytics & observability
+    "Datadog",
+    "GA4",
+    "BlueConic",
+    "Sophi AI",
   ],
 }) {
+  // Portrait flip state
   const [flipped, setFlipped] = useState(false);
-  const handlePortraitClick = () => setFlipped((v) => !v);
+  // Card slide-in state
+  const [show, setShow] = useState(false);
+  // FILL state for portrait icon
+  const [fillHover, setFillHover] = useState(false);
+
+  // Toggle portrait flip
+  const handlePortraitClick = useCallback(() => setFlipped((v) => !v), []);
+
+  // Portrait icon props for clarity
+  const portraitIconProps = useMemo(
+    () => ({
+      className: "material-symbols-rounded portrait-icon",
+      onClick: (e) => {
+        e.stopPropagation();
+        handlePortraitClick();
+      },
+      "aria-label": "Toggle portrait",
+      onMouseEnter: () => setFillHover(true),
+      onMouseLeave: () => setFillHover(false),
+      style: { fontVariationSettings: `'FILL' ${fillHover ? 0 : 1}` },
+    }),
+    [fillHover, handlePortraitClick],
+  );
+
+  useEffect(() => {
+    // Trigger the slide-in animation on mount
+    setShow(true);
+    return () => setShow(false);
+  }, []);
 
   // Memoize the random star-dot block so it only generates once
   const starDots = React.useMemo(() => {
@@ -55,7 +97,10 @@ export default function AstronautCard({
   }, []);
 
   return (
-    <section className="card" aria-label="Astronaut ID Dashboard">
+    <section
+      className={`card ${show ? "card--in" : "card--out"}`}
+      aria-label="Astronaut ID Dashboard"
+    >
       <header className="top">
         {/* Random small yellow circles spread across top */}
         {starDots}
@@ -76,7 +121,7 @@ export default function AstronautCard({
       <div className="hud-grid">
         {/* Left: portrait placeholder + meta */}
         <aside className="panel portrait-panel">
-          <div className="portrait" aria-label="Profile portrait placeholder">
+          <div className="portrait" aria-label="Profile frame">
             <picture
               className="portrait__img"
               aria-hidden="true"
@@ -101,49 +146,82 @@ export default function AstronautCard({
               />
             </picture>
             <div className="portrait-scan" />
-            <span
-              className="material-symbols-outlined portrait-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePortraitClick();
-              }}
-              aria-label="Toggle portrait"
-            >
-              {flipped ? "identity_platform" : "sentiment_excited"}
-            </span>
+
+            <div className="portrait-text">
+              <span className="callsign">CALLSIGN:{callsign}</span>
+              <span {...portraitIconProps}>
+                {flipped ? "identity_platform" : "sentiment_excited"}
+              </span>
+            </div>
           </div>
 
           <div className="meta">
             <div className="meta-row">
-              <span className="k">CALLSIGN</span>
-              <span className="v">{callsign}</span>
+              <span className="k">NAME</span>
+              <span className="v">{`${fname} ${lname}`}</span>
             </div>
             <div className="meta-row">
               <span className="k">ROLE</span>
-              <span className="v">{role}</span>
+              <span className="v">
+                {role.map((r, idx) => (
+                  <span key={idx}>{r}</span>
+                ))}
+              </span>
+            </div>
+            <div className="meta-row meta-row--transmission-mobile">
+              <span className="k">TRANSMISSION:</span>
+              <span className="v v--transmission">
+                <a className="transmission-link" href={`mailto:${email}`}>
+                  <span className="material-symbols-rounded transmission-email-icon">
+                    mail
+                  </span>
+                </a>
+                <a
+                  className="transmission-link transmission-link--call"
+                  href={`tel:${tel}`}
+                >
+                  <span className="material-symbols-rounded transmission-call-icon">
+                    call
+                  </span>
+                </a>
+                <a className="transmission-link" href={linkedin}>
+                  LinkedIn
+                </a>
+                <a className="transmission-link" href={resume}>
+                  Resume
+                </a>
+              </span>
             </div>
             <div className="meta-row">
-              <span className="k">CLEARANCE</span>
-              <span className="v">{clearance}</span>
+              <span className="k">
+                <span
+                  className="material-symbols-rounded meta-icon"
+                  aria-hidden="true"
+                >
+                  globe
+                </span>
+              </span>
+              <span className="v">
+                {location.map((loc, idx) => (
+                  <span key={idx}>{loc}</span>
+                ))}
+              </span>
             </div>
           </div>
         </aside>
 
         {/* Right: narrative + skills */}
         <main className="panel panel-bio">
-          <h1 className="bio-name">{name}</h1>
-          <p className="bio-subtitle">{title}</p>
-
-          <div className="bio-divider" aria-hidden="true" />
-
           {paragraphs.map((p, idx) => (
             <p className="bio-paragraph" key={idx}>
               {p}
+              {idx === paragraphs.length - 1 && (
+                <span className="bio-cursor" aria-hidden="true">
+                  _
+                </span>
+              )}
             </p>
           ))}
-
-          <div className="bio-divider" aria-hidden="true" />
-
           <div className="skill-chips" aria-label="Skills">
             {skills.map((s) => (
               <span className="skill-chip" key={s}>
@@ -151,29 +229,31 @@ export default function AstronautCard({
               </span>
             ))}
           </div>
-
-          <footer className="bio-footer">
-            <div className="bio-readout">
-              <span className="bio-readout-k">MISSION</span>
-              <span className="bio-readout-v">{mission}</span>
-            </div>
-
-            <button className="panel-btn" type="button" onClick={onCtaClick}>
-              {ctaLabel} <span aria-hidden="true">🚀</span>
-            </button>
-          </footer>
+          <div
+            className="bio-divider bio-divider--desktop"
+            aria-hidden="true"
+          />
+          <div className="meta-row meta-row--transmission-desktop">
+            <span className="k">TRANSMISSION:</span>
+            <span className="v v--transmission">
+              <a className="transmission-link" href={`mailto:${email}`}>
+                <span className="transmission-email-text">{email}</span>
+              </a>
+              <a className="transmission-link" href={linkedin}>
+                LinkedIn
+              </a>
+              <a className="transmission-link" href={resume}>
+                Resume
+              </a>
+            </span>
+          </div>
         </main>
       </div>
 
       {/* Decorative screws */}
-      <span className="screw s1" aria-hidden="true" />
-      <span className="screw s2" aria-hidden="true" />
-      <span className="screw s3" aria-hidden="true" />
-      <span className="screw s4" aria-hidden="true" />
-      <span className="screw s5" aria-hidden="true" />
-      <span className="screw s6" aria-hidden="true" />
-      <span className="screw s7" aria-hidden="true" />
-      <span className="screw s8" aria-hidden="true" />
+      {["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"].map((s) => (
+        <span key={s} className={`screw ${s}`} aria-hidden="true" />
+      ))}
     </section>
   );
 }

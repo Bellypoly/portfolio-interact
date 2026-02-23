@@ -8,7 +8,6 @@ import WorkSection from "./cards/work-section.jsx";
 import EducationSection from "./cards/education-section.jsx";
 import AchievementsSection from "./cards/achievements-section.jsx";
 import PortfolioSection from "./cards/portfolio-section.jsx";
-import ContactSection from "./cards/contact-section.jsx";
 import Star from "./components/Star.jsx";
 import { MarkerChipGroup } from "./components/marker-chip.jsx";
 import CapsuleRocket from "./components/rocket.jsx";
@@ -85,16 +84,14 @@ export default function SpaceResume() {
       body: <AchievementsSection />,
     },
     { id: "portfolio", title: "Portfolio", body: <PortfolioSection /> },
-    { id: "contact", title: "Contact", body: <ContactSection /> },
   ];
   // Create refs for each section
   const sectionRefs = useRef(SECTIONS.map(() => React.createRef()));
 
-  // Progress thresholds for each section (used for jumping and activation)
-  // Distribute sections evenly across scroll progress
+  // Progress thresholds: start of each section's zone so the last section is reachable (progress >= threshold[last])
   const sectionProgressThresholds = Array.from(
     { length: SECTIONS.length },
-    (_, i) => i / (SECTIONS.length - 1),
+    (_, i) => i / SECTIONS.length,
   );
 
   // Utility: progress <-> pixel conversion
@@ -118,12 +115,11 @@ export default function SpaceResume() {
   }
 
   function jumpToMarker(i) {
-    // Scroll to the actual DOM position of the section for accuracy
     const ref = sectionRefs.current[i];
-    if (ref && ref.current) {
-      const y = ref.current.offsetTop;
+    if (ref?.current) {
+      const el = ref.current;
+      const y = el.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top: y, behavior: "smooth" });
-      setDebugScroll(yToProgress(y));
       if (SECTIONS[i]?.id) {
         window.location.hash = `#${SECTIONS[i].id}`;
       }
@@ -303,8 +299,6 @@ export default function SpaceResume() {
         </div>
         <CapsuleRocket yMV={rocketY} opacityMV={rocketOpacity} />
         <section className="relative">
-          {/* Profile Icon: fixed at top right, hidden on OpeningCrawl */}
-          {/* ProfileIcon animates up and fades in as OpeningCrawl disappears */}
           <ProfileIcon crawlProgress={crawlProgress} />
           {SECTIONS.map((s, i) => (
             <div

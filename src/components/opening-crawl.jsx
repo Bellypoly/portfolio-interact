@@ -1,10 +1,9 @@
 // =====================
 // Opening crawl
 // =====================
-import React from "react";
-import FadeParagraph from "./fade-paragraph.jsx";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import FadeParagraph from "./fade-paragraph.jsx";
 import "./opening-crawl.css";
 
 function useBreakpointStops() {
