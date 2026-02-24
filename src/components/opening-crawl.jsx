@@ -24,28 +24,28 @@ function useBreakpointStops() {
   // Define stops for each paragraph and breakpoint
   const stops = {
     para1: {
-      xs: [0, 0.124, 0.134, 0.144],
-      sm: [0, 0.23, 0.24, 0.25],
-      md: [0, 0.14, 0.16, 0.18],
-      lg: [0, 0.14, 0.16, 0.18],
+      xs: [0.15, 0.31, 0.33, 0.35],
+      sm: [0.15, 0.38, 0.39, 0.4],
+      md: [0.15, 0.36, 0.38, 0.4],
+      lg: [0.15, 0.29, 0.31, 0.33],
     },
     para2: {
-      xs: [0, 0.265, 0.285, 0.31],
-      sm: [0, 0.29, 0.31, 0.32],
-      md: [0, 0.24, 0.26, 0.28],
-      lg: [0, 0.24, 0.26, 0.28],
+      xs: [0.15, 0.415, 0.435, 0.46],
+      sm: [0.15, 0.44, 0.46, 0.47],
+      md: [0.15, 0.43, 0.45, 0.47],
+      lg: [0.15, 0.39, 0.41, 0.43],
     },
     para3: {
-      xs: [0, 0.43, 0.45, 0.5],
-      sm: [0, 0.37, 0.38, 0.39],
-      md: [0, 0.38, 0.395, 0.42],
-      lg: [0, 0.36, 0.38, 0.39],
+      xs: [0.15, 0.55, 0.57, 0.59],
+      sm: [0.15, 0.52, 0.53, 0.54],
+      md: [0.15, 0.54, 0.55, 0.57],
+      lg: [0.15, 0.51, 0.53, 0.54],
     },
     para4: {
-      xs: [0, 0.85, 0.9, 1.5],
-      sm: [0, 0.45, 0.46, 0.47],
-      md: [0, 0.49, 0.51, 0.53],
-      lg: [0, 0.47, 0.49, 0.51],
+      xs: [0.15, 0.65, 0.66, 0.68],
+      sm: [0.15, 0.6, 0.61, 0.62],
+      md: [0.15, 0.64, 0.65, 0.66],
+      lg: [0.15, 0.62, 0.64, 0.66],
     },
   };
   return {
@@ -56,12 +56,20 @@ function useBreakpointStops() {
   };
 }
 
-export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
+export default function OpeningCrawl({
+  opacityMV,
+  headerTopMV,
+  yMV,
+  crawlProgress,
+}) {
   const { stops1, stops2, stops3, stops4 } = useBreakpointStops();
   return (
     <>
       {/* Static header section */}
-      <motion.div className="crawl-header" style={{ opacity: opacityMV }}>
+      <motion.div
+        className="crawl-header"
+        style={{ opacity: opacityMV, top: headerTopMV }}
+      >
         <div className="crawl-header-content">
           <p className="crawl-welcome">Welcome to the Journey</p>
           <p className="crawl-of">of</p>
@@ -133,7 +141,7 @@ export default function OpeningCrawl({ opacityMV, yMV, crawlProgress }) {
             </div>
           </motion.div>
         </div>
-      </motion.div>{" "}
+      </motion.div>
       {/* Bottom blur gradient */}
       <div className="crawl-bottom-blur" />
     </>

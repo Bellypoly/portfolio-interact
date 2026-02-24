@@ -9,15 +9,19 @@
   @apply relative w-[55px] h-[55px] flex items-center justify-center cursor-pointer;
 }
 .profile-icon-stack:hover .radio-signal-wave {
-  border-color: rgba(94, 234, 212, 0.95);
-  background: rgba(94, 234, 212, 0.25);
-  filter: brightness(1.5) drop-shadow(0 0 8px #5eead4);
+  border-color: rgba(94, 234, 212, 1);
+  background: rgba(94, 234, 212, 0.4);
+  filter: brightness(1.8) drop-shadow(0 0 12px #5eead4)
+    drop-shadow(0 0 24px rgba(94, 234, 212, 0.6));
 }
 
 /* Animated radio signal */
 .radio-signal-wave {
   @apply absolute rounded-full w-[55px] h-[55px] pointer-events-none z-[21];
-  border: 1px solid rgba(45, 212, 191, 0.5);
+  border: 1px solid rgba(94, 234, 212, 0.85);
+  box-shadow:
+    0 0 10px rgba(94, 234, 212, 0.4),
+    inset 0 0 8px rgba(94, 234, 212, 0.08);
 }
 
 /* Profile image */
@@ -47,11 +51,5 @@
 }
 
 .about-me-modal-content {
-  @apply min-h-screen p-[15px] flex-1 overflow-auto;
-}
-
-@media (min-width: 768px) {
-  .about-me-modal-content {
-    @apply min-h-screen p-[15px] flex-1 overflow-auto flex items-center justify-center;
-  }
+  @apply min-h-screen p-[3%] flex-1 overflow-auto;
 }

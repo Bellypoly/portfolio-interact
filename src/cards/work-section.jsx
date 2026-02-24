@@ -79,9 +79,9 @@ function WorkSection() {
     <div className="work-section">
       <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
       <SeniorFullStack />
-      {/* <DataEngineer />
+      <DataEngineer />
       <FullStackII />
-      <SoftwareEng /> */}
+      <SoftwareEng />
     </div>
   );
 }

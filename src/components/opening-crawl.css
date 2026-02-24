@@ -6,7 +6,8 @@
   @apply block sm:inline;
 }
 .crawl-header {
-  @apply absolute inset-x-0 top-[32%] md:top-[36%] -translate-y-1/2 flex justify-center z-[6001] pointer-events-none text-yellow-300 text-center;
+  @apply absolute inset-x-0 -translate-y-1/2 flex justify-center z-[6001] pointer-events-none text-yellow-300 text-center;
+  /* top controlled by headerTopMV (50% -> 30% on scroll) */
 }
 .crawl-header-content {
   @apply mx-auto px-4 sm:px-6 md:px-8 uppercase;

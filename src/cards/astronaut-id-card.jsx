@@ -16,6 +16,7 @@ export default function AstronautCard({
     "I specialize in complex, real-time systems: content delivery, personalization engines, subscription platforms, and data-intensive applications. I architect production-grade APIs and event-driven services that handle high-volume traffic with low latency—transforming complex data into clear, interactive experiences.",
     "My work centers on clean architecture, performance optimization, and observability. I build reliable, fault-tolerant software that scales smoothly, stays measurable under pressure, and enables teams to ship with confidence",
   ],
+  contact = "Contact",
   skills = [
     // Languages & runtime
     "React",
@@ -169,9 +170,14 @@ export default function AstronautCard({
               </span>
             </div>
             <div className="meta-row meta-row--transmission-mobile">
-              <span className="k">TRANSMISSION:</span>
+              <span className="k k--contact">{contact}</span>
               <span className="v v--transmission">
-                <a className="transmission-link" href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
+                <a
+                  className="transmission-link"
+                  href={`mailto:${email}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span className="material-symbols-rounded transmission-email-icon">
                     mail
                   </span>
@@ -186,10 +192,20 @@ export default function AstronautCard({
                     call
                   </span>
                 </a>
-                <a className="transmission-link" href={linkedin} target="_blank" rel="noopener noreferrer">
+                <a
+                  className="transmission-link"
+                  href={linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   LinkedIn
                 </a>
-                <a className="transmission-link" href={resume} target="_blank" rel="noopener noreferrer">
+                <a
+                  className="transmission-link"
+                  href={resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Resume
                 </a>
               </span>
@@ -236,15 +252,30 @@ export default function AstronautCard({
             aria-hidden="true"
           />
           <div className="meta-row meta-row--transmission-desktop">
-            <span className="k">TRANSMISSION:</span>
+            <span className="k  k--contact">{contact}</span>
             <span className="v v--transmission">
-              <a className="transmission-link" href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
+              <a
+                className="transmission-link"
+                href={`mailto:${email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span className="transmission-email-text">{email}</span>
               </a>
-              <a className="transmission-link" href={linkedin} target="_blank" rel="noopener noreferrer">
+              <a
+                className="transmission-link"
+                href={linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 LinkedIn
               </a>
-              <a className="transmission-link" href={resume} target="_blank" rel="noopener noreferrer">
+              <a
+                className="transmission-link"
+                href={resume}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Resume
               </a>
             </span>
