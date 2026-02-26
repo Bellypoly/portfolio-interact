@@ -14,21 +14,22 @@
   @apply max-w-[min(100vw,40rem)] sm:max-w-[min(90vw,60rem)] min-[1440px]:max-w-[min(90vw,100rem)];
 }
 .crawl-welcome {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
+  @apply text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
   @apply font-quicksand;
 }
 .crawl-of {
-  @apply text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em];
+  @apply text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em];
   @apply font-quicksand;
 }
 .crawl-name {
-  @apply font-stacknotch mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl xl:text-6xl tracking-[0.25em] sm:tracking-[0.35em] font-extrabold;
+  @apply font-stacknotch mb-4 sm:mb-6 tracking-[0.25em] sm:tracking-[0.35em] font-extrabold;
+  line-height: 1;
 }
 .crawl-name-block {
   @apply block sm:inline;
 }
 .crawl-role {
-  @apply font-libre mb-6 sm:mb-8 md:mb-10 text-[11px] sm:text-xs md:text-xs lg:text-sm tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
+  @apply font-robotomono mb-6 sm:mb-8 md:mb-10 text-[0.7rem] sm:text-xs md:text-xs lg:text-sm xl:text-[0.9rem] tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
 }
 .crawl-role-block {
   @apply block sm:inline;
@@ -47,21 +48,13 @@
 }
 .crawl-title {
   @apply text-yellow-300 text-center origin-bottom scale-[1.8];
-  rotate: x 45deg;
+  rotate: x 50deg;
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
 }
 .crawl-content {
   @apply mx-auto font-roboto uppercase tracking-[0.2em] max-h-[200vh] overflow-y-auto;
-  @apply max-w-[min(100vw,22rem)] sm:max-w-[min(90vw,45rem)];
-  @apply [scrollbar-width:thin] [scrollbar-color:#000000ff_#000000ff];
-  @apply [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar]:bg-black;
-  @apply [&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb]:rounded-lg;
-}
-
-.crawl-content {
-  @apply mx-auto font-roboto uppercase tracking-[0.2em] max-h-[200vh] overflow-y-auto;
-  @apply max-w-[min(100vw,22rem)] sm:max-w-[min(90vw,45rem)];
+  @apply max-w-[min(100vw,22rem)] sm:max-w-[min(90vw,45rem)] lg:max-w-[min(90vw,58rem)];
   @apply [scrollbar-width:thin] [scrollbar-color:#000000ff_#000000ff];
   @apply [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar]:bg-black;
   @apply [&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb]:rounded-lg;
@@ -80,10 +73,12 @@
     font-size: 1.5rem;
   }
 }
+@media (min-width: 1024px) {
+  .crawl-paragraph {
+    font-size: 1.875rem;
+  }
+}
 .crawl-paragraph-margin {
   @apply crawl-paragraph;
   @apply mb-6 sm:mb-8;
-}
-.crawl-bottom-blur {
-  @apply fixed bottom-0 left-0 right-0 h-32 pointer-events-none z-[10000] bg-gradient-to-t from-black to-transparent;
 }

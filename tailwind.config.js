@@ -4,11 +4,16 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        dotgothic: ['"DotGothic16"', "ui-monospace", "monospace"],
-        libre: ['"Libre Franklin"', "ui-sans-serif", "system-ui", "sans-serif"],
+        aurebesh: ['"Aurebesh"', "ui-sans-serif", "sans-serif"],
+        robotomono: ['"Roboto Mono"', "ui-monospace", "monospace"],
         orbitron: ['"Orbitron"', "ui-sans-serif", "system-ui", "sans-serif"],
         quicksand: ['"Quicksand"', "ui-sans-serif", "system-ui", "sans-serif"],
-        roboto: ['"Roboto Condensed"', "ui-sans-serif", "system-ui", "sans-serif"],
+        roboto: [
+          '"Roboto Condensed"',
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
         silkscreen: ['"Silkscreen"', "ui-monospace", "monospace"],
         stacknotch: [
           '"Stack Sans Notch"',

@@ -2,7 +2,7 @@
 // Opening crawl
 // =====================
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useTransform } from "framer-motion";
 import FadeParagraph from "./fade-paragraph.jsx";
 import "./opening-crawl.css";
 
@@ -49,6 +49,7 @@ function useBreakpointStops() {
     },
   };
   return {
+    breakpoint,
     stops1: stops.para1[breakpoint],
     stops2: stops.para2[breakpoint],
     stops3: stops.para3[breakpoint],
@@ -62,7 +63,18 @@ export default function OpeningCrawl({
   yMV,
   crawlProgress,
 }) {
-  const { stops1, stops2, stops3, stops4 } = useBreakpointStops();
+  const { breakpoint, stops1, stops2, stops3, stops4 } = useBreakpointStops();
+  const isSm = breakpoint === "xs" || breakpoint === "sm";
+  const isLg = breakpoint === "lg";
+  const crawlNameFontSize = useTransform(
+    crawlProgress,
+    [0, 0.2, 1],
+    isSm
+      ? ["2.6rem", "2rem", "2rem"]
+      : isLg
+        ? ["6rem", "4rem", "4rem"]
+        : ["4.75rem", "3rem", "3rem"],
+  );
   return (
     <>
       {/* Static header section */}
@@ -73,10 +85,12 @@ export default function OpeningCrawl({
         <div className="crawl-header-content">
           <p className="crawl-welcome">Welcome to the Journey</p>
           <p className="crawl-of">of</p>
-          <h1 className="crawl-name">
-            <span className="crawl-name-block">suwaphit </span>
-            <span className="crawl-name-block">buabuthr</span>
-          </h1>
+          <motion.h1
+            className="crawl-name"
+            style={{ fontSize: crawlNameFontSize }}
+          >
+            suwaphit buabuthr
+          </motion.h1>
           <div className="crawl-role">
             <span className="crawl-role-block">Full-Stack Developer</span>
             <span className="crawl-role-dot"> · </span>
@@ -138,12 +152,15 @@ export default function OpeningCrawl({
                 visualizations, and software that guides millions through
                 digital worlds.
               </FadeParagraph>
+              <div
+                style={{
+                  color: "white",
+                }}
+              ></div>
             </div>
           </motion.div>
         </div>
       </motion.div>
-      {/* Bottom blur gradient */}
-      <div className="crawl-bottom-blur" />
     </>
   );
 }

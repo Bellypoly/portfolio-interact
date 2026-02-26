@@ -12,19 +12,19 @@ A modern, interactive resume built with React, Framer Motion, and Tailwind CSS. 
 
 ## Technology Stack
 
-*(Same idea as “what runs this site?” — here’s what this project uses.)*
+_(Same idea as “what runs this site?” — here’s what this project uses.)_
 
-| Category        | Technology        | Purpose |
-|----------------|-------------------|--------|
-| **UI framework** | React 18          | Components, hooks, DOM rendering |
-| **Build / dev**  | Vite 5            | Dev server, HMR, production bundles |
-| **Styling**      | Tailwind CSS 3    | Utility-first CSS, design tokens |
-| **Animation**    | Framer Motion 10  | Scroll-linked motion, springs, layout animations |
-| **CSS pipeline** | PostCSS + Autoprefixer | Tailwind processing, vendor prefixes |
-| **Utilities**    | classcat          | Conditional class names (e.g. content panel, markers) |
+| Category         | Technology             | Purpose                                               |
+| ---------------- | ---------------------- | ----------------------------------------------------- |
+| **UI framework** | React 18               | Components, hooks, DOM rendering                      |
+| **Build / dev**  | Vite 5                 | Dev server, HMR, production bundles                   |
+| **Styling**      | Tailwind CSS 3         | Utility-first CSS, design tokens                      |
+| **Animation**    | Framer Motion 10       | Scroll-linked motion, springs, layout animations      |
+| **CSS pipeline** | PostCSS + Autoprefixer | Tailwind processing, vendor prefixes                  |
+| **Utilities**    | classcat               | Conditional class names (e.g. content panel, markers) |
 
 - **Entry**: `index.html` → `src/main.jsx` → `SpaceResume.jsx`
-- **Fonts**: Google Fonts (Orbitron, Silkscreen, DotGothic16, etc.) + Material Symbols Rounded
+- **Fonts**: Google Fonts (Orbitron, Silkscreen, etc.) + Material Symbols Rounded
 - **No backend**: Static SPA; resume PDF and images live in `public/`
 
 ## Getting Started

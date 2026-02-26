@@ -1,5 +1,121 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import "./astronaut-id-card.css";
+
+const BASE = import.meta.env.BASE_URL;
+const TYPING_WORD_INTERVAL = 80;
+const TYPING_INITIAL_DELAY = 400;
+const SKILL_CHIP_INTERVAL = 60;
+const SKILL_CHIP_DELAY_AFTER_BIO = 200;
+const SCREW_IDS = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
+const STAR_DOT_COUNT = 32;
+const HUD_DIMS = { w: 1000, h: 80 };
+
+let hasCardRevealCompletedOnce = false;
+
+const DEFAULT_PARAGRAPHS = [
+  "I design and build scalable, distributed systems across front-end, back-end, and cloud infrastructure—building platforms where product experience and resilient engineering move in orbit together.",
+  "I specialize in complex, real-time systems: content delivery, personalization engines, subscription platforms, and data-intensive applications. I architect production-grade APIs and event-driven services that handle high-volume traffic with low latency—transforming complex data into clear, interactive experiences.",
+  "My work centers on clean architecture, performance optimization, and observability. I build reliable, fault-tolerant software that scales smoothly, stays measurable under pressure, and enables teams to ship with confidence",
+];
+
+function parseParagraphs(paragraphs) {
+  const words = [];
+  const paraEnds = [];
+  for (const p of paragraphs) {
+    const w = p.split(/\s+/).filter(Boolean);
+    words.push(...w);
+    paraEnds.push(words.length);
+  }
+  return { words, paraEnds };
+}
+
+function useCardReveal(paragraphs, skills, show) {
+  const { words, paraEnds } = useMemo(
+    () => parseParagraphs(paragraphs),
+    [paragraphs],
+  );
+  const totalWords = words.length;
+  const totalSkills = skills.length;
+
+  const [visibleWordCount, setVisibleWordCount] = useState(() =>
+    hasCardRevealCompletedOnce ? totalWords : 0,
+  );
+  const [visibleSkillCount, setVisibleSkillCount] = useState(() =>
+    hasCardRevealCompletedOnce ? totalSkills : 0,
+  );
+
+  useEffect(() => {
+    if (!show || hasCardRevealCompletedOnce) return;
+    const timers = [];
+    for (let i = 0; i < totalWords; i++) {
+      timers.push(
+        setTimeout(
+          () => setVisibleWordCount(i + 1),
+          TYPING_INITIAL_DELAY + i * TYPING_WORD_INTERVAL,
+        ),
+      );
+    }
+    const bioEnd =
+      TYPING_INITIAL_DELAY +
+      totalWords * TYPING_WORD_INTERVAL +
+      SKILL_CHIP_DELAY_AFTER_BIO;
+    for (let i = 0; i < totalSkills; i++) {
+      timers.push(
+        setTimeout(
+          () => {
+            setVisibleSkillCount(i + 1);
+            if (i + 1 === totalSkills) hasCardRevealCompletedOnce = true;
+          },
+          bioEnd + i * SKILL_CHIP_INTERVAL,
+        ),
+      );
+    }
+    return () => timers.forEach(clearTimeout);
+  }, [show, totalWords, totalSkills]);
+
+  return { words, paraEnds, visibleWordCount, visibleSkillCount };
+}
+
+const TransmissionLinks = memo(function TransmissionLinks({
+  email,
+  tel,
+  linkedin,
+  resume,
+  variant,
+}) {
+  const isMobile = variant === "mobile";
+  const linkProps = { target: "_blank", rel: "noopener noreferrer" };
+  return (
+    <>
+      <a className="transmission-link" href={`mailto:${email}`} {...linkProps}>
+        {isMobile ? (
+          <span className="material-symbols-rounded transmission-email-icon">
+            mail
+          </span>
+        ) : (
+          <span className="transmission-email-text">{email}</span>
+        )}
+      </a>
+      {isMobile && (
+        <a
+          className="transmission-link transmission-link--call"
+          href={`tel:${tel}`}
+          {...linkProps}
+        >
+          <span className="material-symbols-rounded transmission-call-icon">
+            call
+          </span>
+        </a>
+      )}
+      <a className="transmission-link" href={linkedin} {...linkProps}>
+        LinkedIn
+      </a>
+      <a className="transmission-link" href={resume} {...linkProps}>
+        Resume
+      </a>
+    </>
+  );
+});
 
 export default function AstronautCard({
   fname = "SUWAPHIT",
@@ -11,46 +127,33 @@ export default function AstronautCard({
   linkedin = "https://www.linkedin.com/in/suwaphit-buabuthr/",
   resume = "./RESUME_suwaphit.pdf",
   location = ["Earth (US)", "Relocation & Remote ✅"],
-  paragraphs = [
-    "I design and build scalable, distributed systems across front-end, back-end, and cloud infrastructure—building platforms where product experience and resilient engineering move in orbit together.",
-    "I specialize in complex, real-time systems: content delivery, personalization engines, subscription platforms, and data-intensive applications. I architect production-grade APIs and event-driven services that handle high-volume traffic with low latency—transforming complex data into clear, interactive experiences.",
-    "My work centers on clean architecture, performance optimization, and observability. I build reliable, fault-tolerant software that scales smoothly, stays measurable under pressure, and enables teams to ship with confidence",
-  ],
+  paragraphs = DEFAULT_PARAGRAPHS,
   contact = "Contact",
   skills = [
-    // Languages & runtime
     "React",
     "JavaScript",
     "Node.js",
     "Python",
     "R",
-    // Data & infra
     "PostgreSQL",
     "API",
     "AWS",
     "CI/CD",
     "Git",
-    // Data & viz
     "Data Visualization",
     "ArcGIS",
-    // Analytics & observability
     "Datadog",
     "GA4",
     "BlueConic",
     "Sophi AI",
   ],
 }) {
-  // Portrait flip state
   const [flipped, setFlipped] = useState(false);
-  // Card slide-in state
   const [show, setShow] = useState(false);
-  // FILL state for portrait icon
   const [fillHover, setFillHover] = useState(false);
 
-  // Toggle portrait flip
   const handlePortraitClick = useCallback(() => setFlipped((v) => !v), []);
 
-  // Portrait icon props for clarity
   const portraitIconProps = useMemo(
     () => ({
       className: "material-symbols-rounded portrait-icon",
@@ -67,35 +170,35 @@ export default function AstronautCard({
   );
 
   useEffect(() => {
-    // Trigger the slide-in animation on mount
     setShow(true);
     return () => setShow(false);
   }, []);
 
-  // Memoize the random star-dot block so it only generates once
-  const starDots = React.useMemo(() => {
-    const dots = [];
-    const hudTopWidth = 1000; // Approximate max width
-    const hudTopHeight = 80; // Approximate max height
-    for (let i = 0; i < 32; i++) {
-      const size = 1 + Math.random() * 3; // 1px to 4px
-      dots.push(
+  const { words, paraEnds, visibleWordCount, visibleSkillCount } =
+    useCardReveal(paragraphs, skills, show);
+
+  const starDots = useMemo(() => {
+    const { w, h } = HUD_DIMS;
+    return Array.from({ length: STAR_DOT_COUNT }, (_, i) => {
+      const size = 1 + Math.random() * 3;
+      return (
         <span
           key={i}
           className="star-dot"
           style={{
-            top: `${Math.random() * hudTopHeight}px`,
-            left: `${Math.random() * hudTopWidth}px`,
-            width: `${size}px`,
-            height: `${size}px`,
+            top: `${Math.random() * h}px`,
+            left: `${Math.random() * w}px`,
+            width: size,
+            height: size,
             opacity: 0.7 + Math.random() * 0.3,
           }}
           aria-hidden="true"
-        />,
+        />
       );
-    }
-    return dots;
+    });
   }, []);
+
+  const profileSrc = flipped ? "profile-pic" : "profile-pic-2";
 
   return (
     <section
@@ -103,13 +206,15 @@ export default function AstronautCard({
       aria-label="Astronaut ID Dashboard"
     >
       <header className="top">
-        {/* Random small yellow circles spread across top */}
         {starDots}
         <div className="badge">
           <picture>
-            <source srcSet="/images/rocket_icon.webp" type="image/webp" />
+            <source
+              srcSet={`${BASE}images/rocket_icon.webp`}
+              type="image/webp"
+            />
             <img
-              src="/images/rocket_icon.png"
+              src={`${BASE}images/rocket_icon.png`}
               alt="Rocket Icon"
               className="badge-rocket__Img"
               draggable="false"
@@ -120,7 +225,6 @@ export default function AstronautCard({
       </header>
 
       <div className="hud-grid">
-        {/* Left: portrait placeholder + meta */}
         <aside className="panel portrait-panel">
           <div className="portrait" aria-label="Profile frame">
             <picture
@@ -129,25 +233,16 @@ export default function AstronautCard({
               onClick={handlePortraitClick}
             >
               <source
-                srcSet={
-                  flipped
-                    ? "/images/profile-pic.webp"
-                    : "/images/profile-pic-2.webp"
-                }
+                srcSet={`${BASE}images/${profileSrc}.webp`}
                 type="image/webp"
               />
               <img
-                src={
-                  flipped
-                    ? "/images/profile-pic.png"
-                    : "/images/profile-pic-2.png"
-                }
+                src={`${BASE}images/${profileSrc}.png`}
                 alt="astronaut id card"
                 draggable="false"
               />
             </picture>
             <div className="portrait-scan" />
-
             <div className="portrait-text">
               <span className="callsign">CALLSIGN:{callsign}</span>
               <span {...portraitIconProps}>
@@ -172,42 +267,13 @@ export default function AstronautCard({
             <div className="meta-row meta-row--transmission-mobile">
               <span className="k k--contact">{contact}</span>
               <span className="v v--transmission">
-                <a
-                  className="transmission-link"
-                  href={`mailto:${email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="material-symbols-rounded transmission-email-icon">
-                    mail
-                  </span>
-                </a>
-                <a
-                  className="transmission-link transmission-link--call"
-                  href={`tel:${tel}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="material-symbols-rounded transmission-call-icon">
-                    call
-                  </span>
-                </a>
-                <a
-                  className="transmission-link"
-                  href={linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  className="transmission-link"
-                  href={resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Resume
-                </a>
+                <TransmissionLinks
+                  email={email}
+                  tel={tel}
+                  linkedin={linkedin}
+                  resume={resume}
+                  variant="mobile"
+                />
               </span>
             </div>
             <div className="meta-row">
@@ -228,20 +294,32 @@ export default function AstronautCard({
           </div>
         </aside>
 
-        {/* Right: narrative + skills */}
         <main className="panel panel-bio">
-          {paragraphs.map((p, idx) => (
-            <p className="bio-paragraph" key={idx}>
-              {p}
-              {idx === paragraphs.length - 1 && (
-                <span className="bio-cursor" aria-hidden="true">
-                  _
-                </span>
-              )}
-            </p>
-          ))}
+          {paraEnds.map((end, i) => {
+            const start = i === 0 ? 0 : paraEnds[i - 1];
+            const visibleEnd = Math.min(visibleWordCount, end);
+            const visibleWords = words.slice(start, visibleEnd);
+            const text = visibleWords.join(" ");
+            const isCursorPara =
+              (visibleWordCount === 0 && i === 0) ||
+              (visibleWordCount > start && visibleWordCount <= end);
+            const hasContent =
+              visibleEnd > start || (visibleWordCount === 0 && i === 0);
+
+            if (!hasContent) return null;
+            return (
+              <p key={i} className="bio-paragraph">
+                {text}
+                {isCursorPara && (
+                  <span className="bio-cursor" aria-hidden="true">
+                    _
+                  </span>
+                )}
+              </p>
+            );
+          })}
           <div className="skill-chips" aria-label="Skills">
-            {skills.map((s) => (
+            {skills.slice(0, visibleSkillCount).map((s) => (
               <span className="skill-chip" key={s}>
                 {s}
               </span>
@@ -252,39 +330,21 @@ export default function AstronautCard({
             aria-hidden="true"
           />
           <div className="meta-row meta-row--transmission-desktop">
-            <span className="k  k--contact">{contact}</span>
+            <span className="k k--contact">{contact}</span>
             <span className="v v--transmission">
-              <a
-                className="transmission-link"
-                href={`mailto:${email}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="transmission-email-text">{email}</span>
-              </a>
-              <a
-                className="transmission-link"
-                href={linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a
-                className="transmission-link"
-                href={resume}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Resume
-              </a>
+              <TransmissionLinks
+                email={email}
+                tel={tel}
+                linkedin={linkedin}
+                resume={resume}
+                variant="desktop"
+              />
             </span>
           </div>
         </main>
       </div>
 
-      {/* Decorative screws */}
-      {["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"].map((s) => (
+      {SCREW_IDS.map((s) => (
         <span key={s} className={`screw ${s}`} aria-hidden="true" />
       ))}
     </section>

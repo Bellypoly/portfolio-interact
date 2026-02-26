@@ -1,9 +1,16 @@
 // src/SpaceResume.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+  useMotionValueEvent,
+} from "framer-motion";
 import "./SpaceResume.css";
 import OpeningCrawl from "./components/opening-crawl.jsx";
-import ContentPanel from "./components/content-panel.jsx";
+import LandingSectionContent from "./components/landing-section.jsx";
 import ProfileIcon from "./components/profile-icon.jsx";
 import WorkSection from "./cards/work-section.jsx";
 import EducationSection from "./cards/education-section.jsx";
@@ -60,22 +67,27 @@ export default function SpaceResume() {
   const crawlProgress = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
   const profileIconY = useTransform(crawlProgress, [0.2, 1], [0, -56]);
   const profileIconOpacity = useTransform(scrollYProgress, [0.16, 0.2], [0, 1]);
-  // Crawl positioning: starts around middle of screen, moves upward
-  const crawlY = useTransform(crawlProgress, [0, 1], ["90vh", "-150vh"]);
+  // Crawl content: stays put until header reaches top (30%), then moves up
+  const crawlY = useTransform(
+    crawlProgress,
+    [0, 0.2, 1],
+    ["130vh", "90vh", "-150vh"],
+  );
   const crawlScale = useTransform(crawlProgress, [0, 1], [1.8, 0.35]);
   // Fade out more slowly: start fade at 0.6, finish at 1
-  const crawlOpacity = useTransform(crawlProgress, [0, 0.6, 1], [1, 1, 0]);
+  const crawlOpacity = useTransform(crawlProgress, [0, 0.63, 0.68], [1, 1, 0]);
+
+  // Crawl header: starts at center (50%), scrolls up and stops at top 30%
+  const crawlHeaderTop = useTransform(
+    crawlProgress,
+    [0, 0.2, 1],
+    ["50%", "30%", "30%"],
+  );
   const SECTIONS = [
     {
       id: "intro",
       title: " ",
-      body: (
-        <OpeningCrawl
-          opacityMV={crawlOpacity}
-          yMV={crawlY}
-          crawlProgress={crawlProgress}
-        />
-      ),
+      body: <div aria-hidden="true" />,
     },
     { id: "work", title: "Work Experience", body: <WorkSection /> },
     { id: "education", title: "Education", body: <EducationSection /> },
@@ -88,12 +100,6 @@ export default function SpaceResume() {
   ];
   // Create refs for each section
   const sectionRefs = useRef(SECTIONS.map(() => React.createRef()));
-
-  // Progress thresholds: start of each section's zone so the last section is reachable (progress >= threshold[last])
-  const sectionProgressThresholds = Array.from(
-    { length: SECTIONS.length },
-    (_, i) => i / SECTIONS.length,
-  );
 
   // Utility: progress <-> pixel conversion
   function progressToY(progress) {
@@ -131,27 +137,49 @@ export default function SpaceResume() {
   const smooth = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
   const [activeIndex, setActiveIndex] = useState(0);
   const [debugScroll, setDebugScroll] = useState(0);
+  const [debugCrawlProgress, setDebugCrawlProgress] = useState(0);
+  const [debugScrollYProgress, setDebugScrollYProgress] = useState(0);
+  useMotionValueEvent(scrollYProgress, "change", (v) =>
+    setDebugScrollYProgress(v),
+  );
+  useMotionValueEvent(crawlProgress, "change", (v) => setDebugCrawlProgress(v));
 
-  // Update active section index based on scroll progress (debugScroll)
+  // Update active section index based on scroll progress (actual content positions)
   useEffect(() => {
     function onScroll() {
-      // Use scroll position to get progress
       const y = window.scrollY;
-      const progress = yToProgress(y);
-      // Find the last threshold less than or equal to progress
-      let idx = 0;
-      for (let i = 0; i < sectionProgressThresholds.length; i++) {
-        if (progress >= sectionProgressThresholds[i]) {
-          idx = i;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? y / scrollHeight : 0;
+
+      // Compute thresholds from actual section top positions
+      const thresholds = [];
+      for (let i = 0; i < sectionRefs.current.length; i++) {
+        const ref = sectionRefs.current[i];
+        if (ref?.current) {
+          const top = ref.current.getBoundingClientRect().top + y;
+          thresholds.push(scrollHeight > 0 ? top / scrollHeight : 0);
+        } else {
+          thresholds.push(i / SECTIONS.length); // fallback
         }
+      }
+
+      // Find the last section whose start we've passed
+      let idx = 0;
+      for (let i = 0; i < thresholds.length; i++) {
+        if (progress >= thresholds[i]) idx = i;
       }
       setActiveIndex(idx);
       setDebugScroll(progress);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [SECTIONS.length]);
 
   // Total scene height in viewport units
   const sceneVH = 160 + Math.max(0, SECTIONS.length - 1) * 140;
@@ -248,53 +276,107 @@ export default function SpaceResume() {
   const starsMid = starsRef.current.mid;
   const starsNear = starsRef.current.near;
 
-  // Parallax: star layers start moving at crawlProgress 0.4 and continue through the page
-  const starsFarY = useTransform(crawlProgress, [0.4, 1], ["0vh", "-30vh"]);
-  const starsMidY = useTransform(crawlProgress, [0.4, 1], ["0vh", "-60vh"]);
-  const starsNearY = useTransform(crawlProgress, [0.4, 1], ["0vh", "-100vh"]);
+  // Mouse parallax: -1 to 1 from viewport center
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  useEffect(() => {
+    function onMouseMove(e) {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      mouseX.set(x);
+      mouseY.set(y);
+    }
+    window.addEventListener("mousemove", onMouseMove);
+    return () => window.removeEventListener("mousemove", onMouseMove);
+  }, [mouseX, mouseY]);
+
+  const spring = { stiffness: 150, damping: 20 };
+  const mouseFarX = useSpring(useTransform(mouseX, [-1, 1], [-12, 12]), spring);
+  const mouseFarY = useSpring(useTransform(mouseY, [-1, 1], [-12, 12]), spring);
+  const mouseMidX = useSpring(useTransform(mouseX, [-1, 1], [-24, 24]), spring);
+  const mouseMidY = useSpring(useTransform(mouseY, [-1, 1], [-24, 24]), spring);
+  const mouseNearX = useSpring(
+    useTransform(mouseX, [-1, 1], [-40, 40]),
+    spring,
+  );
+  const mouseNearY = useSpring(
+    useTransform(mouseY, [-1, 1], [-40, 40]),
+    spring,
+  );
+
+  // Scroll parallax: star layers start moving at crawlProgress 0.55
+  const starsFarY = useTransform(crawlProgress, [0.55, 1], ["0vh", "-30vh"]);
+  const starsMidY = useTransform(crawlProgress, [0.55, 1], ["0vh", "-60vh"]);
+  const starsNearY = useTransform(crawlProgress, [0.55, 1], ["0vh", "-100vh"]);
 
   return (
     <>
+      {/* Scroll progress debug overlay */}
+      {/* <div className="app-debug-overlay">
+        <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
+        <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
+        <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
+        <div>activeIndex: {activeIndex}</div>
+      </div> */}
       <main className="app-main">
+        <div className="app-bottom-blur" aria-hidden="true" />
         <div className="app-starfield">
           <div className="app-shooting-stars">
             <ShootingStar delay={0} />
             <ShootingStar delay={5} />
             <ShootingStar delay={10} />
           </div>
-          <motion.svg
+          <motion.div
             className="app-star-layer"
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            style={{ y: starsFarY }}
+            style={{ x: mouseFarX, y: mouseFarY }}
           >
-            <g>
-              {starsFar.map((s, i) => (
-                <Star key={`far-${i}`} {...s} twinkle={s.twinkle} />
-              ))}
-            </g>
-          </motion.svg>
-          <motion.svg
+            <motion.svg
+              viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+              style={{ y: starsFarY }}
+            >
+              <g>
+                {starsFar.map((s, i) => (
+                  <Star key={`far-${i}`} {...s} twinkle={s.twinkle} />
+                ))}
+              </g>
+            </motion.svg>
+          </motion.div>
+          <motion.div
             className="app-star-layer"
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            style={{ y: starsMidY }}
+            style={{ x: mouseMidX, y: mouseMidY }}
           >
-            <g>
-              {starsMid.map((s, i) => (
-                <Star key={`mid-${i}`} {...s} twinkle={s.twinkle} />
-              ))}
-            </g>
-          </motion.svg>
-          <motion.svg
+            <motion.svg
+              viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+              style={{ y: starsMidY }}
+            >
+              <g>
+                {starsMid.map((s, i) => (
+                  <Star key={`mid-${i}`} {...s} twinkle={s.twinkle} />
+                ))}
+              </g>
+            </motion.svg>
+          </motion.div>
+          <motion.div
             className="app-star-layer"
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
-            style={{ y: starsNearY }}
+            style={{ x: mouseNearX, y: mouseNearY }}
           >
-            <g>
-              {starsNear.map((s, i) => (
-                <Star key={`near-${i}`} {...s} twinkle={s.twinkle} />
-              ))}
-            </g>
-          </motion.svg>
+            <motion.svg
+              viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+              style={{ y: starsNearY }}
+            >
+              <g>
+                {starsNear.map((s, i) => (
+                  <Star key={`near-${i}`} {...s} twinkle={s.twinkle} />
+                ))}
+              </g>
+            </motion.svg>
+          </motion.div>
+          <OpeningCrawl
+            opacityMV={crawlOpacity}
+            headerTopMV={crawlHeaderTop}
+            yMV={crawlY}
+            crawlProgress={crawlProgress}
+          />
         </div>
         <CapsuleRocket yMV={rocketY} opacityMV={rocketOpacity} />
         <section className="app-section">
@@ -304,9 +386,11 @@ export default function SpaceResume() {
               key={s.id}
               ref={sectionRefs.current[i]}
               id={s.id}
-              className="app-section-item"
+              className={`app-section-item ${i === 0 ? "app-section-item--intro" : "app-section-item--landing"}`}
             >
-              {/* {s.body} */}
+              <LandingSectionContent sectionRef={sectionRefs.current[i]}>
+                {s.body}
+              </LandingSectionContent>
             </div>
           ))}
           <div className="app-panel-row">
@@ -315,13 +399,6 @@ export default function SpaceResume() {
               jumpToMarker={jumpToMarker}
               activeIndex={activeIndex}
             />
-            <div className="app-panel-flex">
-              <ContentPanel
-                activeIndex={activeIndex}
-                opacityMV={1}
-                SECTIONS={SECTIONS}
-              />
-            </div>
           </div>
         </section>
       </main>

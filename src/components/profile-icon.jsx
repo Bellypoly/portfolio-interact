@@ -59,9 +59,9 @@ export default function ProfileIcon({ crawlProgress }) {
           />
           {/* Profile Image */}
           <picture>
-            <source srcSet="/images/profile-pic-2.webp" type="image/webp" />
+            <source srcSet={`${import.meta.env.BASE_URL}images/profile-pic-2.webp`} type="image/webp" />
             <img
-              src="/images/profile-pic-2.png"
+              src={`${import.meta.env.BASE_URL}images/profile-pic-2.png`}
               alt="Profile"
               className="profile-icon-img"
             />

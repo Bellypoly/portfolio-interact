@@ -13,9 +13,12 @@ const AboutSection = () => {
       {/* Card image wrapper for aspect ratio and rotation */}
       <div className="about-bg-card">
         <picture>
-          <source srcSet="/images/card.webp" type="image/webp" />
+          <source
+            srcSet={`${import.meta.env.BASE_URL}images/card.webp`}
+            type="image/webp"
+          />
           <img
-            src="/images/card.png"
+            src={`${import.meta.env.BASE_URL}images/card.png`}
             alt="astronaut id card"
             className="about-img-card"
             draggable="false"
@@ -27,7 +30,7 @@ const AboutSection = () => {
         <div className="about-info-flex">
           {/* Image: always on left/top */}
           <img
-            src="/images/profile-pic.jpg"
+            src={`${import.meta.env.BASE_URL}images/profile-pic.jpg`}
             alt="Profile"
             className="about-profile-pic"
           />

@@ -1,9 +1,18 @@
 import React from "react";
+import { motion, useTransform } from "framer-motion";
 import "./achievements-section.css";
 
-function AchievementsSection() {
+function AchievementsSection({ sectionProgress }) {
+  const opacity = useTransform(
+    sectionProgress,
+    [0, 0.2, 0.8, 1],
+    [0, 1, 1, 0.3],
+  );
   return (
-    <div className="achievements-section">
+    <motion.div className="achievements-section" style={{ opacity }}>
+      <h2 className="section-title">
+        Achievements
+      </h2>
       <ul className="achievements-list">
         <li>
           <strong>
@@ -34,7 +43,7 @@ function AchievementsSection() {
           <div className="achievements-meta">2014 • Bangkok, Thailand</div>
         </li>
       </ul>
-    </div>
+    </motion.div>
   );
 }
 

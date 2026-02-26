@@ -10,7 +10,7 @@ const ProjectCard = ({ name, desc, img, alt, link }) => {
     >
       <div className="project-card-image-wrap">
         <img
-          src={img}
+          src={`${import.meta.env.BASE_URL}${img}`}
           alt={alt || name}
           className="project-card-image"
         />

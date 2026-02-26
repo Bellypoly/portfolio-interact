@@ -24,9 +24,9 @@ export default function CapsuleRocket() {
           display: "block",
         }}
       >
-        <source srcSet="/images/rocket.webp" type="image/webp" />
+        <source srcSet={`${import.meta.env.BASE_URL}images/rocket.webp`} type="image/webp" />
         <img
-          src="/images/rocket.png"
+          src={`${import.meta.env.BASE_URL}images/rocket.png`}
           alt="Rocket"
           style={{
             width: "100%",
@@ -51,9 +51,9 @@ export default function CapsuleRocket() {
           pointerEvents: "none",
         }}
       >
-        <source srcSet="/images/rocket-sparkle.webp" type="image/webp" />
+        <source srcSet={`${import.meta.env.BASE_URL}images/rocket-sparkle.webp`} type="image/webp" />
         <img
-          src="/images/rocket-sparkle.png"
+          src={`${import.meta.env.BASE_URL}images/rocket-sparkle.png`}
           alt="Rocket Sparkle"
           style={{
             width: "100%",

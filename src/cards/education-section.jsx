@@ -1,10 +1,15 @@
 import React from "react";
+import { motion, useTransform } from "framer-motion";
 import "./education-section.css";
 import TimelineItem from "../components/timeline-item.jsx";
 
-const EducationSection = () => (
-  <div className="education-section">
-    {/* <h3 className="font-bold text-lg">Education</h3> */}
+const EducationSection = ({ sectionProgress }) => {
+  const opacity = useTransform(sectionProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.3]);
+  return (
+  <motion.div className="education-section" style={{ opacity }}>
+    <h2 className="section-title">
+      Education
+    </h2>
     <div className="education-list">
       <TimelineItem
         title="M.S. in Computer Science"
@@ -44,7 +49,8 @@ const EducationSection = () => (
         badges={["Second Class Honor"]}
       />
     </div>
-  </div>
-);
+  </motion.div>
+  );
+};
 
 export default EducationSection;

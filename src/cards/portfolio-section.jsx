@@ -1,9 +1,15 @@
 import React from "react";
+import { motion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../cards/project-card";
 
-const PortfolioSection = () => (
-  <div className="portfolio-section">
+const PortfolioSection = ({ sectionProgress }) => {
+  const opacity = useTransform(sectionProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.3]);
+  return (
+  <motion.div className="portfolio-section" style={{ opacity }}>
+    <h2 className="section-title">
+      Portfolio
+    </h2>
     <ProjectCard
       name="RDFD — Discovering Fake Drivers"
       desc="Machine learning approach for driver identification."
@@ -46,7 +52,8 @@ const PortfolioSection = () => (
       alt="PEA E-Service"
       link="https://peacos.pea.co.th/views/paperex/"
     />
-  </div>
-);
+  </motion.div>
+  );
+};
 
 export default PortfolioSection;
