@@ -54,7 +54,8 @@ const MarkerChip = ({
 export function MarkerChipGroup({ SECTIONS, jumpToMarker, activeIndex }) {
   return (
     <div className="marker-chip-group">
-      {SECTIONS.map((s, i) => (
+      {SECTIONS.map((s, i) =>
+        s.id === "separator" ? null : (
         <MarkerChip
           key={s.id}
           index={i}
@@ -63,7 +64,8 @@ export function MarkerChipGroup({ SECTIONS, jumpToMarker, activeIndex }) {
           active={activeIndex === i}
           visible={activeIndex === 0 ? i === 0 : true}
         />
-      ))}
+      )
+      )}
     </div>
   );
 }

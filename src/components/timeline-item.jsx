@@ -14,7 +14,7 @@ const TimelineItem = ({
 
   const toggleBullet = (idx) => {
     setOpenIndexes((prev) =>
-      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx],
     );
   };
 
@@ -69,7 +69,7 @@ const TimelineItem = ({
                       (() => {
                         // If detail contains an <a ...>...</a> tag, split and render link at the bottom
                         const linkMatch = detail.match(
-                          /<a [^>]*href=['\"]([^'\"]+)['\"][^>]*>(.*?)<\/a>/i
+                          /<a [^>]*href=['\"]([^'\"]+)['\"][^>]*>(.*?)<\/a>/i,
                         );
                         if (linkMatch) {
                           const [full, href, linkText] = linkMatch;

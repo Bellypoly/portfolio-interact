@@ -9,7 +9,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import "./SpaceResume.css";
-import OpeningCrawl from "./components/opening-crawl.jsx";
+import OpeningCrawl, { CrawlSeparator } from "./components/opening-crawl.jsx";
 import LandingSectionContent from "./components/landing-section.jsx";
 import ProfileIcon from "./components/profile-icon.jsx";
 import WorkSection from "./cards/work-section.jsx";
@@ -84,10 +84,11 @@ export default function SpaceResume() {
     ["50%", "30%", "30%"],
   );
   const SECTIONS = [
+    { id: "intro", title: " ", body: null },
     {
-      id: "intro",
+      id: "separator",
       title: " ",
-      body: <div aria-hidden="true" />,
+      body: <CrawlSeparator />,
     },
     { id: "work", title: "Work Experience", body: <WorkSection /> },
     { id: "education", title: "Education", body: <EducationSection /> },
@@ -305,19 +306,19 @@ export default function SpaceResume() {
   );
 
   // Scroll parallax: star layers start moving at crawlProgress 0.55
-  const starsFarY = useTransform(crawlProgress, [0.55, 1], ["0vh", "-30vh"]);
-  const starsMidY = useTransform(crawlProgress, [0.55, 1], ["0vh", "-60vh"]);
-  const starsNearY = useTransform(crawlProgress, [0.55, 1], ["0vh", "-100vh"]);
+  const starsFarY = useTransform(crawlProgress, [0.63, 1], ["0vh", "-30vh"]);
+  const starsMidY = useTransform(crawlProgress, [0.63, 1], ["0vh", "-60vh"]);
+  const starsNearY = useTransform(crawlProgress, [0.63, 1], ["0vh", "-100vh"]);
 
   return (
     <>
       {/* Scroll progress debug overlay */}
-      {/* <div className="app-debug-overlay">
+      <div className="app-debug-overlay">
         <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
         <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
         <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
         <div>activeIndex: {activeIndex}</div>
-      </div> */}
+      </div>
       <main className="app-main">
         <div className="app-bottom-blur" aria-hidden="true" />
         <div className="app-starfield">

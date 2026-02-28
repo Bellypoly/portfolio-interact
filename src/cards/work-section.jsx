@@ -2,6 +2,7 @@
 // Imports
 // =====================
 import React from "react";
+import { motion, useTransform } from "framer-motion";
 import TimelineItem from "../components/timeline-item.jsx";
 import "./work-section.css";
 
@@ -74,15 +75,22 @@ const SoftwareEng = () => (
 // =====================
 // Main WorkSection Export
 // =====================
-function WorkSection() {
+function WorkSection({ sectionProgress }) {
+  const opacity = useTransform(
+    sectionProgress,
+    [0, 0.2, 0.8, 1],
+    [0, 1, 1, 0.3],
+  );
+  const y = useTransform(sectionProgress, [0, 0.25], [24, 0]);
+
   return (
-    <div className="work-section">
-      <p>Work experience goes here (DallasNews, PEA, JobThai / MapMagic…)</p>
+    <motion.div className="work-section" style={{ opacity, y }}>
+      <h2 className="section-title">Work Experience</h2>
       <SeniorFullStack />
       <DataEngineer />
       <FullStackII />
       <SoftwareEng />
-    </div>
+    </motion.div>
   );
 }
 

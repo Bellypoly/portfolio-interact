@@ -2,7 +2,7 @@
 // Opening crawl
 // =====================
 import React, { useEffect, useState } from "react";
-import { motion, useTransform } from "framer-motion";
+import { motion, useTransform, useMotionValue } from "framer-motion";
 import FadeParagraph from "./fade-paragraph.jsx";
 import "./opening-crawl.css";
 
@@ -55,6 +55,45 @@ function useBreakpointStops() {
     stops3: stops.para3[breakpoint],
     stops4: stops.para4[breakpoint],
   };
+}
+
+/** Decorative separator: ﹁技術﹂ (Technology) - scrolls like Work Experience */
+export function CrawlSeparator() {
+  const chars = [
+    "﹁",
+    "s",
+    "u",
+    "w",
+    "a",
+    "p",
+    "h",
+    "i",
+    "t",
+    "b",
+    "u",
+    "a",
+    "b",
+    "u",
+    "t",
+    "h",
+    "r",
+    "﹂",
+  ];
+  return (
+    <>
+      <div className="crawl-separator-section">
+        {/* <div className="crawl-separator"> */}
+        <div className="crawl-separator-line" aria-hidden="true" />
+        <p className="crawl-separator-text">
+          {chars.map((c, i) => (
+            <span key={i}>{c}</span>
+          ))}
+        </p>
+        <div className="crawl-separator-line" aria-hidden="true" />
+        {/* </div> */}
+      </div>
+    </>
+  );
 }
 
 export default function OpeningCrawl({
@@ -152,11 +191,6 @@ export default function OpeningCrawl({
                 visualizations, and software that guides millions through
                 digital worlds.
               </FadeParagraph>
-              <div
-                style={{
-                  color: "white",
-                }}
-              ></div>
             </div>
           </motion.div>
         </div>

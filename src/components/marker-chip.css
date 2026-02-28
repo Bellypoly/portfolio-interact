@@ -1,6 +1,7 @@
 /* Styles for MarkerChip component */
 .marker-chip-group {
   @apply flex flex-col m-2 justify-start items-start;
+  @apply fixed bottom-4 left-4 z-[20000] bg-black/80 text-cyan-300 font-mono text-xs p-2  border-l border-cyan-500/50;
 }
 
 .marker-chip-container {

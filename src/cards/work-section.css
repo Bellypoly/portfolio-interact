@@ -2,3 +2,7 @@
 .work-section {
   @apply text-sm md:text-base text-slate-100 space-y-2;
 }
+.work-section .section-title {
+  @apply w-screen ml-[calc(-50vw+50%)] uppercase text-cyan-400 font-bold tracking-[0.02em] leading-none;
+  @apply text-[clamp(3.6rem,10vw,6rem)];
+}

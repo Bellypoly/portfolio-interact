@@ -82,3 +82,25 @@
   @apply crawl-paragraph;
   @apply mb-6 sm:mb-8;
 }
+
+/* Decorative separator: ﹁技術﹂ (Technology) - at bottom of intro, moves like Work Experience */
+.intro-body {
+  @apply flex flex-col justify-end min-h-full w-full;
+}
+.intro-spacer {
+  @apply flex-1 min-h-0;
+}
+.crawl-separator-section {
+  @apply flex justify-center items-center w-full py-8 mb-16;
+}
+.crawl-separator {
+  @apply flex flex-col items-center gap-0;
+}
+.crawl-separator-line {
+  @apply w-full h-px bg-gradient-to-r from-transparent via-[rgba(255,215,140,0.26)] to-transparent;
+}
+.crawl-separator-text {
+  @apply m-0 font-aurebesh text-sm leading-[1.1em] [&>span]:block [&>span]:mb-1;
+  @apply bg-gradient-to-b from-yellow-300 to-cyan-400 bg-clip-text text-transparent;
+  @apply [&>span:first-child]:mb-4 [&>span:last-child]:mt-4;
+}

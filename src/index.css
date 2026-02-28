@@ -4,3 +4,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Aurebesh font (Star Wars) – local files, imported for correct base path */
+@font-face {
+  font-family: "Aurebesh";
+  src: url("./assets/fonts/aurebesh.woff2") format("woff2"),
+       url("./assets/fonts/aurebesh.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
