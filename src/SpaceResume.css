@@ -33,14 +33,12 @@
   @apply min-h-[100vh] flex items-center justify-center;
 }
 .app-section-item--intro {
-  @apply relative w-full overflow-hidden flex flex-col justify-end;
-  min-height: 260vh; /* Mobile: extra scroll so separator + Work appear after crawl fades */
+  @apply relative w-full overflow-hidden flex flex-col justify-end min-h-[175vh] md:min-h-[100vh];
 }
-@media (min-width: 768px) {
-  .app-section-item--intro {
-    min-height: 150vh;
-  }
+.app-section-item--rocket {
+  @apply relative w-full p-0 overflow-hidden;
 }
+
 .app-section-item--landing {
   @apply relative w-full px-4 sm:px-6 md:px-8;
 }

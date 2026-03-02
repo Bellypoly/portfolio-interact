@@ -8,14 +8,14 @@ import {
 // Minimal SECTIONS shape for dev tests (real SECTIONS live in SpaceResume.jsx)
 const SECTIONS = [
   { id: "intro", title: " ", body: null },
-  { id: "work", title: "Work Experience", body: null },
+  { id: "work", title: "Work", body: null },
   { id: "education", title: "Education", body: null },
   { id: "achievements", title: "Achievements", body: null },
   { id: "portfolio", title: "Portfolio", body: null },
 ];
-import JobCard from "./cards/job-card.jsx";
-import ProjectCard from "./cards/project-card.jsx";
-import AboutSection from "./cards/about-section.jsx";
+import JobCard from "./cards/job-card";
+import ProjectCard from "./cards/project-card";
+import AboutSection from "./cards/about-section";
 
 // DevTestsContent: concise, useful diagnostics for development
 export const DevTestsContent = ({ progress }) => {

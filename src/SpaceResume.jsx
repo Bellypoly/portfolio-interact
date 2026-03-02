@@ -9,17 +9,16 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import "./SpaceResume.css";
-import OpeningCrawl, { CrawlSeparator } from "./components/opening-crawl.jsx";
+import OpeningCrawl from "./components/opening-crawl";
 import LandingSectionContent from "./components/landing-section.jsx";
-import ProfileIcon from "./components/profile-icon.jsx";
-import WorkSection from "./cards/work-section.jsx";
-import EducationSection from "./cards/education-section.jsx";
-import AchievementsSection from "./cards/achievements-section.jsx";
-import PortfolioSection from "./cards/portfolio-section.jsx";
-import Star from "./components/Star.jsx";
-import { MarkerChipGroup } from "./components/marker-chip.jsx";
-import CapsuleRocket from "./components/rocket.jsx";
-
+import ProfileIcon from "./components/profile-icon";
+import RocketSection from "./cards/rocket-section";
+import WorkSection from "./cards/work-section";
+import EducationSection from "./cards/education-section";
+import AchievementsSection from "./cards/achievements-section";
+import PortfolioSection from "./cards/portfolio-section";
+import Star from "./components/star";
+import { MarkerChipGroup } from "./components/marker-chip";
 function ShootingStar({ delay = 0 }) {
   // Memoize position and repeatDelay so they never change on re-render
   const memo = React.useRef();
@@ -85,12 +84,8 @@ export default function SpaceResume() {
   );
   const SECTIONS = [
     { id: "intro", title: " ", body: null },
-    {
-      id: "separator",
-      title: " ",
-      body: <CrawlSeparator />,
-    },
-    { id: "work", title: "Work Experience", body: <WorkSection /> },
+    { id: "rocket", title: " ", body: <RocketSection /> },
+    { id: "work", title: "Work", body: <WorkSection /> },
     { id: "education", title: "Education", body: <EducationSection /> },
     {
       id: "achievements",
@@ -199,14 +194,6 @@ export default function SpaceResume() {
   // Opacity for the scroll hint (fades out as you scroll)
   const hintOpacity = useTransform(smooth, [0, 0.05, 0.12], [1, 1, 0]);
 
-  // Rocket Y position and opacity (appears and moves up between About Me and Work Experience)
-  const rocketY = useTransform(
-    smooth,
-    [0.42, 0.48, 0.65],
-    ["80vh", "40vh", "-30vh"],
-  );
-  const rocketOpacity = useTransform(smooth, [0.42, 0.48, 0.65], [0, 1, 0]);
-
   // Starfield initialization (random, but now covers the full viewport)
   const STAR_COUNT = 300;
   const [windowSize, setWindowSize] = React.useState({
@@ -313,12 +300,15 @@ export default function SpaceResume() {
   return (
     <>
       {/* Scroll progress debug overlay */}
-      <div className="app-debug-overlay">
+      {/* <div className="app-debug-overlay">
         <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
         <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
         <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
         <div>activeIndex: {activeIndex}</div>
-      </div>
+        <div>
+          screen: {windowSize.width} × {windowSize.height}
+        </div>
+      </div> */}
       <main className="app-main">
         <div className="app-bottom-blur" aria-hidden="true" />
         <div className="app-starfield">
@@ -379,7 +369,6 @@ export default function SpaceResume() {
             crawlProgress={crawlProgress}
           />
         </div>
-        <CapsuleRocket yMV={rocketY} opacityMV={rocketOpacity} />
         <section className="app-section">
           <ProfileIcon crawlProgress={crawlProgress} />
           {SECTIONS.map((s, i) => (
@@ -387,7 +376,7 @@ export default function SpaceResume() {
               key={s.id}
               ref={sectionRefs.current[i]}
               id={s.id}
-              className={`app-section-item ${i === 0 ? "app-section-item--intro" : "app-section-item--landing"}`}
+              className={`app-section-item ${i === 0 ? "app-section-item--intro" : s.id === "rocket" ? "app-section-item--rocket" : "app-section-item--landing"}`}
             >
               <LandingSectionContent sectionRef={sectionRefs.current[i]}>
                 {s.body}
