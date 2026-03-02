@@ -1,0 +1,50 @@
+.timeline-item {
+  @apply relative pl-8 mb-4;
+}
+.timeline-item--collapsible {
+  @apply cursor-pointer border-t border-b border-slate-600 py-4 pl-6 -mb-px transition-colors duration-200;
+}
+.timeline-item--collapsible .timeline-dot {
+  @apply hidden;
+}
+.timeline-item--collapsible .timeline-title {
+  @apply font-orbitron uppercase font-bold tracking-[0.12em] text-slate-400 transition-colors duration-200;
+}
+.timeline-item--collapsible .timeline-time,
+.timeline-item--collapsible .timeline-desc {
+  @apply text-slate-500 transition-colors duration-200;
+}
+.timeline-item--collapsible.timeline-item--expanded {
+  @apply border-white border-t-2 border-b-2;
+}
+.timeline-item--collapsible.timeline-item--expanded .timeline-title {
+  @apply text-white;
+}
+.timeline-item--collapsible.timeline-item--expanded .timeline-time,
+.timeline-item--collapsible.timeline-item--expanded .timeline-desc {
+  @apply text-slate-300;
+}
+.timeline-dot {
+  @apply absolute left-0 top-1 w-5 h-5 rounded-full bg-cyan-500 shadow;
+}
+.timeline-time {
+  @apply opacity-60 uppercase font-mono;
+}
+.timeline-header {
+  @apply flex flex-wrap items-center gap-2 mb-1;
+}
+.timeline-title {
+  @apply font-orbitron font-semibold m-0 p-0;
+}
+.timeline-badge {
+  @apply inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full;
+}
+.timeline-desc {
+  @apply opacity-80;
+}
+.timeline-item--collapsible .timeline-bullets {
+  @apply mt-3;
+}
+.timeline-item--collapsible .timeline-bullet-list {
+  @apply list-disc list-inside space-y-1 text-slate-300;
+}

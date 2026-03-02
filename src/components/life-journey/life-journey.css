@@ -1,0 +1,9 @@
+.life-journey {
+  @apply flex flex-col gap-2 w-full;
+}
+.life-journey-location {
+  @apply text-center text-sm font-orbitron text-cyan-400 uppercase tracking-wider;
+}
+.life-journey-globe {
+  @apply w-full min-h-[200px];
+}

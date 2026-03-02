@@ -1,0 +1,9 @@
+.star-core,
+.star-glow {
+  fill: white;
+  filter: url(#star-glow);
+}
+
+.star-glow {
+  opacity: 0.08;
+}

@@ -1,0 +1,40 @@
+/* Work section – Tailwind @apply */
+.work-section-wrapper {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start;
+}
+.work-section-col--right {
+  @apply flex justify-center items-center min-h-[200px];
+}
+.work-section-journey {
+  @apply w-full max-w-sm;
+}
+.work-section-journey .life-journey-globe {
+  @apply overflow-hidden rounded-lg;
+}
+.work-section-circle {
+  @apply w-48 h-48 rounded-full bg-white;
+}
+.work-section {
+  @apply text-sm md:text-base text-slate-100 space-y-2;
+}
+.work-section .timeline-item--collapsible + .timeline-item--collapsible {
+  @apply -mt-px;
+}
+
+.work-section-title {
+  @apply flex flex-row justify-center items-center gap-3 w-full py-8 mb-16;
+  @apply w-screen ml-[calc(-50vw+50%)];
+  container-type: size;
+}
+
+.work-section-title-label {
+  @apply font-roboto text-cyan-400 font-bold uppercase tracking-[0.02em] leading-none flex items-center;
+  font-size: clamp(4.5rem, 14vw + 4rem, 8rem);
+}
+
+.work-section-title-text {
+  @apply m-0 font-aurebesh text-sm leading-[1.1em] flex flex-col items-center;
+  @apply bg-gradient-to-b from-yellow-300 to-cyan-400 bg-clip-text text-transparent;
+  @apply [&>span]:block [&>span]:mb-1;
+  @apply [&>span:first-child]:mb-4 [&>span:last-child]:mt-4;
+}

@@ -1,0 +1,30 @@
+.rocket {
+  @apply relative w-full h-full flex items-center justify-center ml-[1rem];
+}
+
+.rocket-picture {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full block;
+}
+
+.rocket-picture--sparkle {
+  @apply pointer-events-none;
+  animation: rocket-sparkle 2s ease-in-out infinite;
+}
+
+.rocket-img {
+  @apply w-full h-full object-contain block;
+}
+
+.rocket-picture--sparkle .rocket-img {
+  @apply pointer-events-none;
+}
+
+@keyframes rocket-sparkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
