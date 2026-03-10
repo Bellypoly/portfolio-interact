@@ -1,0 +1,30 @@
+/* Layout */
+.journey-route {
+  @apply flex flex-col gap-2 w-full max-w-full min-w-0 items-center justify-center;
+}
+.journey-route-globe {
+  @apply w-full max-w-full min-w-0 min-h-[200px] overflow-hidden;
+  max-width: min(100%, 100vw - 2rem, 24rem);
+}
+@media (min-width: 768px) {
+  .journey-route-globe {
+    max-width: min(100%, 26rem);
+  }
+}
+
+/* Location label */
+.journey-route-location {
+  @apply flex flex-col gap-0.5 text-center text-sm tracking-wider;
+}
+a.journey-route-location {
+  @apply no-underline cursor-pointer;
+}
+a.journey-route-location:hover {
+  @apply opacity-90;
+}
+.journey-route-location__company {
+  @apply font-quicksand text-slate-400;
+}
+.journey-route-location__location {
+  @apply font-silkscreen text-yellow-400 uppercase;
+}

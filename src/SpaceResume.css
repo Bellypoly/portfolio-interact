@@ -33,17 +33,23 @@
   @apply min-h-[100vh] flex items-center justify-center;
 }
 .app-section-item--intro {
-  @apply relative w-full overflow-hidden flex flex-col justify-end min-h-[175vh] md:min-h-[100vh];
+  @apply relative w-full overflow-hidden flex flex-col justify-end min-h-[230vh] md:min-h-[125vh];
 }
 .app-section-item--rocket {
-  @apply relative w-full p-0 overflow-hidden;
+  @apply relative w-full p-0 overflow-hidden min-h-[80vh] md:min-h-[80vh];
 }
-
 .app-section-item--landing {
-  @apply relative w-full px-4 sm:px-6 md:px-8;
+  @apply relative w-full px-4 sm:px-6 md:px-8 min-h-min flex items-start justify-center;
 }
 .app-section-item--landing > * {
-  @apply w-full max-w-4xl mx-auto;
+  @apply w-full max-w-4xl min-w-0;
+}
+.app-section-loading {
+  @apply min-h-[50vh] w-full;
+}
+#work.app-section-item--landing > *,
+#education.app-section-item--landing > * {
+  @apply max-w-6xl;
 }
 
 .app-panel-row {

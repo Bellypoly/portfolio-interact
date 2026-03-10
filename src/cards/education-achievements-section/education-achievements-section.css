@@ -1,0 +1,66 @@
+.edu-achievements-section {
+  @apply flex flex-col gap-8 w-full min-w-0;
+}
+.edu-achievements-title-row {
+  @apply w-full;
+}
+.edu-achievements-title {
+  @apply flex justify-center md:justify-start mb-8;
+}
+
+/* Timeline with center line and dots */
+.edu-timeline {
+  @apply relative border-l-2 border-cyan-500/50 pl-4 md:border-l-0 md:pl-0;
+}
+.edu-timeline__line {
+  @apply absolute left-1/2 top-0 bottom-0 w-px bg-cyan-500/50 -translate-x-1/2 hidden md:block;
+}
+.edu-timeline__entry {
+  @apply relative grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr] md:items-center gap-4 py-4 md:py-6;
+}
+.edu-timeline__dot {
+  @apply w-5 h-5 rounded-full bg-cyan-500 border-2 border-slate-900 flex-shrink-0 z-10 -ml-3 mt-1.5 md:mt-0 md:ml-0;
+}
+@media (min-width: 768px) {
+  .edu-timeline__dot {
+    margin-left: 0;
+  }
+}
+.edu-timeline__content {
+  @apply min-w-0 pl-6 md:pl-0;
+}
+/* Education: content left, dot center. Achievement: dot center, content right */
+.edu-timeline__entry--education .edu-timeline__content {
+  @apply md:col-start-1 md:col-end-2 md:pr-8 md:text-right;
+}
+.edu-timeline__entry--education .edu-timeline__dot {
+  @apply md:col-start-2 md:col-end-3 md:justify-self-center;
+}
+.edu-timeline__entry--achievement .edu-timeline__content {
+  @apply md:col-start-3 md:col-end-4 md:pl-8 md:text-left;
+}
+.edu-timeline__entry--achievement .edu-timeline__dot {
+  @apply md:col-start-2 md:col-end-3 md:justify-self-center;
+}
+
+/* Hide TimelineItem's built-in dot when inside our timeline */
+.edu-timeline__content .timeline-dot {
+  @apply hidden;
+}
+.edu-timeline__content .timeline-item {
+  @apply pl-0;
+}
+.edu-timeline__content .timeline-item--collapsible,
+.edu-timeline__content .timeline-item--collapsible.timeline-item--expanded {
+  @apply border-t-0;
+}
+
+.edu-timeline__achievement {
+  @apply flex flex-col gap-1;
+}
+.edu-timeline__achievement strong {
+  @apply font-semibold text-slate-100 text-sm md:text-base;
+}
+.edu-achievements-meta {
+  @apply text-sm text-slate-500 italic;
+}

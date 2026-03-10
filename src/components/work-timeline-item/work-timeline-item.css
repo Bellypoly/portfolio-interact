@@ -1,0 +1,101 @@
+/* Layout */
+.work-timeline-item {
+  @apply border-b border-slate-600/80;
+}
+.work-timeline-item:last-child {
+  @apply border-b-0;
+}
+.work-timeline-item__inner {
+  @apply py-6 md:py-8;
+}
+.work-timeline-item__left {
+  @apply flex flex-col gap-3;
+}
+
+/* Label row */
+.work-timeline-item__label-row {
+  @apply flex flex-row flex-wrap items-baseline justify-between gap-2 mb-3;
+}
+.work-timeline-item__label,
+.work-timeline-item .hover-reveal-text,
+.work-timeline-item .hover-reveal-text__line {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+.work-timeline-item__label {
+  @apply font-robotomono text-slate-500 uppercase tracking-wider;
+}
+.work-timeline-item .hover-reveal-text {
+  height: 1em;
+}
+.work-timeline-item .hover-reveal-text__line {
+  height: 1em;
+}
+
+/* Content */
+.work-timeline-item__title {
+  @apply font-orbitron italic font-bold uppercase tracking-[0.12em] text-slate-100 text-xl md:text-2xl;
+}
+.work-timeline-item__meta {
+  @apply text-sm font-quicksand font-medium text-slate-400;
+}
+.work-timeline-item__meta-where {
+  @apply text-amber-400/90;
+}
+.work-timeline-item__description {
+  @apply text-base text-slate-300 leading-relaxed font-roboto font-normal text-justify;
+}
+
+/* Portfolio link */
+.work-timeline-item__portfolio-link-block {
+  @apply leading-none md:mt-3 mt-0;
+}
+.work-timeline-item__portfolio-link-block .work-timeline-item__portfolio-link {
+  @apply text-sm leading-none;
+}
+.work-timeline-item__portfolio-link {
+  @apply text-xs font-medium uppercase tracking-wider font-roboto text-cyan-400;
+  @apply cursor-pointer transition-colors duration-200;
+}
+.work-timeline-item__portfolio-link:hover {
+  @apply text-cyan-300;
+}
+.work-timeline-item__arrow {
+  @apply inline-block;
+}
+
+/* Bullet popover */
+.work-timeline-item__bullet-trigger-wrap {
+  @apply relative block w-full;
+}
+.work-timeline-item__bullet-trigger-wrap--label-row {
+  @apply flex w-fit shrink-0 mt-0;
+}
+.work-timeline-item__bullet-trigger-wrap--desktop {
+  @apply hidden md:flex;
+}
+.work-timeline-item__bullet-trigger-wrap--mobile {
+  @apply mt-3 md:hidden;
+}
+.work-timeline-item__bullet-trigger {
+  @apply text-sm font-roboto font-medium uppercase tracking-wider text-cyan-400;
+  @apply cursor-pointer hover:text-cyan-300 transition-colors;
+  @apply inline-flex items-center gap-1;
+}
+.work-timeline-item__bullet-float {
+  @apply absolute left-0 top-full mt-2 z-20 p-4 rounded-lg;
+  @apply bg-[radial-gradient(circle_at_35%_25%,rgba(255,255,255,0.08),transparent_55%),linear-gradient(180deg,rgb(18,78,88),rgb(7,40,48))];
+  @apply shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_0_0_2px_rgba(255,255,255,0.08),inset_0_0_0_10px_rgba(0,0,0,0.18)];
+}
+/* Desktop: float to the right of the trigger */
+.work-timeline-item__bullet-trigger-wrap--label-row
+  .work-timeline-item__bullet-float {
+  @apply left-full -top-8 mt-0 ml-6 w-auto min-w-[45vw] max-w-md;
+}
+.work-timeline-item__bullet-list {
+  @apply list-disc list-inside space-y-2 text-base leading-relaxed font-roboto m-0 p-0;
+  color: var(--ink);
+}
+.work-timeline-item__bullet {
+  @apply p-2;
+}

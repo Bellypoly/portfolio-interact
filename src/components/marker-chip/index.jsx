@@ -51,9 +51,28 @@ const MarkerChip = ({
 );
 
 // MarkerChipGroup: renders the group of marker chips
-export function MarkerChipGroup({ SECTIONS, jumpToMarker, activeIndex }) {
+export const MarkerChipGroup = React.memo(function MarkerChipGroup({
+  SECTIONS,
+  jumpToMarker,
+  activeIndex,
+  scrollDirection = "up",
+}) {
+  const isVisible = scrollDirection === "up";
   return (
-    <div className="marker-chip-group">
+    <motion.div
+      className="marker-chip-group"
+      initial={false}
+      animate={{
+        y: isVisible ? 0 : "-100%",
+        opacity: isVisible ? 1 : 0,
+      }}
+      transition={{
+        type: "tween",
+        duration: 0.25,
+        ease: [0.4, 0, 0.2, 1],
+      }}
+      style={{ pointerEvents: isVisible ? "auto" : "none" }}
+    >
       {SECTIONS.map((s, i) =>
         s.id === "rocket" ? null : (
           <MarkerChip
@@ -66,8 +85,8 @@ export function MarkerChipGroup({ SECTIONS, jumpToMarker, activeIndex }) {
           />
         ),
       )}
-    </div>
+    </motion.div>
   );
-}
+});
 
 export default MarkerChip;

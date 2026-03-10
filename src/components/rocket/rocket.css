@@ -1,5 +1,5 @@
 .rocket {
-  @apply relative w-full h-full flex items-center justify-center ml-[1rem];
+  @apply relative w-full h-full flex items-center justify-center;
 }
 
 .rocket-picture {

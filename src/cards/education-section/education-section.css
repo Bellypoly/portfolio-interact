@@ -1,6 +1,0 @@
-.education-section {
-  @apply flex flex-col gap-6;
-}
-.education-list {
-  @apply flex flex-col gap-4 border-l-2 border-cyan-200 pl-3;
-}

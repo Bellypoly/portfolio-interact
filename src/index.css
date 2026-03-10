@@ -5,11 +5,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Reusable hover text reveal (text slides up, same word reveals beneath) */
+.hover-reveal-text {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1em;
+  line-height: 1;
+  contain: layout style;
+}
+.hover-reveal-text__track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-reveal-text:hover .hover-reveal-text__track {
+  transform: translate3d(0, -50%, 0);
+}
+.hover-reveal-text__line {
+  display: block;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1;
+  height: 1em;
+}
+
 /* Aurebesh font (Star Wars) – local files, imported for correct base path */
 @font-face {
   font-family: "Aurebesh";
-  src: url("./assets/fonts/aurebesh.woff2") format("woff2"),
-       url("./assets/fonts/aurebesh.otf") format("opentype");
+  src:
+    url("./assets/fonts/aurebesh.woff2") format("woff2"),
+    url("./assets/fonts/aurebesh.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

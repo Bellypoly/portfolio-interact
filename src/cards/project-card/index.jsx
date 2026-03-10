@@ -1,6 +1,7 @@
+import React from "react";
 import "./project-card.css";
 
-const ProjectCard = ({ name, desc, img, alt, link }) => {
+const ProjectCard = React.memo(function ProjectCard({ name, desc, img, alt, link }) {
   return (
     <a
       href={link}
@@ -13,6 +14,7 @@ const ProjectCard = ({ name, desc, img, alt, link }) => {
           src={`${import.meta.env.BASE_URL}${img}`}
           alt={alt || name}
           className="project-card-image"
+          loading="lazy"
         />
       </div>
       <div className="project-card-body">
@@ -21,6 +23,6 @@ const ProjectCard = ({ name, desc, img, alt, link }) => {
       </div>
     </a>
   );
-};
+});
 
 export default ProjectCard;

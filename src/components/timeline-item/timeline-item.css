@@ -2,7 +2,7 @@
   @apply relative pl-8 mb-4;
 }
 .timeline-item--collapsible {
-  @apply cursor-pointer border-t border-b border-slate-600 py-4 pl-6 -mb-px transition-colors duration-200;
+  @apply cursor-pointer border-t border-slate-600 py-4 pl-6 transition-colors duration-200;
 }
 .timeline-item--collapsible .timeline-dot {
   @apply hidden;
@@ -15,7 +15,7 @@
   @apply text-slate-500 transition-colors duration-200;
 }
 .timeline-item--collapsible.timeline-item--expanded {
-  @apply border-white border-t-2 border-b-2;
+  @apply border-white border-t-2;
 }
 .timeline-item--collapsible.timeline-item--expanded .timeline-title {
   @apply text-white;

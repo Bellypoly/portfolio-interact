@@ -1,5 +1,12 @@
 // src/SpaceResume.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import {
   motion,
   useScroll,
@@ -12,14 +19,16 @@ import "./SpaceResume.css";
 import OpeningCrawl from "./components/opening-crawl";
 import LandingSectionContent from "./components/landing-section.jsx";
 import ProfileIcon from "./components/profile-icon";
-import RocketSection from "./cards/rocket-section";
-import WorkSection from "./cards/work-section";
-import EducationSection from "./cards/education-section";
-import AchievementsSection from "./cards/achievements-section";
-import PortfolioSection from "./cards/portfolio-section";
 import Star from "./components/star";
 import { MarkerChipGroup } from "./components/marker-chip";
-function ShootingStar({ delay = 0 }) {
+
+const RocketSection = lazy(() => import("./cards/rocket-section"));
+const WorkSection = lazy(() => import("./cards/work-section"));
+const EducationAchievementsSection = lazy(
+  () => import("./cards/education-achievements-section"),
+);
+const PortfolioSection = lazy(() => import("./cards/portfolio-section"));
+const ShootingStar = React.memo(function ShootingStar({ delay = 0 }) {
   // Memoize position and repeatDelay so they never change on re-render
   const memo = React.useRef();
   if (!memo.current) {
@@ -55,7 +64,7 @@ function ShootingStar({ delay = 0 }) {
       <div className="shooting-star-line" />
     </motion.div>
   );
-}
+});
 
 // =====================
 // Main scene component
@@ -82,56 +91,54 @@ export default function SpaceResume() {
     [0, 0.2, 1],
     ["50%", "30%", "30%"],
   );
-  const SECTIONS = [
-    { id: "intro", title: " ", body: null },
-    { id: "rocket", title: " ", body: <RocketSection /> },
-    { id: "work", title: "Work", body: <WorkSection /> },
-    { id: "education", title: "Education", body: <EducationSection /> },
-    {
-      id: "achievements",
-      title: "Achievements",
-      body: <AchievementsSection />,
-    },
-    { id: "portfolio", title: "Portfolio", body: <PortfolioSection /> },
-  ];
-  // Create refs for each section
-  const sectionRefs = useRef(SECTIONS.map(() => React.createRef()));
-
-  // Utility: progress <-> pixel conversion
-  function progressToY(progress) {
-    const scrollHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-    console.log(
-      "Calculating progressToY for progress:",
-      progress,
-      "scrollHeight:",
-      scrollHeight,
-      "result:",
-      Math.round(progress * scrollHeight),
-    );
-    return Math.round(progress * scrollHeight);
-  }
-  function yToProgress(y) {
-    const scrollHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-    return scrollHeight > 0 ? y / scrollHeight : 0;
+  const SECTIONS = React.useMemo(
+    () => [
+      { id: "intro", title: " ", body: null },
+      { id: "rocket", title: " ", body: <RocketSection /> },
+      { id: "work", title: "Work", body: <WorkSection /> },
+      {
+        id: "education",
+        title: "Education & Achievements",
+        body: <EducationAchievementsSection />,
+      },
+      { id: "portfolio", title: "Mission Gallery", body: <PortfolioSection /> },
+    ],
+    [],
+  );
+  const sectionRefs = useRef([]);
+  const jumpingToRef = useRef(null);
+  const jumpTimeoutRef = useRef(null);
+  if (sectionRefs.current.length !== SECTIONS.length) {
+    sectionRefs.current = SECTIONS.map(() => React.createRef());
   }
 
-  function jumpToMarker(i) {
-    const ref = sectionRefs.current[i];
-    if (ref?.current) {
-      const el = ref.current;
-      const y = el.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      if (SECTIONS[i]?.id) {
-        window.location.hash = `#${SECTIONS[i].id}`;
+  const jumpToMarker = useCallback(
+    (i) => {
+      if (jumpTimeoutRef.current) clearTimeout(jumpTimeoutRef.current);
+      jumpingToRef.current = i;
+      setActiveIndex(i);
+      const ref = sectionRefs.current[i];
+      if (ref?.current) {
+        const el = ref.current;
+        const y = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y, behavior: "smooth" });
+        if (SECTIONS[i]?.id) {
+          window.location.hash = `#${SECTIONS[i].id}`;
+        }
       }
-    }
-  }
+      jumpTimeoutRef.current = setTimeout(() => {
+        jumpingToRef.current = null;
+        jumpTimeoutRef.current = null;
+      }, 1200);
+    },
+    [SECTIONS],
+  );
 
   // Smooth spring based on scroll, for general UI elements (rocket, stars, panel, markers)
   const smooth = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState("up");
+  const lastScrollYRef = useRef(0);
   const [debugScroll, setDebugScroll] = useState(0);
   const [debugCrawlProgress, setDebugCrawlProgress] = useState(0);
   const [debugScrollYProgress, setDebugScrollYProgress] = useState(0);
@@ -140,13 +147,28 @@ export default function SpaceResume() {
   );
   useMotionValueEvent(crawlProgress, "change", (v) => setDebugCrawlProgress(v));
 
-  // Update active section index based on scroll progress (actual content positions)
+  // Update active section index and scroll direction
   useEffect(() => {
     function onScroll() {
       const y = window.scrollY;
+      const threshold = 5;
+      if (y > lastScrollYRef.current + threshold) {
+        setScrollDirection("down");
+      } else if (y < lastScrollYRef.current - threshold) {
+        setScrollDirection("up");
+      }
+      lastScrollYRef.current = y;
+
+      if (jumpingToRef.current !== null) {
+        setActiveIndex(jumpingToRef.current);
+        const sh = document.documentElement.scrollHeight - window.innerHeight;
+        setDebugScroll(sh > 0 ? y / sh : 0);
+        return;
+      }
       const scrollHeight =
         document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollHeight > 0 ? y / scrollHeight : 0;
+      const tolerance = scrollHeight > 0 ? 2 / scrollHeight : 0;
 
       // Compute thresholds from actual section top positions
       const thresholds = [];
@@ -160,20 +182,30 @@ export default function SpaceResume() {
         }
       }
 
-      // Find the last section whose start we've passed
+      // Find the last section whose start we've passed (with small tolerance)
       let idx = 0;
       for (let i = 0; i < thresholds.length; i++) {
-        if (progress >= thresholds[i]) idx = i;
+        if (progress >= thresholds[i] - tolerance) idx = i;
       }
       setActiveIndex(idx);
       setDebugScroll(progress);
     }
+    function onScrollEnd() {
+      if (jumpTimeoutRef.current) {
+        clearTimeout(jumpTimeoutRef.current);
+        jumpTimeoutRef.current = null;
+      }
+      jumpingToRef.current = null;
+      onScroll();
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    window.addEventListener("scrollend", onScrollEnd);
     onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scrollend", onScrollEnd);
     };
   }, [SECTIONS.length]);
 
@@ -299,16 +331,17 @@ export default function SpaceResume() {
 
   return (
     <>
-      {/* Scroll progress debug overlay */}
-      {/* <div className="app-debug-overlay">
-        <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
-        <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
-        <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
-        <div>activeIndex: {activeIndex}</div>
-        <div>
-          screen: {windowSize.width} × {windowSize.height}
+      {import.meta.env.DEV && (
+        <div className="app-debug-overlay">
+          <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
+          <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
+          <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
+          <div>activeIndex: {activeIndex}</div>
+          <div>
+            screen: {windowSize.width} × {windowSize.height}
+          </div>
         </div>
-      </div> */}
+      )}
       <main className="app-main">
         <div className="app-bottom-blur" aria-hidden="true" />
         <div className="app-starfield">
@@ -379,7 +412,11 @@ export default function SpaceResume() {
               className={`app-section-item ${i === 0 ? "app-section-item--intro" : s.id === "rocket" ? "app-section-item--rocket" : "app-section-item--landing"}`}
             >
               <LandingSectionContent sectionRef={sectionRefs.current[i]}>
-                {s.body}
+                {s.body ? (
+                  <Suspense fallback={<div className="app-section-loading" />}>
+                    {s.body}
+                  </Suspense>
+                ) : null}
               </LandingSectionContent>
             </div>
           ))}
@@ -388,6 +425,7 @@ export default function SpaceResume() {
               SECTIONS={SECTIONS}
               jumpToMarker={jumpToMarker}
               activeIndex={activeIndex}
+              scrollDirection={scrollDirection}
             />
           </div>
         </section>

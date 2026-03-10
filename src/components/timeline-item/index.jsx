@@ -12,8 +12,6 @@ const TimelineItem = ({
   collapsible = false,
 }) => {
   const [openIndexes, setOpenIndexes] = useState([]);
-  const [isBulletsExpanded, setIsBulletsExpanded] = useState(!collapsible);
-
   const toggleBullet = (idx) => {
     setOpenIndexes((prev) =>
       prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx],
@@ -25,10 +23,8 @@ const TimelineItem = ({
       className={cc([
         "timeline-item",
         { "timeline-item--collapsible": collapsible },
-        { "timeline-item--expanded": collapsible && isBulletsExpanded },
+        { "timeline-item--expanded": collapsible },
       ])}
-      onMouseEnter={collapsible ? () => setIsBulletsExpanded(true) : undefined}
-      onMouseLeave={collapsible ? () => setIsBulletsExpanded(false) : undefined}
     >
       <span className="timeline-dot" />
       <div className="timeline-time">[{time}]</div>
@@ -47,7 +43,7 @@ const TimelineItem = ({
         {where ? <span className="opacity-70"> • {where}</span> : null}
       </div>
       <span className="timeline-bullets">
-        {bullets.length > 0 && (!collapsible || isBulletsExpanded) && (
+        {bullets.length > 0 && (
           <ul className="timeline-bullet-list">
             {bullets.map((b, i) => {
               // Split bullet into summary and detail if possible

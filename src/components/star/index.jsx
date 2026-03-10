@@ -1,7 +1,7 @@
 import React from "react";
 import "./star.css";
 
-export default function Star({ x, y, size, o, twinkle }) {
+export default React.memo(function Star({ x, y, size, o, twinkle }) {
   const starSize = twinkle ? size * 1.8 : size;
   return (
     <g>
@@ -25,4 +25,4 @@ export default function Star({ x, y, size, o, twinkle }) {
       <circle cx={x} cy={y} r={size * 2.5} className="star-glow" />
     </g>
   );
-}
+});
