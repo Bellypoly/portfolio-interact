@@ -1,0 +1,170 @@
+/* --- Card base --- */
+.education-card {
+  @apply relative pl-8;
+}
+
+.education-card--collapsible {
+  @apply flex flex-col gap-2 pl-6 text-left md:text-right transition-colors duration-200;
+}
+.education-card--collapsible .timeline-header {
+  @apply flex flex-col items-start md:items-end mb-0;
+}
+.education-card--collapsible .timeline-header__badges {
+  @apply flex flex-wrap justify-start md:justify-end;
+}
+.education-card--collapsible .timeline-title {
+  @apply text-slate-100 transition-colors duration-200;
+}
+.education-card--collapsible .timeline-time {
+  @apply text-slate-500 transition-colors duration-200;
+}
+.education-card--collapsible .timeline-location {
+  @apply text-slate-300 transition-colors duration-200 my-0;
+}
+
+/* --- Shared timeline elements --- */
+.timeline-time {
+  @apply inline-block text-sm leading-none font-robotomono text-slate-500 uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded;
+}
+.timeline-header {
+  @apply flex flex-col gap-2 mb-3;
+}
+.timeline-header__badges {
+  @apply flex flex-wrap gap-2;
+}
+.timeline-title {
+  @apply font-roboto italic font-bold uppercase tracking-[0.12em] text-slate-100 text-base md:text-lg m-0 p-0;
+}
+.timeline-badge {
+  @apply inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full;
+}
+.timeline-location {
+  @apply flex flex-col gap-0.5 text-sm font-quicksand font-medium text-slate-400;
+}
+
+/* --- Mission log --- */
+.education-card__mission-log-wrap {
+  @apply relative block w-full mt-2;
+}
+.education-card__mission-log-btn {
+  @apply text-sm font-roboto font-medium uppercase tracking-wider cursor-pointer transition-colors;
+  @apply inline-flex items-center gap-1;
+}
+.education-card__mission-log-float {
+  @apply absolute left-0 top-full mt-1.5 z-[10002] p-4 rounded-lg;
+  @apply min-w-[min(50vw,22rem)] max-w-[32rem];
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+/* Mission log popover: bullets (light panel; only usage of --in-float) */
+.education-card__mission-log-float .timeline-bullet-list--in-float {
+  @apply list-none space-y-4 text-[15px] leading-[1rem] text-slate-700 m-0 p-0 text-left font-roboto;
+}
+.education-card__mission-log-float
+  .timeline-bullet-list--in-float
+  .timeline-bullet-item {
+  @apply flex flex-col gap-1 pb-1;
+}
+.education-card__mission-log-float
+  .timeline-bullet-list--in-float
+  .timeline-bullet-btn {
+  @apply flex items-start gap-3 text-left;
+}
+.education-card__mission-log-float
+  .timeline-bullet-list--in-float
+  .timeline-bullet-btn__summary {
+  @apply flex-1 min-w-0 text-slate-800 break-words;
+  line-height: 1.35;
+}
+.education-card__mission-log-float .timeline-bullet-toggle {
+  @apply rounded-full px-2 py-0.5 text-xs font-bold tabular-nums uppercase tracking-wide text-slate-500 bg-black/[0.04];
+}
+.education-card__mission-log-float
+  .timeline-bullet-btn-detail:hover
+  .timeline-bullet-toggle {
+  @apply text-slate-900 bg-black/20;
+}
+.education-card__mission-log-float .timeline-bullet-detail__expand {
+  @apply mt-2 mx-3 pl-4 border-l-2 border-slate-400 text-[15px] text-cyan-800 leading-[1.5rem] max-w-prose;
+}
+.education-card__mission-log-float .timeline-bullet-detail__expand a {
+  @apply text-[#004d5b] font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
+}
+.education-card__mission-log-float .timeline-bullet-detail__expand a:hover {
+  @apply text-[#006d82] bg-yellow-300;
+}
+.education-card__mission-log-float .timeline-bullet-year {
+  @apply inline-block font-robotomono text-xs leading-none uppercase tracking-wider text-[#504b48] bg-[#F0FFFF] px-2 py-0.5 rounded italic;
+}
+.education-card__mission-log-float
+  .timeline-bullet-list--in-float
+  .timeline-badge {
+  @apply bg-slate-400 text-white;
+}
+
+.timeline-location__where {
+  @apply text-yellow-300;
+}
+
+/* --- Bullets --- */
+.education-card--collapsible .timeline-bullet-list {
+  @apply list-none my-0 space-y-2 text-sm leading-relaxed font-roboto text-slate-300 pl-0 min-w-0 w-full max-w-full flex flex-col items-start md:items-end;
+}
+.timeline-bullet-item {
+  @apply min-w-0 w-full max-w-full text-left flex flex-col items-start md:items-end justify-center gap-1;
+}
+.timeline-bullet-btn-detail {
+  @apply cursor-pointer w-full min-w-0 flex flex-nowrap items-center gap-2 text-left text-slate-300 text-[15px] flex-row md:flex-row-reverse;
+}
+.timeline-bullet-btn__summary {
+  @apply flex-1 min-w-0 break-words;
+}
+.education-card .material-symbols-rounded {
+  @apply text-[13px];
+}
+.timeline-bullet-toggle {
+  @apply flex-shrink-0 inline-flex items-center justify-center rounded-full bg-slate-600/25 px-2 py-0.5 text-xs font-bold tabular-nums uppercase tracking-wider text-slate-500;
+  @apply transition-[background-color,color] duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)];
+}
+.timeline-bullet-btn-detail:hover .timeline-bullet-toggle {
+  @apply bg-cyan-500/70 text-cyan-100;
+}
+/* Inline bullet expand (dark card; when mission log is off) */
+.timeline-bullet-detail__expand {
+  @apply mt-1 ml-2 text-[13px] opacity-90 border-l-2 border-cyan-100 pl-2 leading-[1.25rem] min-w-0 max-w-full break-words;
+}
+.timeline-bullet-detail__expand a {
+  @apply text-cyan-200 hover:underline;
+}
+
+/* --- Hover reveal --- */
+.timeline-bullet-btn-detail .hover-reveal-text {
+  @apply inline-block w-full max-w-full overflow-hidden text-[inherit] align-bottom [contain:layout_style];
+  line-height: 1.35;
+  height: 1.35em;
+}
+.timeline-bullet-btn-detail .hover-reveal-text__track {
+  @apply w-full max-w-full;
+}
+.timeline-bullet-btn-detail .hover-reveal-text__line {
+  @apply block shrink-0 overflow-hidden text-ellipsis max-w-full whitespace-nowrap;
+  line-height: 1.35;
+  height: 1.35em;
+  font-size: inherit;
+}
+
+@media (max-width: 767px) {
+  .timeline-bullet-btn-detail .hover-reveal-text {
+    @apply overflow-visible h-auto;
+  }
+  .timeline-bullet-btn-detail .hover-reveal-text__track {
+    @apply leading-relaxed !transform-none;
+  }
+  .timeline-bullet-btn-detail .hover-reveal-text__line {
+    @apply whitespace-normal h-auto;
+  }
+  .timeline-bullet-btn-detail .hover-reveal-text__line:last-child {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,61 @@
+/* Editorial square tile: full-bleed image, bottom gradient, text anchored bottom-left */
+
+.project-card {
+  @apply relative block aspect-square w-full overflow-hidden rounded-2xl no-underline;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.12),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.project-card:hover {
+  box-shadow:
+    0 10px 25px -5px rgb(0 0 0 / 0.2),
+    0 8px 10px -6px rgb(0 0 0 / 0.12);
+}
+
+.project-card:focus-visible {
+  @apply outline-none ring-2 ring-[#6bbfe4] ring-offset-2 ring-offset-white;
+}
+
+.project-card__media {
+  @apply absolute inset-0;
+}
+
+.project-card__image {
+  @apply h-full w-full object-cover transition-transform duration-500 ease-out will-change-transform;
+}
+
+.project-card:hover .project-card__image,
+.project-card:focus-visible .project-card__image {
+  @apply scale-[1.04];
+}
+
+.project-card__scrim {
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.45) 38%,
+    rgba(0, 0, 0, 0.12) 62%,
+    transparent 100%
+  );
+}
+
+.project-card__body {
+  @apply absolute bottom-0 left-0 z-[1] w-full max-w-full p-5 text-left md:p-6;
+}
+
+.project-card__title {
+  @apply text-white font-bold tracking-tight leading-tight;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    Times,
+    ui-serif,
+    serif;
+  font-size: clamp(1.15rem, 2.2vw + 0.85rem, 1.85rem);
+}
+
+.project-card__subtitle {
+  @apply mt-2 font-roboto text-sm font-normal leading-snug text-white/90 md:text-base;
+}
