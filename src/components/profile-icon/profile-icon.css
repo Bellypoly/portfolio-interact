@@ -1,44 +1,38 @@
-@tailwind utilities;
-
 .profile-icon {
   @apply fixed bottom-[-20px] right-5 flex flex-col items-center justify-center z-[10003] overflow-visible;
 }
 
-/* Icon stack container (holds radio, image, svg) */
 .profile-icon-stack {
   @apply relative w-[55px] h-[55px] flex items-center justify-center cursor-pointer;
 }
 .profile-icon-stack:hover .radio-signal-wave {
-  border-color: rgba(94, 234, 212, 1);
-  background: rgba(94, 234, 212, 0.4);
-  filter: brightness(1.8) drop-shadow(0 0 12px #5eead4)
+  @apply border-cyan-400 bg-cyan-400/40;
+  filter:
+    brightness(1.8) drop-shadow(0 0 12px #5eead4)
     drop-shadow(0 0 24px rgba(94, 234, 212, 0.6));
 }
 
-/* Animated radio signal */
 .radio-signal-wave {
   @apply absolute rounded-full w-[55px] h-[55px] pointer-events-none z-[21];
-  border: 1px solid rgba(94, 234, 212, 0.85);
+  @apply border border-[rgba(94,234,212,0.85)];
   box-shadow:
     0 0 10px rgba(94, 234, 212, 0.4),
     inset 0 0 8px rgba(94, 234, 212, 0.08);
 }
 
-/* Profile image */
 .profile-icon-img {
-  @apply relative w-[55px] h-[55px] object-cover rounded-full bg-[#17677a] shadow-[0_2px_8px_rgba(0,0,0,0.15)] border-2 border-white z-[22];
+  @apply relative w-[55px] h-[55px] object-cover rounded-full bg-[#17677a] border-2 border-white z-[22];
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Curved Astronaut ID label */
 .astronaut-id-label {
-  @apply absolute left-1/2 top-[60%] pointer-events-none z-[23];
-  transform: translate(-50%, -50%);
+  @apply absolute left-1/2 top-[60%] pointer-events-none z-[23] -translate-x-1/2 -translate-y-1/2;
 }
 .astronaut-id-label-text {
   text-shadow: 0 1px 2px #0e2233;
 }
 
-/* About Me Modal */
+/* --- Modal --- */
 .about-me-modal {
   @apply fixed inset-0 z-[10002] flex flex-col;
 }

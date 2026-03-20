@@ -1,7 +1,7 @@
 import React from "react";
 import "./rocket.css";
 
-export default function CapsuleRocket() {
+export default React.memo(function CapsuleRocket() {
   return (
     <div className="rocket">
       <picture className="rocket-picture">
@@ -27,7 +27,7 @@ export default function CapsuleRocket() {
           className="rocket-img"
           draggable={false}
         />
-      </picture>
-    </div>
-  );
-}
+    </picture>
+  </div>
+);
+});

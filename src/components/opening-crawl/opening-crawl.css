@@ -1,38 +1,35 @@
 .crawl-role-nowrap {
   @apply inline-block whitespace-nowrap;
 }
-/* Utility classes for repeated patterns */
-.block-sm-inline {
-  @apply block sm:inline;
-}
 .crawl-header {
   @apply absolute inset-x-0 -translate-y-1/2 flex justify-center z-[6001] pointer-events-none text-yellow-300 text-center;
-  /* top controlled by headerTopMV (50% -> 30% on scroll) */
 }
 .crawl-header-content {
   @apply mx-auto px-4 sm:px-6 md:px-8 uppercase;
   @apply max-w-[min(100vw,40rem)] sm:max-w-[min(90vw,60rem)] min-[1440px]:max-w-[min(90vw,100rem)];
 }
+.crawl-welcome,
+.crawl-of {
+  @apply font-quicksand;
+}
 .crawl-welcome {
   @apply text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
-  @apply font-quicksand;
 }
 .crawl-of {
   @apply text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em];
-  @apply font-quicksand;
 }
 .crawl-name {
-  @apply font-stacknotch mb-4 sm:mb-6 tracking-[0.25em] sm:tracking-[0.35em] font-extrabold;
-  line-height: 1;
+  @apply font-stacknotch mb-4 sm:mb-6 tracking-[0.25em] sm:tracking-[0.35em] font-extrabold leading-none;
 }
-.crawl-name-block {
+.crawl-name-block,
+.crawl-role-block {
   @apply block sm:inline;
 }
 .crawl-role {
-  @apply font-robotomono mb-6 sm:mb-8 md:mb-10 text-[0.7rem] sm:text-xs md:text-xs lg:text-sm xl:text-[0.9rem] tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center shadow-[0_18px_18px_0_rgba(0,0,0,0.95),0_-18px_18px_0_rgba(0,0,0,0.95)];
-}
-.crawl-role-block {
-  @apply block sm:inline;
+  @apply font-robotomono mb-6 sm:mb-8 md:mb-10 text-[0.7rem] sm:text-xs md:text-xs lg:text-sm xl:text-[0.9rem] tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center;
+  box-shadow:
+    0 18px 18px 0 rgba(0, 0, 0, 0.95),
+    0 -18px 18px 0 rgba(0, 0, 0, 0.95);
 }
 .crawl-role-dot {
   @apply hidden sm:inline;
@@ -47,10 +44,8 @@
   @apply w-full flex justify-center [perspective:800px];
 }
 .crawl-title {
-  @apply text-yellow-300 text-center origin-bottom scale-[1.8];
+  @apply text-yellow-300 text-center origin-bottom scale-[1.8]  [transform-origin:50%_100%] [transform-style:preserve-3d];
   rotate: x 50deg;
-  transform-origin: 50% 100%;
-  transform-style: preserve-3d;
 }
 .crawl-content {
   @apply mx-auto font-roboto uppercase tracking-[0.2em] max-h-[200vh] overflow-y-auto;
@@ -62,27 +57,5 @@
 
 .crawl-paragraph {
   @apply break-words font-bold text-justify uppercase text-yellow-300 mb-6 sm:mb-8;
-  @apply text-base sm:text-[1.375rem] md:text-[1.5rem] lg:text-[1.875rem];
-  line-height: 1.5;
-}
-/* Decorative separator: ﹁技術﹂ (Technology) - at bottom of intro, moves like Work Experience */
-.intro-body {
-  @apply flex flex-col justify-end min-h-full w-full;
-}
-.intro-spacer {
-  @apply flex-1 min-h-0;
-}
-.crawl-separator-section {
-  @apply flex justify-center items-center w-full py-8 mb-16;
-}
-.crawl-separator {
-  @apply flex flex-col items-center gap-0;
-}
-.crawl-separator-line {
-  @apply w-full h-px bg-gradient-to-r from-transparent via-[rgba(255,215,140,0.26)] to-transparent;
-}
-.crawl-separator-text {
-  @apply m-0 font-aurebesh text-sm leading-[1.1em] [&>span]:block [&>span]:mb-1;
-  @apply bg-gradient-to-b from-yellow-300 to-cyan-400 bg-clip-text text-transparent;
-  @apply [&>span:first-child]:mb-4 [&>span:last-child]:mt-4;
+  @apply text-base sm:text-[1.375rem] md:text-[1.5rem] lg:text-[1.875rem] leading-[1.5];
 }

@@ -1,11 +1,46 @@
-/* Space Resume layout – Tailwind @apply */
+/**
+ * SpaceResume layout
+ *
+ * Sections: main → nebula → starfield → app-section (contents)
+ * Rocket/education stacking (rocket-education-wrapper):
+ *   2  education backdrop
+ *   3  #rocket (incl. rocket-section-atmosphere)
+ *   4  atmosphere HUD (above atmosphere gradient)
+ *   5  starfield
+ *   6  #education shell + content
+ */
 
 .app-main {
-  @apply min-h-screen w-full text-white bg-black;
+  @apply relative min-h-screen w-full text-white bg-black;
+}
+
+.app-bg-nebula {
+  @apply fixed inset-0 pointer-events-none z-0;
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 20% 40%,
+      rgba(70, 52, 100, 0.55) 0%,
+      rgba(48, 38, 75, 0.35) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 80% at 80% 20%,
+      rgba(52, 72, 115, 0.5) 0%,
+      rgba(32, 42, 72, 0.3) 50%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      #060410 0%,
+      #0a0a18 25%,
+      #0c0818 50%,
+      #0a0a18 75%,
+      #060410 100%
+    );
 }
 
 .app-starfield {
-  @apply relative sticky top-0 h-screen overflow-hidden bg-black;
+  @apply relative sticky top-0 h-screen overflow-hidden bg-transparent pointer-events-none z-[5];
 }
 
 .app-shooting-stars {
@@ -15,60 +50,125 @@
 .app-star-layer {
   @apply absolute inset-0 w-full h-full;
 }
+.app-star-layer--far {
+  @apply z-[1];
+}
+.app-star-layer--mid {
+  @apply z-[2];
+}
+.app-star-layer--near {
+  @apply z-[3];
+}
 .app-star-layer svg {
   @apply absolute inset-0 w-full h-full;
 }
+
 .app-debug-overlay {
   @apply fixed bottom-4 left-4 z-[20000] bg-black/80 text-cyan-300 font-mono text-xs p-2 rounded border border-cyan-500/50;
 }
 .section-title {
-  @apply text-2xl md:text-3xl font-roboto font-bold text-cyan-400 mb-8;
+  @apply text-2xl md:text-3xl font-roboto font-bold text-cyan-400 mt-8;
 }
 
 .app-section {
-  @apply relative;
+  @apply contents;
 }
 
 .app-section-item {
   @apply min-h-[100vh] flex items-center justify-center;
 }
 .app-section-item--intro {
-  @apply relative w-full overflow-hidden flex flex-col justify-end min-h-[230vh] md:min-h-[125vh];
+  @apply relative z-10 w-full overflow-hidden flex flex-col justify-end min-h-[300vh] md:min-h-[190vh];
 }
 .app-section-item--rocket {
-  @apply relative w-full p-0 overflow-hidden min-h-[80vh] md:min-h-[80vh];
+  @apply relative z-[3] w-full min-h-[100vh] p-0 overflow-visible;
 }
-.app-section-item--landing {
-  @apply relative w-full px-4 sm:px-6 md:px-8 min-h-min flex items-start justify-center;
+.app-section-item--rocket .rocket-section {
+  @apply absolute inset-0;
 }
+.app-section-item--prequel {
+  @apply relative z-10 w-full px-4 sm:px-6 md:px-8 min-h-min flex items-center justify-center;
+}
+.app-section-item--prequel > *,
 .app-section-item--landing > * {
   @apply w-full max-w-4xl min-w-0;
+}
+.app-section-item--landing {
+  @apply relative z-10 w-full px-4 sm:px-6 md:px-8 min-h-min flex items-start justify-center;
 }
 .app-section-loading {
   @apply min-h-[50vh] w-full;
 }
 #work.app-section-item--landing > *,
 #education.app-section-item--landing > * {
-  @apply max-w-6xl;
+  @apply max-w-[100vw];
+}
+
+.app-section-item--education-below-stars,
+#education.app-section-item--landing {
+  @apply relative z-[6] bg-transparent;
+}
+
+.rocket-education-wrapper__education-bg {
+  @apply absolute left-0 right-0 pointer-events-none z-[2];
+  top: 100vh;
+  bottom: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #397a96 3%,
+    #c9d9dc 28%,
+    #f9e7e7 45%,
+    #fff6d4 100%
+  );
+}
+
+#gradient-transition.app-section-item {
+  @apply relative z-0 w-full min-h-[100vh] p-0 flex items-center justify-center;
+}
+#gradient-transition.app-section-item > * {
+  @apply w-full min-w-0 max-w-[100vw];
+}
+
+.rocket-education-wrapper {
+  @apply relative w-full;
+}
+.rocket-education-wrapper > .app-section-item--rocket,
+.rocket-education-wrapper > .app-section-item--landing {
+  @apply w-full;
+}
+.rocket-education-wrapper > .app-section-item--rocket {
+  @apply mb-0;
+}
+.rocket-education-wrapper > #education {
+  @apply mt-0;
+}
+
+.rocket-education-wrapper__hud {
+  @apply absolute left-0 top-0 hidden md:flex flex-col justify-between px-4 pointer-events-none z-[4];
+  @apply w-[min(6rem,20vw)] h-full;
+}
+.rocket-education-wrapper__hud .atmosphere-hud {
+  @apply sticky top-0 min-h-0;
 }
 
 .app-panel-row {
   @apply fixed top-0 flex flex-row items-end gap-4 z-[10000] w-full;
 }
-
 .app-bottom-blur {
-  @apply fixed inset-x-0 bottom-0 h-32 pointer-events-none z-[10000] bg-gradient-to-t from-black to-transparent;
+  @apply fixed inset-x-0 bottom-0 h-32 pointer-events-none z-[10000];
+  background: linear-gradient(to top, #000000, transparent);
 }
 
-.app-panel-flex {
-  @apply flex-1;
-}
-
-/* Shooting star */
 .shooting-star {
   @apply absolute;
 }
-
 .shooting-star-line {
-  @apply w-40 h-0.5 bg-gradient-to-r from-white to-transparent -rotate-45;
+  @apply w-40 h-0.5 -rotate-45;
+  @apply transition-[background] duration-500 ease-out;
+  background: linear-gradient(
+    to right,
+    var(--star-fill, white) 0%,
+    transparent 100%
+  );
 }

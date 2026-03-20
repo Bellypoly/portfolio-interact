@@ -1,28 +1,10 @@
-// =====================
-// Opening crawl
-// =====================
-import React, { useEffect, useState } from "react";
-import { motion, useTransform, useMotionValue } from "framer-motion";
+import React, { useEffect, useState, useMemo } from "react";
+import { motion, useTransform } from "framer-motion";
 import FadeParagraph from "../fade-paragraph.jsx";
 import "./opening-crawl.css";
 
-function useBreakpointStops() {
-  const [breakpoint, setBreakpoint] = useState("lg");
-  useEffect(() => {
-    function handleResize() {
-      const width = window.innerWidth;
-      if (width < 640) setBreakpoint("xs");
-      else if (width < 768) setBreakpoint("sm");
-      else if (width < 1024) setBreakpoint("md");
-      else setBreakpoint("lg");
-    }
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Define stops for each paragraph and breakpoint
-  const stops = {
+// --- Responsive fade stops ---
+const BREAKPOINT_STOPS = {
     para1: {
       xs: [0.15, 0.31, 0.33, 0.35],
       sm: [0.15, 0.38, 0.39, 0.4],
@@ -47,17 +29,38 @@ function useBreakpointStops() {
       md: [0.15, 0.64, 0.65, 0.66],
       lg: [0.15, 0.62, 0.64, 0.66],
     },
-  };
-  return {
-    breakpoint,
-    stops1: stops.para1[breakpoint],
-    stops2: stops.para2[breakpoint],
-    stops3: stops.para3[breakpoint],
-    stops4: stops.para4[breakpoint],
-  };
+};
+
+// --- useBreakpointStops ---
+function useBreakpointStops() {
+  const [breakpoint, setBreakpoint] = useState("lg");
+  useEffect(() => {
+    function handleResize() {
+      const width = window.innerWidth;
+      if (width < 640) setBreakpoint("xs");
+      else if (width < 768) setBreakpoint("sm");
+      else if (width < 1024) setBreakpoint("md");
+      else setBreakpoint("lg");
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return useMemo(
+    () => ({
+      breakpoint,
+      stops1: BREAKPOINT_STOPS.para1[breakpoint],
+      stops2: BREAKPOINT_STOPS.para2[breakpoint],
+      stops3: BREAKPOINT_STOPS.para3[breakpoint],
+      stops4: BREAKPOINT_STOPS.para4[breakpoint],
+    }),
+    [breakpoint],
+  );
 }
 
-export default function OpeningCrawl({
+// --- OpeningCrawl ---
+export default React.memo(function OpeningCrawl({
   opacityMV,
   headerTopMV,
   yMV,
@@ -77,7 +80,6 @@ export default function OpeningCrawl({
   );
   return (
     <>
-      {/* Static header section */}
       <motion.div
         className="crawl-header"
         style={{ opacity: opacityMV, top: headerTopMV }}
@@ -104,12 +106,10 @@ export default function OpeningCrawl({
           </div>
         </div>
       </motion.div>
-      {/* Animated crawl section */}
       <motion.div className="crawl-container" style={{ opacity: opacityMV }}>
         <div className="crawl-inner">
           <motion.div style={{ y: yMV }} className="crawl-title">
             <div className="crawl-content">
-              {/* Narrative paragraphs */}
               <FadeParagraph
                 crawlProgress={crawlProgress}
                 stops={stops1}
@@ -150,7 +150,8 @@ export default function OpeningCrawl({
                 Her journey continues through space, code, and carefully crafted
                 experiences—building reliable platforms, insightful
                 visualizations, and software that guides millions through
-                digital worlds.
+                digital worlds. That journey began East to West—from Thailand to
+                Texas - and the work that follows is where it landed.
               </FadeParagraph>
             </div>
           </motion.div>
@@ -158,4 +159,4 @@ export default function OpeningCrawl({
       </motion.div>
     </>
   );
-}
+});

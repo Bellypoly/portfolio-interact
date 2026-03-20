@@ -1,9 +1,9 @@
 .star-core,
 .star-glow {
-  fill: white;
+  @apply fill-[var(--star-fill,white)] transition-[fill] duration-500 ease-out;
   filter: url(#star-glow);
 }
 
 .star-glow {
-  opacity: 0.08;
+  @apply opacity-[0.08];
 }

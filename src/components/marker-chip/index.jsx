@@ -1,4 +1,3 @@
-// MarkerChip: Single marker navigation chip
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./marker-chip.css";
@@ -50,17 +49,24 @@ const MarkerChip = ({
   </AnimatePresence>
 );
 
-// MarkerChipGroup: renders the group of marker chips
+const HIDDEN_MARKER_IDS = ["rocket", "prequel", "gradient-transition"];
+
 export const MarkerChipGroup = React.memo(function MarkerChipGroup({
   SECTIONS,
   jumpToMarker,
   activeIndex,
   scrollDirection = "up",
+  hiddenMarkerIds = HIDDEN_MARKER_IDS,
+  isLightSection = false,
 }) {
   const isVisible = scrollDirection === "up";
+  const isHidden = (id) => hiddenMarkerIds.includes(id);
   return (
     <motion.div
-      className="marker-chip-group"
+      className={cc([
+        "marker-chip-group",
+        { "marker-chip-group--light-section": isLightSection },
+      ])}
       initial={false}
       animate={{
         y: isVisible ? 0 : "-100%",
@@ -74,7 +80,7 @@ export const MarkerChipGroup = React.memo(function MarkerChipGroup({
       style={{ pointerEvents: isVisible ? "auto" : "none" }}
     >
       {SECTIONS.map((s, i) =>
-        s.id === "rocket" ? null : (
+        isHidden(s.id) ? null : (
           <MarkerChip
             key={s.id}
             index={i}

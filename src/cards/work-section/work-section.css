@@ -1,18 +1,17 @@
-/* Work section – Tailwind @apply */
 .work-section-wrapper {
-  @apply grid w-full min-w-0 items-start mb-8;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 768px) {
-  .work-section-wrapper {
-    grid-template-columns: 1fr 1fr;
-  }
+  @apply w-full min-w-0;
 }
 .work-section-title-row {
-  @apply col-span-1 md:col-span-2;
+  @apply w-full;
+}
+.work-section-cols {
+  @apply grid w-full min-w-0 grid-cols-1 md:grid-cols-2 md:items-start;
+}
+.work-section-col--left {
+  @apply min-w-0;
 }
 .work-section-col--right {
-  @apply flex justify-center items-start min-h-[200px] self-start min-w-0 overflow-hidden md:pl-8;
+  @apply flex justify-center md:justify-start items-start min-h-[200px] min-w-0 md:pl-8 md:sticky md:top-0 md:self-start;
 }
 .work-section-journey {
   @apply mt-8 md:mt-12 w-full max-w-full md:max-w-lg mx-auto flex justify-center items-center min-w-0 overflow-hidden px-2 sm:px-0;
@@ -20,26 +19,23 @@
 .work-section-journey .journey-route-globe {
   @apply overflow-hidden;
 }
-.work-section-circle {
-  @apply w-48 h-48 rounded-full bg-white;
-}
 .work-section {
   @apply text-sm md:text-base text-slate-100 space-y-2;
 }
 
 .work-section-title-row .work-section-title {
-  @apply flex flex-row justify-center md:justify-start items-center gap-2 w-full py-4 mb-8;
-  container-type: inline-size;
+  @apply flex flex-row justify-center md:justify-start items-center gap-2 w-full [container-type:inline-size];
 }
 
 .work-section-title-label {
-  @apply font-roboto text-cyan-400 font-bold uppercase tracking-[0.02em] leading-[1.1] flex items-center shrink-0;
-  font-size: clamp(4.5rem, 14vw + 4rem, 8rem);
+  @apply font-roboto text-cyan-400 font-bold uppercase tracking-[0.02em] leading-[1.1] flex items-center shrink-0 text-[clamp(4.5rem,14vw+4rem,8rem)];
 }
 
 .work-section-title-text {
-  @apply m-0 font-aurebesh text-sm leading-[1.1em] flex flex-col items-center shrink-0;
-  @apply bg-gradient-to-b from-yellow-300 to-cyan-400 bg-clip-text text-transparent;
-  @apply [&>span]:block [&>span]:mb-0.5;
-  @apply [&>span:first-child]:mb-2 [&>span:last-child]:mt-2;
+  @apply m-0 font-aurebesh text-sm leading-[1.1em] flex flex-col items-center shrink-0 [&>span]:block [&>span]:mb-0.5 [&>span:first-child]:mb-2 [&>span:last-child]:mt-2;
+  /* yellow-300 → cyan-400 */
+  background-image: linear-gradient(to bottom, #fde047, #22d3ee);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

@@ -1,32 +1,14 @@
-// =====================
-// Imports
-// =====================
 import React, { useState, useCallback } from "react";
 import { motion, useTransform, AnimatePresence } from "framer-motion";
 import AstronautCard from "../../cards/astronaut-id-card";
 import "./profile-icon.css";
 
-// =====================
-// ProfileIcon Component
-// =====================
-
-/**
- * ProfileIcon animates up and fades in as crawlProgress goes from 0 to 1.
- * @param {{ crawlProgress: import('framer-motion').MotionValue<number> }} props
- */
-export default function ProfileIcon({ crawlProgress }) {
-  // Modal open state
+export default React.memo(function ProfileIcon({ crawlProgress }) {
   const [showAboutMe, setShowAboutMe] = useState(false);
-
-  // Animate Y from 0px (start) to -48px (up) as crawlProgress goes 0.35 -> 0.5
-  // Animate opacity from 0 to 1 from 0.35 -> 0.42
   const y = useTransform(crawlProgress, [0.35, 0.5], [0, -48]);
   const opacity = useTransform(crawlProgress, [0.35, 0.42], [0, 1]);
-
-  // Toggle About Me modal
   const handleProfileClick = useCallback(() => setShowAboutMe((v) => !v), []);
 
-  // Modal animation config
   const modalMotion = {
     initial: { x: "100vw", opacity: 1 },
     animate: { x: 0, opacity: 1 },
@@ -36,7 +18,6 @@ export default function ProfileIcon({ crawlProgress }) {
 
   return (
     <>
-      {/* Profile Icon Floating Button */}
       <motion.div
         className="profile-icon"
         style={{ y, opacity }}
@@ -44,7 +25,6 @@ export default function ProfileIcon({ crawlProgress }) {
         initial={false}
       >
         <div className="profile-icon-stack" onClick={handleProfileClick}>
-          {/* Animated Radio Signal */}
           <motion.span
             className="radio-signal-wave"
             initial={{ scale: 0.7, opacity: 0.85 }}
@@ -57,7 +37,6 @@ export default function ProfileIcon({ crawlProgress }) {
               delay: 0,
             }}
           />
-          {/* Profile Image */}
           <picture>
             <source srcSet={`${import.meta.env.BASE_URL}images/profile-pic-2.webp`} type="image/webp" />
             <img
@@ -66,7 +45,6 @@ export default function ProfileIcon({ crawlProgress }) {
               className="profile-icon-img"
             />
           </picture>
-          {/* Curved Astronaut ID label on the outer edge */}
           <svg
             width="90"
             height="70"
@@ -97,7 +75,6 @@ export default function ProfileIcon({ crawlProgress }) {
         </div>
       </motion.div>
 
-      {/* About Me Modal */}
       <AnimatePresence>
         {showAboutMe && (
           <motion.div className="about-me-modal" {...modalMotion}>
@@ -116,4 +93,4 @@ export default function ProfileIcon({ crawlProgress }) {
       </AnimatePresence>
     </>
   );
-}
+});

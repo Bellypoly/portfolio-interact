@@ -1,18 +1,14 @@
-// =====================
-// Imports
-// =====================
 import React from "react";
 import { motion, useTransform } from "framer-motion";
 import WorkTimelineItem from "../../components/work-timeline-item";
 import JourneyRoute from "../../components/journey-route";
 import "./work-section.css";
 
-// =====================
-// Job Timeline Components (private to this module)
-// =====================
-const SeniorFullStack = () => (
+// --- Job entries ---
+const SeniorFullStack = ({ showLiveDot }) => (
   <WorkTimelineItem
     time="Nov 2021 - Present"
+    showLiveDot={showLiveDot}
     title="Senior Full-Stack Developer"
     org="The Dallas Morning News / Hearst"
     where="Dallas, Texas"
@@ -78,9 +74,7 @@ const SoftwareEng = () => (
   />
 );
 
-// =====================
-// Section Title (﹁work﹂ with labels)
-// =====================
+// --- WorkSection ---
 const SECTION_TITLE_CHARS = ["﹁", "w", "o", "r", "k", "﹂"];
 
 function WorkSectionTitle() {
@@ -97,41 +91,43 @@ function WorkSectionTitle() {
   );
 }
 
-// =====================
-// Main WorkSection Export
-// =====================
 const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
   const opacity = useTransform(
     sectionProgress,
-    [0, 0.2, 0.8, 1],
+    [0, 0.2, 0.9, 1],
     [0, 1, 1, 0.3],
   );
   const y = useTransform(sectionProgress, [0, 0.25], [24, 0]);
 
   return (
-    <motion.div className="work-section-wrapper" style={{ opacity, y }}>
+    <motion.div className="work-section-wrapper" style={{ opacity }}>
       <div className="work-section-title-row">
         <WorkSectionTitle />
       </div>
-      <div className="work-section-col work-section-col--left">
-        <div className="work-section">
-          <div id="work-dallas">
-            <SeniorFullStack />
+      <div className="work-section-cols">
+        <motion.div
+          className="work-section-col work-section-col--left"
+          style={{ y }}
+        >
+          <div className="work-section">
+            <div id="work-dallas">
+              <SeniorFullStack showLiveDot />
+            </div>
+            <div id="work-chiangmai">
+              <DataEngineer />
+            </div>
+            <div id="work-pea">
+              <FullStackII />
+            </div>
+            <div id="work-thinknet">
+              <SoftwareEng />
+            </div>
           </div>
-          <div id="work-chiangmai">
-            <DataEngineer />
+        </motion.div>
+        <div className="work-section-col work-section-col--right">
+          <div className="work-section-journey">
+            <JourneyRoute />
           </div>
-          <div id="work-pea">
-            <FullStackII />
-          </div>
-          <div id="work-thinknet">
-            <SoftwareEng />
-          </div>
-        </div>
-      </div>
-      <div className="work-section-col work-section-col--right">
-        <div className="work-section-journey">
-          <JourneyRoute />
         </div>
       </div>
     </motion.div>

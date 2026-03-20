@@ -1,0 +1,12 @@
+.atmosphere-hud {
+  @apply flex flex-col justify-between pt-[10vh] h-[90vh];
+}
+.atmosphere-hud__item {
+  @apply flex items-center gap-2 font-robotomono text-xs font-light uppercase tracking-[0.2em];
+}
+.atmosphere-hud__line {
+  @apply block h-px w-6 min-w-[1.25rem];
+}
+.atmosphere-hud__label {
+  @apply opacity-90;
+}

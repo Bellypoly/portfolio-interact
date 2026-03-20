@@ -1,46 +1,90 @@
-/* Styles for MarkerChip component */
+/**
+ * Section marker navigation
+ * - Default: cyan labels on space (frosted island < md, slim strip ≥ md)
+ * - .marker-chip-group--light-section: slate text + frosted white panel (all widths)
+ */
+
+/* --- Shell: fixed group --- */
 .marker-chip-group {
-  @apply flex flex-col mb-2 justify-start z-[20000] bg-black/80 text-cyan-300 font-mono text-xs pl-2;
-  @apply fixed bottom-4 left-4 items-start border-l border-cyan-500/50 rounded-r-lg;
-  @apply md:bottom-auto md:left-auto md:top-4 md:right-4 md:items-end md:border-l-0 md:border-r md:border-cyan-500/50 md:rounded-r-none md:rounded-l-lg;
+  --marker-glow-cyan:
+    0 0 15px rgb(0 255 255 / 0.6), 0 0 12px rgb(0 255 255 / 0.6);
+
+  @apply z-[20000] mb-2 flex flex-col justify-start text-xs text-cyan-300;
+
+  @apply fixed bottom-4 left-4 items-start pl-2;
+  @apply md:bottom-auto md:left-auto md:right-4 md:top-4 md:items-end;
+
+  @apply rounded-r-lg border-l border-cyan-500/50;
+  @apply max-md:rounded-lg max-md:border max-md:border-cyan-500/35;
+  @apply md:rounded-l-lg md:rounded-r-none md:border-l-0 md:border-r md:border-cyan-500/50;
+
+  @apply max-md:bg-black/[0.65] max-md:py-2 max-md:pr-3;
+  @apply max-md:backdrop-blur-md max-md:shadow-lg max-md:shadow-[0_10px_15px_-3px_rgb(0_0_0/0.2)];
+
+  @apply md:bg-transparent md:py-0 md:pr-0 md:shadow-none md:backdrop-blur-none;
 }
 
+/* --- One chip row --- */
 .marker-chip-container {
-  @apply flex items-center gap-1 font-quicksand;
-  position: relative;
-  z-index: 10;
-  transition:
-    opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  @apply relative z-10 flex items-center gap-1;
+  @apply transition-[opacity,transform] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
+
+/* --- Links (default / cyan theme) --- */
 .marker-chip-btn {
-  @apply text-sm px-0 md:px-2 py-1 min-w-fit font-stacknotch font-light text-left border-none bg-none outline-none transition-colors;
+  @apply min-w-fit border-none bg-transparent px-0 py-1 text-left font-silkscreen text-sm outline-none transition-colors md:px-2;
 }
 .marker-chip-btn.active {
-  @apply text-cyan-400 hover:text-cyan-200 marker-glow;
+  @apply text-cyan-400 marker-glow hover:text-cyan-200;
 }
 .marker-chip-btn.inactive {
   @apply text-cyan-200 hover:text-cyan-500;
 }
+
 .marker-glow {
-  text-shadow:
-    0 0 15px rgba(0, 255, 255, 0.6),
-    0 0 12px rgba(0, 255, 255, 0.6);
+  text-shadow: var(--marker-glow-cyan);
 }
+
 .marker-chip-spacer {
   @apply ml-3;
 }
 
-.marker-blink {
-  animation: blink-opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+/* --- Light section (education → portfolio): panel + slate chrome --- */
+.marker-chip-group.marker-chip-group--light-section {
+  --marker-glow-slate-strong:
+    0 0 10px rgb(15 23 42 / 0.45), 0 0 6px rgb(15 23 42 / 0.3);
+  --marker-glow-slate-soft:
+    0 0 14px rgb(15 23 42 / 0.5), 0 0 8px rgb(15 23 42 / 0.35);
+  --marker-panel-shadow: 0 8px 24px -4px rgb(15 23 42 / 0.12);
+
+  @apply border border-slate-600/40 rounded-lg py-2 px-3 text-slate-800;
+  @apply bg-white/[0.3] backdrop-blur-md;
+  box-shadow: var(--marker-panel-shadow);
 }
-@keyframes blink-opacity {
+
+.marker-chip-group.marker-chip-group--light-section .marker-chip-btn.active {
+  @apply text-slate-950;
+  text-shadow: var(--marker-glow-slate-strong);
+}
+
+.marker-chip-group.marker-chip-group--light-section .marker-chip-btn.inactive {
+  @apply text-slate-700 hover:text-slate-900;
+}
+
+.marker-chip-group.marker-chip-group--light-section .marker-glow {
+  text-shadow: var(--marker-glow-slate-soft);
+}
+
+/* --- Intro “active” caret pulse --- */
+.marker-blink {
+  animation: marker-blink-opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes marker-blink-opacity {
   0%,
   100% {
     opacity: 1;
-    text-shadow:
-      0 0 15px rgba(0, 255, 255, 0.6),
-      0 0 15px rgba(0, 255, 255, 0.6);
+    text-shadow: var(--marker-glow-cyan), var(--marker-glow-cyan);
   }
   50% {
     opacity: 0;

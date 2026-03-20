@@ -1,8 +1,7 @@
-// Wrapper that provides scroll progress for section content
 import React from "react";
 import { useScroll } from "framer-motion";
 
-export default function LandingSectionContent({ sectionRef, children }) {
+export default React.memo(function LandingSectionContent({ sectionRef, children }) {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -23,4 +22,4 @@ export default function LandingSectionContent({ sectionRef, children }) {
     }
     return React.cloneElement(child, { sectionProgress: scrollYProgress });
   });
-}
+});

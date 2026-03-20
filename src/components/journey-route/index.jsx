@@ -5,6 +5,7 @@ import { transition } from "d3-transition";
 import { feature, mesh } from "topojson-client";
 
 // Versor: quaternion-based spherical interpolation (from D3 World Tour)
+// @see : https://observablehq.com/@d3/world-tour
 class Versor {
   static fromAngles([l, p, g]) {
     l *= Math.PI / 360;
@@ -110,6 +111,20 @@ const JOURNEY_STOPS = [
     anchor: null,
   },
   {
+    coords: [100.4942, 13.651],
+    company: "Studied at KMUTT",
+    location: "Bangkok, Thailand",
+    country: "Thailand",
+    anchor: "edu-kmutt",
+  },
+  {
+    coords: [100.5231, 13.8591],
+    company: "Studied at STOU",
+    location: "Nonthaburi, Thailand",
+    country: "Thailand",
+    anchor: "edu-stou",
+  },
+  {
     coords: [100.5018, 13.7563],
     company: "THiNKNET Co., Ltd.",
     location: "Bangkok, Thailand",
@@ -131,11 +146,25 @@ const JOURNEY_STOPS = [
     anchor: "work-chiangmai",
   },
   {
+    coords: [-101.8552, 33.5779],
+    company: "Studied at TTU",
+    location: "Lubbock, Texas",
+    country: "United States of America",
+    anchor: "edu-ttu",
+  },
+  {
     coords: [-96.8067, 32.7831],
     company: "The Dallas Morning News",
     location: "Dallas, Texas",
     country: "United States of America",
     anchor: "work-dallas",
+  },
+  {
+    coords: [-122.2041, 47.8601],
+    company: "Lives in",
+    location: "Mill Creek, Washington",
+    country: "United States of America",
+    anchor: null,
   },
   {
     coords: [98.3923, 7.8804],

@@ -1,33 +1,30 @@
-/* Global styles can be added here */
-/* Component CSS imports moved to their respective files */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Reusable hover text reveal (text slides up, same word reveals beneath) */
 .hover-reveal-text {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  height: 1em;
-  line-height: 1;
-  contain: layout style;
+  @apply inline-block overflow-hidden align-bottom h-[1em] leading-none [contain:layout_style];
 }
 .hover-reveal-text__track {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  @apply flex flex-col transition-transform duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
 .hover-reveal-text:hover .hover-reveal-text__track {
-  transform: translate3d(0, -50%, 0);
+  @apply -translate-y-1/2;
 }
 .hover-reveal-text__line {
-  display: block;
-  white-space: nowrap;
-  flex-shrink: 0;
-  line-height: 1;
-  height: 1em;
+  @apply block whitespace-nowrap shrink-0 h-[1em] leading-4;
+}
+
+/* Shared cursor blink animation (typing indicator) */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.cursor-blink {
+  @apply inline-block origin-left;
+  @apply [transform:scaleX(1.5)] [animation:blink_1s_step-end_infinite];
 }
 
 /* Aurebesh font (Star Wars) – local files, imported for correct base path */

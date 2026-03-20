@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
+import {
+  useTypingWords,
+  TYPING_WORD_INTERVAL,
+  TYPING_INITIAL_DELAY,
+} from "../../hooks/useTypingWords";
 import "./astronaut-id-card.css";
 
+// --- Constants ---
 const BASE = import.meta.env.BASE_URL;
-const TYPING_WORD_INTERVAL = 80;
-const TYPING_INITIAL_DELAY = 400;
 const SKILL_CHIP_INTERVAL = 60;
 const SKILL_CHIP_DELAY_AFTER_BIO = 200;
 const SCREW_IDS = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
@@ -18,47 +22,28 @@ const DEFAULT_PARAGRAPHS = [
   "My work centers on clean architecture, performance optimization, and observability. I build reliable, fault-tolerant software that scales smoothly, stays measurable under pressure, and enables teams to ship with confidence",
 ];
 
-function parseParagraphs(paragraphs) {
-  const words = [];
-  const paraEnds = [];
-  for (const p of paragraphs) {
-    const w = p.split(/\s+/).filter(Boolean);
-    words.push(...w);
-    paraEnds.push(words.length);
-  }
-  return { words, paraEnds };
-}
-
+// --- Card reveal hook ---
 function useCardReveal(paragraphs, skills, show) {
-  const { words, paraEnds } = useMemo(
-    () => parseParagraphs(paragraphs),
-    [paragraphs],
-  );
-  const totalWords = words.length;
   const totalSkills = skills.length;
+  const { words, paraEnds, visibleWordCount } = useTypingWords(paragraphs, {
+    enabled: show,
+    skipCompleted: hasCardRevealCompletedOnce,
+    wordInterval: TYPING_WORD_INTERVAL,
+    initialDelay: TYPING_INITIAL_DELAY,
+  });
+  const totalWords = words.length;
 
-  const [visibleWordCount, setVisibleWordCount] = useState(() =>
-    hasCardRevealCompletedOnce ? totalWords : 0,
-  );
   const [visibleSkillCount, setVisibleSkillCount] = useState(() =>
     hasCardRevealCompletedOnce ? totalSkills : 0,
   );
 
   useEffect(() => {
-    if (!show || hasCardRevealCompletedOnce) return;
-    const timers = [];
-    for (let i = 0; i < totalWords; i++) {
-      timers.push(
-        setTimeout(
-          () => setVisibleWordCount(i + 1),
-          TYPING_INITIAL_DELAY + i * TYPING_WORD_INTERVAL,
-        ),
-      );
-    }
+    if (!show || hasCardRevealCompletedOnce || totalWords === 0) return;
     const bioEnd =
       TYPING_INITIAL_DELAY +
       totalWords * TYPING_WORD_INTERVAL +
       SKILL_CHIP_DELAY_AFTER_BIO;
+    const timers = [];
     for (let i = 0; i < totalSkills; i++) {
       timers.push(
         setTimeout(
@@ -76,6 +61,7 @@ function useCardReveal(paragraphs, skills, show) {
   return { words, paraEnds, visibleWordCount, visibleSkillCount };
 }
 
+// --- TransmissionLinks ---
 const TransmissionLinks = memo(function TransmissionLinks({
   email,
   tel,
@@ -117,6 +103,7 @@ const TransmissionLinks = memo(function TransmissionLinks({
   );
 });
 
+// --- AstronautCard ---
 export default function AstronautCard({
   fname = "SUWAPHIT",
   lname = "BUABUTHR",
@@ -311,7 +298,7 @@ export default function AstronautCard({
               <p key={i} className="bio-paragraph">
                 {text}
                 {isCursorPara && (
-                  <span className="bio-cursor" aria-hidden="true">
+                  <span className="cursor-blink" aria-hidden="true">
                     _
                   </span>
                 )}

@@ -1,9 +1,45 @@
 .rocket-section {
-  @apply relative w-full min-h-[10vh] flex items-center justify-center;
+  @apply flex items-center justify-center overflow-visible;
+}
+
+.rocket-section-atmosphere {
+  @apply absolute inset-0 pointer-events-none z-[1] overflow-x-hidden overflow-y-visible;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 30%,
+    #030508 70%,
+    #387b96 100%
+  );
+}
+
+.rocket-section-atmosphere__svg {
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-[100vw] max-w-[100vw] h-full overflow-visible;
+}
+
+.rocket-section-bg {
+  @apply z-0;
+  --mask: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 6%,
+    black 12%,
+    black 15%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.15) 75%,
+    transparent 100%
+  );
+  @apply absolute inset-y-0 left-1/2 flex w-screen -translate-x-1/2 items-center justify-center;
+  @apply pointer-events-none font-aurebesh text-white/[0.03];
+  @apply w-full min-w-0 max-w-full px-4 text-center break-all;
+  @apply tracking-[0.05em] md:tracking-[0.08em] leading-[0.85];
+  @apply text-[clamp(3rem,15vw,12rem)] [text-align-last:center];
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
 }
 
 .rocket-section-inner {
-  @apply flex items-center justify-center w-full md:ml-[2rem];
+  @apply relative flex items-center justify-center w-full min-h-[80vh] z-10;
 }
 
 .rocket-section-content {
@@ -14,6 +50,7 @@
   .rocket
   .rocket-picture:not(.rocket-picture--sparkle)
   img {
-  filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.5))
-    drop-shadow(0 0 0 rgba(34, 211, 238, 0.25));
+  filter:
+    drop-shadow(0 12px 20px rgba(253, 224, 71, 0.5))
+    drop-shadow(0 20px 36px rgba(253, 224, 71, 0.35));
 }

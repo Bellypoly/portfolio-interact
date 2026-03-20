@@ -1,6 +1,58 @@
 import React, { useState, useRef } from "react";
+import HoverRevealText from "../hover-reveal-text";
 import "./work-timeline-item.css";
 
+// --- BulletPopover ---
+function BulletPopover({
+  wrapRef,
+  isOpen,
+  onToggle,
+  onOpen,
+  onClose,
+  onBlur,
+  triggerLabel,
+  bullets,
+  className,
+}) {
+  return (
+    <div
+      ref={wrapRef}
+      className={`work-timeline-item__bullet-trigger-wrap ${className}`}
+    >
+      <button
+        type="button"
+        className="work-timeline-item__bullet-trigger"
+        onClick={onToggle}
+        onFocus={onOpen}
+        onBlur={onBlur}
+        onMouseEnter={onOpen}
+        onMouseLeave={onClose}
+      >
+        <HoverRevealText className="group">{triggerLabel}</HoverRevealText>{" "}
+        →
+      </button>
+      {isOpen && (
+        <div
+          className="work-timeline-item__bullet-float"
+          tabIndex={0}
+          onFocus={onOpen}
+          onMouseEnter={onOpen}
+          onMouseLeave={onClose}
+        >
+          <ul className="work-timeline-item__bullet-list">
+            {bullets.map((b, i) => (
+              <li key={i} className="work-timeline-item__bullet">
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// --- WorkTimelineItem ---
 const WorkTimelineItem = React.memo(function WorkTimelineItem({
   time,
   title,
@@ -10,6 +62,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
   bullets = [],
   triggerLabel = "Mission log",
   portfolioAnchor,
+  showLiveDot = false,
 }) {
   const [isHovering, setIsHovering] = useState(false);
   const desktopWrapRef = useRef(null);
@@ -47,22 +100,14 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
     }
   };
 
-  const PortfolioLink = () =>
-    portfolioAnchor ? (
-      <a
-        href={`#${portfolioAnchor}`}
-        className="work-timeline-item__portfolio-link"
-        onClick={handleRelatedClick}
-      >
-        <span className="hover-reveal-text group">
-          <span className="hover-reveal-text__track">
-            <span className="hover-reveal-text__line">Deployed missions</span>
-            <span className="hover-reveal-text__line">Deployed missions</span>
-          </span>
-        </span>{" "}
-        <span className="work-timeline-item__arrow">↓</span>
-      </a>
-    ) : null;
+  const bulletProps = {
+    isOpen: isHovering,
+    onToggle: () => setIsHovering((v) => !v),
+    onOpen: handleHoverEnter,
+    onClose: handleHoverLeave,
+    triggerLabel,
+    bullets,
+  };
 
   return (
     <div className="work-timeline-item">
@@ -71,52 +116,24 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
           <div className="work-timeline-item__label-row">
             {time && <div className="work-timeline-item__label">[{time}]</div>}
             {bullets.length > 0 && (
-              <div
-                ref={desktopWrapRef}
-                className="work-timeline-item__bullet-trigger-wrap work-timeline-item__bullet-trigger-wrap--label-row work-timeline-item__bullet-trigger-wrap--desktop"
-              >
-                <button
-                  type="button"
-                  className="work-timeline-item__bullet-trigger"
-                  onClick={() => setIsHovering((v) => !v)}
-                  onFocus={() => setIsHovering(true)}
-                  onBlur={handleBlur(desktopWrapRef)}
-                  onMouseEnter={handleHoverEnter}
-                  onMouseLeave={handleHoverLeave}
-                >
-                  <span className="hover-reveal-text group">
-                    <span className="hover-reveal-text__track">
-                      <span className="hover-reveal-text__line">
-                        {triggerLabel}
-                      </span>
-                      <span className="hover-reveal-text__line">
-                        {triggerLabel}
-                      </span>
-                    </span>
-                  </span>{" "}
-                  →
-                </button>
-                {isHovering && (
-                  <div
-                    className="work-timeline-item__bullet-float"
-                    tabIndex={0}
-                    onFocus={() => setIsHovering(true)}
-                    onMouseEnter={handleHoverEnter}
-                    onMouseLeave={handleHoverLeave}
-                  >
-                    <ul className="work-timeline-item__bullet-list">
-                      {bullets.map((b, i) => (
-                        <li key={i} className="work-timeline-item__bullet">
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+              <BulletPopover
+                {...bulletProps}
+                wrapRef={desktopWrapRef}
+                onBlur={handleBlur(desktopWrapRef)}
+                className="work-timeline-item__bullet-trigger-wrap--label-row work-timeline-item__bullet-trigger-wrap--desktop"
+              />
             )}
           </div>
-          <h3 className="work-timeline-item__title">{title}</h3>
+          <h3 className="work-timeline-item__title">
+            {title}
+            {showLiveDot && (
+              <span
+                className="work-timeline-item__live-dot"
+                aria-hidden="true"
+                title="Current position"
+              />
+            )}
+          </h3>
           {(org || where) && (
             <div className="work-timeline-item__meta">
               {org}
@@ -131,55 +148,26 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
           {description && (
             <p className="work-timeline-item__description">{description}</p>
           )}
-          {/* Mobile: Mission log above Deployed missions, both below description */}
           {bullets.length > 0 && (
-            <div
-              ref={mobileWrapRef}
-              className="work-timeline-item__bullet-trigger-wrap work-timeline-item__bullet-trigger-wrap--mobile"
-            >
-              <button
-                type="button"
-                className="work-timeline-item__bullet-trigger"
-                onClick={() => setIsHovering((v) => !v)}
-                onFocus={() => setIsHovering(true)}
-                onBlur={handleBlur(mobileWrapRef)}
-                onMouseEnter={handleHoverEnter}
-                onMouseLeave={handleHoverLeave}
-              >
-                <span className="hover-reveal-text group">
-                  <span className="hover-reveal-text__track">
-                    <span className="hover-reveal-text__line">
-                      {triggerLabel}
-                    </span>
-                    <span className="hover-reveal-text__line">
-                      {triggerLabel}
-                    </span>
-                  </span>
-                </span>{" "}
-                →
-              </button>
-              {isHovering && (
-                <div
-                  className="work-timeline-item__bullet-float"
-                  tabIndex={0}
-                  onFocus={() => setIsHovering(true)}
-                  onMouseEnter={handleHoverEnter}
-                  onMouseLeave={handleHoverLeave}
-                >
-                  <ul className="work-timeline-item__bullet-list">
-                    {bullets.map((b, i) => (
-                      <li key={i} className="work-timeline-item__bullet">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+            <BulletPopover
+              {...bulletProps}
+              wrapRef={mobileWrapRef}
+              onBlur={handleBlur(mobileWrapRef)}
+              className="work-timeline-item__bullet-trigger-wrap--mobile"
+            />
           )}
           {portfolioAnchor && (
             <div className="work-timeline-item__portfolio-link-block">
-              <PortfolioLink />
+              <a
+                href={`#${portfolioAnchor}`}
+                className="work-timeline-item__portfolio-link"
+                onClick={handleRelatedClick}
+              >
+                <HoverRevealText className="group">
+                  Deployed missions
+                </HoverRevealText>{" "}
+                <span className="work-timeline-item__arrow">↓</span>
+              </a>
             </div>
           )}
         </div>

@@ -5,9 +5,10 @@ export default {
     extend: {
       fontFamily: {
         aurebesh: ['"Aurebesh"', "ui-sans-serif", "sans-serif"],
+        fleur: ['"Fleur De Leah"', "ui-serif", "serif"],
         robotomono: ['"Roboto Mono"', "ui-monospace", "monospace"],
         orbitron: ['"Orbitron"', "ui-sans-serif", "system-ui", "sans-serif"],
-        quicksand: ['"Quicksand"', "ui-sans-serif", "system-ui", "sans-serif"],
+        quicksand: ["Quicksand", "ui-sans-serif", "system-ui", "sans-serif"],
         roboto: [
           '"Roboto Condensed"',
           "ui-sans-serif",
@@ -15,6 +16,12 @@ export default {
           "sans-serif",
         ],
         silkscreen: ['"Silkscreen"', "ui-monospace", "monospace"],
+        spacegrotesk: [
+          '"Space Grotesk"',
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
         stacknotch: [
           '"Stack Sans Notch"',
           "ui-sans-serif",

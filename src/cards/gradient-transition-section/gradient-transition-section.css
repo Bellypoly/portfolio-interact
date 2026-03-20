@@ -1,0 +1,52 @@
+.gradient-transition-section {
+  @apply relative min-h-[100vh] block w-[100vw] max-w-none overflow-hidden;
+  @apply [margin-left:calc(-50vw+50%)] [margin-right:calc(-50vw+50%)];
+  background: linear-gradient(180deg, #fff6d4 0%, #ffffff 100%);
+}
+
+.gradient-transition-section__panel {
+  @apply relative z-10 mx-auto max-w-3xl px-4 pt-10 pb-2;
+}
+
+.gradient-transition-section__intro {
+  @apply mb-4 text-sm leading-relaxed text-slate-700;
+}
+
+.gradient-transition-section__intro a {
+  @apply font-medium text-teal-800 underline decoration-teal-800/40 underline-offset-2 hover:decoration-teal-800;
+}
+
+.gradient-transition-section__code {
+  @apply rounded bg-white/80 px-1.5 py-0.5 text-xs font-mono text-slate-800 shadow-sm;
+}
+
+.gradient-transition-section__controls {
+  @apply flex flex-wrap gap-x-10 gap-y-4 text-sm text-slate-700;
+}
+
+.gradient-transition-section__controls label {
+  @apply flex min-w-[200px] flex-col gap-1.5;
+}
+
+.gradient-transition-section__controls label span {
+  @apply font-medium text-slate-800;
+}
+
+.gradient-transition-section__controls input[type="range"] {
+  @apply w-full max-w-xs accent-teal-700;
+}
+
+.gradient-transition-section__controls output {
+  @apply font-mono text-xs text-slate-600;
+}
+
+.gradient-transition-section__viz {
+  /* Reserve chart height before pachinko inits (avoids layout jump on scroll-in). */
+  @apply mx-auto min-h-[300px] w-full max-w-5xl px-4 pb-16;
+}
+
+.gradient-transition-section__svg {
+  @apply mx-auto block;
+  /* normal so light cream→white fills stay visible (multiply would flatten them) */
+  mix-blend-mode: normal;
+}

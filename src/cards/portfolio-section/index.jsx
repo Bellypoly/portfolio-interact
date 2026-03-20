@@ -1,9 +1,11 @@
 import React from "react";
 import { motion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
-import ProjectCard from "../project-card";
+import ProjectCard from "../../components/project-card";
 
-const PortfolioSection = ({ sectionProgress }) => {
+const PortfolioSection = React.memo(function PortfolioSection({
+  sectionProgress,
+}) {
   const opacity = useTransform(
     sectionProgress,
     [0, 0.2, 0.8, 1],
@@ -60,6 +62,6 @@ const PortfolioSection = ({ sectionProgress }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default PortfolioSection;
