@@ -33,16 +33,13 @@ const EducationAchievementsSection = lazy(
   () => import("./cards/education-achievements-section"),
 );
 const PortfolioSection = lazy(() => import("./cards/portfolio-section"));
-const GradientTransitionSection = lazy(
-  () => import("./cards/gradient-transition-section"),
-);
 
 const STAR_COUNT = 200;
-const SECTION_COUNT = 7;
+const SECTION_COUNT = 6;
 const PREQUEL_SECTION_INDEX = 1;
 const WORK_SECTION_INDEX = 2;
 const EDUCATION_SECTION_INDEX = 4;
-const PORTFOLIO_SECTION_INDEX = 6;
+const PORTFOLIO_SECTION_INDEX = 5;
 const MOUSE_SPRING = { stiffness: 150, damping: 20 };
 const NEBULA_SPRING = { stiffness: 18, damping: 18 };
 
@@ -143,11 +140,6 @@ export default function SpaceResume() {
         id: "education",
         title: "Education & Achievements",
         body: <EducationAchievementsSection />,
-      },
-      {
-        id: "gradient-transition",
-        title: " ",
-        body: <GradientTransitionSection />,
       },
       { id: "portfolio", title: "Mission Gallery", body: <PortfolioSection /> },
     ],
@@ -485,6 +477,31 @@ export default function SpaceResume() {
               );
             }
             if (s.id === "education") return null;
+            if (s.id === "portfolio") {
+              return (
+                <div key="portfolio" className="portfolio-wrapper">
+                  <div
+                    className="portfolio-wrapper__bg"
+                    aria-hidden="true"
+                  />
+                  <div
+                    ref={sectionRefs.current[i]}
+                    id={s.id}
+                    className={`app-section-item ${getSectionItemClass(s.id, i)}`}
+                  >
+                    <LandingSectionContent sectionRef={sectionRefs.current[i]}>
+                      {s.body ? (
+                        <Suspense
+                          fallback={<div className="app-section-loading" />}
+                        >
+                          {s.body}
+                        </Suspense>
+                      ) : null}
+                    </LandingSectionContent>
+                  </div>
+                </div>
+              );
+            }
             return (
               <div
                 key={s.id}
@@ -497,7 +514,11 @@ export default function SpaceResume() {
                     <Suspense
                       fallback={<div className="app-section-loading" />}
                     >
-                      {s.body}
+                      {s.id === "prequel"
+                        ? React.cloneElement(s.body, {
+                            sectionProgress: prequelScroll.scrollYProgress,
+                          })
+                        : s.body}
                     </Suspense>
                   ) : null}
                 </LandingSectionContent>

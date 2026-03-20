@@ -49,7 +49,7 @@ const MarkerChip = ({
   </AnimatePresence>
 );
 
-const HIDDEN_MARKER_IDS = ["rocket", "prequel", "gradient-transition"];
+const HIDDEN_MARKER_IDS = ["rocket", "prequel"];
 
 export const MarkerChipGroup = React.memo(function MarkerChipGroup({
   SECTIONS,

@@ -28,10 +28,11 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
       setShowPrequelFade(true);
   });
 
+  // scrollYProgress same as prequelScroll — exit fade over a moderate band.
   const opacity = useTransform(
     sectionProgress,
-    [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0.3],
+    [0, 0.15, 0.52, 0.8, 1],
+    [0, 1, 1, 0, 0],
   );
 
   const visibleWords = words.slice(0, visibleWordCount);

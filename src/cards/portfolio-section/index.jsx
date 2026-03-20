@@ -13,7 +13,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
   );
   return (
     <motion.div className="portfolio-section" style={{ opacity }}>
-      <h2 className="section-title">Mission Gallery</h2>
+      <h2 className="portfolio-section__title">Mission Gallery</h2>
       <ProjectCard
         name="RDFD — Discovering Fake Drivers"
         desc="Machine learning approach for driver identification."

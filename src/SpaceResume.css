@@ -109,6 +109,24 @@
   @apply relative z-[6] bg-transparent;
 }
 
+.portfolio-wrapper {
+  @apply relative w-full;
+}
+
+.portfolio-wrapper__bg {
+  @apply absolute left-0 right-0 pointer-events-none z-[2];
+  top: 0;
+  bottom: 0;
+  min-height: 100vh;
+  background: #ffffff;
+}
+#portfolio.app-section-item--landing {
+  @apply relative z-[6] bg-transparent text-slate-900;
+}
+.portfolio-wrapper > .app-section-item--landing {
+  @apply w-full;
+}
+
 .rocket-education-wrapper__education-bg {
   @apply absolute left-0 right-0 pointer-events-none z-[2];
   top: 100vh;
@@ -119,15 +137,9 @@
     #397a96 3%,
     #c9d9dc 28%,
     #f9e7e7 45%,
-    #fff6d4 100%
+    #fff6d4 60%,
+    #ffffff 100%
   );
-}
-
-#gradient-transition.app-section-item {
-  @apply relative z-0 w-full min-h-[100vh] p-0 flex items-center justify-center;
-}
-#gradient-transition.app-section-item > * {
-  @apply w-full min-w-0 max-w-[100vw];
 }
 
 .rocket-education-wrapper {
