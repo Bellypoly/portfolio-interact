@@ -2,6 +2,7 @@ import React from "react";
 import { motion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../../components/project-card";
+import { PORTFOLIO_PROJECTS } from "./portfolioProjects";
 
 const PortfolioSection = React.memo(function PortfolioSection({
   sectionProgress,
@@ -11,55 +12,32 @@ const PortfolioSection = React.memo(function PortfolioSection({
     [0, 0.2, 0.8, 1],
     [0, 1, 1, 0.3],
   );
+
   return (
     <motion.div className="portfolio-section" style={{ opacity }}>
       <h2 className="portfolio-section__title">Mission Gallery</h2>
-      <ProjectCard
-        name="RDFD — Discovering Fake Drivers"
-        desc="Machine learning approach for driver identification."
-        img="images/portfolio/rdfd.jpg"
-        alt="RDFD"
-        link="https://github.com/Bellypoly/Discovering-Fake-Drivers-Based-on-Temporal-Driving-Behaviors"
-      />
-      <ProjectCard
-        name="Map Magic"
-        desc="Thailand map API and integration toolkit."
-        img="images/portfolio/mapmagic.jpg"
-        alt="MapMagic"
-        link="https://maps.thinknet.co.th/"
-      />
-      <div id="portfolio-jobthai">
-        <ProjectCard
-          name="JobThai"
-          desc="Thailand job search platform — search/recommendations, resume creator."
-          img="images/portfolio/jobthai.jpg"
-          alt="JobThai"
-          link="https://www.jobthai.com/en/resume"
-        />
-      </div>
-      <ProjectCard
-        name="Squeeze It"
-        desc="Heuristic search marble game AI (D3.js & ML)."
-        img="images/portfolio/squeeze-it.jpg"
-        alt="Squeeze It"
-        link="https://github.com/Bellypoly/AI-project1"
-      />
-      <ProjectCard
-        name="Federated Learning Energy Sim"
-        desc="MATLAB simulation for energy consumption in FL with NOMA."
-        img="images/portfolio/fl.jpg"
-        alt="Federated Learning"
-        link="https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems"
-      />
-      <div id="portfolio-pea">
-        <ProjectCard
-          name="PEA E‑Service"
-          desc="One‑stop service for Thai Provincial Electricity Authority."
-          img="images/portfolio/coe.jpg"
-          alt="PEA E-Service"
-          link="https://peacos.pea.co.th/views/paperex/"
-        />
-      </div>
+      {PORTFOLIO_PROJECTS.map(
+        ({ anchorId, name, desc, img, imgWebp, alt, link, slug }) => {
+          const card = (
+            <ProjectCard
+              name={name}
+              desc={desc}
+              img={img}
+              imgWebp={imgWebp}
+              alt={alt}
+              link={link}
+              slug={slug}
+            />
+          );
+          return anchorId ? (
+            <div key={name} id={anchorId}>
+              {card}
+            </div>
+          ) : (
+            <React.Fragment key={name}>{card}</React.Fragment>
+          );
+        },
+      )}
     </motion.div>
   );
 });

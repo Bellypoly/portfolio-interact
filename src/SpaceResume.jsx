@@ -25,6 +25,12 @@ import ShootingStar from "./components/shooting-star";
 import { MarkerChipGroup } from "./components/marker-chip";
 import AtmosphereHud from "./components/atmosphere-hud";
 import { seededRandom } from "./utils/random";
+import {
+  getScrollMetrics,
+  buildSectionThresholds,
+  resolveActiveIndex,
+} from "./utils/spaceResumeScroll";
+import { consumeMissionScrollRestore } from "./utils/spaceResumeNavigation";
 
 const PrequelSection = lazy(() => import("./cards/prequel-section"));
 const RocketSection = lazy(() => import("./cards/rocket-section"));
@@ -41,7 +47,8 @@ const WORK_SECTION_INDEX = 2;
 const EDUCATION_SECTION_INDEX = 4;
 const PORTFOLIO_SECTION_INDEX = 5;
 const MOUSE_SPRING = { stiffness: 150, damping: 20 };
-const NEBULA_SPRING = { stiffness: 18, damping: 18 };
+
+const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
 
 const STAR_LAYER_DEFS = [
   {
@@ -93,6 +100,22 @@ function getSectionItemClass(id, index) {
 }
 
 export default function SpaceResume() {
+  useEffect(() => {
+    const y = consumeMissionScrollRestore();
+    if (y == null) return;
+    const apply = () => window.scrollTo(0, y);
+    apply();
+    const raf = requestAnimationFrame(() => {
+      apply();
+      requestAnimationFrame(apply);
+    });
+    const t = window.setTimeout(apply, 150);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, []);
+
   // --- Scroll tracking ---
   const { scrollYProgress } = useScroll();
   const sectionRefs = useRef(null);
@@ -112,6 +135,11 @@ export default function SpaceResume() {
   const educationScroll = useScroll({
     target: sectionRefs.current[EDUCATION_SECTION_INDEX],
     offset: ["start end", "end start"],
+  });
+  /** HUD travel line: 0→1 only while scrolling through education (top→top window) */
+  const educationHudLineScroll = useScroll({
+    target: sectionRefs.current[EDUCATION_SECTION_INDEX],
+    offset: ["start start", "end start"],
   });
   const portfolioScroll = useScroll({
     target: sectionRefs.current[PORTFOLIO_SECTION_INDEX],
@@ -199,31 +227,18 @@ export default function SpaceResume() {
 
       if (jumpingToRef.current !== null) {
         setActiveIndex(jumpingToRef.current);
-        const sh = document.documentElement.scrollHeight - window.innerHeight;
-        setDebugScroll(sh > 0 ? y / sh : 0);
+        if (import.meta.env.DEV) setDebugScroll(getScrollMetrics().progress);
         return;
       }
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollHeight > 0 ? y / scrollHeight : 0;
-      const tolerance = scrollHeight > 0 ? 2 / scrollHeight : 0;
 
-      const thresholds = [];
-      for (let i = 0; i < sectionRefs.current.length; i++) {
-        const ref = sectionRefs.current[i];
-        if (ref?.current) {
-          const top = ref.current.getBoundingClientRect().top + y;
-          thresholds.push(scrollHeight > 0 ? top / scrollHeight : 0);
-        } else {
-          thresholds.push(i / SECTIONS.length);
-        }
-      }
-
-      let idx = 0;
-      for (let i = 0; i < thresholds.length; i++) {
-        if (progress >= thresholds[i] - tolerance) idx = i;
-      }
-      setActiveIndex(idx);
+      const { maxScroll, progress, tolerance } = getScrollMetrics();
+      const thresholds = buildSectionThresholds(
+        sectionRefs,
+        maxScroll,
+        y,
+        SECTION_COUNT,
+      );
+      setActiveIndex(resolveActiveIndex(progress, thresholds, tolerance));
       if (import.meta.env.DEV) setDebugScroll(progress);
     }
     function onScrollEnd() {
@@ -243,7 +258,7 @@ export default function SpaceResume() {
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("scrollend", onScrollEnd);
     };
-  }, [SECTIONS.length]);
+  }, [SECTION_COUNT]);
 
   // --- Window size + Stars ---
   const [windowSize, setWindowSize] = useState({
@@ -344,29 +359,28 @@ export default function SpaceResume() {
   const starsMidY = useTransform(crawlProgress, [0.63, 1], ["0vh", "-60vh"]);
   const starsNearY = useTransform(crawlProgress, [0.63, 1], ["0vh", "-100vh"]);
 
-  const starLayers = [
-    {
-      key: "far",
-      cls: "app-star-layer--far",
-      mx: mouseFarX,
-      my: mouseFarY,
-      scrollY: starsFarY,
-    },
-    {
-      key: "mid",
-      cls: "app-star-layer--mid",
-      mx: mouseMidX,
-      my: mouseMidY,
-      scrollY: starsMidY,
-    },
-    {
-      key: "near",
-      cls: "app-star-layer--near",
-      mx: mouseNearX,
-      my: mouseNearY,
-      scrollY: starsNearY,
-    },
-  ];
+  const starLayers = useMemo(() => {
+    const motion = [
+      { mx: mouseFarX, my: mouseFarY, scrollY: starsFarY },
+      { mx: mouseMidX, my: mouseMidY, scrollY: starsMidY },
+      { mx: mouseNearX, my: mouseNearY, scrollY: starsNearY },
+    ];
+    return STAR_LAYER_DEFS.map((def, i) => ({
+      key: def.key,
+      cls: `app-star-layer--${def.key}`,
+      ...motion[i],
+    }));
+  }, [
+    mouseFarX,
+    mouseFarY,
+    mouseMidX,
+    mouseMidY,
+    mouseNearX,
+    mouseNearY,
+    starsFarY,
+    starsMidY,
+    starsNearY,
+  ]);
 
   return (
     <>
@@ -441,6 +455,10 @@ export default function SpaceResume() {
                   >
                     <AtmosphereHud
                       educationProgress={educationScroll.scrollYProgress}
+                      educationLineProgress={
+                        educationHudLineScroll.scrollYProgress
+                      }
+                      showScrollLine={activeIndex === EDUCATION_SECTION_INDEX}
                     />
                   </div>
                   <div
@@ -449,9 +467,7 @@ export default function SpaceResume() {
                     className="app-section-item app-section-item--rocket"
                   >
                     <LandingSectionContent sectionRef={sectionRefs.current[3]}>
-                      <Suspense
-                        fallback={<div className="app-section-loading" />}
-                      >
+                      <Suspense fallback={SECTION_SUSPENSE_FALLBACK}>
                         {SECTIONS[3].body}
                       </Suspense>
                     </LandingSectionContent>
@@ -466,9 +482,7 @@ export default function SpaceResume() {
                     className="app-section-item app-section-item--landing app-section-item--education-below-stars"
                   >
                     <LandingSectionContent sectionRef={sectionRefs.current[4]}>
-                      <Suspense
-                        fallback={<div className="app-section-loading" />}
-                      >
+                      <Suspense fallback={SECTION_SUSPENSE_FALLBACK}>
                         {SECTIONS[4].body}
                       </Suspense>
                     </LandingSectionContent>
@@ -480,10 +494,7 @@ export default function SpaceResume() {
             if (s.id === "portfolio") {
               return (
                 <div key="portfolio" className="portfolio-wrapper">
-                  <div
-                    className="portfolio-wrapper__bg"
-                    aria-hidden="true"
-                  />
+                  <div className="portfolio-wrapper__bg" aria-hidden="true" />
                   <div
                     ref={sectionRefs.current[i]}
                     id={s.id}
@@ -491,9 +502,7 @@ export default function SpaceResume() {
                   >
                     <LandingSectionContent sectionRef={sectionRefs.current[i]}>
                       {s.body ? (
-                        <Suspense
-                          fallback={<div className="app-section-loading" />}
-                        >
+                        <Suspense fallback={SECTION_SUSPENSE_FALLBACK}>
                           {s.body}
                         </Suspense>
                       ) : null}
@@ -511,9 +520,7 @@ export default function SpaceResume() {
               >
                 <LandingSectionContent sectionRef={sectionRefs.current[i]}>
                   {s.body ? (
-                    <Suspense
-                      fallback={<div className="app-section-loading" />}
-                    >
+                    <Suspense fallback={SECTION_SUSPENSE_FALLBACK}>
                       {s.id === "prequel"
                         ? React.cloneElement(s.body, {
                             sectionProgress: prequelScroll.scrollYProgress,

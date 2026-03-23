@@ -1,50 +1,82 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { motion, useTransform, useMotionValue } from "framer-motion";
 import "./atmosphere-hud.css";
+import {
+  HUD_BLACK,
+  HUD_CYAN,
+  HUD_LABEL_THRESHOLDS,
+  HUD_LABEL_TRANSITION,
+  HUD_LABELS,
+  LINE_PROGRESS_COMPLETE,
+  LINE_TOP_END_PCT,
+  LINE_TOP_START_PCT,
+} from "./atmosphere-hud.constants";
 
-const LABELS = ["2020", "2018", "2016", "2014", "2012", "2010"];
-const ATMOSPHERE_LABELS = [
-  "EXOSPHERE",
-  "THERMOSPHERE",
-  "MESOSPHERE",
-  "STRATOSPHERE",
-  "TROPOPSHERE",
-  "EARTH",
-];
-const CYAN = "rgb(34, 211, 238)";
-const BLACK = "rgb(0, 0, 0)";
+const AtmosphereHudRow = React.memo(function AtmosphereHudRow({
+  label,
+  threshold,
+  progress,
+}) {
+  const color = useTransform(
+    progress,
+    [Math.max(0, threshold - HUD_LABEL_TRANSITION), threshold],
+    [HUD_CYAN, HUD_BLACK],
+  );
 
-/* Each label turns black when it reaches the education section (bottom to top) */
-const LABEL_THRESHOLDS = [0.34, 0.28, 0.21, 0.16, 0.07, 0.02];
-const TRANSITION_SPAN = 0.03;
+  return (
+    <motion.div className="atmosphere-hud__item" style={{ color }}>
+      <span className="atmosphere-hud__line" aria-hidden="true" />
+      <span className="atmosphere-hud__label">{label}</span>
+    </motion.div>
+  );
+});
 
-export default React.memo(function AtmosphereHud({ educationProgress }) {
+export default React.memo(function AtmosphereHud({
+  educationProgress,
+  educationLineProgress,
+  showScrollLine = false,
+}) {
   const fallback = useMotionValue(0);
   const progress = educationProgress ?? fallback;
+  const lineMotion = educationLineProgress ?? progress;
+  const scrollLineGate = useMotionValue(showScrollLine ? 1 : 0);
+
+  useLayoutEffect(() => {
+    scrollLineGate.set(showScrollLine ? 1 : 0);
+  }, [showScrollLine, scrollLineGate]);
+
+  const scrollLineTop = useTransform(
+    lineMotion,
+    [0, LINE_PROGRESS_COMPLETE, 1],
+    [
+      `${LINE_TOP_START_PCT}%`,
+      `${LINE_TOP_END_PCT}%`,
+      `${LINE_TOP_END_PCT}%`,
+    ],
+  );
+
+  const lineOpacity = useTransform(
+    [lineMotion, scrollLineGate],
+    ([v, gate]) => {
+      if (gate < 0.5) return 0;
+      return v >= 0 && v <= 1 ? 1 : 0;
+    },
+  );
 
   return (
     <div className="atmosphere-hud atmosphere-hud--scroll" aria-hidden="true">
-      {LABELS.map((label, i) => {
-        const threshold = LABEL_THRESHOLDS[i];
-        const color = useTransform(
-          progress,
-          [Math.max(0, threshold - TRANSITION_SPAN), threshold],
-          [CYAN, BLACK],
-        );
-        return (
-          <motion.div
-            key={label}
-            className="atmosphere-hud__item"
-            style={{ color }}
-          >
-            <motion.span
-              className="atmosphere-hud__line"
-              style={{ backgroundColor: color }}
-            />
-            <span className="atmosphere-hud__label">{label}</span>
-          </motion.div>
-        );
-      })}
+      <motion.div
+        className="atmosphere-hud__scroll-line"
+        style={{ top: scrollLineTop, opacity: lineOpacity }}
+      />
+      {HUD_LABELS.map((label, i) => (
+        <AtmosphereHudRow
+          key={label}
+          label={label}
+          threshold={HUD_LABEL_THRESHOLDS[i]}
+          progress={progress}
+        />
+      ))}
     </div>
   );
 });

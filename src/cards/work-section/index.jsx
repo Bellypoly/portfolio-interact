@@ -15,11 +15,11 @@ const SeniorFullStack = ({ showLiveDot }) => (
     description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
     triggerLabel="Mission log"
     bullets={[
-      "Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers across web and mobile.",
-      "Built visual storytelling tools, real-time dashboards, and automated data pipelines in collaboration with newsroom, data journalists, and analysts.",
-      "Integrated analytics & personalization systems (GA4, BlueConic, Sophi AI) to translate reader behavior into actionable editorial insights.",
       "Developed scalable APIs and automation for data feeds, paywall services, and content delivery, increasing subscription conversion by 22% and checkout completion by 14%.",
-      "Enhanced performance and reliability using Datadog, Lighthouse, and Core Web Vitals (CLS, LCP, FID).",
+      "Architected full-stack publishing systems (Node, React, GraphQL) serving millions of monthly pageviews across web and mobile, supporting real-time content updates and multi-brand delivery.",
+      "Integrated analytics and personalization systems (GA4, BlueConic, Sophi AI) to translate reader behavior into editorial and product decisions that drove measurable engagement lifts.",
+      "Built visual storytelling tools, real-time dashboards, and automated data pipelines — enabling newsroom and data teams to publish interactive content and monitor KPIs without engineering support.",
+      "Improved site performance and reliability through Datadog observability, Lighthouse audits, and Core Web Vitals optimization — measurably reducing load times and maintaining layout stability across key pages.",
     ]}
     portfolioAnchor="portfolio"
   />
@@ -33,7 +33,7 @@ const DataEngineer = () => (
     where="Chiang Mai, Thailand"
     description="Built and automated ETL workflows in Python to process customer data across AWS, MongoDB, and MySQL."
     bullets={[
-      "Delivered reliable datasets that enabled more accurate campaign targeting and reporting for marketing and analytics teams.",
+      "Delivered clean, validated datasets that improved campaign targeting accuracy and enabled marketing teams to reduce ad spend waste.",
       "Enhanced cloud and database infrastructure (AWS, MySQL, MongoDB, DynamoDB) to improve data pipeline reliability and support enterprise-scale reporting.",
     ]}
   />
@@ -49,9 +49,8 @@ const FullStackII = () => (
     bullets={[
       "Built and maintained ETL pipelines that processed high-volume energy and geographic data from ArcGIS, Oracle, and field devices, ensuring accurate and timely datasets for reporting and operational dashboards.",
       "Improved payment processing reliability for 20M+ customers by developing and automating integration tests with REST/SOAP services using C#, PHP (Laravel), Python, and Selenium.",
-      "Designed and optimized PL/SQL stored procedures and Oracle scripts, ensuring accurate, high-volume data feeds across multiple enterprise systems.",
+      "Designed and optimized PL/SQL stored procedures and Oracle scripts, improving data accuracy and reducing batch processing time across multiple enterprise systems.",
       "Built responsive web and mobile UIs to track energy consumption in real time, enabling millions of users to manage energy usage.",
-      "Provided post-implementation support and troubleshooting, reducing downtime and increasing adoption of customer-facing platforms.",
     ]}
     portfolioAnchor="portfolio-pea"
   />
@@ -66,9 +65,8 @@ const SoftwareEng = () => (
     description="Boosted search accuracy and speed on JobThai.com, one of Thailand's largest job platforms, by integrating Elasticsearch."
     bullets={[
       "Designed a scalable geospatial database (~2M records) and built the MapMagic API, leveraging OpenStreetMap(OSM) data to power location-based job search and enterprise mapping tools.",
-      "Developed and optimized frontend features using Laravel, D3.js, and modern JavaScript, improving UI performance and data-visualization quality.",
+      "Developed and optimized interactive features using Laravel, D3.js, and modern JavaScript — improving UI responsiveness and data-visualization clarity for end users.",
       "Built and maintained resume-creation and employer tools, enhancing user workflows and platform engagement.",
-      "Collaborated in Agile/Kanban teams, aligning technical deliverables with product strategy and improving release efficiency.",
     ]}
     portfolioAnchor="portfolio-jobthai"
   />

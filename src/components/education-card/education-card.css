@@ -1,6 +1,8 @@
 /* --- Card base --- */
 .education-card {
   @apply relative pl-8;
+  --mission-float-max: 32rem;
+  --mission-float-gutter: 1.5rem;
 }
 
 .education-card--collapsible {
@@ -44,7 +46,7 @@
 
 /* --- Mission log --- */
 .education-card__mission-log-wrap {
-  @apply relative block w-full mt-2;
+  @apply relative block w-full mt-2 overflow-visible;
 }
 .education-card__mission-log-btn {
   @apply text-sm font-roboto font-medium uppercase tracking-wider cursor-pointer transition-colors;
@@ -52,7 +54,9 @@
 }
 .education-card__mission-log-float {
   @apply absolute left-0 top-full mt-1.5 z-[10002] p-4 rounded-lg;
-  @apply min-w-[min(50vw,22rem)] max-w-[32rem];
+  @apply min-w-0 w-full box-border overflow-x-auto overflow-y-auto;
+  max-width: min(var(--mission-float-max), calc(100vw - var(--mission-float-gutter)));
+  max-height: min(70vh, var(--mission-float-max));
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.25),
     inset 0 0 0 1px rgba(0, 0, 0, 0.06);

@@ -31,9 +31,10 @@ export function useTypingWords(paragraphs, options = {}) {
     skipCompleted = false,
   } = options;
 
+  const paragraphsKey = paragraphs.join("\0");
   const { words, paraEnds } = useMemo(
     () => parseParagraphs(paragraphs),
-    [paragraphs],
+    [paragraphsKey, paragraphs],
   );
   const totalWords = words.length;
 

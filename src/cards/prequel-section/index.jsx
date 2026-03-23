@@ -10,13 +10,16 @@ import "./prequel-section.css";
 const PREQUEL_BODY =
   "The story so far — East to West. From Phuket to Bangkok, then across the Pacific to Lubbock, and Dallas. Different places, the same thread: good people building great things, and wherever else that takes me.";
 
+/** Stable ref for `useTypingWords` (avoids new array literal every render). */
+const PREQUEL_PARAGRAPHS = [PREQUEL_BODY];
+
 const TYPING_START_THRESHOLD = 0.15;
 const PREQUEL_FADE_THRESHOLD = 0.2;
 
 export default React.memo(function PrequelSection({ sectionProgress }) {
   const [show, setShow] = useState(false);
   const [showPrequelFade, setShowPrequelFade] = useState(false);
-  const { words, visibleWordCount } = useTypingWords([PREQUEL_BODY], {
+  const { words, visibleWordCount } = useTypingWords(PREQUEL_PARAGRAPHS, {
     enabled: show,
     wordInterval: TYPING_WORD_INTERVAL,
     initialDelay: TYPING_INITIAL_DELAY,

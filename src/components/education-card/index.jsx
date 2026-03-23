@@ -4,7 +4,12 @@ import HoverRevealText from "../hover-reveal-text";
 import LocationOrg from "../location-org";
 import "./education-card.css";
 
-// --- EducationCard ---
+/** Splits "Summary: detail html" mission bullets; otherwise whole string is summary only */
+function parseMissionBullet(html) {
+  const m = html.match(/^(.*?): (.*)$/);
+  return m ? { summary: m[1], detail: m[2] } : { summary: html, detail: null };
+}
+
 const EducationCard = React.memo(function EducationCard({
   title,
   time,
@@ -25,17 +30,13 @@ const EducationCard = React.memo(function EducationCard({
 
   useEffect(() => {
     if (!isMissionLogOpen) return;
-    const handleClickOutside = (e) => {
-      if (
-        missionLogWrapRef.current &&
-        !missionLogWrapRef.current.contains(e.target)
-      ) {
-        setIsMissionLogOpen(false);
-        setOpenBulletIndex(null);
-      }
+    const onDocClick = (e) => {
+      if (missionLogWrapRef.current?.contains(e.target)) return;
+      setIsMissionLogOpen(false);
+      setOpenBulletIndex(null);
     };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
   }, [isMissionLogOpen]);
 
   const renderBulletList = (inFloat = false) => (
@@ -46,9 +47,7 @@ const EducationCard = React.memo(function EducationCard({
       ])}
     >
       {bullets.map((b, i) => {
-        const match = b.match(/^(.*?): (.*)$/);
-        const summary = match ? match[1] : b;
-        const detail = match ? match[2] : null;
+        const { summary, detail } = parseMissionBullet(b);
         const isOpen = openBulletIndex === i;
         return (
           <li key={i} className="timeline-bullet-item">
@@ -141,7 +140,6 @@ const EducationCard = React.memo(function EducationCard({
   );
 });
 
-// --- AchievementCard ---
 const AchievementCard = React.memo(function AchievementCard({
   title,
   time,

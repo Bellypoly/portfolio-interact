@@ -1,4 +1,9 @@
-import React from "react";
+/**
+ * Education & achievements — year-based timeline, All/Education/Achievements filter,
+ * Framer Motion on rows and columns. Styles: education-achievements-section.css
+ */
+import React, { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import cc from "classcat";
 import {
   EducationCard,
@@ -6,8 +11,17 @@ import {
 } from "../../components/education-card";
 import "./education-achievements-section.css";
 
+/** Display strings for the section title and legend buttons */
 const TITLE = { education: "Education", achievement: "Achievements" };
 
+/** Legend value → which timeline columns are shown */
+const TIMELINE_FILTER = {
+  all: "all",
+  education: "education",
+  achievement: "achievement",
+};
+
+/** Wraps [YYYY] in bullet HTML for the timeline year highlight */
 function withYearSpan(bullets) {
   return (
     bullets?.map((b) =>
@@ -19,7 +33,6 @@ function withYearSpan(bullets) {
   );
 }
 
-// --- Education data ---
 const EDUCATION_ITEMS = [
   {
     type: "education",
@@ -74,7 +87,6 @@ const EDUCATION_ITEMS = [
   },
 ];
 
-// --- Achievement data ---
 const ACHIEVEMENT_ITEMS = [
   {
     type: "achievement",
@@ -114,7 +126,7 @@ const ACHIEVEMENT_ITEMS = [
   },
 ];
 
-// --- Timeline rows (merge education + achievements by year) ---
+/** One row per year (education and/or achievement), sorted newest → oldest */
 const TIMELINE_ROWS = (() => {
   const byYear = new Map();
   for (const item of EDUCATION_ITEMS) {
@@ -138,85 +150,191 @@ const TIMELINE_ROWS = (() => {
   return [...byYear.values()].sort((a, b) => b.sortYear - a.sortYear);
 })();
 
-// --- Components ---
+// --- Section title (single h2; responsive typography in CSS) ---
+
 function SectionTitle() {
   return (
-    <>
-      <h2 className="section-title edu-title--desktop">
+    <h2 className="section-title edu-title">
+      <span className="edu-title__lead">
         <span className="edu-title__education">{TITLE.education}</span>
         <span className="edu-title__amp" aria-hidden="true">
           &amp;
         </span>
-        <span className="edu-title__achievement">{TITLE.achievement}</span>
-      </h2>
-      <h2 className="section-title edu-title--mobile">
-        <div className="edu-title-mobile__row">
-          <span className="edu-title-mobile__education">
-            {TITLE.education.toLowerCase()}
-          </span>
-          <span className="edu-title-mobile__amp">&amp;</span>
-        </div>
-        <div className="edu-title-mobile__achievement">
-          {TITLE.achievement.toLowerCase()}
-        </div>
-      </h2>
-    </>
+      </span>
+      <span className="edu-title__achievement">{TITLE.achievement}</span>
+    </h2>
   );
 }
 
+/** Material Design standard easing (Framer Motion) */
+const EASE = [0.4, 0, 0.2, 1];
+
+// --- All / Education / Achievements filter ---
+
+function TimelineLegend({ value, onChange }) {
+  const reduceMotion = useReducedMotion();
+  const spring = reduceMotion
+    ? { duration: 0 }
+    : { type: "spring", stiffness: 420, damping: 32, mass: 0.85 };
+
+  const btn = (id, label, className) => (
+    <motion.button
+      key={id}
+      type="button"
+      layout
+      className={cc([
+        "edu-timeline__legend-btn",
+        className,
+        value === id && "edu-timeline__legend-btn--active",
+      ])}
+      aria-pressed={value === id}
+      onClick={() => onChange(id)}
+      whileHover={reduceMotion ? undefined : { scale: 1.04 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.96 }}
+      transition={spring}
+    >
+      {label}
+    </motion.button>
+  );
+
+  return (
+    <div
+      className="edu-timeline__legend"
+      role="group"
+      aria-label="Filter timeline by category"
+    >
+      {btn(TIMELINE_FILTER.all, "All", "edu-timeline__legend-btn--all")}
+      {btn(
+        TIMELINE_FILTER.education,
+        TITLE.education,
+        "edu-timeline__legend-btn--education",
+      )}
+      {btn(
+        TIMELINE_FILTER.achievement,
+        TITLE.achievement,
+        "edu-timeline__legend-btn--achievement",
+      )}
+    </div>
+  );
+}
+
+// --- Section: title, legend, timeline rows ---
+
 export default React.memo(function EducationAchievementsSection() {
+  const [timelineFilter, setTimelineFilter] = useState(TIMELINE_FILTER.all);
+  const reduceMotion = useReducedMotion();
+  const tCol = reduceMotion ? { duration: 0 } : { duration: 0.28, ease: EASE };
+  const tRow = reduceMotion
+    ? { duration: 0 }
+    : {
+        opacity: { duration: 0.26, ease: EASE },
+        y: { duration: 0.26, ease: EASE },
+      };
+
   return (
     <div className="edu-section">
       <SectionTitle />
+      <TimelineLegend value={timelineFilter} onChange={setTimelineFilter} />
       <div className="edu-timeline">
         <div className="edu-timeline__body">
-          <div className="edu-timeline__line" aria-hidden="true" />
-          {TIMELINE_ROWS.map((row) => {
-            const educationOnly = !row.achievement;
-            return (
-              <div
-                key={row.sortYear}
-                id={row.education?.anchor}
-                className={cc([
-                  "edu-timeline__row",
-                  educationOnly && "edu-timeline__row--education-only",
-                ])}
-              >
-                <div className="edu-timeline__education">
-                  {row.education && (
-                    <div className="edu-timeline__content">
-                      <EducationCard
-                        collapsible={row.education.collapsible}
-                        title={row.education.title}
-                        time={row.education.time}
-                        org={row.education.org}
-                        where={row.education.where}
-                        badges={row.education.badges ?? []}
-                        bullets={withYearSpan(row.education.bullets)}
-                        showMissionLog={true}
+          <AnimatePresence initial={false} mode="sync">
+            {TIMELINE_ROWS.map((row) => {
+              const showEducationCol =
+                Boolean(row.education) &&
+                timelineFilter !== TIMELINE_FILTER.achievement;
+              const showAchievementCol =
+                Boolean(row.achievement) &&
+                timelineFilter !== TIMELINE_FILTER.education;
+
+              if (!showEducationCol && !showAchievementCol) {
+                return null;
+              }
+
+              const educationOnlyRow = showEducationCol && !showAchievementCol;
+              const achievementOnlyRow =
+                showAchievementCol && !showEducationCol;
+
+              const showDot =
+                (showEducationCol && row.education) ||
+                (showAchievementCol && row.achievement);
+
+              return (
+                <motion.div
+                  key={row.sortYear}
+                  id={row.education?.anchor}
+                  className={cc([
+                    "edu-timeline__row",
+                    educationOnlyRow && "edu-timeline__row--education-only",
+                  ])}
+                  initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
+                  transition={tRow}
+                >
+                  <AnimatePresence initial={false} mode="sync">
+                    {showEducationCol && row.education ? (
+                      <motion.div
+                        key={`edu-${row.sortYear}`}
+                        className="edu-timeline__education"
+                        initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                        transition={tCol}
+                      >
+                        <div className="edu-timeline__content">
+                          <EducationCard
+                            collapsible={row.education.collapsible}
+                            title={row.education.title}
+                            time={row.education.time}
+                            org={row.education.org}
+                            where={row.education.where}
+                            badges={row.education.badges ?? []}
+                            bullets={withYearSpan(row.education.bullets)}
+                            showMissionLog={true}
+                          />
+                        </div>
+                      </motion.div>
+                    ) : achievementOnlyRow ? (
+                      <motion.div
+                        key={`ph-${row.sortYear}`}
+                        className="edu-timeline__education edu-timeline__education--placeholder"
+                        aria-hidden="true"
+                        initial={reduceMotion ? false : { opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={reduceMotion ? undefined : { opacity: 0 }}
+                        transition={tCol}
                       />
-                    </div>
-                  )}
-                </div>
-                {!educationOnly && (
-                  <>
+                    ) : null}
+                  </AnimatePresence>
+                  {showDot ? (
                     <div className="edu-timeline__dot" aria-hidden="true" />
-                    <div className="edu-timeline__achievement-col">
-                      <div className="edu-timeline__content">
-                        <AchievementCard
-                          title={row.achievement.title}
-                          time={row.achievement.time}
-                          org={row.achievement.org}
-                          where={row.achievement.where}
-                          badges={row.achievement.badges ?? []}
-                        />
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            );
-          })}
+                  ) : null}
+                  <AnimatePresence initial={false} mode="sync">
+                    {showAchievementCol && row.achievement ? (
+                      <motion.div
+                        key={`ach-${row.sortYear}`}
+                        className="edu-timeline__achievement-col"
+                        initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                        transition={tCol}
+                      >
+                        <div className="edu-timeline__content">
+                          <AchievementCard
+                            title={row.achievement.title}
+                            time={row.achievement.time}
+                            org={row.achievement.org}
+                            where={row.achievement.where}
+                            badges={row.achievement.badges ?? []}
+                          />
+                        </div>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
       </div>
     </div>

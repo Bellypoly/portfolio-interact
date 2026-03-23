@@ -21,6 +21,10 @@
   @apply absolute inset-0;
 }
 
+.project-card__media picture {
+  @apply block h-full w-full;
+}
+
 .project-card__image {
   @apply h-full w-full object-cover transition-transform duration-500 ease-out will-change-transform;
 }
@@ -53,9 +57,9 @@
     Times,
     ui-serif,
     serif;
-  font-size: clamp(1.15rem, 2.2vw + 0.85rem, 1.85rem);
+  font-size: clamp(1.2rem, 2.2vw + 0.9rem, 2rem);
 }
 
 .project-card__subtitle {
-  @apply mt-2 font-roboto text-sm font-normal leading-snug text-white/90 md:text-base;
+  @apply mt-2 font-roboto text-base font-normal leading-snug text-white/90 md:text-lg;
 }
