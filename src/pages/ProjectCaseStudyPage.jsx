@@ -51,13 +51,15 @@ export default function ProjectCaseStudyPage() {
 
   const showEarlyImpact = Boolean(cs.results?.length && !cs.deferResults);
   const showDeferredImpact = Boolean(
-    cs.results?.length && cs.deferResults && !cs.checkoutSection?.sectionResults,
+    cs.results?.length &&
+    cs.deferResults &&
+    !cs.checkoutSection?.sectionResults,
   );
   const showStrategySection = Boolean(
     cs.strategyTitle ||
-      cs.strategyIntro ||
-      (cs.strategyBullets?.length ?? 0) > 0 ||
-      (cs.pillars?.length ?? 0) > 0,
+    cs.strategyIntro ||
+    (cs.strategyBullets?.length ?? 0) > 0 ||
+    (cs.pillars?.length ?? 0) > 0,
   );
 
   return (
@@ -132,7 +134,7 @@ export default function ProjectCaseStudyPage() {
                 <p key={i} className="project-case-study__p">
                   {paragraph.text}
                   <Link
-                    to={`/project/${paragraph.link.slug}`}
+                    to={`/mission/${paragraph.link.slug}`}
                     className="project-case-study__inline-link"
                   >
                     {paragraph.link.label}
@@ -342,7 +344,9 @@ export default function ProjectCaseStudyPage() {
                       cs.claritySection.beforeAfterDiagram.afterPanelTitle
                     }
                     afterNotes={cs.claritySection.beforeAfterDiagram.afterNotes}
-                    beforeNotes={cs.claritySection.beforeAfterDiagram.beforeNotes}
+                    beforeNotes={
+                      cs.claritySection.beforeAfterDiagram.beforeNotes
+                    }
                   />
                 </div>
                 {cs.claritySection.beforeAfterDiagram.caption ? (
@@ -388,9 +392,7 @@ export default function ProjectCaseStudyPage() {
         />
 
         {showDeferredImpact ? (
-          <CaseStudySection
-            title={cs.deferredImpactTitle || "Impact"}
-          >
+          <CaseStudySection title={cs.deferredImpactTitle || "Impact"}>
             <ul className="project-case-study__results" role="list">
               {cs.results.map((row) => (
                 <li key={row.label} className="project-case-study__result">
@@ -434,7 +436,10 @@ export default function ProjectCaseStudyPage() {
         ) : null}
 
         {cs.showcase ? (
-          <CaseStudySection title={cs.showcase.title || "The result"} className="project-case-study__no-shadow">
+          <CaseStudySection
+            title={cs.showcase.title || "The result"}
+            className="project-case-study__no-shadow"
+          >
             {cs.showcase.desktop ? (
               <figure className="project-case-study__figure project-case-study__figure--full mt-4">
                 <CaseStudyLightboxImage
@@ -475,7 +480,7 @@ export default function ProjectCaseStudyPage() {
         {cs.relatedProject ? (
           <aside className="project-case-study__related">
             <Link
-              to={`/project/${cs.relatedProject.slug}`}
+              to={`/mission/${cs.relatedProject.slug}`}
               className="project-case-study__related-link"
             >
               {cs.relatedProject.label}

@@ -1,5 +1,5 @@
 /**
- * Portfolio projects — one entry drives Mission Gallery cards and `/project/:slug` case studies.
+ * Portfolio projects — one entry drives Mission Gallery cards and `/mission/:slug` case studies.
  */
 
 export function getPortfolioProjectBySlug(slug) {

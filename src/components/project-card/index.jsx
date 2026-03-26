@@ -27,7 +27,9 @@ const ProjectCard = React.memo(function ProjectCard({
     ? "project-card__media project-card__media--top-clip"
     : "project-card__media";
 
-  const posStyle = imagePosition ? { objectPosition: imagePosition } : undefined;
+  const posStyle = imagePosition
+    ? { objectPosition: imagePosition }
+    : undefined;
 
   const imageEl = imgWebp ? (
     <picture>
@@ -77,7 +79,7 @@ const ProjectCard = React.memo(function ProjectCard({
   if (slug) {
     return (
       <Link
-        to={`/project/${slug}`}
+        to={`/mission/${slug}`}
         state={{ [SPACE_RESUME_FROM_MISSION]: true }}
         onClick={() => rememberMissionScrollBeforeProject()}
         className="project-card"

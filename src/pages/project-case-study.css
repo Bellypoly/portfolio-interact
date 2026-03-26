@@ -66,7 +66,7 @@
 }
 
 .project-case-study__header-inner {
-  @apply mx-auto flex w-full max-w-[90ch] px-5 md:px-8;
+  @apply mx-auto flex w-full max-w-[90ch] px-5 md:px-0;
 }
 
 .project-case-study__back {
@@ -171,8 +171,11 @@
 }
 
 /* Featured strip: lightbox trigger fills compact frame (image object-fit unchanged) */
-.project-case-study__featured-wrap--compact .project-case-study__lightbox-trigger,
-.project-case-study__featured-wrap--compact .project-case-study__lightbox-trigger picture {
+.project-case-study__featured-wrap--compact
+  .project-case-study__lightbox-trigger,
+.project-case-study__featured-wrap--compact
+  .project-case-study__lightbox-trigger
+  picture {
   @apply block h-full w-full;
 }
 
@@ -190,7 +193,9 @@
   @apply h-full w-full object-cover;
 }
 
-.project-case-study__featured-wrap:not(.project-case-study__featured-wrap--compact)
+.project-case-study__featured-wrap:not(
+    .project-case-study__featured-wrap--compact
+  )
   .project-case-study__lightbox-trigger {
   @apply block w-full;
 }

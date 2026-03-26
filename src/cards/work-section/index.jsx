@@ -15,9 +15,9 @@ const SeniorFullStack = ({ showLiveDot }) => (
     description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
     triggerLabel="Mission log"
     bullets={[
-      "Contributed to the end-to-end redesign of subscription checkout and onboarding on Arc XP, integrating paywall, identity, and payment gateway systems (Braintree, Stripe, Apple Pay) into a unified conversion pipeline serving millions of users.",
-      "Increased digital subscriptions +14% within the first month (+7% additional after UX iteration) by consolidating multi-step checkout into a single-page flow and iterating on user-behavior signals.",
       "Developed scalable APIs across paywall, subscription, and content systems — the paywall layer drove +22% overall conversion (via Sophi), while the checkout redesign lifted digital subscriptions by +14%.",
+      "Increased digital subscriptions +14% within the first month (+7% additional after UX iteration) by consolidating multi-step checkout into a single-page flow and iterating on user-behavior signals.",
+      "Contributed to the end-to-end redesign of subscription checkout and onboarding on Arc XP, integrating paywall, identity, and payment gateway systems (Braintree, Stripe, Apple Pay) into a unified conversion pipeline serving millions of users.",
       "Designed deterministic user-state handling (new, existing, returning users) to eliminate identity ambiguity and prevent drop-offs across paywall → checkout flows.",
       "Architected full-stack publishing systems (Node.js, React, GraphQL) supporting millions of monthly users with real-time content delivery and multi-brand scalability.",
     ]}
