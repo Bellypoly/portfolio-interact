@@ -14,15 +14,29 @@ const ProjectCard = React.memo(function ProjectCard({
   alt,
   link,
   slug,
+  /** "top-clip" = 100% width, natural height, top-aligned, bottom clipped; default "cover" */
+  imageFit = "cover",
+  imagePosition,
 }) {
   const base = import.meta.env.BASE_URL;
+  const isTopClip = imageFit === "top-clip";
+  const imgClass = isTopClip
+    ? "project-card__image project-card__image--top-clip"
+    : "project-card__image";
+  const mediaClass = isTopClip
+    ? "project-card__media project-card__media--top-clip"
+    : "project-card__media";
+
+  const posStyle = imagePosition ? { objectPosition: imagePosition } : undefined;
+
   const imageEl = imgWebp ? (
     <picture>
       <source srcSet={`${base}${imgWebp}`} type="image/webp" />
       <img
         src={`${base}${img}`}
         alt={alt || name}
-        className="project-card__image"
+        className={imgClass}
+        style={posStyle}
         loading="lazy"
       />
     </picture>
@@ -30,20 +44,32 @@ const ProjectCard = React.memo(function ProjectCard({
     <img
       src={`${base}${img}`}
       alt={alt || name}
-      className="project-card__image"
+      className={imgClass}
+      style={posStyle}
       loading="lazy"
     />
   );
 
   const body = (
     <>
-      <div className="project-card__media">
+      <div className={mediaClass}>
         {imageEl}
         <div className="project-card__scrim" aria-hidden="true" />
       </div>
       <div className="project-card__body">
         <div className="project-card__title">{name}</div>
-        <div className="project-card__subtitle">{desc}</div>
+        <div className="project-card__subtitle">
+          <span className="project-card__subtitle-reveal">
+            <span className="project-card__subtitle-reveal__track">
+              <span className="project-card__subtitle-reveal__line">
+                {desc}
+              </span>
+              <span className="project-card__subtitle-reveal__line">
+                Show Mission →
+              </span>
+            </span>
+          </span>
+        </div>
       </div>
     </>
   );

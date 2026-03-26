@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { motion, useTransform, useMotionValue } from "framer-motion";
 import "./atmosphere-hud.css";
 import {
@@ -39,11 +39,6 @@ export default React.memo(function AtmosphereHud({
   const fallback = useMotionValue(0);
   const progress = educationProgress ?? fallback;
   const lineMotion = educationLineProgress ?? progress;
-  const scrollLineGate = useMotionValue(showScrollLine ? 1 : 0);
-
-  useLayoutEffect(() => {
-    scrollLineGate.set(showScrollLine ? 1 : 0);
-  }, [showScrollLine, scrollLineGate]);
 
   const scrollLineTop = useTransform(
     lineMotion,
@@ -55,20 +50,14 @@ export default React.memo(function AtmosphereHud({
     ],
   );
 
-  const lineOpacity = useTransform(
-    [lineMotion, scrollLineGate],
-    ([v, gate]) => {
-      if (gate < 0.5) return 0;
-      return v >= 0 && v <= 1 ? 1 : 0;
-    },
-  );
-
   return (
     <div className="atmosphere-hud atmosphere-hud--scroll" aria-hidden="true">
-      <motion.div
-        className="atmosphere-hud__scroll-line"
-        style={{ top: scrollLineTop, opacity: lineOpacity }}
-      />
+      {showScrollLine ? (
+        <motion.div
+          className="atmosphere-hud__scroll-line"
+          style={{ top: scrollLineTop, opacity: 1 }}
+        />
+      ) : null}
       {HUD_LABELS.map((label, i) => (
         <AtmosphereHudRow
           key={label}

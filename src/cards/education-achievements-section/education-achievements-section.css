@@ -97,7 +97,7 @@
 /* Very narrow phones: slightly smaller achievement line */
 @media (max-width: 375px) {
   .edu-title__achievement {
-    font-size: clamp(1.9rem, 5vw + 0.35rem, 1.85rem);
+    font-size: clamp(1.8rem, 5vw + 0.35rem, 1.85rem);
   }
 }
 
@@ -211,24 +211,37 @@
 }
 
 /* --- Timeline container --- */
+/* Break out to full viewport width so the md spine can sit at true 50vw. */
 .edu-timeline {
-  @apply relative flex flex-col gap-8 border-l-2 border-[var(--edu-timeline-stroke)] pl-4 md:border-l-0 md:pl-0 md:mx-auto md:w-full md:max-w-5xl md:px-4 mb-16;
+  @apply relative flex flex-col gap-8 mb-16;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow-x: clip;
+}
+
+.edu-timeline__inner {
+  @apply flex flex-col gap-8 border-l-2 border-[var(--edu-timeline-stroke)] pl-4 w-full max-w-5xl mx-auto md:border-l-0 md:pl-0 md:max-w-none md:mx-0 md:w-full;
 }
 
 .edu-timeline__body {
-  @apply relative flex flex-col gap-8;
+  @apply relative z-[1] flex flex-col gap-8;
 }
 
-/* --- Vertical center line (md): 1px on body, aligned to grid midpoint --- */
+/* Vertical spine at viewport horizontal center (md+); dot column shares same axis. */
 @screen md {
-  .edu-timeline__body {
-    background-image: linear-gradient(
-      var(--edu-timeline-stroke) 0%,
-      var(--edu-timeline-stroke) 100%
-    );
-    background-size: 1px 100%;
-    background-repeat: no-repeat;
-    background-position: calc(50% - 0.5px) 0;
+  .edu-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    margin-left: -0.5px;
+    background-color: var(--edu-timeline-stroke);
+    pointer-events: none;
+    z-index: 0;
   }
 }
 
@@ -252,7 +265,7 @@
 
 /* --- Lanes: education | dot | achievement --- */
 .edu-timeline__education {
-  @apply relative min-w-0 col-start-2 row-start-1 md:col-start-1 md:row-start-1 overflow-visible;
+  @apply relative min-w-0 col-start-2 row-start-1 md:col-start-1 md:row-start-1 overflow-visible md:pl-8;
 }
 
 /* --- Empty education cell when a row is achievement-only (keeps grid alignment) --- */
@@ -261,7 +274,7 @@
 }
 
 .edu-timeline__achievement-col {
-  @apply relative min-w-0 col-start-2 row-start-2 md:col-start-3 md:row-start-1;
+  @apply relative min-w-0 col-start-2 row-start-2 md:col-start-3 md:row-start-1 md:pr-8;
 }
 
 .edu-timeline__education .edu-timeline__content {
@@ -298,7 +311,7 @@
   text-shadow: 0.5px 0.5px 0 cyan;
 }
 .edu-achievement-card__title {
-  @apply font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0 text-[#967323];
+  @apply max-w-[min(100%,25rem)] font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0 text-[#967323];
   text-shadow: 0.5px 0.5px 0 #d6aa3d;
 }
 

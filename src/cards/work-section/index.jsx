@@ -15,11 +15,11 @@ const SeniorFullStack = ({ showLiveDot }) => (
     description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
     triggerLabel="Mission log"
     bullets={[
-      "Developed scalable APIs and automation for data feeds, paywall services, and content delivery, increasing subscription conversion by 22% and checkout completion by 14%.",
-      "Architected full-stack publishing systems (Node, React, GraphQL) serving millions of monthly pageviews across web and mobile, supporting real-time content updates and multi-brand delivery.",
-      "Integrated analytics and personalization systems (GA4, BlueConic, Sophi AI) to translate reader behavior into editorial and product decisions that drove measurable engagement lifts.",
-      "Built visual storytelling tools, real-time dashboards, and automated data pipelines — enabling newsroom and data teams to publish interactive content and monitor KPIs without engineering support.",
-      "Improved site performance and reliability through Datadog observability, Lighthouse audits, and Core Web Vitals optimization — measurably reducing load times and maintaining layout stability across key pages.",
+      "Contributed to the end-to-end redesign of subscription checkout and onboarding on Arc XP, integrating paywall, identity, and payment gateway systems (Braintree, Stripe, Apple Pay) into a unified conversion pipeline serving millions of users.",
+      "Increased digital subscriptions +14% within the first month (+7% additional after UX iteration) by consolidating multi-step checkout into a single-page flow and iterating on user-behavior signals.",
+      "Developed scalable APIs across paywall, subscription, and content systems — the paywall layer drove +22% overall conversion (via Sophi), while the checkout redesign lifted digital subscriptions by +14%.",
+      "Designed deterministic user-state handling (new, existing, returning users) to eliminate identity ambiguity and prevent drop-offs across paywall → checkout flows.",
+      "Architected full-stack publishing systems (Node.js, React, GraphQL) supporting millions of monthly users with real-time content delivery and multi-brand scalability.",
     ]}
     portfolioAnchor="portfolio"
   />

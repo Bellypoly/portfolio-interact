@@ -1,4 +1,5 @@
 import React from "react";
+import CaseStudyLightboxImage from "./CaseStudyLightboxImage";
 
 /** Case-study featured image: optional WebP + compact-height + object-position (optional md+ override). */
 export default function CaseStudyFeaturedImage({
@@ -27,7 +28,6 @@ export default function CaseStudyFeaturedImage({
       }
     : undefined;
 
-  const src = `${baseUrl}${img}`;
   const imgClassName = [
     "project-case-study__featured-img",
     useResponsivePos && "project-case-study__featured-img--responsive-pos",
@@ -35,25 +35,23 @@ export default function CaseStudyFeaturedImage({
     .filter(Boolean)
     .join(" ");
 
-  const imgProps = {
-    alt: alt || title,
-    className: imgClassName,
-    loading: "eager",
-    decoding: "async",
-    src,
-    ...(!useResponsivePos && objectPosition ? { style: { objectPosition } } : {}),
-  };
+  const imgStyle =
+    !useResponsivePos && objectPosition ? { objectPosition } : undefined;
+  const label = alt || title;
 
   return (
     <div className={wrapClass} style={wrapStyle}>
-      {imgWebp ? (
-        <picture>
-          <source srcSet={`${baseUrl}${imgWebp}`} type="image/webp" />
-          <img {...imgProps} />
-        </picture>
-      ) : (
-        <img {...imgProps} />
-      )}
+      <CaseStudyLightboxImage
+        baseUrl={baseUrl}
+        img={img}
+        imgWebp={imgWebp}
+        alt={label}
+        imgClassName={imgClassName}
+        imgStyle={imgStyle}
+        loading="eager"
+        decoding="async"
+        fillFeatured={Boolean(compactHeight)}
+      />
     </div>
   );
 }

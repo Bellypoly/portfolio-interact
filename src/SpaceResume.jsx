@@ -39,13 +39,17 @@ const EducationAchievementsSection = lazy(
   () => import("./cards/education-achievements-section"),
 );
 const PortfolioSection = lazy(() => import("./cards/portfolio-section"));
+const MissionGalleryGateSection = lazy(
+  () => import("./cards/mission-gallery-section-gate"),
+);
 
 const STAR_COUNT = 200;
-const SECTION_COUNT = 6;
+const SECTION_COUNT = 7;
 const PREQUEL_SECTION_INDEX = 1;
 const WORK_SECTION_INDEX = 2;
 const EDUCATION_SECTION_INDEX = 4;
-const PORTFOLIO_SECTION_INDEX = 5;
+const MISSION_GALLERY_GATE_SECTION_INDEX = 5;
+const PORTFOLIO_SECTION_INDEX = 6;
 const MOUSE_SPRING = { stiffness: 150, damping: 20 };
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
@@ -141,6 +145,10 @@ export default function SpaceResume() {
     target: sectionRefs.current[EDUCATION_SECTION_INDEX],
     offset: ["start start", "end start"],
   });
+  const missionGalleryGateScroll = useScroll({
+    target: sectionRefs.current[MISSION_GALLERY_GATE_SECTION_INDEX],
+    offset: ["start end", "end start"],
+  });
   const portfolioScroll = useScroll({
     target: sectionRefs.current[PORTFOLIO_SECTION_INDEX],
     offset: ["start end", "end start"],
@@ -168,6 +176,11 @@ export default function SpaceResume() {
         id: "education",
         title: "Education & Achievements",
         body: <EducationAchievementsSection />,
+      },
+      {
+        id: "pre-gallery",
+        title: " ",
+        body: <MissionGalleryGateSection />,
       },
       { id: "portfolio", title: "Mission Gallery", body: <PortfolioSection /> },
     ],
@@ -345,9 +358,13 @@ export default function SpaceResume() {
     [1, 0],
   );
   const starFill = useTransform(
-    [educationScroll.scrollYProgress, portfolioScroll.scrollYProgress],
-    ([edu, port]) => {
-      const p = Math.max(edu, port);
+    [
+      educationScroll.scrollYProgress,
+      missionGalleryGateScroll.scrollYProgress,
+      portfolioScroll.scrollYProgress,
+    ],
+    ([edu, aur, port]) => {
+      const p = Math.max(edu, aur, port);
       if (p <= 0) return "rgb(255,255,255)";
       if (p >= 0.2) return "rgb(0,0,0)";
       const t = p / 0.2;
@@ -487,10 +504,32 @@ export default function SpaceResume() {
                       </Suspense>
                     </LandingSectionContent>
                   </div>
+                  <div
+                    ref={sectionRefs.current[MISSION_GALLERY_GATE_SECTION_INDEX]}
+                    id="pre-gallery"
+                    className={`app-section-item ${getSectionItemClass(
+                      "pre-gallery",
+                      MISSION_GALLERY_GATE_SECTION_INDEX,
+                    )}`}
+                  >
+                    <LandingSectionContent
+                      sectionRef={
+                        sectionRefs.current[MISSION_GALLERY_GATE_SECTION_INDEX]
+                      }
+                    >
+                      <Suspense fallback={SECTION_SUSPENSE_FALLBACK}>
+                        {React.cloneElement(SECTIONS[MISSION_GALLERY_GATE_SECTION_INDEX].body, {
+                          sectionProgress:
+                            missionGalleryGateScroll.scrollYProgress,
+                        })}
+                      </Suspense>
+                    </LandingSectionContent>
+                  </div>
                 </div>
               );
             }
             if (s.id === "education") return null;
+            if (s.id === "pre-gallery") return null;
             if (s.id === "portfolio") {
               return (
                 <div key="portfolio" className="portfolio-wrapper">

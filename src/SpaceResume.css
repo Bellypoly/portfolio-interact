@@ -158,7 +158,8 @@
 .rocket-education-wrapper > .app-section-item--rocket {
   @apply mb-0;
 }
-.rocket-education-wrapper > #education {
+.rocket-education-wrapper > #education,
+.rocket-education-wrapper > #pre-gallery {
   @apply mt-0;
 }
 

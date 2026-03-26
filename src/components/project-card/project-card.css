@@ -25,13 +25,26 @@
   @apply block h-full w-full;
 }
 
-.project-card__image {
-  @apply h-full w-full object-cover transition-transform duration-500 ease-out will-change-transform;
+/* Full width, top-aligned; overflow clips bottom to fit square tile */
+.project-card__media--top-clip {
+  @apply overflow-hidden;
 }
 
-.project-card:hover .project-card__image,
-.project-card:focus-visible .project-card__image {
-  @apply scale-[1.04];
+.project-card__media--top-clip picture {
+  @apply block h-auto w-full max-w-full;
+}
+
+.project-card__image {
+  @apply h-full w-full object-cover;
+}
+
+.project-card__image--top-clip {
+  height: auto;
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  transform: translateY(-10%);
+  transform-origin: top center;
 }
 
 .project-card__scrim {
@@ -51,15 +64,42 @@
 
 .project-card__title {
   @apply text-white font-bold tracking-tight leading-tight;
-  font-family:
-    Georgia,
-    "Times New Roman",
-    Times,
-    ui-serif,
-    serif;
-  font-size: clamp(1.2rem, 2.2vw + 0.9rem, 2rem);
+  font-family: Georgia, "Times New Roman", Times, ui-serif, serif;
+  font-size: clamp(0.92rem, 1.7vw + 0.55rem, 1.45rem);
 }
 
+/* Same motion as `.hover-reveal-text` / `index.css` (parent is `.project-card` link) */
 .project-card__subtitle {
-  @apply mt-2 font-roboto text-base font-normal leading-snug text-white/90 md:text-lg;
+  @apply mt-2 block max-w-full;
+}
+
+.project-card__subtitle-reveal {
+  @apply block max-w-full overflow-hidden align-bottom [contain:layout_style];
+  height: 2.75rem;
+}
+
+.project-card__subtitle-reveal__track {
+  @apply flex flex-col transition-transform duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)];
+}
+
+.project-card:hover .project-card__subtitle-reveal__track,
+.project-card:focus-visible .project-card__subtitle-reveal__track {
+  @apply -translate-y-1/2;
+}
+
+.project-card__subtitle-reveal__line {
+  @apply block max-w-full shrink-0 font-roboto text-base font-normal leading-snug text-white/90 md:text-base;
+  min-height: 2.75rem;
+  /* Keep description to one visual slot; long copy ellipses */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.project-card__subtitle-reveal__line:last-child {
+  -webkit-line-clamp: unset;
+  display: flex;
+  align-items: center;
+  overflow: visible;
 }

@@ -20,13 +20,13 @@
   --cs-font-mono: "Roboto Mono", ui-monospace, monospace;
 
   /* Type scale (rem) — body drives inheritance for .project-case-study__p, bullets, meta def */
-  --cs-text-body: 1.125rem;
-  --cs-text-body-md: 1.1875rem;
+  --cs-text-body: 1.0625rem;
+  --cs-text-body-md: 1.125rem;
   --cs-text-ui: 1rem;
   --cs-text-caption: 0.9375rem;
   /* Overlines: eyebrow, section h2, meta terms, result labels */
-  --cs-text-overline: 1rem;
-  --cs-text-overline-md: 1.0625rem;
+  --cs-text-overline: 0.9375rem;
+  --cs-text-overline-md: 1rem;
   --cs-text-lead: 1.25rem;
   --cs-text-lead-md: 1.4375rem;
   --cs-text-subhead: 1.125rem;
@@ -42,7 +42,19 @@
   --cs-tracking-overline-md: 0.12em;
   --cs-tracking-label: 0.1em;
 
+  /* Before/after panels: CaseStudyVersionCompareDiagram + CaseStudyUxFrictionCompare */
+  --ba-teal: #1c3131;
+  --ba-teal-soft: #dfe9e6;
+  --ba-sand: #ece5dc;
+  --ba-border: #c9d8d4;
+  --ba-muted: #5e6d69;
+  --ba-bad: #9a5a3a;
+  --ba-good: #2b6b5a;
+  --ba-shadow: 0 10px 30px rgba(28, 49, 49, 0.08);
+  --ba-radius: 18px;
+
   @apply min-h-screen antialiased text-stone-800;
+  overflow-x: clip;
   background-color: var(--cs-page-bg);
   text-rendering: optimizeLegibility;
 }
@@ -58,7 +70,7 @@
 }
 
 .project-case-study__back {
-  @apply flex w-full cursor-pointer border-0 bg-transparent py-3.5 text-left font-normal leading-snug text-stone-700 no-underline;
+  @apply inline-flex w-auto max-w-full cursor-pointer border-0 bg-transparent py-3.5 text-left font-normal leading-snug text-stone-700 no-underline;
   font-family: var(--cs-font-body);
   font-size: var(--cs-text-ui);
 }
@@ -121,7 +133,7 @@
 }
 
 .project-case-study__featured-wrap--compact {
-  @apply h-[16rem] w-full overflow-hidden sm:h-[18.5rem] md:h-[23rem];
+  @apply h-[16rem] w-full overflow-hidden sm:h-[18.5rem] md:h-[28rem] lg:h-[31rem];
 }
 
 .project-case-study__featured-wrap--compact picture {
@@ -156,6 +168,31 @@
 
 .project-case-study__featured-img {
   @apply block h-auto w-full object-cover;
+}
+
+/* Featured strip: lightbox trigger fills compact frame (image object-fit unchanged) */
+.project-case-study__featured-wrap--compact .project-case-study__lightbox-trigger,
+.project-case-study__featured-wrap--compact .project-case-study__lightbox-trigger picture {
+  @apply block h-full w-full;
+}
+
+.project-case-study__featured-wrap--compact
+  .project-case-study__lightbox-trigger
+  .project-case-study__featured-img:not(
+    .project-case-study__featured-img--responsive-pos
+  ) {
+  @apply h-full w-full object-cover object-[50%_42%];
+}
+
+.project-case-study__featured-wrap--compact
+  .project-case-study__lightbox-trigger
+  .project-case-study__featured-img--responsive-pos {
+  @apply h-full w-full object-cover;
+}
+
+.project-case-study__featured-wrap:not(.project-case-study__featured-wrap--compact)
+  .project-case-study__lightbox-trigger {
+  @apply block w-full;
 }
 
 .project-case-study__section {
@@ -288,6 +325,24 @@
   @apply block h-auto w-full;
 }
 
+.project-case-study__diagram--before-after {
+  @apply mt-0 bg-transparent;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  overflow-x: clip;
+}
+
+@media (min-width: 768px) {
+  .project-case-study__diagram--before-after {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
 .project-case-study__diagram--ascii {
   @apply overflow-x-auto bg-transparent;
   background: var(--cs-diagram-bg);
@@ -314,7 +369,8 @@
 }
 
 .project-case-study__results {
-  @apply mt-8 grid gap-px bg-stone-300/80 sm:grid-cols-3;
+  @apply mt-8 grid gap-px bg-stone-300/80;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 }
 
 .project-case-study__result {
@@ -376,5 +432,130 @@
 }
 
 .project-case-study__cta:hover {
+  @apply text-teal-950 decoration-teal-950/55;
+}
+
+/* Rich case study: problem subgroups */
+.project-case-study__problem-group {
+  @apply mt-10 first:mt-8;
+}
+
+.project-case-study__bullet-list--tight {
+  @apply mt-5 space-y-3.5;
+}
+
+/* Figure grids (checkout, onboarding) */
+.project-case-study__figure-grid {
+  @apply mt-8 grid gap-8;
+}
+
+.project-case-study__figure-grid--2 {
+  @apply md:grid-cols-2 md:gap-10;
+}
+
+.project-case-study__figure-grid--3 {
+  @apply grid-cols-3 gap-4 md:gap-8;
+}
+
+.project-case-study__figure-grid--4 {
+  @apply grid-cols-2 gap-4 md:grid-cols-4 md:gap-6;
+}
+
+.project-case-study__figure {
+  @apply m-0;
+}
+
+.project-case-study__figure-img {
+  @apply block w-full rounded-sm;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.project-case-study__no-shadow .project-case-study__figure-img {
+  box-shadow: none;
+}
+
+.project-case-study__figure-caption {
+  @apply mt-3 text-stone-600;
+  font-size: var(--cs-text-caption);
+  line-height: var(--cs-lh-ui);
+}
+
+/* Impact bar chart */
+.project-case-study__impact-chart {
+  @apply mt-10 w-full;
+}
+
+.project-case-study__impact-chart-intro {
+  @apply mb-8 text-stone-700;
+  font-size: var(--cs-text-ui);
+  line-height: var(--cs-lh-ui);
+}
+
+.project-case-study__impact-chart-groups {
+  @apply grid gap-12 md:grid-cols-2 md:gap-14;
+}
+
+.project-case-study__impact-group-title {
+  @apply m-0 font-semibold text-stone-900;
+  font-size: var(--cs-text-subhead);
+}
+
+.project-case-study__impact-bars {
+  @apply mt-5 list-none space-y-5 p-0;
+}
+
+.project-case-study__impact-bar-row {
+  @apply block;
+}
+
+.project-case-study__impact-chart
+  > .project-case-study__impact-bar-row
+  + .project-case-study__impact-bar-row {
+  @apply mt-5;
+}
+
+.project-case-study__impact-chart
+  > .project-case-study__impact-bar-row:first-of-type {
+  @apply mt-5;
+}
+
+.project-case-study__impact-bar-label {
+  @apply mb-1.5 flex items-baseline justify-between gap-3 text-stone-800;
+  font-size: var(--cs-text-ui);
+  line-height: var(--cs-lh-ui);
+}
+
+.project-case-study__impact-bar-value {
+  @apply shrink-0 tabular-nums font-semibold text-teal-900;
+}
+
+.project-case-study__impact-bar-track {
+  @apply h-2.5 overflow-hidden rounded-sm bg-stone-300/60;
+}
+
+.project-case-study__impact-bar-fill {
+  @apply h-full rounded-sm bg-teal-800/85 transition-[width] duration-500 ease-out;
+  min-width: 4px;
+}
+
+/* Cross-link to related project */
+.project-case-study__related {
+  @apply mt-14 text-center;
+}
+
+.project-case-study__related-link {
+  @apply inline-flex font-semibold leading-snug text-teal-900 underline decoration-teal-800/40 underline-offset-[6px] transition-colors;
+  font-size: var(--cs-text-ui);
+}
+
+.project-case-study__related-link:hover {
+  @apply text-teal-950 decoration-teal-950/55;
+}
+
+.project-case-study__inline-link {
+  @apply font-semibold text-teal-900 underline decoration-teal-800/40 underline-offset-[3px] transition-colors;
+}
+
+.project-case-study__inline-link:hover {
   @apply text-teal-950 decoration-teal-950/55;
 }

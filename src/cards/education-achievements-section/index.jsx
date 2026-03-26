@@ -236,7 +236,8 @@ export default React.memo(function EducationAchievementsSection() {
       <SectionTitle />
       <TimelineLegend value={timelineFilter} onChange={setTimelineFilter} />
       <div className="edu-timeline">
-        <div className="edu-timeline__body">
+        <div className="edu-timeline__inner">
+          <div className="edu-timeline__body">
           <AnimatePresence initial={false} mode="sync">
             {TIMELINE_ROWS.map((row) => {
               const showEducationCol =
@@ -335,6 +336,7 @@ export default React.memo(function EducationAchievementsSection() {
               );
             })}
           </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

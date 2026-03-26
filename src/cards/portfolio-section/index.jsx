@@ -17,7 +17,18 @@ const PortfolioSection = React.memo(function PortfolioSection({
     <motion.div className="portfolio-section" style={{ opacity }}>
       <h2 className="portfolio-section__title">Mission Gallery</h2>
       {PORTFOLIO_PROJECTS.map(
-        ({ anchorId, name, desc, img, imgWebp, alt, link, slug }) => {
+        ({
+          anchorId,
+          name,
+          desc,
+          img,
+          imgWebp,
+          alt,
+          link,
+          slug,
+          cardImageFit,
+          cardImagePosition,
+        }) => {
           const card = (
             <ProjectCard
               name={name}
@@ -27,6 +38,8 @@ const PortfolioSection = React.memo(function PortfolioSection({
               alt={alt}
               link={link}
               slug={slug}
+              imageFit={cardImageFit}
+              imagePosition={cardImagePosition}
             />
           );
           return anchorId ? (
