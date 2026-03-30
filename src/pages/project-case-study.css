@@ -1,17 +1,17 @@
 /* Case study — warm editorial; typography from .project-case-study tokens */
 
 .project-case-study {
-  /* Surfaces */
-  --cs-page-bg: #f7f5f2;
-  --cs-panel-bg: #fffcf9;
+  /* Surfaces (tokens: design-tokens.css) */
+  --cs-page-bg: var(--pf-editorial-page-bg);
+  --cs-panel-bg: var(--pf-editorial-panel-bg);
   --cs-header-bg: rgb(251 250 248 / 0.95);
   --cs-embed-min-h: 700px;
-  --cs-diagram-fg: #c8dcd0;
+  --cs-diagram-fg: var(--pf-editorial-diagram-fg);
   --cs-diagram-bg: linear-gradient(
     135deg,
-    #1a2e2e 0%,
-    #1e3434 40%,
-    #1a2e2e 100%
+    var(--pf-editorial-teal-muted) 0%,
+    var(--pf-editorial-teal-highlight) 40%,
+    var(--pf-editorial-teal-muted) 100%
   );
 
   /* Font stacks (aligned with tailwind.config fontFamily.roboto / robotomono) */
@@ -43,14 +43,14 @@
   --cs-tracking-label: 0.1em;
 
   /* Before/after panels: CaseStudyVersionCompareDiagram + CaseStudyUxFrictionCompare */
-  --ba-teal: #1c3131;
-  --ba-teal-soft: #dfe9e6;
-  --ba-sand: #ece5dc;
-  --ba-border: #c9d8d4;
-  --ba-muted: #5e6d69;
-  --ba-bad: #9a5a3a;
-  --ba-good: #2b6b5a;
-  --ba-shadow: 0 10px 30px rgba(28, 49, 49, 0.08);
+  --ba-teal: var(--pf-editorial-teal);
+  --ba-teal-soft: var(--pf-editorial-teal-soft);
+  --ba-sand: var(--pf-editorial-sand);
+  --ba-border: var(--pf-editorial-border);
+  --ba-muted: var(--pf-editorial-muted);
+  --ba-bad: var(--pf-editorial-rust);
+  --ba-good: var(--pf-editorial-good);
+  --ba-shadow: 0 10px 30px rgb(var(--pf-editorial-teal-rgb) / 0.08);
   --ba-radius: 18px;
 
   @apply min-h-screen antialiased text-stone-800;
@@ -66,17 +66,33 @@
 }
 
 .project-case-study__header-inner {
-  @apply mx-auto flex w-full max-w-[90ch] px-5 md:px-0;
+  @apply flex w-full max-w-[90ch] items-center justify-start px-5 md:px-8;
 }
 
 .project-case-study__back {
-  @apply inline-flex w-auto max-w-full cursor-pointer border-0 bg-transparent py-3.5 text-left font-normal leading-snug text-stone-700 no-underline;
+  @apply inline-flex w-auto max-w-full shrink-0 cursor-pointer items-center border-0 bg-transparent py-3.5 text-left font-normal leading-snug text-stone-700 no-underline transition-colors duration-150;
   font-family: var(--cs-font-body);
   font-size: var(--cs-text-ui);
 }
 
 .project-case-study__back:hover {
-  @apply text-stone-950;
+  color: var(--pf-editorial-rust);
+}
+
+/* Hover-reveal: match slot height to UI type; reveal on parent hover (full hit target) */
+.project-case-study .project-case-study__hover-reveal {
+  max-width: 100%;
+  height: 1.35em;
+}
+
+.project-case-study .project-case-study__hover-reveal .hover-reveal-text__line {
+  height: 1.35em;
+  line-height: 1.35;
+}
+
+.project-case-study__back:hover .hover-reveal-text__track,
+.project-case-study__related-link:hover .hover-reveal-text__track {
+  @apply -translate-y-1/2;
 }
 
 /* Body column: base size for all prose that inherits */
@@ -259,6 +275,24 @@
   }
 }
 
+.project-case-study__stack-sep {
+  @apply text-stone-400;
+  font-size: 1em;
+}
+
+.project-case-study__stack-text {
+  @apply text-stone-900;
+}
+
+.project-case-study__stack-link {
+  @apply font-medium text-teal-900 underline decoration-teal-800/45 underline-offset-[3px] transition-colors duration-150;
+}
+
+.project-case-study__stack-link:hover {
+  color: var(--pf-editorial-rust);
+  text-decoration-color: var(--pf-editorial-rust);
+}
+
 /* Prose — inherits article font-size / line-height */
 .project-case-study__p {
   @apply mt-6 text-stone-800 first:mt-7;
@@ -367,8 +401,9 @@
   }
 }
 
-.project-case-study__diagram-caption {
-  @apply mt-4 italic text-stone-500;
+/* Secondary caption under figures, diagrams, or ASCII blocks (not impact-chart lead copy). */
+.project-case-study__caption {
+  @apply mt-3 italic text-stone-500;
   font-size: var(--cs-text-caption);
   line-height: var(--cs-lh-ui);
 }
@@ -376,6 +411,21 @@
 .project-case-study__results {
   @apply mt-8 grid gap-px bg-stone-300/80;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+/* Early impact: V2 | V3 split (subscription snapshot) */
+.project-case-study__early-impact-groups {
+  @apply grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10;
+}
+
+.project-case-study__early-impact-group-title {
+  @apply m-0 mb-3 text-base font-semibold tracking-tight text-stone-900;
+  font-size: var(--cs-text-ui);
+  line-height: var(--cs-lh-ui);
+}
+
+.project-case-study__results--in-group {
+  @apply mt-0;
 }
 
 .project-case-study__result {
@@ -432,12 +482,13 @@
 }
 
 .project-case-study__cta {
-  @apply mt-6 inline-flex font-semibold leading-snug text-teal-900 underline decoration-teal-800/40 underline-offset-[6px] transition-colors;
+  @apply mt-6 inline-flex font-semibold leading-snug text-teal-900 underline decoration-teal-800/40 underline-offset-[6px] transition-colors duration-150;
   font-size: var(--cs-text-ui);
 }
 
 .project-case-study__cta:hover {
-  @apply text-teal-950 decoration-teal-950/55;
+  color: var(--pf-editorial-rust);
+  text-decoration-color: var(--pf-editorial-rust);
 }
 
 /* Rich case study: problem subgroups */
@@ -459,7 +510,7 @@
 }
 
 .project-case-study__figure-grid--3 {
-  @apply grid-cols-3 gap-4 md:gap-8;
+  @apply grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8;
 }
 
 .project-case-study__figure-grid--4 {
@@ -479,17 +530,12 @@
   box-shadow: none;
 }
 
-.project-case-study__figure-caption {
-  @apply mt-3 text-stone-600;
-  font-size: var(--cs-text-caption);
-  line-height: var(--cs-lh-ui);
-}
-
 /* Impact bar chart */
 .project-case-study__impact-chart {
   @apply mt-10 w-full;
 }
 
+/* Lead paragraph above the bars (body-sized), not a small figure caption. */
 .project-case-study__impact-chart-intro {
   @apply mb-8 text-stone-700;
   font-size: var(--cs-text-ui);
@@ -549,18 +595,20 @@
 }
 
 .project-case-study__related-link {
-  @apply inline-flex font-semibold leading-snug text-teal-900 underline decoration-teal-800/40 underline-offset-[6px] transition-colors;
+  @apply inline-flex max-w-full items-center justify-center border-b border-solid border-teal-800/40 pb-[6px] font-semibold leading-snug text-teal-900 no-underline transition-colors duration-150;
   font-size: var(--cs-text-ui);
 }
 
 .project-case-study__related-link:hover {
-  @apply text-teal-950 decoration-teal-950/55;
+  color: var(--pf-editorial-rust);
+  border-bottom-color: var(--pf-editorial-rust);
 }
 
 .project-case-study__inline-link {
-  @apply font-semibold text-teal-900 underline decoration-teal-800/40 underline-offset-[3px] transition-colors;
+  @apply font-semibold text-teal-900 underline decoration-teal-800/40 underline-offset-[3px] transition-colors duration-150;
 }
 
 .project-case-study__inline-link:hover {
-  @apply text-teal-950 decoration-teal-950/55;
+  color: var(--pf-editorial-rust);
+  text-decoration-color: var(--pf-editorial-rust);
 }

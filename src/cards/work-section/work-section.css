@@ -34,7 +34,11 @@
 .work-section-title-text {
   @apply m-0 font-aurebesh text-sm leading-[1.1em] flex flex-col items-center shrink-0 [&>span]:block [&>span]:mb-0.5 [&>span:first-child]:mb-2 [&>span:last-child]:mt-2;
   /* yellow-300 → cyan-400 */
-  background-image: linear-gradient(to bottom, #fde047, #22d3ee);
+  background-image: linear-gradient(
+    to bottom,
+    var(--pf-accent-yellow),
+    var(--pf-teal-cyan)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

@@ -4,6 +4,14 @@ import { geoOrthographic, geoPath, geoContains, geoInterpolate } from "d3-geo";
 import { transition } from "d3-transition";
 import { feature, mesh } from "topojson-client";
 
+function readRootCssVar(name, fallback) {
+  if (typeof document === "undefined") return fallback;
+  const v = getComputedStyle(document.documentElement)
+    .getPropertyValue(name)
+    .trim();
+  return v || fallback;
+}
+
 // Versor: quaternion-based spherical interpolation (from D3 World Tour)
 // @see : https://observablehq.com/@d3/world-tour
 class Versor {
@@ -247,6 +255,7 @@ export default React.memo(function JourneyRoute() {
           { type: "Sphere" },
         );
         const path = geoPath(projection, context);
+        const tealCyan = readRootCssVar("--pf-teal-cyan", "#22d3ee");
 
         function render(country, cityCoords, currentIndex) {
           context.clearRect(0, 0, width, height);
@@ -255,7 +264,7 @@ export default React.memo(function JourneyRoute() {
           path(land);
           context.fill();
           if (country) {
-            context.fillStyle = "#22d3ee";
+            context.fillStyle = tealCyan;
             context.beginPath();
             path(country);
             context.fill();
@@ -270,7 +279,7 @@ export default React.memo(function JourneyRoute() {
           path({ type: "Sphere" });
           context.stroke();
           if (currentIndex > 0) {
-            context.strokeStyle = "#22d3ee";
+            context.strokeStyle = tealCyan;
             context.beginPath();
             path({
               type: "LineString",

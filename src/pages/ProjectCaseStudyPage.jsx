@@ -20,7 +20,134 @@ import CaseStudyImpactChart from "./case-study/CaseStudyImpactChart";
 import CaseStudyProblemSection from "./case-study/CaseStudyProblemSection";
 import CaseStudySection from "./case-study/CaseStudySection";
 import CaseStudySystemDesign from "./case-study/CaseStudySystemDesign";
+import HoverRevealText from "../components/hover-reveal-text";
 import "./project-case-study.css";
+
+/** Optional `{ title, intro?, rows, figureCaption?, figure? }` — e.g. impactAfterV2 / impactAfterV3. */
+function CaseStudyImpactBlock({ block, baseUrl }) {
+  if (!block?.rows?.length) return null;
+  const caption = block.figureCaption;
+  const fig = block.figure;
+  return (
+    <CaseStudySection title={block.title || "Impact"}>
+      {block.intro ? (
+        <p className="project-case-study__p">{block.intro}</p>
+      ) : null}
+      <ul className="project-case-study__results mt-6 md:mt-8" role="list">
+        {block.rows.map((row) => (
+          <li key={row.label} className="project-case-study__result">
+            <span className="project-case-study__result-value">
+              {row.value}
+            </span>
+            <span className="project-case-study__result-label">
+              {row.label}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {fig?.img ? (
+        <figure className="project-case-study__figure mt-6 md:mt-8">
+          <CaseStudyLightboxImage
+            baseUrl={baseUrl}
+            img={fig.img}
+            imgWebp={fig.imgWebp}
+            alt={fig.alt ?? ""}
+          />
+          {caption ? (
+            <figcaption className="project-case-study__caption">
+              {caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      ) : caption ? (
+        <figure className="project-case-study__figure mt-6 md:mt-8">
+          <figcaption className="project-case-study__caption">
+            {caption}
+          </figcaption>
+        </figure>
+      ) : null}
+    </CaseStudySection>
+  );
+}
+
+/** Rich overview-style paragraph: string, or `{ text, externalLink?, link?, after?, emphasis? }`. */
+function renderCaseStudyParagraph(paragraph, key) {
+  if (typeof paragraph === "string") {
+    return (
+      <p key={key} className="project-case-study__p">
+        {paragraph}
+      </p>
+    );
+  }
+  if (paragraph.externalLink) {
+    return (
+      <p key={key} className="project-case-study__p">
+        {paragraph.text}
+        <a
+          href={paragraph.externalLink.href}
+          className="project-case-study__inline-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {paragraph.externalLink.label}
+        </a>
+        {paragraph.after}
+      </p>
+    );
+  }
+  if (paragraph.link) {
+    return (
+      <p key={key} className="project-case-study__p">
+        {paragraph.text}
+        <Link
+          to={`/mission/${paragraph.link.slug}`}
+          className="project-case-study__inline-link"
+        >
+          {paragraph.link.label}
+        </Link>
+        {paragraph.after}
+      </p>
+    );
+  }
+  if (paragraph.emphasis != null) {
+    return (
+      <p key={key} className="project-case-study__p">
+        {paragraph.text}
+        <strong className="font-bold text-stone-950">
+          {paragraph.emphasis}
+        </strong>
+      </p>
+    );
+  }
+  return (
+    <p key={key} className="project-case-study__p">
+      {paragraph.text}
+    </p>
+  );
+}
+
+/** Figure caption: plain string or `{ text, externalLink?, after? }` (overview / showcase / reference). */
+function renderReferenceFigureCaption(caption) {
+  if (caption == null) return null;
+  if (typeof caption === "string") return caption;
+  if (caption.externalLink) {
+    return (
+      <>
+        {caption.text}
+        <a
+          href={caption.externalLink.href}
+          className="project-case-study__inline-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {caption.externalLink.label}
+        </a>
+        {caption.after}
+      </>
+    );
+  }
+  return caption.text ?? null;
+}
 
 export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
@@ -49,7 +176,12 @@ export default function ProjectCaseStudyPage() {
   const featuredImg = cs.featuredImg ?? img;
   const featuredImgWebp = cs.featuredImgWebp ?? imgWebp;
 
-  const showEarlyImpact = Boolean(cs.results?.length && !cs.deferResults);
+  const hasEarlyImpactGroups =
+    Array.isArray(cs.earlyImpactGroups) &&
+    cs.earlyImpactGroups.some((g) => g.rows?.length);
+  const showEarlyImpact = Boolean(
+    (cs.results?.length || hasEarlyImpactGroups) && !cs.deferResults,
+  );
   const showDeferredImpact = Boolean(
     cs.results?.length &&
     cs.deferResults &&
@@ -71,7 +203,9 @@ export default function ProjectCaseStudyPage() {
             className="project-case-study__back"
             onClick={goToMission}
           >
-            ← Back to mission
+            <HoverRevealText className="project-case-study__hover-reveal">
+              ← Back to mission 🚀
+            </HoverRevealText>
           </button>
         </div>
       </header>
@@ -93,72 +227,96 @@ export default function ProjectCaseStudyPage() {
 
         {cs.task ? (
           <CaseStudySection title="Task">
-            <p className="project-case-study__lead">{cs.task}</p>
+            <p
+              className={
+                cs.taskBodyType
+                  ? "project-case-study__p mt-7 text-stone-800"
+                  : "project-case-study__lead"
+              }
+            >
+              {cs.task}
+            </p>
             <CaseStudyMetaDl
               disciplines={cs.disciplines}
               context={cs.context}
+              techStack={cs.techStack}
             />
           </CaseStudySection>
         ) : (
-          <CaseStudyMetaDl disciplines={cs.disciplines} context={cs.context} />
+          <CaseStudyMetaDl
+            disciplines={cs.disciplines}
+            context={cs.context}
+            techStack={cs.techStack}
+          />
         )}
 
         {showEarlyImpact ? (
-          <CaseStudySection title="Impact">
-            <ul className="project-case-study__results" role="list">
-              {cs.results.map((row) => (
-                <li key={row.label} className="project-case-study__result">
-                  <span className="project-case-study__result-value">
-                    {row.value}
-                  </span>
-                  <span className="project-case-study__result-label">
-                    {row.label}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <CaseStudySection title={cs.earlyImpactTitle ?? "Impact"}>
+            {cs.earlyImpactIntro ? (
+              <p className="project-case-study__p project-case-study__p--tight">
+                {cs.earlyImpactIntro}
+              </p>
+            ) : null}
+            {hasEarlyImpactGroups ? (
+              <div
+                className={`project-case-study__early-impact-groups${cs.earlyImpactIntro ? " mt-4 md:mt-6" : ""}`}
+              >
+                {cs.earlyImpactGroups.map((group) => (
+                  <div
+                    key={group.title}
+                    className="project-case-study__early-impact-group"
+                  >
+                    <h3 className="project-case-study__early-impact-group-title">
+                      {group.title}
+                    </h3>
+                    <ul
+                      className="project-case-study__results project-case-study__results--in-group"
+                      role="list"
+                    >
+                      {group.rows.map((row, i) => (
+                        <li
+                          key={`${group.title}-${row.label}-${i}`}
+                          className="project-case-study__result"
+                        >
+                          <span className="project-case-study__result-value">
+                            {row.value}
+                          </span>
+                          <span className="project-case-study__result-label">
+                            {row.label}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <ul
+                className={`project-case-study__results${cs.earlyImpactIntro ? " mt-4 md:mt-6" : ""}`}
+                role="list"
+              >
+                {cs.results.map((row, i) => (
+                  <li
+                    key={`${row.label}-${i}`}
+                    className="project-case-study__result"
+                  >
+                    <span className="project-case-study__result-value">
+                      {row.value}
+                    </span>
+                    <span className="project-case-study__result-label">
+                      {row.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </CaseStudySection>
         ) : null}
 
         <CaseStudySection title={cs.overviewTitle || "Overview"}>
-          {cs.overview.map((paragraph, i) => {
-            if (typeof paragraph === "string") {
-              return (
-                <p key={i} className="project-case-study__p">
-                  {paragraph}
-                </p>
-              );
-            }
-            if (paragraph.link) {
-              return (
-                <p key={i} className="project-case-study__p">
-                  {paragraph.text}
-                  <Link
-                    to={`/mission/${paragraph.link.slug}`}
-                    className="project-case-study__inline-link"
-                  >
-                    {paragraph.link.label}
-                  </Link>
-                  {paragraph.after}
-                </p>
-              );
-            }
-            if (paragraph.emphasis != null) {
-              return (
-                <p key={i} className="project-case-study__p">
-                  {paragraph.text}
-                  <strong className="font-bold text-stone-950">
-                    {paragraph.emphasis}
-                  </strong>
-                </p>
-              );
-            }
-            return (
-              <p key={i} className="project-case-study__p">
-                {paragraph.text}
-              </p>
-            );
-          })}
+          {cs.overview.map((paragraph, i) =>
+            renderCaseStudyParagraph(paragraph, `overview-${i}`),
+          )}
         </CaseStudySection>
 
         {cs.overviewSystemDesign ? (
@@ -239,7 +397,7 @@ export default function ProjectCaseStudyPage() {
                   alt={cs.checkoutSection.flowDiagram.alt}
                 />
                 {cs.checkoutSection.flowDiagram.caption ? (
-                  <figcaption className="project-case-study__figure-caption">
+                  <figcaption className="project-case-study__caption">
                     {cs.checkoutSection.flowDiagram.caption}
                   </figcaption>
                 ) : null}
@@ -255,6 +413,8 @@ export default function ProjectCaseStudyPage() {
             ) : null}
           </CaseStudySection>
         ) : null}
+
+        <CaseStudyImpactBlock block={cs.impactAfterV2} baseUrl={baseUrl} />
 
         {cs.identitySection ? (
           <CaseStudySection title={cs.identitySection.title}>
@@ -350,7 +510,7 @@ export default function ProjectCaseStudyPage() {
                   />
                 </div>
                 {cs.claritySection.beforeAfterDiagram.caption ? (
-                  <p className="project-case-study__diagram-caption">
+                  <p className="project-case-study__caption">
                     {cs.claritySection.beforeAfterDiagram.caption}
                   </p>
                 ) : null}
@@ -358,6 +518,8 @@ export default function ProjectCaseStudyPage() {
             ) : null}
           </CaseStudySection>
         ) : null}
+
+        <CaseStudyImpactBlock block={cs.impactAfterV3} baseUrl={baseUrl} />
 
         {cs.onboardingSection ? (
           <CaseStudySection title={cs.onboardingSection.title}>
@@ -449,16 +611,22 @@ export default function ProjectCaseStudyPage() {
                   alt={cs.showcase.desktop.alt}
                 />
                 {cs.showcase.desktop.caption ? (
-                  <figcaption className="project-case-study__figure-caption">
-                    {cs.showcase.desktop.caption}
+                  <figcaption className="project-case-study__caption">
+                    {renderReferenceFigureCaption(cs.showcase.desktop.caption)}
                   </figcaption>
                 ) : null}
               </figure>
             ) : null}
             {cs.showcase.mobile?.length ? (
-              <div className="project-case-study__figure-grid project-case-study__figure-grid--4 mt-8">
+              <div
+                className={
+                  cs.showcase.figureGridColumns === 3
+                    ? `project-case-study__figure-grid project-case-study__figure-grid--3${cs.showcase.desktop ? " mt-8" : " mt-4 md:mt-6"}`
+                    : `project-case-study__figure-grid project-case-study__figure-grid--4${cs.showcase.desktop ? " mt-8" : " mt-4 md:mt-6"}`
+                }
+              >
                 {cs.showcase.mobile.map((m) => (
-                  <figure key={m.alt} className="project-case-study__figure">
+                  <figure key={m.img} className="project-case-study__figure">
                     <CaseStudyLightboxImage
                       baseUrl={baseUrl}
                       img={m.img}
@@ -466,14 +634,59 @@ export default function ProjectCaseStudyPage() {
                       alt={m.alt}
                     />
                     {m.caption ? (
-                      <figcaption className="project-case-study__figure-caption">
-                        {m.caption}
+                      <figcaption className="project-case-study__caption">
+                        {typeof m.caption === "string"
+                          ? m.caption
+                          : renderReferenceFigureCaption(m.caption)}
                       </figcaption>
                     ) : null}
                   </figure>
                 ))}
               </div>
             ) : null}
+            {cs.showcase.footerCaption ? (
+              <p className="project-case-study__caption mt-8 max-w-[68ch]">
+                {renderReferenceFigureCaption(cs.showcase.footerCaption)}
+              </p>
+            ) : null}
+          </CaseStudySection>
+        ) : null}
+
+        {cs.referenceSection ? (
+          <CaseStudySection
+            title={cs.referenceSection.title ?? "Reference"}
+            className="project-case-study__no-shadow"
+          >
+            {cs.referenceSection.intro ? (
+              <p className="project-case-study__p">
+                {cs.referenceSection.intro}
+              </p>
+            ) : null}
+            {cs.referenceSection.figure?.img ||
+            cs.referenceSection.figure?.caption ? (
+              <figure
+                className={`project-case-study__figure project-case-study__figure--full${cs.referenceSection.figure.img ? " mt-4 md:mt-6" : " mt-4"}`}
+              >
+                {cs.referenceSection.figure.img ? (
+                  <CaseStudyLightboxImage
+                    baseUrl={baseUrl}
+                    img={cs.referenceSection.figure.img}
+                    imgWebp={cs.referenceSection.figure.imgWebp}
+                    alt={cs.referenceSection.figure.alt ?? ""}
+                  />
+                ) : null}
+                {cs.referenceSection.figure.caption ? (
+                  <figcaption className="project-case-study__caption">
+                    {renderReferenceFigureCaption(
+                      cs.referenceSection.figure.caption,
+                    )}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ) : null}
+            {(cs.referenceSection.paragraphs ?? []).map((paragraph, i) =>
+              renderCaseStudyParagraph(paragraph, `reference-${i}`),
+            )}
           </CaseStudySection>
         ) : null}
 
@@ -483,7 +696,9 @@ export default function ProjectCaseStudyPage() {
               to={`/mission/${cs.relatedProject.slug}`}
               className="project-case-study__related-link"
             >
-              {cs.relatedProject.label}
+              <HoverRevealText className="project-case-study__hover-reveal">
+                {cs.relatedProject.label}
+              </HoverRevealText>
             </Link>
           </aside>
         ) : null}

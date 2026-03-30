@@ -1,7 +1,6 @@
 /*
  * education-achievements-section.css — layout, title, timeline, cards for this card.
- * Palette: #4d4946 #004d5b #6bbfe4 #d6aa3d #504b48 #a6a29e #e8e4e0 #7ab8d0
- * Sections below use band headers: --- Name ---
+ * Colors: src/design-tokens.css (--pf-*).
  */
 
 /* --- Section root & design tokens --- */
@@ -10,18 +9,27 @@
   --edu-title-amp: clamp(2.35rem, 4.25vw + 1.2rem, 3.1rem);
   --edu-title-mobile: clamp(2.2rem, 4.5vw + 1.25rem, 2.875rem);
   --edu-shadow-education:
-    1px 1px 0 rgba(45, 95, 120, 0.85), 2px 2px 0 rgba(45, 95, 120, 0.8),
-    3px 3px 0 rgba(45, 95, 120, 0.75), 4px 4px 0 rgba(45, 95, 120, 0.7),
-    5px 5px 0 rgba(45, 95, 120, 0.65), 6px 6px 0 rgba(45, 95, 120, 0.6);
+    1px 1px 0 rgb(var(--pf-teal-glow-rgb) / 0.85),
+    2px 2px 0 rgb(var(--pf-teal-glow-rgb) / 0.8),
+    3px 3px 0 rgb(var(--pf-teal-glow-rgb) / 0.75),
+    4px 4px 0 rgb(var(--pf-teal-glow-rgb) / 0.7),
+    5px 5px 0 rgb(var(--pf-teal-glow-rgb) / 0.65),
+    6px 6px 0 rgb(var(--pf-teal-glow-rgb) / 0.6);
   --edu-shadow-achievement:
-    1px 1px 0 rgba(150, 115, 35, 0.85), 2px 2px 0 rgba(150, 115, 35, 0.8),
-    3px 3px 0 rgba(150, 115, 35, 0.75), 4px 4px 0 rgba(150, 115, 35, 0.7),
-    5px 5px 0 rgba(150, 115, 35, 0.65), 6px 6px 0 rgba(150, 115, 35, 0.6);
+    1px 1px 0 rgb(var(--pf-gold-glow-rgb) / 0.85),
+    2px 2px 0 rgb(var(--pf-gold-glow-rgb) / 0.8),
+    3px 3px 0 rgb(var(--pf-gold-glow-rgb) / 0.75),
+    4px 4px 0 rgb(var(--pf-gold-glow-rgb) / 0.7),
+    5px 5px 0 rgb(var(--pf-gold-glow-rgb) / 0.65),
+    6px 6px 0 rgb(var(--pf-gold-glow-rgb) / 0.6);
   --edu-shadow-amp:
-    1px 1px 0 rgba(101, 96, 92, 0.7), 2px 2px 0 rgba(101, 96, 92, 0.65),
-    3px 3px 0 rgba(101, 96, 92, 0.6), 4px 4px 0 rgba(101, 96, 92, 0.55),
-    5px 5px 0 rgba(101, 96, 92, 0.5), 6px 6px 0 rgba(101, 96, 92, 0.45);
-  --edu-timeline-stroke: #4d4946;
+    1px 1px 0 rgb(var(--pf-brown-glow-rgb) / 0.7),
+    2px 2px 0 rgb(var(--pf-brown-glow-rgb) / 0.65),
+    3px 3px 0 rgb(var(--pf-brown-glow-rgb) / 0.6),
+    4px 4px 0 rgb(var(--pf-brown-glow-rgb) / 0.55),
+    5px 5px 0 rgb(var(--pf-brown-glow-rgb) / 0.5),
+    6px 6px 0 rgb(var(--pf-brown-glow-rgb) / 0.45);
+  --edu-timeline-stroke: var(--pf-brown-warm);
 }
 
 /* --- Title (single h2; narrow = stacked + lowercase; md+ = centered + uppercase) --- */
@@ -51,12 +59,14 @@
 }
 
 .edu-title__education {
-  @apply font-silkscreen text-[#6bbfe4] tracking-[0.04em];
+  @apply font-silkscreen tracking-[0.04em];
+  color: var(--pf-teal-accent);
   text-shadow: var(--edu-shadow-education);
 }
 
 .edu-title__achievement {
-  @apply font-silkscreen w-full text-[#d6aa3d] tracking-[0.04em];
+  @apply font-silkscreen w-full tracking-[0.04em];
+  color: var(--pf-gold);
   text-shadow: var(--edu-shadow-achievement);
   font-size: var(--edu-title-mobile);
 }
@@ -81,7 +91,8 @@
 }
 
 .edu-title__amp {
-  @apply font-silkscreen text-[#a6a29e];
+  @apply font-silkscreen;
+  color: rgb(var(--pf-neutral-stone-rgb));
   text-shadow: var(--edu-shadow-amp);
   line-height: 1;
   padding-inline: 0.1em;
@@ -128,86 +139,113 @@
 
 /* All — idle unselected = light; selected = thicker border + stronger shadow (not same as idle) */
 .edu-timeline__legend-btn--all {
-  @apply border border-[rgba(166,162,158,0.55)] text-[#6e6965];
-  background: rgba(166, 162, 158, 0.08);
+  @apply border;
+  border-color: rgb(var(--pf-neutral-stone-rgb) / 0.55);
+  color: var(--pf-neutral-text);
+  background: rgb(var(--pf-neutral-stone-rgb) / 0.08);
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.08));
 }
 .edu-timeline__legend-btn--all:hover {
-  @apply text-[#45413e] border-[rgba(166,162,158,1)];
-  background: rgba(166, 162, 158, 0.12);
+  border-color: rgb(var(--pf-neutral-stone-rgb));
+  color: var(--pf-neutral-text-hover);
+  background: rgb(var(--pf-neutral-stone-rgb) / 0.12);
   filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 0 18px rgba(166, 162, 158, 0.55));
+    drop-shadow(0 0 18px rgb(var(--pf-neutral-stone-rgb) / 0.55));
 }
 .edu-timeline__legend-btn--all.edu-timeline__legend-btn--active {
-  @apply border-2 border-[#8a8580] text-[#3a3633];
-  background: rgba(166, 162, 158, 0.28);
+  @apply border-2;
+  border-color: color-mix(
+    in srgb,
+    rgb(var(--pf-neutral-stone-rgb)) 52%,
+    var(--pf-brown-muted) 48%
+  );
+  color: var(--pf-neutral-text-active);
+  background: rgb(var(--pf-neutral-stone-rgb) / 0.28);
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.16))
-    drop-shadow(0 0 0 1px rgba(166, 162, 158, 0.5))
-    drop-shadow(0 0 20px rgba(166, 162, 158, 0.75))
-    drop-shadow(0 0 40px rgba(166, 162, 158, 0.45))
-    drop-shadow(0 0 64px rgba(166, 162, 158, 0.28));
+    drop-shadow(0 0 0 1px rgb(var(--pf-neutral-stone-rgb) / 0.5))
+    drop-shadow(0 0 20px rgb(var(--pf-neutral-stone-rgb) / 0.75))
+    drop-shadow(0 0 40px rgb(var(--pf-neutral-stone-rgb) / 0.45))
+    drop-shadow(0 0 64px rgb(var(--pf-neutral-stone-rgb) / 0.28));
 }
 .edu-timeline__legend-btn--all.edu-timeline__legend-btn--active:hover {
-  @apply border-2 border-[#a6a29e] text-[#2a2623];
-  background: rgba(166, 162, 158, 0.26);
+  @apply border-2;
+  border-color: rgb(var(--pf-neutral-stone-rgb));
+  color: var(--pf-neutral-text-active);
+  background: rgb(var(--pf-neutral-stone-rgb) / 0.26);
   filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.16))
-    drop-shadow(0 0 22px rgba(166, 162, 158, 0.6));
+    drop-shadow(0 0 22px rgb(var(--pf-neutral-stone-rgb) / 0.6));
 }
 
 /* Education — idle unselected: softer; selected: 2px border + stacked glow (reads “on”) */
 .edu-timeline__legend-btn--education {
-  @apply border border-[rgba(0,77,91,0.45)] text-[#0a5f73];
-  background: rgba(107, 191, 228, 0.1);
-  filter: drop-shadow(0 2px 6px rgba(45, 95, 120, 0.12));
+  @apply border;
+  border-color: rgb(var(--pf-teal-primary-rgb) / 0.45);
+  color: var(--pf-teal-mid);
+  background: rgb(var(--pf-teal-accent-rgb) / 0.1);
+  filter: drop-shadow(0 2px 6px rgb(var(--pf-teal-glow-rgb) / 0.12));
 }
 .edu-timeline__legend-btn--education:hover {
-  @apply text-[#001a20] border-[#6bbfe4];
-  background: rgba(107, 191, 228, 0.15);
-  filter: drop-shadow(0 8px 22px rgba(45, 95, 120, 0.18))
-    drop-shadow(0 0 20px rgba(107, 191, 228, 0.75));
+  @apply border;
+  border-color: var(--pf-teal-accent);
+  color: var(--pf-teal-ink-800);
+  background: rgb(var(--pf-teal-accent-rgb) / 0.15);
+  filter: drop-shadow(0 8px 22px rgb(var(--pf-teal-glow-rgb) / 0.18))
+    drop-shadow(0 0 20px rgb(var(--pf-teal-accent-rgb) / 0.75));
 }
 .edu-timeline__legend-btn--education.edu-timeline__legend-btn--active {
-  @apply border-2 border-[#004d5b] text-[#000f14];
-  background: rgba(107, 191, 228, 0.34);
-  filter: drop-shadow(0 5px 14px rgba(45, 95, 120, 0.28))
-    drop-shadow(0 0 0 1px rgba(107, 191, 228, 0.55))
-    drop-shadow(0 0 26px rgba(107, 191, 228, 0.95))
-    drop-shadow(0 0 52px rgba(107, 191, 228, 0.55))
-    drop-shadow(0 0 80px rgba(107, 191, 228, 0.35));
+  @apply border-2;
+  border-color: var(--pf-teal-primary);
+  color: var(--pf-teal-ink-900);
+  background: rgb(var(--pf-teal-accent-rgb) / 0.34);
+  filter: drop-shadow(0 5px 14px rgb(var(--pf-teal-glow-rgb) / 0.28))
+    drop-shadow(0 0 0 1px rgb(var(--pf-teal-accent-rgb) / 0.55))
+    drop-shadow(0 0 26px rgb(var(--pf-teal-accent-rgb) / 0.95))
+    drop-shadow(0 0 52px rgb(var(--pf-teal-accent-rgb) / 0.55))
+    drop-shadow(0 0 80px rgb(var(--pf-teal-accent-rgb) / 0.35));
 }
 .edu-timeline__legend-btn--education.edu-timeline__legend-btn--active:hover {
-  @apply border-2 border-[#6bbfe4] text-[#000a0d];
-  background: rgba(107, 191, 228, 0.3);
-  filter: drop-shadow(0 8px 22px rgba(45, 95, 120, 0.22))
-    drop-shadow(0 0 24px rgba(107, 191, 228, 0.85));
+  @apply border-2;
+  border-color: var(--pf-teal-accent);
+  color: var(--pf-teal-ink-900);
+  background: rgb(var(--pf-teal-accent-rgb) / 0.3);
+  filter: drop-shadow(0 8px 22px rgb(var(--pf-teal-glow-rgb) / 0.22))
+    drop-shadow(0 0 24px rgb(var(--pf-teal-accent-rgb) / 0.85));
 }
 
 /* Achievements — idle unselected: softer; selected: 2px border + stacked gold glow */
 .edu-timeline__legend-btn--achievement {
-  @apply border border-[rgba(122,82,8,0.45)] text-[#5c3d0a];
-  background: rgba(214, 170, 61, 0.1);
-  filter: drop-shadow(0 2px 6px rgba(120, 90, 35, 0.12));
+  @apply border;
+  border-color: rgb(var(--pf-gold-ink-rgb) / 0.45);
+  color: var(--pf-achievement-ink-muted);
+  background: rgb(var(--pf-gold-rgb) / 0.1);
+  filter: drop-shadow(0 2px 6px rgb(var(--pf-gold-shadow-rgb) / 0.12));
 }
 .edu-timeline__legend-btn--achievement:hover {
-  @apply text-[#2a1800] border-[#d6aa3d];
-  background: rgba(214, 170, 61, 0.15);
-  filter: drop-shadow(0 8px 22px rgba(90, 70, 25, 0.2))
-    drop-shadow(0 0 20px rgba(214, 170, 61, 0.72));
+  @apply border;
+  border-color: var(--pf-gold);
+  color: var(--pf-achievement-ink-hover);
+  background: rgb(var(--pf-gold-rgb) / 0.15);
+  filter: drop-shadow(0 8px 22px rgb(var(--pf-gold-shadow-dark-rgb) / 0.2))
+    drop-shadow(0 0 20px rgb(var(--pf-gold-rgb) / 0.72));
 }
 .edu-timeline__legend-btn--achievement.edu-timeline__legend-btn--active {
-  @apply border-2 border-[#7a5208] text-[#1f1200];
-  background: rgba(214, 170, 61, 0.36);
-  filter: drop-shadow(0 5px 14px rgba(120, 90, 35, 0.28))
-    drop-shadow(0 0 0 1px rgba(214, 170, 61, 0.5))
-    drop-shadow(0 0 26px rgba(214, 170, 61, 0.92))
-    drop-shadow(0 0 52px rgba(214, 170, 61, 0.52))
-    drop-shadow(0 0 80px rgba(214, 170, 61, 0.32));
+  @apply border-2;
+  border-color: var(--pf-gold-ink);
+  color: var(--pf-achievement-ink-hover);
+  background: rgb(var(--pf-gold-rgb) / 0.36);
+  filter: drop-shadow(0 5px 14px rgb(var(--pf-gold-shadow-rgb) / 0.28))
+    drop-shadow(0 0 0 1px rgb(var(--pf-gold-rgb) / 0.5))
+    drop-shadow(0 0 26px rgb(var(--pf-gold-rgb) / 0.92))
+    drop-shadow(0 0 52px rgb(var(--pf-gold-rgb) / 0.52))
+    drop-shadow(0 0 80px rgb(var(--pf-gold-rgb) / 0.32));
 }
 .edu-timeline__legend-btn--achievement.edu-timeline__legend-btn--active:hover {
-  @apply border-2 border-[#d6aa3d] text-[#140c00];
-  background: rgba(214, 170, 61, 0.32);
-  filter: drop-shadow(0 8px 22px rgba(90, 70, 25, 0.24))
-    drop-shadow(0 0 24px rgba(214, 170, 61, 0.82));
+  @apply border-2;
+  border-color: var(--pf-gold);
+  color: var(--pf-achievement-ink-hover);
+  background: rgb(var(--pf-gold-rgb) / 0.32);
+  filter: drop-shadow(0 8px 22px rgb(var(--pf-gold-shadow-dark-rgb) / 0.24))
+    drop-shadow(0 0 24px rgb(var(--pf-gold-rgb) / 0.82));
 }
 
 /* --- Timeline container --- */
@@ -290,7 +328,8 @@
 }
 
 .edu-timeline__dot {
-  @apply w-5 h-5 rounded-full flex-shrink-0 z-10 -ml-7 md:ml-0 bg-[#504b48] col-start-1 row-start-1 row-span-2 md:row-span-1 md:col-start-2 md:row-start-1 md:justify-self-center;
+  @apply w-5 h-5 rounded-full flex-shrink-0 z-10 -ml-7 md:ml-0 col-start-1 row-start-1 row-span-2 md:row-span-1 md:col-start-2 md:row-start-1 md:justify-self-center;
+  background-color: var(--pf-brown-muted);
 }
 
 .edu-timeline__row--education-only .edu-timeline__dot {
@@ -307,12 +346,14 @@
 
 /* --- Timeline card headings (bullet popover: education-card.css) --- */
 .edu-timeline__education .timeline-title {
-  @apply font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0 text-[#004d5b];
+  @apply font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0;
+  color: var(--pf-teal-primary);
   text-shadow: 0.5px 0.5px 0 cyan;
 }
 .edu-achievement-card__title {
-  @apply max-w-[min(100%,25rem)] font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0 text-[#967323];
-  text-shadow: 0.5px 0.5px 0 #d6aa3d;
+  @apply max-w-[min(100%,25rem)] font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0;
+  color: var(--pf-gold-dark);
+  text-shadow: 0.5px 0.5px 0 var(--pf-gold);
 }
 
 .edu-timeline__education .timeline-time,
@@ -321,7 +362,7 @@
 .edu-timeline__achievement-col .timeline-location,
 .edu-timeline__education .timeline-location__where,
 .edu-timeline__achievement-col .timeline-location__where {
-  @apply text-[#504b48];
+  color: var(--pf-brown-muted);
 }
 
 .edu-timeline__education .timeline-location__org,
@@ -334,7 +375,7 @@
   @apply flex justify-start md:justify-end overflow-visible;
 }
 .edu-timeline__education .education-card__mission-log-btn {
-  @apply text-[#004d5b];
+  color: var(--pf-teal-primary);
 }
 .edu-timeline__education .education-card__mission-log-float {
   @apply text-slate-700 md:left-auto md:right-0 md:top-full md:w-full;
@@ -367,7 +408,9 @@
 
 /* Badges: dark brown fill + light label for readable small-caps; inset highlight on the pill */
 .edu-achievement-card__badges .timeline-badge {
-  @apply inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full;
-  @apply bg-[#7c5f1c] text-[#fffef7] border border-[#4a2d14];
+  @apply inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full border;
+  background-color: var(--pf-badge-bg);
+  color: var(--pf-badge-text);
+  border-color: var(--pf-badge-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }

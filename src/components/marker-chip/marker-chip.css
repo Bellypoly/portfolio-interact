@@ -38,7 +38,11 @@
   @apply text-cyan-400 marker-glow hover:text-cyan-200;
 }
 .marker-chip-btn.inactive {
-  @apply text-cyan-200 hover:text-cyan-500;
+  @apply text-cyan-200 transition-colors duration-150;
+}
+
+.marker-chip-btn.inactive:hover {
+  color: var(--pf-editorial-rust);
 }
 
 .marker-glow {
@@ -63,12 +67,20 @@
 }
 
 .marker-chip-group.marker-chip-group--light-section .marker-chip-btn.active {
-  @apply text-slate-950;
+  @apply text-slate-950 transition-colors duration-150;
   text-shadow: var(--marker-glow-slate-strong);
 }
 
+.marker-chip-group.marker-chip-group--light-section .marker-chip-btn.active:hover {
+  color: var(--pf-editorial-rust);
+}
+
 .marker-chip-group.marker-chip-group--light-section .marker-chip-btn.inactive {
-  @apply text-slate-700 hover:text-slate-900;
+  @apply text-slate-700 transition-colors duration-150;
+}
+
+.marker-chip-group.marker-chip-group--light-section .marker-chip-btn.inactive:hover {
+  color: var(--pf-editorial-rust);
 }
 
 .marker-chip-group.marker-chip-group--light-section .marker-glow {

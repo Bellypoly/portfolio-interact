@@ -4,7 +4,8 @@
 
 /* Match `.edu-title__education` (Silkscreen, scale, color, shadow) */
 .portfolio-section__title {
-  @apply col-span-full font-silkscreen font-bold italic uppercase tracking-[0.04em] leading-[2.85rem] text-center text-[clamp(2.75rem,5vw+1.45rem,3.65rem)] text-[#6bbfe4] mt-0 mb-[48px];
+  @apply col-span-full font-silkscreen font-bold italic uppercase tracking-[0.04em] leading-[1.06] text-center text-[clamp(3.35rem,6.5vw+1.5rem,4.5rem)] mt-0 mb-14 md:mb-16;
+  color: var(--pf-teal-accent);
   text-shadow:
     1px 1px 0 rgba(45, 95, 120, 0.85),
     2px 2px 0 rgba(45, 95, 120, 0.8),

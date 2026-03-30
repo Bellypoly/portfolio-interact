@@ -15,11 +15,12 @@ const SeniorFullStack = ({ showLiveDot }) => (
     description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
     triggerLabel="Mission log"
     bullets={[
-      "Developed scalable APIs across paywall, subscription, and content systems — the paywall layer drove +22% overall conversion (via Sophi), while the checkout redesign lifted digital subscriptions by +14%.",
-      "Increased digital subscriptions +14% within the first month (+7% additional after UX iteration) by consolidating multi-step checkout into a single-page flow and iterating on user-behavior signals.",
-      "Contributed to the end-to-end redesign of subscription checkout and onboarding on Arc XP, integrating paywall, identity, and payment gateway systems (Braintree, Stripe, Apple Pay) into a unified conversion pipeline serving millions of users.",
-      "Designed deterministic user-state handling (new, existing, returning users) to eliminate identity ambiguity and prevent drop-offs across paywall → checkout flows.",
-      "Architected full-stack publishing systems (Node.js, React, GraphQL) supporting millions of monthly users with real-time content delivery and multi-brand scalability.",
+      "Built scalable APIs across paywall, subscription, and content; paywall decisioning drove +22% conversion and +15% more subscription starts, feeding checkout and content for millions of users.",
+      "+14% digital subscriptions in the first month (+7% after UX iteration) by shipping single-page checkout and iterating on behavioral signals.",
+      "Contributed to Arc XP checkout and onboarding — unified paywall, identity, payments (Braintree, Stripe, Apple Pay), and personalization (Sophi, BlueConic, Sailthru) for millions of readers.",
+      "Deterministic user-state for new, existing, and returning users — reduced identity ambiguity and paywall → checkout drop-offs.",
+      "Architected publishing systems (Node.js, Python, React, GraphQL) for real-time content delivery, multi-brand scale, and millions of monthly users.",
+      "Raised release confidence with automated regression tests and monitoring (fewer incidents); mentored juniors through reviews and pairing.",
     ]}
     portfolioAnchor="portfolio"
   />

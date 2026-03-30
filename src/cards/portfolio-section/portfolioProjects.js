@@ -1,5 +1,6 @@
 /**
- * Portfolio projects — one entry drives Mission Gallery cards and `/mission/:slug` case studies.
+ * Portfolio projects — one entry drives Mission Gallery cards and `/project/:slug` case studies.
+ * Optional `caseStudy.techStack`: `{ label, href }[]` (or legacy `string[]`) — Stack row in meta; links open in a new tab.
  */
 
 export function getPortfolioProjectBySlug(slug) {
@@ -25,30 +26,58 @@ export const PORTFOLIO_PROJECTS = [
       featuredImageCompact: true,
       featuredImageObjectPosition: "center top",
       featuredImageObjectPositionMd: "50% 20%",
-      task: null,
+      task: "Integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription paths. Wire JavaScript and BlueConic so on-page behavior matches Sophi’s decisions; instrument GA4; ship with feature flags and kill switches for safe rollout and trustworthy model feedback.",
       disciplines: [
         "Machine Learning paywall",
         "Analytics",
         "Frontend integration",
       ],
       context: "The Dallas Morning News",
+      techStack: [
+        {
+          label: "Arc XP",
+          href: "https://www.arcpublishing.com/products/arcxp/",
+        },
+        {
+          label: "Sophi",
+          href: "https://www.sophi.io/",
+        },
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        {
+          label: "GA4",
+          href: "https://support.google.com/analytics/answer/10089681",
+        },
+        {
+          label: "BlueConic",
+          href: "https://www.blueconic.com/",
+        },
+        {
+          label: "Feature flags",
+          href: "https://martinfowler.com/articles/feature-toggles.html",
+        },
+      ],
       results: [
         { value: "+22%", label: "Conversion rate" },
-        { value: "+15%", label: "Subscription starts" },
+        { value: "+15%", label: "More subscription starts" },
       ],
       overviewTitle: "Overview",
       overview: [
         "Those gains came from solving a fundamental problem: static paywalls treat every reader the same. Block too early and you lose casual readers who might have converted later. Block too late and you leave revenue on the table.",
         "Making it harder was the fact that different content behaves differently — politics, crime, and restaurant coverage drive the most subscription starts, while high school sports, commentary, and business convert at the highest rates. No single rule could account for that.",
+        "The metrics in the Impact section (+22% conversion, +15% more subscription starts) were referenced in the DMN employee town hall on August 13, 2025.",
       ],
-      strategyTitle: "What I built",
+      strategyTitle: "What I did",
       strategyIntro:
-        "The answer was Sophi — an AI-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here's how I brought it to production:",
+        "My role: integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags. The answer was Sophi — an AI-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here’s how I brought it to production:",
       strategyBullets: [
-        "Integrated Sophi's decisioning layer into frontend rendering and subscription flows, enabling real-time paywall responses based on user behavior and content context.",
-        "Designed robust user-state handling across new visitors, returning readers, and subscribers, ensuring consistent gating logic and messaging.",
-        "Established reliable analytics instrumentation to ensure accurate signal collection for model training and performance evaluation.",
-        "Supported controlled rollout across content sections using feature flags and kill switches to minimize risk and maintain editorial trust.",
+        "I integrated Sophi’s decisioning layer into frontend rendering and subscription flows so paywall responses followed user behavior and content context in real time.",
+        "I designed user-state handling across new visitors, returning readers, and subscribers so gating logic and messaging stayed consistent.",
+        "I established analytics instrumentation so model training and evaluation had trustworthy signals.",
+        "I supported controlled rollout with feature flags and kill switches to limit risk and protect editorial trust.",
+        "After first launch, GA4 and Sophi didn’t always agree — we traced which analytics definitions and events needed tuning versus which model inputs had to change so dashboards and the learning loop matched real reader behavior.",
       ],
       pillars: null,
       systemDesign: {
@@ -61,18 +90,18 @@ export const PORTFOLIO_PROJECTS = [
         caption:
           "User behavior flows down, analytics flows back up — the loop never stops learning.",
       },
-      approachTitle: "Key insight",
+      approachTitle: "What I found in production",
       approachIntro:
         "As the feedback loop matured, a clear pattern emerged in the data:",
       approach: [
-        "Conversion performance varies dramatically by content category. High-traffic sections like politics and crime generate the most subscription starts in absolute volume — but high school sports, commentary, and business convert at significantly higher rates per reader.",
-        "This meant the paywall couldn't just count pageviews. It needed to weigh user intent against content type to know when gating would actually help — and when it would just push readers away.",
+        "I saw conversion performance vary sharply by content category. High-traffic sections like politics and crime drove the most subscription starts in absolute volume — but high school sports, commentary, and business converted at significantly higher rates per reader.",
+        "That told me the paywall couldn’t just count pageviews. It had to weigh reader intent against content type to know when gating would help — and when it would only push people away.",
       ],
       flourishEmbed: "https://flo.uri.sh/visualisation/28171634/embed",
       flourishCaption:
         "The data below shows exactly how this plays out — volume and conversion tell very different stories depending on the section.",
       businessOutcome:
-        "The result is a paywall that gets smarter every day — continuously balancing subscription conversion against reader engagement, one visit at a time. The +22% conversion lift and +15% subscription growth reflect a system that learns, not just a feature that shipped.",
+        "The result is a paywall that gets smarter every day — continuously balancing subscription conversion against reader engagement, one visit at a time. The +22% conversion lift and +15% more subscription starts reflect a system that learns, not just a feature that shipped.",
       relatedProject: {
         slug: "subscription-checkout-activation",
         label:
@@ -95,13 +124,53 @@ export const PORTFOLIO_PROJECTS = [
         "images/portfolio/subscription-checkout/featured-image.webp",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: null,
+      task: "Replace a leaking 3-page, server-rendered checkout with a single React surface, unify Braintree / Stripe / Apple Pay behind one payment abstraction, and implement deterministic Arc XP identity resolution at the email boundary — then iterate with Microsoft Clarity on production so evidence, not assumptions, drove the V3 UX fixes.",
       disciplines: [
         "Checkout & payments system",
         "Identity & session continuity",
         "Post-purchase onboarding",
       ],
       context: "The Dallas Morning News",
+      techStack: [
+        {
+          label: "Arc XP",
+          href: "https://www.arcpublishing.com/products/arcxp/",
+        },
+        {
+          label: "Microsoft Clarity",
+          href: "https://clarity.microsoft.com/",
+        },
+        {
+          label: "Braintree",
+          href: "https://developer.paypal.com/braintree/docs/",
+        },
+        { label: "Stripe", href: "https://stripe.com/" },
+        { label: "Apple Pay", href: "https://www.apple.com/apple-pay/" },
+        { label: "React", href: "https://react.dev/" },
+      ],
+      earlyImpactTitle: "Impact",
+      earlyImpactIntro:
+        "Subscription metrics from the same internal milestone referenced elsewhere in this case study — first after the V2 single-page launch, then after the Clarity-driven V3 iteration on that same surface.",
+      earlyImpactGroups: [
+        {
+          title: "After V2 launch",
+          rows: [{ value: "+14%", label: "Digital subscriptions" }],
+        },
+        {
+          title: "After V3 iteration",
+          rows: [
+            {
+              value: "+7%",
+              label: "Conversion uplift",
+            },
+            { value: "+9%", label: "Member information completion" },
+            {
+              value: "+22%",
+              label: "Payment details completed",
+            },
+          ],
+        },
+      ],
       overviewTitle: "Overview",
       overview: [
         {
@@ -114,11 +183,7 @@ export const PORTFOLIO_PROJECTS = [
           after:
             " — more readers than ever were reaching the moment they wanted to subscribe. But the checkout they hit was 3 server-rendered pages with no shared client state: member info, payment, password. Every navigation was a full round-trip, a fresh DOM, and another chance for the reader to close the tab.",
         },
-        {
-          text: "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified 3 payment providers (Braintree, Stripe, Apple Pay) behind one tokenization interface, and wrote deterministic identity resolution against Arc XP so the system could tell new visitors from existing accounts from active subscribers — all at the email-entry boundary. The second pass used Microsoft Clarity tap heatmaps on production to prove that some of my own V1 engineering decisions were now the problem, and I shipped fixes against the evidence. ",
-          emphasis:
-            "Together: +14% digital subscriptions, then an additional +7% conversion uplift.",
-        },
+        "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified 3 payment providers (Braintree, Stripe, Apple Pay) behind one tokenization interface, and wrote deterministic identity resolution against Arc XP so the system could tell new visitors from existing accounts from active subscribers — all at the email-entry boundary. The second pass used Microsoft Clarity tap heatmaps on production to prove that some of my own V1 engineering decisions were now the problem, and I shipped fixes against the evidence.",
       ],
       relatedProject: {
         slug: "dynamic-paywall",
@@ -208,10 +273,7 @@ export const PORTFOLIO_PROJECTS = [
       },
       checkoutSection: {
         title: "Version 2: Single-page checkout",
-        lead: 'The first pass rewrote the architecture. We collapsed the 3-page flow into a single React-driven surface, unified 3 payment providers behind one abstraction, and wired deterministic identity resolution into the entry point. It shipped as the "Single Page Checkout" and drove a +14% increase in digital subscriptions within the first month.',
-        sectionResults: [
-          { value: "+14%", label: "Digital subscriptions (V2 launch)" },
-        ],
+        lead: 'The first pass rewrote the architecture. We collapsed the 3-page flow into a single React-driven surface, unified 3 payment providers behind one abstraction, and wired deterministic identity resolution into the entry point. It shipped as the "Single Page Checkout" and moved digital subscriptions materially within the first month.',
         bullets: [
           "Moved member info, payment, and order summary onto a single page — eliminating 2 full navigations and 2 server round-trips. Client state now lives in one component tree instead of being serialized and prayed-for across page loads.",
           "Built a unified payment abstraction over Braintree, Stripe, and Apple Pay. Each provider has its own tokenization flow, validation contract, and error shape; the abstraction normalises all of that behind one interface so the checkout form doesn't care which provider is active.",
@@ -265,10 +327,7 @@ export const PORTFOLIO_PROJECTS = [
       },
       claritySection: {
         title: "Version 3: What Clarity showed us",
-        lead: "V2 worked. +14%, clean architecture, unified payments. We could have stopped. Instead I wired Microsoft Clarity into production — session replay and tap heatmaps on the exact DOM readers touched — because shipping isn't the same as knowing. What the data showed was uncomfortable: the friction readers hit in V2 wasn't a design oversight or a missing feature. It was my own engineering decisions surfacing as UX problems.",
-        sectionResults: [
-          { value: "+7%", label: "Conversion uplift (V3 iteration)" },
-        ],
+        lead: "V2 worked: strong subscription lift, clean architecture, unified payments. We could have stopped. Instead I wired Microsoft Clarity into production — session replay and tap heatmaps on the exact DOM readers touched — because shipping isn't the same as knowing. What the data showed was uncomfortable: the friction readers hit in V2 wasn't a design oversight or a missing feature. It was my own engineering decisions surfacing as UX problems. Iterating on that evidence — progress bar, payment affordance, benefits chrome — stacked another conversion uplift on top of the V2 launch.",
         figureIntro:
           "The progress bar was the first thing that lit up. Aggregate taps stacked on Confirmation while the active step was still Payment — readers were treating it like tab navigation. This is the kind of bug you will never catch in a happy-path test suite; it only shows up when you overlay thousands of real sessions on the markup you shipped. Chrome Mobile (left) and Mobile Safari (right) in the same 3-day window — same page, different engines, different tap distributions. That cross-browser delta alone is why you instrument production instead of trusting a single QA device.",
         figures: [
@@ -352,6 +411,40 @@ export const PORTFOLIO_PROJECTS = [
         ],
         figureColumns: 3,
       },
+      impactAfterV2: {
+        title: "Impact after V2 launch",
+        intro:
+          "First month after shipping single-page checkout — headline subscription outcome from the architectural reset.",
+        figureCaption:
+          "Source: The Dallas Morning News employee town hall, 13 August 2025.",
+        rows: [
+          {
+            value: "+14%",
+            label: "Digital subscriptions",
+          },
+        ],
+      },
+      impactAfterV3: {
+        title: "Impact after V3 iteration",
+        intro:
+          "After Clarity-driven fixes on the same surface: another conversion lift, plus step-level funnel analytics showing how readers moved through member info, payment, and pay flow.",
+        figureCaption:
+          "Source: The Dallas Morning News employee town hall, 13 August 2025.",
+        rows: [
+          {
+            value: "+7%",
+            label: "Conversion uplift (Clarity iteration)",
+          },
+          {
+            value: "+9%",
+            label: "Member information completion",
+          },
+          {
+            value: "+22%",
+            label: "Credit Card / Payment details completed",
+          },
+        ],
+      },
       approachTitle: "What I learned",
       approach: [
         "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — 3 pages meant 3 round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
@@ -400,6 +493,241 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
+    slug: "article-page-redesign",
+    name: "Article Page Redesign",
+    desc: "DMN article surface: single-column Arc XP PageBuilder, GAM, Core Web Vitals, dynamic paywall–aware UI, GA4 & ops monitoring.",
+    img: "images/portfolio/article-redesign/thumbnail.png",
+    imgWebp: "images/portfolio/article-redesign/thumbnail.webp",
+    cardImagePosition: "center 100%",
+    alt: "Dallas Morning News article page — single-column reading layout",
+    caseStudy: {
+      eyebrow: "UX · Performance · Monetization · Arc XP · GAM · GA4",
+      featuredImg: "images/portfolio/article-redesign/featured-image.png",
+      featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center top",
+      task: "As a senior full-stack engineer, I contributed to shipping DMN’s redesigned article experience in Arc XP PageBuilder (React and JavaScript): a single-column, content-first layout; Google Ad Manager placement and integration; Core Web Vitals–aware rendering (lazy loading, stable ad injection, font-loading and script-load discipline); regiwall- and dynamic-paywall–aware UI plus inline newsletter signup for anonymous, registered, and subscriber readers—balancing engagement with monetization on the primary reading surface.",
+      taskBodyType: true,
+      disciplines: [
+        "Article frontend & PageBuilder",
+        "Ad platform (GAM) integration",
+        "Performance & Core Web Vitals",
+        "Analytics & monitoring (GA4 · Datadog · BlueConic)",
+      ],
+      context: "The Dallas Morning News",
+      techStack: [
+        {
+          label: "Arc XP",
+          href: "https://www.arcpublishing.com/products/arcxp/",
+        },
+        {
+          label: "React",
+          href: "https://react.dev/",
+        },
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        {
+          label: "Google Ad Manager",
+          href: "https://admanager.google.com/",
+        },
+        {
+          label: "GA4",
+          href: "https://support.google.com/analytics/answer/10089681",
+        },
+        {
+          label: "Datadog",
+          href: "https://www.datadoghq.com/",
+        },
+        {
+          label: "BlueConic",
+          href: "https://www.blueconic.com/",
+        },
+        {
+          label: "GraphQL",
+          href: "https://graphql.org/",
+        },
+      ],
+      results: [
+        {
+          value: "-9.91%",
+          label: "Ads served (no loss of ad revenue)",
+        },
+        {
+          value: "+4.73%",
+          label: "Average reading time per page",
+        },
+        {
+          value: "+4.09%",
+          label: "Average engagement time per page",
+        },
+        {
+          value: "Improved",
+          label: "Core Web Vitals — LCP & CLS vs baseline",
+        },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "At The Dallas Morning News, the article page is the primary surface for both reader engagement and subscription conversion. The legacy template had not been updated in years and struggled to meet modern expectations across usability, performance, and monetization.",
+        "As a senior full-stack developer, I contributed to the redesign and implementation in Arc XP PageBuilder (React and JavaScript), focusing on frontend architecture, performance, GAM integration, and dynamic paywall–aware reader flows. After launch, we relied on GA4 for engagement and funnel signal, Datadog for errors and performance telemetry, and BlueConic alongside those tools to monitor reader journeys—not as a substitute for published KPIs, but as the stack we used to validate and debug the new surface. My delivery focus was PageBuilder, GAM, reader-state behavior, and tests alongside product, design, and ads.",
+      ],
+      overviewSystemDesign: {
+        sectionTitle: "Article stack",
+        intro:
+          "Editorial content flows through Arc XP into PageBuilder; the frontend renders a single reading column, places GAM at intentional breakpoints, protects Core Web Vitals, and wires reader state to the dynamic paywall, regiwall, inline newsletter signup, and subscription CTAs.",
+        diagram: [
+          "Arc XP — editorial CMS & PageBuilder output",
+          "↓",
+          "PageBuilder frontend · React · JavaScript (layout & content blocks)",
+          "↓",
+          "Single-column article + GAM slots at defined breakpoints",
+          "↓",
+          "Performance (lazy load · fonts · deferred non-critical scripts · stable ad injection · CLS)",
+          "↓",
+          "Reader state → regiwall / dynamic paywall · inline newsletter · subscription CTAs",
+        ],
+        caption:
+          "Story column first; ads, dynamic paywall, and newsletter/subscription entry points attach at defined breakpoints—not a sidebar density race.",
+        diagramAlt:
+          "Flow from Arc XP and PageBuilder through single-column layout and GAM to performance tuning and dynamic-paywall-aware reader states",
+      },
+      problemSection: {
+        title: "Problem",
+        paragraphs: [
+          "The existing article experience suffered from a combination of UX and system-level issues. The layout relied heavily on a sidebar, where ads and recirculation modules competed directly with the article content — a cluttered interface that disrupted reading flow and reduced engagement.",
+          "Technically, the page was difficult to maintain and optimize. Ad loading and heavy assets hurt Core Web Vitals (especially LCP and CLS). Subscription and growth entry points (including newsletter) were not well integrated into the reading experience, and inconsistent UI components slowed iteration. The page underperformed as both an engagement surface and a monetization channel.",
+        ],
+        figureCaption:
+          "Two comparisons: representative production pages, then Arc XP PageBuilder templates — same before/after story at different levels of fidelity.",
+        beforeAfterCompare: {
+          diagramAlt:
+            "Before and after: legacy sidebar article layout versus redesigned single-column article, shown as production screenshots and as PageBuilder templates.",
+          rows: [
+            {
+              rowTitle: "Production article (representative)",
+              beforeTitle: "Before",
+              afterTitle: "After",
+              before: {
+                img: "images/portfolio/article-redesign/figure-legacy-article.png",
+                imgWebp:
+                  "images/portfolio/article-redesign/figure-legacy-article.webp",
+                alt: "Legacy Dallas Morning News article layout with sidebar — ads and recirculation beside the story.",
+                caption:
+                  "Sidebar-heavy layout: modules and ads compete with the article column for attention.",
+              },
+              after: {
+                img: "images/portfolio/article-redesign/figure-new-article.png",
+                imgWebp:
+                  "images/portfolio/article-redesign/figure-new-article.webp",
+                alt: "Redesigned DMN article — single-column story, ads and modules in the main reading flow.",
+                caption:
+                  "Content-first column: GAM and modules sit in the main flow at intentional breakpoints.",
+              },
+            },
+            {
+              rowTitle: "Arc XP PageBuilder templates",
+              beforeTitle: "Before",
+              afterTitle: "After",
+              before: {
+                img: "images/portfolio/article-redesign/template-legacy-article.png",
+                imgWebp:
+                  "images/portfolio/article-redesign/template-legacy-article.webp",
+                alt: "Legacy DMN article template — sidebar rail with ads and recirculation beside the story column.",
+                caption:
+                  "Legacy template: story shares the fold with a persistent sidebar rail.",
+              },
+              after: {
+                img: "images/portfolio/article-redesign/template-new-article.png",
+                imgWebp:
+                  "images/portfolio/article-redesign/template-new-article.webp",
+                alt: "Redesigned DMN article template — single story column with GAM and modules in the main reading flow.",
+                caption:
+                  "New template: one content-first column; modules land in the story, not in a parallel rail.",
+              },
+            },
+          ],
+          caption:
+            "Same structural shift in both rows — from competing sidebar to a single reading column — whether you look at shipped pages or the underlying templates.",
+        },
+      },
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role: senior full-stack implementation on a team effort — translate product and design into Arc XP PageBuilder (React and JavaScript), Google Ad Manager, Core Web Vitals–conscious rendering, dynamic-paywall– and newsletter-aware UI, and automated tests. I contributed implementation alongside product, design, and ads — not solo ownership of the redesign.",
+      strategyBullets: null,
+      pillars: [
+        {
+          title: "Frontend (React · JavaScript · Arc XP PageBuilder)",
+          body: "I implemented a component-based article layout, moved from sidebar-driven to single column, built reusable content blocks (text, image, embed, ad slots), and shipped responsive behavior across mobile, tablet, and desktop. Typography, spacing, and hierarchy followed the design system and research direction — I owned accurate implementation in PageBuilder, not the underlying UX research.",
+        },
+        {
+          title: "Monetization & ads (Google Ad Manager)",
+          body: "I reworked ad slot placement inside the article flow, integrated units through GAM, tuned frequency and placement at content breakpoints, and enabled larger, higher-value formats (including video) where the product allowed.",
+        },
+        {
+          title: "Performance",
+          body: "I added lazy loading for ads, images, and embeds; tightened font loading and deferred non-critical scripts where it mattered for LCP and interactivity; cut render-blocking work; and improved layout stability around ad injection to protect CLS and broader Core Web Vitals.",
+        },
+        {
+          title: "User state, dynamic paywall & CTAs",
+          body: "I implemented UI for anonymous, registered, and subscriber states; wired the article shell to the dynamic paywall and registration/regiwall logic; surfaced inline newsletter signup in the reading flow; and kept subscription CTAs and paywall triggers rendering correctly for each state.",
+        },
+        {
+          title: "Observability & quality (GA4 · Datadog · BlueConic · tests)",
+          body: "Post-launch, GA4 for engagement and key events, Datadog for errors and latency, and BlueConic in the reader-data stack — so we could validate the template without inventing unpublished funnel metrics here. Before rollout, unit tests on components, formatters, and ad-slot / reader-state branches plus integration tests on PageBuilder and article + GAM flows kept layout and monetization from regressing.",
+        },
+      ],
+      approachTitle: "How I shipped it",
+      approach: [
+        "I helped move the article page from a fragmented layout to a content-first, system-driven experience: no sidebar, story first, consistent across devices. Ads sat in the natural reading flow—visible but less disruptive. Modular components and predictable rendering let layout, monetization, and performance move together.",
+        "Where legacy monetization leaned on high sidebar ad density, I worked with the team to consolidate ads in the main column at intentional breakpoints—~10% fewer ads overall without revenue loss, with room for higher-value formats. The shift was from maximizing ad count to optimizing placement and quality.",
+        "Quantitatively, average reading time and engagement time rose (+4.73% and +4.09%), and I contributed to Core Web Vitals discipline on LCP and CLS alongside clearer paths for subscription and inline newsletter signup. GA4, Datadog, and BlueConic were the day-to-day monitoring layer for validating behavior after ship—not a substitute for sharing proprietary funnel metrics here.",
+      ],
+      businessOutcome:
+        "The article page became a more scalable product surface: frontend architecture, ad delivery, dynamic-paywall–aware reader logic, and growth CTAs (including newsletter) aligned so the team could balance engagement and monetization. My work was implementation-focused — PageBuilder with React and JavaScript, GAM, font/script discipline, observability hooks consumed by GA4 and Datadog (and BlueConic in the reader stack), and unit/integration coverage on high-risk paths — alongside teammates in product, design, and ads.",
+      showcase: {
+        title: "The result",
+        figureGridColumns: 3,
+        mobile: [
+          {
+            img: "images/portfolio/article-redesign/result-mobile.png",
+            imgWebp: "images/portfolio/article-redesign/result-mobile.webp",
+            alt: "DMN article on a narrow mobile viewport — design-system header, serif headline and body, hero image, Subscribe in the chrome, and a sticky ad slot at the bottom.",
+            caption:
+              "Mobile (narrow) — single story column with clear type hierarchy; Subscribe stays in the header; monetization tucks into the flow and a dismissible bottom ad without breaking the reading line.",
+          },
+          {
+            img: "images/portfolio/article-redesign/result-tablet.png",
+            imgWebp: "images/portfolio/article-redesign/result-tablet.webp",
+            alt: "DMN article at tablet width — listen/share/comments, byline, read time, hero image, and inline Marketplace module in the story column.",
+            caption:
+              "Tablet — same single-column story; engagement affordances (listen, share, comments) and read-time metadata; inline Marketplace/recirc module stays in the article stream, not a sidebar rail.",
+          },
+          {
+            img: "images/portfolio/article-redesign/result-desktop.png",
+            imgWebp: "images/portfolio/article-redesign/result-desktop.webp",
+            alt: "DMN article on desktop — leaderboard ad, sticky header with Subscribe, centered single column, hero image, and generous margins for long-form reading.",
+            caption:
+              "Desktop — centered reading measure with top-of-page ad and header Subscribe; hero treatment and inline modules stay in the same content column for a calmer long-form read.",
+          },
+        ],
+        footerCaption: {
+          text: "Product design and UX research: ",
+          externalLink: {
+            href: "https://jessicachenworks.com/project/dallas-morning-news-article-redesign-2/",
+            label: "Jessica Chen",
+          },
+          after: ".",
+        },
+      },
+      relatedProject: {
+        slug: "dynamic-paywall",
+        label:
+          "Same reader journey: how the dynamic paywall decides when to gate the article →",
+      },
+    },
+  },
+  {
     slug: "rdfd",
     name: "RDFD — Discovering Fake Drivers",
     desc: "Machine learning approach for driver identification.",
@@ -415,31 +743,42 @@ export const PORTFOLIO_PROJECTS = [
         "Driver verification",
       ],
       context: "Research / proof of concept",
+      techStack: [
+        { label: "Python", href: "https://www.python.org/" },
+        {
+          label: "Machine learning",
+          href: "https://en.wikipedia.org/wiki/Machine_learning",
+        },
+        {
+          label: "Time-series pipeline",
+          href: "https://en.wikipedia.org/wiki/Time_series",
+        },
+      ],
       overview: [
         "Raw trip data is noisy: routes, pace, and stops all vary with traffic and intent. The problem was to turn sequences of behavior into a signal that stays stable for the real driver and drifts when someone else is behind the wheel.",
         "The approach emphasized interpretable features and robust evaluation—so outcomes could be discussed with safety stakeholders, not only accuracy on a held-out set.",
       ],
-      strategyTitle: "Strategy and alignment",
+      strategyTitle: "What I did",
       strategyIntro:
-        "Before modeling, the work clarified what “fake” means in production: shared accounts, borrowed credentials, and scripted fraud can look different from random mistakes. The plan focused on separability over time and calm false-positive rates.",
+        "My role: own temporal feature design, evaluation framing, and the proof-of-concept ML pipeline for driver verification. Before modeling, I clarified what “fake” means in production: shared accounts, borrowed credentials, and scripted fraud can look different from random mistakes. I focused the plan on separability over time and calm false-positive rates.",
       pillars: [
         {
           title: "Signal quality",
-          body: "Define behavior features that capture habit—not just speed averages, but rhythm, hesitation, and consistency across segments.",
+          body: "I defined behavior features that capture habit—not just speed averages, but rhythm, hesitation, and consistency across segments.",
         },
         {
           title: "Evaluation rigor",
-          body: "Stress tests across drivers, vehicles, and cities to avoid a model that only works on tidy lab routes.",
+          body: "I designed stress tests across drivers, vehicles, and cities so the model couldn’t only work on tidy lab routes.",
         },
         {
           title: "Operational safety",
-          body: "Bias checks and conservative thresholds so verification supports humans rather than punishing edge cases.",
+          body: "I specified bias checks and conservative thresholds so verification supports humans rather than punishing edge cases.",
         },
       ],
-      approachTitle: "What we built",
+      approachTitle: "How I shipped it",
       approach: [
-        "A pipeline from trip segments to temporal representations, paired with classifiers and ranking strategies suited to sparse labels.",
-        "Iteration loops with error analysis: when the model misfires, trace back to route context, sensor gaps, or label ambiguity.",
+        "I built a pipeline from trip segments to temporal representations, paired with classifiers and ranking strategies suited to sparse labels.",
+        "I ran iteration loops with error analysis—when the model misfired, I traced failures to route context, sensor gaps, or label ambiguity.",
       ],
       results: [
         { value: "Temporal", label: "Behavior-first signal" },
@@ -460,31 +799,49 @@ export const PORTFOLIO_PROJECTS = [
       task: "Give product teams dependable map primitives—search, tiles, and overlays—so maps feel native instead of bolted on.",
       disciplines: ["API design", "Geospatial UX", "Integrations"],
       context: "Public mapping toolkit",
+      techStack: [
+        {
+          label: "REST map APIs",
+          href: "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+        },
+        {
+          label: "Tiles & geocoding",
+          href: "https://en.wikipedia.org/wiki/Tiled_web_map",
+        },
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        {
+          label: "Partner integrations",
+          href: "https://en.wikipedia.org/wiki/Application_programming_interface",
+        },
+      ],
       overview: [
         "Teams were rebuilding the same glue around basemaps, geocoding, and styling. The goal was a cohesive surface area with predictable limits, documentation, and examples that shorten time-to-first-map.",
         "Mobile-first usage meant performance and clarity matter as much as feature breadth: fewer surprises in the field beats a long menu of options.",
       ],
-      strategyTitle: "Strategy and alignment",
+      strategyTitle: "What I did",
       strategyIntro:
-        "Stakeholders spanned GIS engineers, frontend teams, and partner integrations. The roadmap balanced backward compatibility with a cleaner conceptual model for new consumers.",
+        "My role: shape the public map API and integration toolkit so product teams shipped maps faster—with clear contracts, docs, and examples. I balanced backward compatibility with a cleaner conceptual model for new consumers across GIS, frontend, and partner teams.",
       pillars: [
         {
           title: "Consistency",
-          body: "One vocabulary for endpoints, errors, and units—so mistakes are caught early in the IDE, not in production traffic.",
+          body: "I standardized vocabulary for endpoints, errors, and units so mistakes surface in the IDE, not only in production traffic.",
         },
         {
           title: "Progressive disclosure",
-          body: "Simple examples for the common path; advanced controls available without cluttering the quickstart.",
+          body: "I wrote simple examples for the common path and kept advanced controls available without cluttering the quickstart.",
         },
         {
           title: "Reliability",
-          body: "Caching, fallbacks, and observability hooks so maps degrade gracefully instead of failing silently.",
+          body: "I defined caching, fallbacks, and observability hooks so maps degrade gracefully instead of failing silently.",
         },
       ],
-      approachTitle: "What we built",
+      approachTitle: "How I shipped it",
       approach: [
-        "Hardened API contracts, reference flows for embedding, and guardrails for rate limits and attribution.",
-        "Design patterns for overlays and interaction states that stay legible across light/dark basemap styles.",
+        "I hardened API contracts, reference embedding flows, and guardrails for rate limits and attribution.",
+        "I documented design patterns for overlays and interaction states that stay legible across light/dark basemap styles.",
       ],
       results: null,
     },
@@ -502,31 +859,43 @@ export const PORTFOLIO_PROJECTS = [
       task: "Improve how seekers discover relevant roles—and how they present themselves—without turning the experience into a factory of generic resumes.",
       disciplines: ["Search & discovery", "Recommendations", "Resume tools"],
       context: "National job marketplace",
+      techStack: [
+        { label: "Laravel", href: "https://laravel.com/" },
+        {
+          label: "Elasticsearch",
+          href: "https://www.elastic.co/elasticsearch",
+        },
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        { label: "MySQL", href: "https://www.mysql.com/" },
+      ],
       overview: [
         "Job search products compete on relevance, trust, and speed. Small friction in filters, dead-ends in search, or weak preview of requirements cost applications.",
         "Resume tooling sits in the same journey: the right guidance increases completion, but heavy-handed templates make everyone look the same.",
       ],
-      strategyTitle: "Strategy and alignment",
+      strategyTitle: "What I did",
       strategyIntro:
-        "The work aligned three journeys: fast browsing, targeted search, and deep prep (resume, alerts). Each needed a distinct information hierarchy while sharing one design system.",
+        "My role: improve search/discovery and resume tooling on a national marketplace (Laravel, Elasticsearch, MySQL). I aligned three journeys—fast browsing, targeted search, and deep prep (resume, alerts)—each with its own hierarchy inside one design system.",
       pillars: [
         {
           title: "Clarity of fit",
-          body: "Surfacing salary, location, and seniority early—so seekers don’t build hope on mismatched roles.",
+          body: "I pushed salary, location, and seniority earlier in the journey so seekers didn’t invest in mismatched roles.",
         },
         {
           title: "Momentum",
-          body: "Reducing steps between interest, saved searches, and application-ready profiles.",
+          body: "I reduced steps between interest, saved searches, and application-ready profiles.",
         },
         {
           title: "Credibility",
-          body: "Signals that employers and seekers recognize: verification, transparent posting freshness, and human-readable requirements.",
+          body: "I emphasized signals employers and seekers trust: verification, posting freshness, and human-readable requirements.",
         },
       ],
-      approachTitle: "What we shipped",
+      approachTitle: "How I shipped it",
       approach: [
-        "Flows that pair search refinement with explainable filters, plus resume guidance structured as checkpoints instead of a wall of fields.",
-        "Instrumentation to watch drop-off by segment (mobile vs desktop, new vs returning) and iterate on the worst leaks first.",
+        "I shipped flows that pair search refinement with explainable filters and resume guidance as checkpoints instead of a wall of fields.",
+        "I added instrumentation for drop-off by segment (mobile vs desktop, new vs returning) and prioritized the worst leaks first.",
       ],
       results: null,
     },
@@ -543,31 +912,42 @@ export const PORTFOLIO_PROJECTS = [
       task: "Build an engaging marble puzzle UI and an agent that plays with human-legible heuristics—not only a black-box score.",
       disciplines: ["Heuristic search", "D3.js", "Game UX"],
       context: "Academic AI project",
+      techStack: [
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        { label: "D3.js", href: "https://d3js.org/" },
+        {
+          label: "Heuristic search",
+          href: "https://en.wikipedia.org/wiki/Heuristic_search",
+        },
+      ],
       overview: [
         "Small state spaces still deserve thoughtful UI: moves must read clearly, and the board should help players understand why the AI chose a line of play.",
         "D3.js grounded the visualization in smooth transitions and legible geometry so the game reads as a product, not a debug plot.",
       ],
-      strategyTitle: "Strategy and alignment",
+      strategyTitle: "What I did",
       strategyIntro:
-        "The project paired two audiences: players who want a tight loop, and reviewers who want to see reasoning. The interface supports both without separate modes.",
+        "My role: build the full-stack academic project—D3.js game UI plus a heuristic search agent with legible reasoning. I designed for two audiences: players who want a tight loop, and reviewers who need to see why the AI moved.",
       pillars: [
         {
           title: "Explainable play",
-          body: "Expose the heuristic cues that steer search—players can disagree, but they’re never mystified.",
+          body: "I surfaced heuristic cues that steer search—players can disagree, but they’re never mystified.",
         },
         {
           title: "Performance where it matters",
-          body: "Balance depth of search with frame time so interaction stays responsive.",
+          body: "I tuned search depth against frame time so the UI stayed responsive.",
         },
         {
           title: "Joyful feedback",
-          body: "Motion and sound-adjacent cues (color, timing) that celebrate good moves without noise.",
+          body: "I used motion and timing (color, transitions) to celebrate good moves without noise.",
         },
       ],
-      approachTitle: "What we built",
+      approachTitle: "How I shipped it",
       approach: [
-        "A heuristic search core with tunable weights and a replay timeline for interesting branches.",
-        "D3-driven board updates with resilient layout when the viewport changes.",
+        "I implemented the heuristic search core with tunable weights and a replay timeline for interesting branches.",
+        "I built D3-driven board updates with layout that stayed stable across viewport changes.",
       ],
       results: null,
     },
@@ -588,31 +968,45 @@ export const PORTFOLIO_PROJECTS = [
         "Wireless modeling",
       ],
       context: "Academic / systems research",
+      techStack: [
+        {
+          label: "MATLAB",
+          href: "https://www.mathworks.com/products/matlab.html",
+        },
+        {
+          label: "Federated learning",
+          href: "https://en.wikipedia.org/wiki/Federated_learning",
+        },
+        {
+          label: "NOMA (wireless)",
+          href: "https://en.wikipedia.org/wiki/Non-orthogonal_multiple_access",
+        },
+      ],
       overview: [
         "Federated learning pushes computation to the edge, but the training story is incomplete without the cost of communication. NOMA changes who interferes with whom—so energy curves are not interchangeable with vanilla orthogonality assumptions.",
         "The simulation’s value is comparative: sweep regimes, quantify tradeoffs, and make assumptions explicit for reproducibility.",
       ],
-      strategyTitle: "Strategy and alignment",
+      strategyTitle: "What I did",
       strategyIntro:
-        "The model had to stay legible to wireless and ML readers alike—parameters with physical meanings, outputs that separate compute vs transmit costs.",
+        "My role: implement the MATLAB simulation and analysis for federated learning energy use under NOMA. I kept the model legible to wireless and ML readers—parameters with physical meanings, outputs that separate compute vs transmit costs.",
       pillars: [
         {
           title: "Faithful abstraction",
-          body: "Encode the channel and scheduling assumptions without pretending to be a full stack simulator.",
+          body: "I encoded channel and scheduling assumptions without over-claiming full-stack fidelity.",
         },
         {
           title: "Sweep-ready",
-          body: "Parameter grids that highlight breakpoints: when FL round budgets dominate, when NOMA wins, and when both saturate.",
+          body: "I built parameter grids that highlight breakpoints—when FL round budgets dominate, when NOMA wins, and saturation regimes.",
         },
         {
           title: "Open artifacts",
-          body: "Scripts and figures that let others re-run and challenge the conclusions.",
+          body: "I published scripts and figures so others could re-run and challenge the conclusions.",
         },
       ],
-      approachTitle: "What we built",
+      approachTitle: "How I shipped it",
       approach: [
-        "MATLAB modules for client sampling, aggregation rounds, and energy accounting tied to the RF model.",
-        "Plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
+        "I wrote MATLAB modules for client sampling, aggregation rounds, and energy accounting tied to the RF model.",
+        "I generated plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
       ],
       results: null,
     },
@@ -634,31 +1028,47 @@ export const PORTFOLIO_PROJECTS = [
         "Accessibility",
       ],
       context: "Provincial Electricity Authority (Thailand)",
+      techStack: [
+        {
+          label: "Web",
+          href: "https://developer.mozilla.org/en-US/docs/Web",
+        },
+        { label: "Laravel", href: "https://laravel.com/" },
+        {
+          label: "C#",
+          href: "https://learn.microsoft.com/en-us/dotnet/csharp/",
+        },
+        {
+          label: "Oracle",
+          href: "https://www.oracle.com/database/",
+        },
+        { label: "Selenium", href: "https://www.selenium.dev/" },
+      ],
       overview: [
         "Utility service sites often grow by accretion: each department ships a flow, and citizens shoulder the navigation tax. The objective was a single mental model: find my task, finish it, know what happens next.",
         "High-stakes moments—outages, billing disputes, new connections—need calm typography, resilient forms, and clarity on timelines.",
       ],
-      strategyTitle: "Strategy and alignment",
+      strategyTitle: "What I did",
       strategyIntro:
-        "Workshops mapped frontline FAQs, call-center spikes, and the most common digital drop-offs. The IA reflects real tasks, not org charts.",
+        "My role: contribute to IA, service patterns, and citizen-facing UX for PEA’s e‑service hub (Laravel, C#, Oracle, Selenium). I grounded the IA in workshops—frontline FAQs, call-center spikes, and digital drop-offs—so navigation reflected real tasks, not org charts.",
       pillars: [
         {
           title: "Plain language",
-          body: "Labels that match what people say out loud, with secondary detail on demand.",
+          body: "I wrote labels that match how people describe tasks, with secondary detail on demand.",
         },
         {
           title: "Status transparency",
-          body: "Where a request is in process, and what documents still matter.",
+          body: "I specified where a request sits in process and which documents still matter.",
         },
         {
           title: "Inclusive defaults",
-          body: "Large tap targets, readable type, and resilient validation that helps users recover fast.",
+          body: "I pushed large tap targets, readable type, and resilient validation so users recover quickly from errors.",
         },
       ],
-      approachTitle: "What we shipped",
+      approachTitle: "How I shipped it",
       approach: [
-        "A hub-and-spoke IA with progressive forms: capture only what’s needed for the selected task.",
-        "Patterns for alerts, receipts, and follow-ups that sync with offline expectations (SMS/email references).",
+        "I helped ship a hub-and-spoke IA with progressive forms—only the fields each task needs.",
+        "I defined patterns for alerts, receipts, and follow-ups aligned with SMS/email references citizens expect.",
       ],
       results: null,
     },

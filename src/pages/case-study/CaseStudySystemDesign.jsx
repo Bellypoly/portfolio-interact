@@ -70,7 +70,7 @@ export default function CaseStudySystemDesign({ systemDesign: sd, baseUrl }) {
       {sd.intro ? <p className="project-case-study__p">{sd.intro}</p> : null}
       {diagramBody ? <div className={wrapClass}>{diagramBody}</div> : null}
       {sd.caption ? (
-        <p className="project-case-study__diagram-caption">{sd.caption}</p>
+        <p className="project-case-study__caption">{sd.caption}</p>
       ) : null}
     </CaseStudySection>
   );

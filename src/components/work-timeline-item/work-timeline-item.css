@@ -53,14 +53,14 @@
   @apply text-base text-slate-300 leading-relaxed font-roboto font-normal text-justify;
 }
 
-/* --- Portfolio link + bullet trigger (shared cyan action style) --- */
+/* --- Portfolio link + bullet trigger (idle cyan; hover matches mission / case study rust) --- */
 .work-timeline-item__portfolio-link,
 .work-timeline-item__bullet-trigger {
-  @apply font-roboto font-medium uppercase tracking-wider text-cyan-400 cursor-pointer transition-colors duration-200;
+  @apply font-roboto font-medium uppercase tracking-wider text-cyan-400 cursor-pointer transition-colors duration-150;
 }
 .work-timeline-item__portfolio-link:hover,
 .work-timeline-item__bullet-trigger:hover {
-  @apply text-cyan-300;
+  color: var(--pf-editorial-rust);
 }
 .work-timeline-item__portfolio-link-block {
   @apply leading-none md:mt-3 mt-0;

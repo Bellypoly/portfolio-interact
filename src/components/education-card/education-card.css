@@ -93,13 +93,16 @@
   @apply mt-2 mx-3 pl-4 border-l-2 border-slate-400 text-[15px] text-cyan-800 leading-[1.5rem] max-w-prose;
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand a {
-  @apply text-[#004d5b] font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
+  @apply font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
+  color: var(--pf-teal-primary);
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand a:hover {
-  @apply text-[#006d82] bg-yellow-300;
+  @apply bg-yellow-300;
+  color: var(--pf-teal-primary-hover);
 }
 .education-card__mission-log-float .timeline-bullet-year {
-  @apply inline-block font-robotomono text-xs leading-none uppercase tracking-wider text-[#504b48] bg-[#F0FFFF] px-2 py-0.5 rounded italic;
+  @apply inline-block font-robotomono text-xs leading-none uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded italic;
+  color: var(--pf-brown-muted);
 }
 .education-card__mission-log-float
   .timeline-bullet-list--in-float

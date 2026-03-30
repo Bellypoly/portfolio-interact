@@ -14,7 +14,8 @@
 }
 
 .project-card:focus-visible {
-  @apply outline-none ring-2 ring-[#6bbfe4] ring-offset-2 ring-offset-white;
+  @apply outline-none ring-2 ring-offset-2 ring-offset-white;
+  --tw-ring-color: var(--pf-teal-accent);
 }
 
 .project-card__media {
@@ -51,9 +52,9 @@
   @apply absolute inset-0 pointer-events-none;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.82) 0%,
-    rgba(0, 0, 0, 0.45) 38%,
-    rgba(0, 0, 0, 0.12) 62%,
+    rgba(0, 0, 0, 0.94) 0%,
+    rgba(0, 0, 0, 0.58) 36%,
+    rgba(0, 0, 0, 0.18) 60%,
     transparent 100%
   );
 }
@@ -63,9 +64,14 @@
 }
 
 .project-card__title {
-  @apply text-white font-bold tracking-tight leading-tight;
+  @apply font-bold tracking-tight leading-tight text-white transition-colors duration-150;
   font-family: Georgia, "Times New Roman", Times, ui-serif, serif;
-  font-size: clamp(0.92rem, 1.7vw + 0.55rem, 1.45rem);
+  font-size: clamp(1.15rem, 2.75vw + 0.68rem, 1.5rem);
+}
+
+.project-card:hover .project-card__title,
+.project-card:focus-visible .project-card__title {
+  color: var(--pf-teal-cyan);
 }
 
 /* Same motion as `.hover-reveal-text` / `index.css` (parent is `.project-card` link) */
@@ -88,7 +94,7 @@
 }
 
 .project-card__subtitle-reveal__line {
-  @apply block max-w-full shrink-0 font-roboto text-base font-normal leading-snug text-white/90 md:text-base;
+  @apply block max-w-full shrink-0 font-roboto text-base font-normal leading-snug text-white/90 transition-colors duration-150 md:text-base;
   min-height: 2.75rem;
   /* Keep description to one visual slot; long copy ellipses */
   display: -webkit-box;
@@ -102,4 +108,9 @@
   display: flex;
   align-items: center;
   overflow: visible;
+}
+
+.project-card:hover .project-card__subtitle-reveal__line:last-child,
+.project-card:focus-visible .project-card__subtitle-reveal__line:last-child {
+  color: var(--pf-teal-cyan);
 }

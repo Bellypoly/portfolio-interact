@@ -21,7 +21,8 @@
 }
 
 .profile-icon-img {
-  @apply relative w-[55px] h-[55px] object-cover rounded-full bg-[#17677a] border-2 border-white z-[22];
+  @apply relative w-[55px] h-[55px] object-cover rounded-full border-2 border-white z-[22];
+  background-color: var(--pf-teal-ui);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
