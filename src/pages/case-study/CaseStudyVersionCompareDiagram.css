@@ -1,0 +1,538 @@
+/* CaseStudyVersionCompareDiagram — checkout version compare (v1v2 / v1v3 / v2v3); --ba-* tokens live on .project-case-study (project-case-study.css) */
+
+.project-case-study__ba {
+  max-width: 78rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 0;
+  color: var(--ba-teal);
+  font-family: var(--cs-font-body, ui-sans-serif, system-ui, sans-serif);
+}
+
+.project-case-study__ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  /* Match row height to the taller column so before/after panels align */
+  align-items: stretch;
+}
+
+.project-case-study__ba-panel {
+  background: rgba(255, 255, 255, 0.44);
+  border: 1.5px solid var(--ba-border);
+  border-radius: var(--ba-radius);
+  padding: 1.75rem;
+  box-shadow: var(--ba-shadow);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project-case-study__ba-panel--before {
+  background: linear-gradient(
+    180deg,
+    rgba(236, 229, 220, 0.72),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.project-case-study__ba-panel--after {
+  background: linear-gradient(
+    180deg,
+    rgba(223, 233, 230, 0.72),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.project-case-study__ba-panel-title {
+  font-size: clamp(1.125rem, 2.25vw, 1.75rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0;
+  text-align: center;
+  color: var(--ba-teal);
+}
+
+.project-case-study__ba-phone-row,
+.project-case-study__ba-after-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.project-case-study__ba-phone-row {
+  gap: 0.5rem;
+  min-height: 9.5rem;
+}
+
+.project-case-study__ba-after-row {
+  gap: 0.75rem;
+  min-height: 12rem;
+}
+
+.project-case-study__ba-after-row--desktop-solo {
+  min-height: 10rem;
+  justify-content: center;
+}
+
+/* Smaller mocks + chrome only in the before (3-phone) row */
+.project-case-study__ba-phone-row .project-case-study__ba-arrow {
+  font-size: clamp(1.1rem, 2.2vw, 2rem);
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-device {
+  padding: 8px;
+  border-radius: 26px;
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-device--phone {
+  width: 134px;
+}
+
+.project-case-study__ba-phone-row
+  .project-case-study__ba-device--phone
+  .project-case-study__ba-screen {
+  height: 264px;
+  border-radius: 19px;
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-ui {
+  padding: 10px 10px 12px;
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-masthead {
+  font-size: 8px;
+  margin-bottom: 8px;
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-ui-h4 {
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-field {
+  height: 13px;
+  margin-bottom: 6px;
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-field-row {
+  margin-bottom: 6px;
+}
+
+.project-case-study__ba-phone-row .project-case-study__ba-btn {
+  height: 21px;
+  margin-top: 8px;
+  border-radius: 5px;
+}
+
+.project-case-study__ba-arrow {
+  align-self: center;
+  font-size: clamp(1.5rem, 3vw, 2.875rem);
+  color: #8fa3a0;
+  user-select: none;
+  line-height: 1;
+}
+
+.project-case-study__ba-device {
+  background: #111;
+  border-radius: 32px;
+  padding: 10px;
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.14);
+  flex: 0 0 auto;
+}
+
+.project-case-study__ba-device--phone {
+  width: 168px;
+}
+
+.project-case-study__ba-device--desktop {
+  width: min(100%, 396px);
+  border-radius: 16px;
+  padding: 10px 10px 14px;
+}
+
+.project-case-study__ba-screen {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-case-study__ba-device--phone .project-case-study__ba-screen {
+  height: 330px;
+}
+
+.project-case-study__ba-screen--desktop {
+  border-radius: 10px;
+}
+
+.project-case-study__ba-device--desktop
+  .project-case-study__ba-screen--desktop {
+  height: 240px;
+}
+
+.project-case-study__ba-browser {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  background: #f1f1f1;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.project-case-study__ba-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #d7d7d7;
+}
+
+.project-case-study__ba-dot--red {
+  background: #ff5f57;
+}
+
+.project-case-study__ba-dot--yellow {
+  background: #febc2e;
+}
+
+.project-case-study__ba-dot--green {
+  background: #28c840;
+}
+
+.project-case-study__ba-ui {
+  padding: 14px 14px 16px;
+  color: #1f1f1f;
+  font-family: var(--cs-font-body, ui-sans-serif, system-ui, sans-serif);
+}
+
+.project-case-study__ba-masthead {
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+/* V2 single-page mock: Select Plan → Payment → Confirmation progress bar */
+.project-case-study__ba-stepper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0 0 8px;
+  font-size: 8px;
+  font-weight: 600;
+  color: #7a8b87;
+  line-height: 1.1;
+}
+
+.project-case-study__ba-stepper-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.project-case-study__ba-stepper-seg--active {
+  color: var(--ba-teal);
+}
+
+.project-case-study__ba-stepper-num {
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  flex-shrink: 0;
+}
+
+.project-case-study__ba-stepper-num--done,
+.project-case-study__ba-stepper-num--todo {
+  background: #d8dddb;
+  color: #5f6d69;
+}
+
+.project-case-study__ba-stepper-num--current {
+  background: #2f6ea5;
+  color: #fff;
+}
+
+.project-case-study__ba-stepper-line {
+  flex: 1;
+  min-width: 4px;
+  height: 2px;
+  background: #e8ecea;
+}
+
+.project-case-study__ba-ui-h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.project-case-study__ba-small-title {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #222;
+}
+
+.project-case-study__ba-field {
+  height: 16px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background: #fcfcfc;
+}
+
+.project-case-study__ba-field-row {
+  display: flex;
+  gap: 4%;
+  margin-bottom: 8px;
+}
+
+.project-case-study__ba-field--sm {
+  flex: 1;
+  width: auto;
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.project-case-study__ba-btn {
+  height: 26px;
+  border-radius: 6px;
+  background: #2f6ea5;
+  width: 64%;
+  margin-top: 10px;
+}
+
+.project-case-study__ba-btn--muted {
+  background: #d9d9d9;
+  width: 56%;
+}
+
+.project-case-study__ba-btn--narrow {
+  width: 48%;
+}
+
+.project-case-study__ba-btn--summary {
+  width: 92%;
+  height: 22px;
+  margin-top: 8px;
+}
+
+.project-case-study__ba-summary {
+  border-left: 1px solid #ececec;
+  padding-left: 12px;
+  margin-top: 8px;
+}
+
+.project-case-study__ba-summary-line {
+  height: 10px;
+  background: linear-gradient(90deg, #d8d8d8 0%, #efefef 100%);
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.project-case-study__ba-desktop-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.project-case-study__ba-flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.project-case-study__ba-pill {
+  border: 1.5px solid var(--ba-border);
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: clamp(0.8rem, 1.5vw, 1.125rem);
+  line-height: 1;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ba-teal);
+  white-space: nowrap;
+}
+
+.project-case-study__ba-pill--bad {
+  border-color: #d7b3a2;
+  color: var(--ba-bad);
+}
+
+.project-case-study__ba-pill--good {
+  border-color: #9fcfbd;
+  color: var(--ba-good);
+}
+
+.project-case-study__ba-flow-arrow {
+  color: #7f9490;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.project-case-study__ba-notes {
+  margin: 0;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 14px;
+  font-size: clamp(0.95rem, 1.2vw, 1.1875rem);
+  line-height: 1.35;
+}
+
+.project-case-study__ba-notes li::marker {
+  color: #7fa59b;
+}
+
+.project-case-study__ba-notes--before li {
+  color: #4f5d5a;
+}
+
+.project-case-study__ba-notes--after li {
+  color: #46615b;
+}
+
+/* V2 vs V3: two desktops in one row — slightly narrower each */
+.project-case-study__ba--v2v3 .project-case-study__ba-device--desktop {
+  width: min(100%, 100%);
+  max-width: 352px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1201px) {
+  .project-case-study__ba--v2v3 .project-case-study__ba-device--desktop {
+    max-width: 300px;
+  }
+
+  .project-case-study__ba--v2v3
+    .project-case-study__ba-device--desktop
+    .project-case-study__ba-screen--desktop {
+    height: 212px;
+  }
+}
+
+/* Two-column grid: modest scale-down so half-width panels don’t overflow */
+@media (min-width: 1201px) {
+  .project-case-study__ba-grid {
+    gap: 1.45rem;
+  }
+
+  .project-case-study__ba-panel {
+    padding: 1.45rem;
+    gap: 1.25rem;
+  }
+
+  .project-case-study__ba-panel-title {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .project-case-study__ba-phone-row .project-case-study__ba-device--phone {
+    width: 126px;
+  }
+
+  .project-case-study__ba-phone-row
+    .project-case-study__ba-device--phone
+    .project-case-study__ba-screen {
+    height: 248px;
+  }
+
+  .project-case-study__ba-device--desktop {
+    width: min(100%, 352px);
+  }
+
+  .project-case-study__ba-device--desktop
+    .project-case-study__ba-screen--desktop {
+    height: 226px;
+  }
+
+  .project-case-study__ba-pill {
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: clamp(0.72rem, 1.15vw, 0.95rem);
+  }
+
+  .project-case-study__ba-flow {
+    gap: 6px;
+    padding-top: 5px;
+  }
+
+  .project-case-study__ba-flow--before {
+    justify-content: flex-start;
+  }
+
+  .project-case-study__ba-flow-arrow {
+    font-size: 16px;
+  }
+
+  .project-case-study__ba-notes {
+    gap: 11px;
+    padding-left: 1.35rem;
+    font-size: clamp(0.88rem, 1.05vw, 1.08rem);
+  }
+}
+
+@media (max-width: 1200px) {
+  .project-case-study__ba-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-case-study__ba-panel {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .project-case-study__ba-panel {
+    padding: 1.125rem;
+  }
+
+  .project-case-study__ba-phone-row {
+    gap: 8px;
+  }
+
+  .project-case-study__ba-after-row {
+    gap: 10px;
+  }
+
+  .project-case-study__ba-device--phone {
+    width: 128px;
+  }
+
+  .project-case-study__ba-device--phone .project-case-study__ba-screen {
+    height: 252px;
+  }
+
+  .project-case-study__ba-phone-row .project-case-study__ba-device--phone {
+    width: 102px;
+  }
+
+  .project-case-study__ba-phone-row
+    .project-case-study__ba-device--phone
+    .project-case-study__ba-screen {
+    height: 202px;
+  }
+
+  .project-case-study__ba-device--desktop {
+    width: 100%;
+  }
+
+  .project-case-study__ba-flow {
+    justify-content: flex-start;
+  }
+}

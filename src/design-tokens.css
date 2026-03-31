@@ -1,0 +1,64 @@
+/**
+ * Portfolio palette — teal, gold/brown, editorial case study.
+ * Use var(--pf-*) in CSS; canvas/JS may read via getComputedStyle(document.documentElement).
+ */
+:root {
+  /* Site — teal */
+  --pf-teal-primary: #004d5b;
+  --pf-teal-primary-hover: #006d82;
+  --pf-teal-mid: #0a5f73;
+  --pf-teal-ink-800: #001a20;
+  --pf-teal-ink-900: #000f14;
+  --pf-teal-ui: #17677a;
+  --pf-teal-accent: #6bbfe4;
+  --pf-teal-cyan: #22d3ee;
+  /* Work section headline gradient (pairs with --pf-teal-cyan) */
+  --pf-accent-yellow: #fde047;
+
+  /* Site — brown / gold */
+  --pf-brown-warm: #4d4946;
+  --pf-brown-muted: #504b48;
+  --pf-gold: #d6aa3d;
+  --pf-gold-dark: #967323;
+  --pf-gold-ink: #7a5208;
+  --pf-badge-bg: #7c5f1c;
+  --pf-badge-border: #4a2d14;
+  --pf-badge-text: #fffef7;
+  /* Achievement legend: idle vs stronger (hover/active share one deep brown) */
+  --pf-achievement-ink-muted: #5c3d0a;
+  --pf-achievement-ink-hover: #2a1800;
+
+  /* Mission gallery (rule below glyph) */
+  --pf-sky-pale: #daeef8;
+
+  /* Case study — editorial */
+  --pf-editorial-teal: #1c3131;
+  --pf-editorial-teal-rgb: 28 49 49;
+  --pf-editorial-teal-muted: #1a2e2e;
+  --pf-editorial-teal-highlight: #1e3434;
+  --pf-editorial-teal-soft: #dfe9e6;
+  --pf-editorial-sand: #ece5dc;
+  --pf-editorial-border: #c9d8d4;
+  --pf-editorial-muted: #5e6d69;
+  --pf-editorial-rust: #9a5a3a;
+  --pf-editorial-good: #2b6b5a;
+  --pf-editorial-page-bg: #f7f5f2;
+  --pf-editorial-panel-bg: #fffcf9;
+  --pf-editorial-diagram-fg: #c8dcd0;
+
+  /* RGB channels for alpha */
+  --pf-teal-primary-rgb: 0 77 91;
+  --pf-teal-accent-rgb: 107 191 228;
+  --pf-teal-glow-rgb: 45 95 120;
+  --pf-gold-rgb: 214 170 61;
+  --pf-gold-ink-rgb: 122 82 8;
+  --pf-gold-glow-rgb: 150 115 35;
+  --pf-gold-shadow-rgb: 120 90 35;
+  --pf-gold-shadow-dark-rgb: 90 70 25;
+  --pf-neutral-stone-rgb: 166 162 158;
+  --pf-brown-glow-rgb: 101 96 92;
+  /* Education legend — “All” filter */
+  --pf-neutral-text: #6e6965;
+  --pf-neutral-text-hover: #45413e;
+  --pf-neutral-text-active: #3a3633;
+}

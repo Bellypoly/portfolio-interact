@@ -1,0 +1,35 @@
+/* Stacks with CaseStudyVersionCompareDiagram.css (--ba-* tokens on .project-case-study) */
+
+.project-case-study__ba--article-compare {
+  max-width: 78rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-case-study__ba-compare-row + .project-case-study__ba-compare-row {
+  margin-top: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .project-case-study__ba-compare-row + .project-case-study__ba-compare-row {
+    margin-top: 3rem;
+  }
+}
+
+.project-case-study__ba-row-title {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: var(--cs-text-body-sm, 0.9375rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ba-teal, var(--pf-editorial-muted, #5e6d69));
+}
+
+.project-case-study__ba-shot .project-case-study__lightbox-trigger {
+  width: 100%;
+}
+
+.project-case-study__ba-shot .project-case-study__figure-img {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}

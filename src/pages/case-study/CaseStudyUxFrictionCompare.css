@@ -1,0 +1,67 @@
+/* UX section — before/after friction; panel surfaces match .project-case-study__ba-panel */
+
+.project-case-study__ux-compare {
+  @apply m-0 mt-8;
+}
+
+.project-case-study__ux-compare-panels {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .project-case-study__ux-compare-panels {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+}
+
+/* Same base as .project-case-study__ba-panel */
+.project-case-study__ux-compare-panel {
+  background: rgba(255, 255, 255, 0.44);
+  border: 1.5px solid var(--ba-border);
+  border-radius: var(--ba-radius);
+  padding: 1.75rem;
+  box-shadow: var(--ba-shadow);
+  min-height: 0;
+}
+
+/* Same as .project-case-study__ba-panel--before */
+.project-case-study__ux-compare-panel--before {
+  background: linear-gradient(
+    180deg,
+    rgba(236, 229, 220, 0.72),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+/* Same as .project-case-study__ba-panel--after */
+.project-case-study__ux-compare-panel--after {
+  background: linear-gradient(
+    180deg,
+    rgba(223, 233, 230, 0.72),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+/* Same title color as .project-case-study__ba-panel-title */
+.project-case-study__ux-compare-title {
+  margin: 0 0 0.65rem;
+  font-size: var(--cs-text-subhead);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ba-teal);
+}
+
+.project-case-study__ux-compare-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: var(--cs-text-ui);
+  line-height: var(--cs-lh-ui);
+  color: var(--ba-muted);
+}
