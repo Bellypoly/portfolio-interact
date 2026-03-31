@@ -175,6 +175,7 @@ export default function ProjectCaseStudyPage() {
   const baseUrl = import.meta.env.BASE_URL;
   const featuredImg = cs.featuredImg ?? img;
   const featuredImgWebp = cs.featuredImgWebp ?? imgWebp;
+  const featuredAlt = cs.featuredImageAlt ?? alt;
 
   const hasEarlyImpactGroups =
     Array.isArray(cs.earlyImpactGroups) &&
@@ -195,7 +196,9 @@ export default function ProjectCaseStudyPage() {
   );
 
   return (
-    <div className="project-case-study">
+    <div
+      className={`project-case-study${slug ? ` project-case-study--${slug}` : ""}`}
+    >
       <header className="project-case-study__header">
         <div className="project-case-study__header-inner">
           <button
@@ -218,7 +221,7 @@ export default function ProjectCaseStudyPage() {
           baseUrl={baseUrl}
           img={featuredImg}
           imgWebp={featuredImgWebp}
-          alt={alt}
+          alt={featuredAlt}
           title={name}
           compactHeight={cs.featuredImageCompact}
           objectPosition={cs.featuredImageObjectPosition}

@@ -526,6 +526,26 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Local Elections Hub — before/after: stay inside article/section (no full-bleed diagram) */
+.project-case-study--local-elections-hub .project-case-study__diagram--before-after {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.project-case-study--local-elections-hub .project-case-study__ba--article-compare {
+  max-width: 100%;
+}
+
+/* Local Elections Hub — before/after mobile shots: slightly narrower than full column */
+.project-case-study--local-elections-hub
+  .project-case-study__ba
+  .project-case-study__figure-img {
+  @apply mx-auto max-w-[min(100%,9rem)] sm:max-w-[min(100%,10.25rem)] md:max-w-[min(100%,11.5rem)];
+}
+
 .project-case-study__no-shadow .project-case-study__figure-img {
   box-shadow: none;
 }
