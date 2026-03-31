@@ -926,14 +926,88 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
+    slug: "federated-learning-energy",
+    name: "On Simulating Energy Consumption of Federated Learning Systems",
+    desc: "MATLAB simulation study: federated learning energy use under NOMA — compute vs radio, sweepable regimes, reproducible figures.",
+    img: "images/portfolio/federated-learning-energy/thumbnail.png",
+    imgWebp: "images/portfolio/federated-learning-energy/thumbnail.webp",
+    alt: "Federated learning poster — rocket, satellite, and rover linked to a central cloud with ΔW updates; tagline: local training, no raw data sharing",
+    link: "https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems",
+    caseStudy: {
+      eyebrow: "Research · Systems · Wireless",
+      featuredImg: "images/portfolio/federated-learning-energy/featured-image.jpg",
+      featuredImgWebp:
+        "images/portfolio/federated-learning-energy/featured-image.webp",
+      featuredImageAlt:
+        "Diagram — server aggregates local updates ΔW from devices with battery energy indicators; title: On Simulating Energy Consumption of Federated Learning systems",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Simulate how federated learning workloads consume energy when non-orthogonal multiple access (NOMA) shapes the radio budget.",
+      disciplines: [
+        "MATLAB simulation",
+        "Federated learning",
+        "Wireless modeling",
+      ],
+      context: "Academic / systems research",
+      techStack: [
+        {
+          label: "MATLAB",
+          href: "https://www.mathworks.com/products/matlab.html",
+        },
+        {
+          label: "Federated learning",
+          href: "https://en.wikipedia.org/wiki/Federated_learning",
+        },
+        {
+          label: "NOMA (wireless)",
+          href: "https://en.wikipedia.org/wiki/Non-orthogonal_multiple_access",
+        },
+      ],
+      overview: [
+        "Federated learning pushes computation to the edge, but the training story is incomplete without the cost of communication. NOMA changes who interferes with whom—so energy curves are not interchangeable with vanilla orthogonality assumptions.",
+        "The simulation's value is comparative: sweep regimes, quantify tradeoffs, and make assumptions explicit for reproducibility.",
+      ],
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role: implement the MATLAB simulation and analysis for federated learning energy use under NOMA. I kept the model legible to wireless and ML readers—parameters with physical meanings, outputs that separate compute vs transmit costs.",
+      pillars: [
+        {
+          title: "Faithful abstraction",
+          body: "I encoded channel and scheduling assumptions without over-claiming full-stack fidelity.",
+        },
+        {
+          title: "Sweep-ready",
+          body: "I built parameter grids that highlight breakpoints—when FL round budgets dominate, when NOMA wins, and saturation regimes.",
+        },
+        {
+          title: "Open artifacts",
+          body: "I published scripts and figures so others could re-run and challenge the conclusions.",
+        },
+      ],
+      approachTitle: "How I shipped it",
+      approach: [
+        "I wrote MATLAB modules for client sampling, aggregation rounds, and energy accounting tied to the RF model.",
+        "I generated plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
+      ],
+      results: null,
+    },
+  },
+  {
     slug: "rdfd",
     name: "RDFD — Discovering Fake Drivers",
     desc: "Machine learning approach for driver identification.",
-    img: "images/portfolio/rdfd.jpg",
-    alt: "RDFD",
+    img: "images/portfolio/rdfd/thumbnail.jpg",
+    imgWebp: "images/portfolio/rdfd/thumbnail.webp",
+    alt: "Illustration — driver at the wheel with temporal data charts and magnifying glass over trend lines",
     link: "https://github.com/Bellypoly/Discovering-Fake-Drivers-Based-on-Temporal-Driving-Behaviors",
     caseStudy: {
       eyebrow: "Research · Machine learning",
+      featuredImg: "images/portfolio/rdfd/featured-image.jpg",
+      featuredImgWebp: "images/portfolio/rdfd/featured-image.webp",
+      featuredImageAlt:
+        "Illustration — driver at the wheel with phone and watch maps, dashboard trend lines under a magnifying glass, and alert monitoring",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
       task: "Explore whether temporal driving behavior can expose impersonation or credential sharing—without relying only on one-off login signals.",
       disciplines: [
         "ML modeling",
@@ -1146,65 +1220,6 @@ export const PORTFOLIO_PROJECTS = [
       approach: [
         "I implemented the heuristic search core with tunable weights and a replay timeline for interesting branches.",
         "I built D3-driven board updates with layout that stayed stable across viewport changes.",
-      ],
-      results: null,
-    },
-  },
-  {
-    slug: "federated-learning-energy",
-    name: "Federated Learning Energy Sim",
-    desc: "MATLAB simulation for energy consumption in FL with NOMA.",
-    img: "images/portfolio/fl.jpg",
-    alt: "Federated Learning",
-    link: "https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems",
-    caseStudy: {
-      eyebrow: "Research · Systems",
-      task: "Simulate how federated learning workloads consume energy when non-orthogonal multiple access (NOMA) shapes the radio budget.",
-      disciplines: [
-        "MATLAB simulation",
-        "Federated learning",
-        "Wireless modeling",
-      ],
-      context: "Academic / systems research",
-      techStack: [
-        {
-          label: "MATLAB",
-          href: "https://www.mathworks.com/products/matlab.html",
-        },
-        {
-          label: "Federated learning",
-          href: "https://en.wikipedia.org/wiki/Federated_learning",
-        },
-        {
-          label: "NOMA (wireless)",
-          href: "https://en.wikipedia.org/wiki/Non-orthogonal_multiple_access",
-        },
-      ],
-      overview: [
-        "Federated learning pushes computation to the edge, but the training story is incomplete without the cost of communication. NOMA changes who interferes with whom—so energy curves are not interchangeable with vanilla orthogonality assumptions.",
-        "The simulation’s value is comparative: sweep regimes, quantify tradeoffs, and make assumptions explicit for reproducibility.",
-      ],
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role: implement the MATLAB simulation and analysis for federated learning energy use under NOMA. I kept the model legible to wireless and ML readers—parameters with physical meanings, outputs that separate compute vs transmit costs.",
-      pillars: [
-        {
-          title: "Faithful abstraction",
-          body: "I encoded channel and scheduling assumptions without over-claiming full-stack fidelity.",
-        },
-        {
-          title: "Sweep-ready",
-          body: "I built parameter grids that highlight breakpoints—when FL round budgets dominate, when NOMA wins, and saturation regimes.",
-        },
-        {
-          title: "Open artifacts",
-          body: "I published scripts and figures so others could re-run and challenge the conclusions.",
-        },
-      ],
-      approachTitle: "How I shipped it",
-      approach: [
-        "I wrote MATLAB modules for client sampling, aggregation rounds, and energy accounting tied to the RF model.",
-        "I generated plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
       ],
       results: null,
     },
