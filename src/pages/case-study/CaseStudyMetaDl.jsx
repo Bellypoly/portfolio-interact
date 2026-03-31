@@ -18,7 +18,10 @@ function StackEntry({ item, index }) {
   if (!label) return null;
   if (!href) {
     return (
-      <span key={`${label}-${index}`} className="project-case-study__stack-text">
+      <span
+        key={`${label}-${index}`}
+        className="project-case-study__stack-text"
+      >
         {label}
       </span>
     );
@@ -44,7 +47,9 @@ export default function CaseStudyMetaDl({ disciplines, context, techStack }) {
     <dl className="project-case-study__meta">
       <div className="project-case-study__meta-row">
         <dt className="project-case-study__meta-term">Focus</dt>
-        <dd className="project-case-study__meta-def">{disciplines.join(" · ")}</dd>
+        <dd className="project-case-study__meta-def">
+          {disciplines.join(" · ")}
+        </dd>
       </div>
       <div className="project-case-study__meta-row">
         <dt className="project-case-study__meta-term">Context</dt>
@@ -55,9 +60,18 @@ export default function CaseStudyMetaDl({ disciplines, context, techStack }) {
           <dt className="project-case-study__meta-term">Stack</dt>
           <dd className="project-case-study__meta-def">
             {stackItems.map((item, i) => (
-              <React.Fragment key={typeof item === "string" ? `${item}-${i}` : (item.href ?? item.label) + i}>
+              <React.Fragment
+                key={
+                  typeof item === "string"
+                    ? `${item}-${i}`
+                    : (item.href ?? item.label) + i
+                }
+              >
                 {i > 0 ? (
-                  <span className="project-case-study__stack-sep" aria-hidden="true">
+                  <span
+                    className="project-case-study__stack-sep"
+                    aria-hidden="true"
+                  >
                     {" "}
                     ·{" "}
                   </span>

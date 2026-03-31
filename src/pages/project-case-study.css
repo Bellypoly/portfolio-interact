@@ -527,7 +527,8 @@
 }
 
 /* Local Elections Hub — before/after: stay inside article/section (no full-bleed diagram) */
-.project-case-study--local-elections-hub .project-case-study__diagram--before-after {
+.project-case-study--local-elections-hub
+  .project-case-study__diagram--before-after {
   width: 100%;
   max-width: 100%;
   margin-left: 0;
@@ -535,7 +536,8 @@
   padding-right: 0;
 }
 
-.project-case-study--local-elections-hub .project-case-study__ba--article-compare {
+.project-case-study--local-elections-hub
+  .project-case-study__ba--article-compare {
   max-width: 100%;
 }
 
