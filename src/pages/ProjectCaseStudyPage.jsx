@@ -310,6 +310,15 @@ export default function ProjectCaseStudyPage() {
                 ))}
               </ul>
             )}
+            {cs.earlyImpactCredits?.length ? (
+              <div className="mt-8 max-w-[68ch] space-y-2 border-t border-stone-300/70 pt-6">
+                {cs.earlyImpactCredits.map((credit, i) => (
+                  <p key={i} className="project-case-study__caption">
+                    {renderReferenceFigureCaption(credit)}
+                  </p>
+                ))}
+              </div>
+            ) : null}
           </CaseStudySection>
         ) : null}
 

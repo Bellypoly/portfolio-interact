@@ -494,25 +494,26 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     slug: "article-page-redesign",
-    name: "Article Page Redesign",
-    desc: "DMN article surface: single-column Arc XP PageBuilder, GAM, Core Web Vitals, dynamic paywall–aware UI, GA4 & ops monitoring.",
+    name: "Article Experience & Engagement Optimization",
+    desc: "Article surface rebuilt for readability, engagement, and Core Web Vitals — smarter GAM, Viafoura commenting, paywall-aware UI, GA4 & ops monitoring.",
     img: "images/portfolio/article-redesign/thumbnail.png",
     imgWebp: "images/portfolio/article-redesign/thumbnail.webp",
     cardImagePosition: "center 100%",
     alt: "Dallas Morning News article page — single-column reading layout",
     caseStudy: {
-      eyebrow: "UX · Performance · Monetization · Arc XP · GAM · GA4",
+      eyebrow: "Product · Reader Experience · Monetization · Performance",
       featuredImg: "images/portfolio/article-redesign/featured-image.png",
       featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center top",
-      task: "As a senior full-stack engineer, I contributed to shipping DMN’s redesigned article experience in Arc XP PageBuilder (React and JavaScript): a single-column, content-first layout; Google Ad Manager placement and integration; Core Web Vitals–aware rendering (lazy loading, stable ad injection, font-loading and script-load discipline); regiwall- and dynamic-paywall–aware UI plus inline newsletter signup for anonymous, registered, and subscriber readers—balancing engagement with monetization on the primary reading surface.",
+      task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4 / Datadog / BlueConic instrumentation. Partnered with product, design, and ads.",
       taskBodyType: true,
       disciplines: [
-        "Article frontend & PageBuilder",
-        "Ad platform (GAM) integration",
+        "Article frontend & Arc XP PageBuilder",
+        "Ads & monetization (GAM)",
         "Performance & Core Web Vitals",
-        "Analytics & monitoring (GA4 · Datadog · BlueConic)",
+        "Engagement (commenting & community)",
+        "Analytics & instrumentation (GA4 · Datadog · BlueConic)",
       ],
       context: "The Dallas Morning News",
       techStack: [
@@ -533,6 +534,10 @@ export const PORTFOLIO_PROJECTS = [
           href: "https://admanager.google.com/",
         },
         {
+          label: "Viafoura",
+          href: "https://www.viafoura.com/",
+        },
+        {
           label: "GA4",
           href: "https://support.google.com/analytics/answer/10089681",
         },
@@ -549,57 +554,78 @@ export const PORTFOLIO_PROJECTS = [
           href: "https://graphql.org/",
         },
       ],
+      earlyImpactTitle:
+        "Impact (team program — my contribution was implementation)",
       results: [
         {
           value: "-9.91%",
-          label: "Ads served (no loss of ad revenue)",
-        },
-        {
-          value: "+4.73%",
-          label: "Average reading time per page",
-        },
-        {
-          value: "+4.09%",
-          label: "Average engagement time per page",
+          label: "Fewer ads served, no revenue loss (GAM re-architecture)",
         },
         {
           value: "Improved",
-          label: "Core Web Vitals — LCP & CLS vs baseline",
+          label:
+            "Core Web Vitals (CLS via ad-container reservations, LCP via deferred scripts & fonts)",
+        },
+        {
+          value: "+4.73%",
+          label:
+            "Reading time / +4.09% engagement time (team redesign outcome)",
+        },
+        {
+          value: "+38%",
+          label:
+            "Engagement uplift — driven by commenting adoption (org reporting)",
+        },
+      ],
+      earlyImpactCredits: [
+        {
+          text: "Reading-time and engagement-time metrics are from the broader redesign program. Design & UX research: ",
+          externalLink: {
+            href: "https://jessicachenworks.com/project/dallas-morning-news-article-redesign-2/",
+            label: "Jessica Chen",
+          },
+          after: ".",
+        },
+        {
+          text: "Commenting engagement uplift reflects Viafoura rollout led by: ",
+          externalLink: {
+            href: "https://bryanne-mcmillen.com/work/commenting-feature-launch",
+            label: "Bryanne McMillen",
+          },
+          after: ".",
         },
       ],
       overviewTitle: "Overview",
       overview: [
-        "At The Dallas Morning News, the article page is the primary surface for both reader engagement and subscription conversion. The legacy template had not been updated in years and struggled to meet modern expectations across usability, performance, and monetization.",
-        "As a senior full-stack developer, I contributed to the redesign and implementation in Arc XP PageBuilder (React and JavaScript), focusing on frontend architecture, performance, GAM integration, and dynamic paywall–aware reader flows. After launch, we relied on GA4 for engagement and funnel signal, Datadog for errors and performance telemetry, and BlueConic alongside those tools to monitor reader journeys—not as a substitute for published KPIs, but as the stack we used to validate and debug the new surface. My delivery focus was PageBuilder, GAM, reader-state behavior, and tests alongside product, design, and ads.",
+        "AMP deprecation gave us back full control of the article DOM. I rebuilt the PageBuilder surface: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura SDK integration with auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — all behind feature flags for incremental rollout starting September, targeting full deployment by year-end.",
       ],
       overviewSystemDesign: {
         sectionTitle: "Article stack",
         intro:
-          "Editorial content flows through Arc XP into PageBuilder; the frontend renders a single reading column, places GAM at intentional breakpoints, protects Core Web Vitals, and wires reader state to the dynamic paywall, regiwall, inline newsletter signup, and subscription CTAs.",
+          "How editorial output becomes a single-column article with ads, performance guardrails, commenting, and reader-state hooks — one system, not a pile of templates.",
         diagram: [
           "Arc XP — editorial CMS & PageBuilder output",
           "↓",
           "PageBuilder frontend · React · JavaScript (layout & content blocks)",
           "↓",
-          "Single-column article + GAM slots at defined breakpoints",
+          "Single-column article + GAM at defined breakpoints",
           "↓",
-          "Performance (lazy load · fonts · deferred non-critical scripts · stable ad injection · CLS)",
+          "Performance (lazy load · fonts · deferred scripts · stable ad injection · CLS · video rollout)",
           "↓",
-          "Reader state → regiwall / dynamic paywall · inline newsletter · subscription CTAs",
+          "Viafoura commenting + reader state → regiwall / dynamic paywall · newsletter · subscription CTAs",
         ],
         caption:
-          "Story column first; ads, dynamic paywall, and newsletter/subscription entry points attach at defined breakpoints—not a sidebar density race.",
+          "Story column first; ads and engagement attach at intentional breakpoints; commenting and paywall-aware states sit on the same implementation surface—not a sidebar density race.",
         diagramAlt:
-          "Flow from Arc XP and PageBuilder through single-column layout and GAM to performance tuning and dynamic-paywall-aware reader states",
+          "Flow from Arc XP and PageBuilder through single-column layout, GAM, performance tuning, Viafoura commenting, and dynamic-paywall-aware reader states",
       },
       problemSection: {
         title: "Problem",
         paragraphs: [
-          "The existing article experience suffered from a combination of UX and system-level issues. The layout relied heavily on a sidebar, where ads and recirculation modules competed directly with the article content — a cluttered interface that disrupted reading flow and reduced engagement.",
-          "Technically, the page was difficult to maintain and optimize. Ad loading and heavy assets hurt Core Web Vitals (especially LCP and CLS). Subscription and growth entry points (including newsletter) were not well integrated into the reading experience, and inconsistent UI components slowed iteration. The page underperformed as both an engagement surface and a monetization channel.",
+          "The old experience was sidebar-heavy: ads and modules competed with the story, loads were unpredictable for Core Web Vitals, and growth paths (subscribe, register, newsletter) sat outside a coherent reading line — so engagement stayed passive and iteration was slow.",
         ],
         figureCaption:
-          "Two comparisons: representative production pages, then Arc XP PageBuilder templates — same before/after story at different levels of fidelity.",
+          "2 comparisons: representative production pages, then Arc XP PageBuilder templates — same before/after story at different levels of fidelity.",
         beforeAfterCompare: {
           diagramAlt:
             "Before and after: legacy sidebar article layout versus redesigned single-column article, shown as production screenshots and as PageBuilder templates.",
@@ -651,40 +677,37 @@ export const PORTFOLIO_PROJECTS = [
             "Same structural shift in both rows — from competing sidebar to a single reading column — whether you look at shipped pages or the underlying templates.",
         },
       },
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role: senior full-stack implementation on a team effort — translate product and design into Arc XP PageBuilder (React and JavaScript), Google Ad Manager, Core Web Vitals–conscious rendering, dynamic-paywall– and newsletter-aware UI, and automated tests. I contributed implementation alongside product, design, and ads — not solo ownership of the redesign.",
+      strategyTitle: "What I built",
       strategyBullets: null,
       pillars: [
         {
-          title: "Frontend (React · JavaScript · Arc XP PageBuilder)",
-          body: "I implemented a component-based article layout, moved from sidebar-driven to single column, built reusable content blocks (text, image, embed, ad slots), and shipped responsive behavior across mobile, tablet, and desktop. Typography, spacing, and hierarchy followed the design system and research direction — I owned accurate implementation in PageBuilder, not the underlying UX research.",
+          title: "Article layout & templates (Arc XP PageBuilder · React)",
+          body: "Built a component-based single-column layout: text, image, embed, and ad-slot blocks composed at render time via a content-type resolver so editorial gets varied templates without one-off forks. Responsive behavior across mobile, tablet, and desktop; typography and spacing from the design system.",
         },
         {
-          title: "Monetization & ads (Google Ad Manager)",
-          body: "I reworked ad slot placement inside the article flow, integrated units through GAM, tuned frequency and placement at content breakpoints, and enabled larger, higher-value formats (including video) where the product allowed.",
+          title: "Monetization (Google Ad Manager)",
+          body: "Rewired GAM slot injection — ad units lazy-load at content breakpoints instead of eagerly filling a sidebar grid. Unified ad-request config so display, video, and high-impact formats share one component without per-placement branching. Worked with the ads team on zoning and frequency.",
         },
         {
-          title: "Performance",
-          body: "I added lazy loading for ads, images, and embeds; tightened font loading and deferred non-critical scripts where it mattered for LCP and interactivity; cut render-blocking work; and improved layout stability around ad injection to protect CLS and broader Core Web Vitals.",
+          title: "Performance (Core Web Vitals)",
+          body: "Reserved explicit dimensions for ad containers before fill to stabilize CLS; deferred non-critical scripts and subset font loads for LCP; intersection-observer–driven lazy loading for images, embeds, and GAM slots; removed heavy legacy video dependencies from the render path on 55% of pageviews.",
         },
         {
-          title: "User state, dynamic paywall & CTAs",
-          body: "I implemented UI for anonymous, registered, and subscriber states; wired the article shell to the dynamic paywall and registration/regiwall logic; surfaced inline newsletter signup in the reading flow; and kept subscription CTAs and paywall triggers rendering correctly for each state.",
+          title: "Engagement (Viafoura commenting)",
+          body: "Embedded Viafoura SDK with an auth bridge to Arc XP identity so logged-in state passes through without a second login; forwarded comment events (post, reply, flag) to GA4 as custom events for engagement attribution; lazy-loaded the widget at scroll threshold to protect initial page performance.",
         },
         {
-          title: "Observability & quality (GA4 · Datadog · BlueConic · tests)",
-          body: "Post-launch, GA4 for engagement and key events, Datadog for errors and latency, and BlueConic in the reader-data stack — so we could validate the template without inventing unpublished funnel metrics here. Before rollout, unit tests on components, formatters, and ad-slot / reader-state branches plus integration tests on PageBuilder and article + GAM flows kept layout and monetization from regressing.",
+          title: "Reader state, paywall & observability",
+          body: "Branching render paths for anonymous → registered → subscriber: correct paywall, regiwall, newsletter CTAs, and inline registration triggers per state. GA4 for engagement events, Datadog for errors and latency, BlueConic for reader-data enrichment. Unit and integration tests on ad-slot, reader-state, and PageBuilder rendering branches.",
         },
       ],
-      approachTitle: "How I shipped it",
+      approachTitle: "What I learned",
       approach: [
-        "I helped move the article page from a fragmented layout to a content-first, system-driven experience: no sidebar, story first, consistent across devices. Ads sat in the natural reading flow—visible but less disruptive. Modular components and predictable rendering let layout, monetization, and performance move together.",
-        "Where legacy monetization leaned on high sidebar ad density, I worked with the team to consolidate ads in the main column at intentional breakpoints—~10% fewer ads overall without revenue loss, with room for higher-value formats. The shift was from maximizing ad count to optimizing placement and quality.",
-        "Quantitatively, average reading time and engagement time rose (+4.73% and +4.09%), and I contributed to Core Web Vitals discipline on LCP and CLS alongside clearer paths for subscription and inline newsletter signup. GA4, Datadog, and BlueConic were the day-to-day monitoring layer for validating behavior after ship—not a substitute for sharing proprietary funnel metrics here.",
+        "Lazy-loading the comment widget protects LCP but delays first interaction. We landed on an intersection-observer trigger at roughly the midpoint of the article as the tradeoff. That pattern (defer cost, measure where engagement actually starts) carried over to GAM slots and the newsletter CTA.",
+        "Shipping layout, ads, commenting, and reader-state as one rollout instead of separate tracks meant fewer integration surprises, but every feature-flag combination needed its own test matrix. The unit and integration coverage on render-branch permutations was the hardest part of the project.",
       ],
       businessOutcome:
-        "The article page became a more scalable product surface: frontend architecture, ad delivery, dynamic-paywall–aware reader logic, and growth CTAs (including newsletter) aligned so the team could balance engagement and monetization. My work was implementation-focused — PageBuilder with React and JavaScript, GAM, font/script discipline, observability hooks consumed by GA4 and Datadog (and BlueConic in the reader stack), and unit/integration coverage on high-risk paths — alongside teammates in product, design, and ads.",
+        "One implementation surface in production, rolled out incrementally with product, design, and ads from September toward full deployment by year-end.",
       showcase: {
         title: "The result",
         figureGridColumns: 3,
@@ -711,14 +734,6 @@ export const PORTFOLIO_PROJECTS = [
               "Desktop — centered reading measure with top-of-page ad and header Subscribe; hero treatment and inline modules stay in the same content column for a calmer long-form read.",
           },
         ],
-        footerCaption: {
-          text: "Product design and UX research: ",
-          externalLink: {
-            href: "https://jessicachenworks.com/project/dallas-morning-news-article-redesign-2/",
-            label: "Jessica Chen",
-          },
-          after: ".",
-        },
       },
       relatedProject: {
         slug: "dynamic-paywall",
