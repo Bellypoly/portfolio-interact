@@ -1,5 +1,5 @@
 /**
- * Scroll metrics for section-based active index (used by SpaceResume).
+ * Scroll metrics for SpaceResume (debug HUD).
  */
 export function getScrollMetrics() {
   const y = window.scrollY;
@@ -12,28 +12,104 @@ export function getScrollMetrics() {
   return { y, maxScroll, progress, tolerance };
 }
 
+/** Horizontal line in the viewport used for scroll-spy (ratio of inner height). */
+export const SCROLL_SPY_PROBE_RATIO = 0.32;
+
 /**
- * Normalized top positions of each section (0–1 of document scroll range).
+ * Active section = the one whose layout box **contains** the probe line
+ * (a band ~1/3 down the viewport). Stays stable through very tall blocks
+ * (e.g. Mission Gallery) until that line leaves the section.
+ *
+ * If the probe falls in a gap (no hit), falls back to the last section whose
+ * top edge is above the probe (same idea as a classic “past heading” stack).
  */
-export function buildSectionThresholds(sectionRefs, maxScroll, y, count) {
-  const thresholds = [];
+export function resolveActiveIndexFromViewportProbe(
+  sectionRefs,
+  count,
+  probeRatio = SCROLL_SPY_PROBE_RATIO,
+) {
+  const vh = typeof window !== "undefined" ? window.innerHeight : 800;
+  const probeY = vh * probeRatio;
+
   for (let i = 0; i < count; i++) {
-    const ref = sectionRefs.current[i];
-    if (ref?.current && maxScroll > 0) {
-      const top = ref.current.getBoundingClientRect().top + y;
-      thresholds.push(top / maxScroll);
-    } else {
-      thresholds.push(i / count);
-    }
+    const el = sectionRefs.current[i]?.current;
+    if (!el) continue;
+    const r = el.getBoundingClientRect();
+    if (r.top <= probeY && r.bottom >= probeY) return i;
   }
-  return thresholds;
+
+  let fallback = 0;
+  for (let i = 0; i < count; i++) {
+    const el = sectionRefs.current[i]?.current;
+    if (!el) continue;
+    const r = el.getBoundingClientRect();
+    if (r.top <= probeY) fallback = i;
+  }
+  return fallback;
 }
 
-/** Largest section index whose threshold is not ahead of current scroll progress. */
-export function resolveActiveIndex(progress, thresholds, tolerance) {
-  let idx = 0;
-  for (let i = 0; i < thresholds.length; i++) {
-    if (progress >= thresholds[i] - tolerance) idx = i;
+/**
+ * Dev-only: per-section geometry vs probe line (for debugging marker timing).
+ */
+export function getSectionScrollSpyDebug(
+  sectionRefs,
+  count,
+  probeRatio = SCROLL_SPY_PROBE_RATIO,
+  sectionIds = [],
+) {
+  const vh = typeof window !== "undefined" ? window.innerHeight : 800;
+  const probeY = vh * probeRatio;
+  const rows = [];
+  for (let i = 0; i < count; i++) {
+    const el = sectionRefs.current[i]?.current;
+    const id = sectionIds[i] ?? String(i);
+    if (!el) {
+      rows.push({
+        index: i,
+        id,
+        top: null,
+        bottom: null,
+        height: null,
+        throughPct: null,
+        containsProbe: false,
+      });
+      continue;
+    }
+    const r = el.getBoundingClientRect();
+    const top = Math.round(r.top);
+    const bottom = Math.round(r.bottom);
+    const h = r.height;
+    /** 0–100: where the probe line sits within this section’s box (0 = probe at top edge, 100 = at bottom). */
+    let throughPct = null;
+    if (h > 0) {
+      const raw = ((probeY - r.top) / h) * 100;
+      throughPct = Math.max(0, Math.min(100, raw));
+    }
+    rows.push({
+      index: i,
+      id,
+      top,
+      bottom,
+      height: Math.round(h),
+      throughPct,
+      containsProbe: r.top <= probeY && r.bottom >= probeY,
+    });
   }
-  return idx;
+  const active = resolveActiveIndexFromViewportProbe(
+    sectionRefs,
+    count,
+    probeRatio,
+  );
+  return { probeY: Math.round(probeY), rows, active };
+}
+
+/** Format milliseconds for HUD (e.g. dwell time). */
+export function formatDurationMs(ms) {
+  if (ms == null || Number.isNaN(ms)) return "—";
+  if (ms < 1000) return `${Math.round(ms)}ms`;
+  const s = ms / 1000;
+  if (s < 60) return `${s.toFixed(1)}s`;
+  const m = Math.floor(s / 60);
+  const rs = s % 60;
+  return `${m}m ${rs.toFixed(0)}s`;
 }

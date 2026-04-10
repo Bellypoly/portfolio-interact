@@ -4,6 +4,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        georgia: [
+          "Georgia",
+          '"Times New Roman"',
+          "Times",
+          "ui-serif",
+          "serif",
+        ],
         aurebesh: ['"Aurebesh"', "ui-sans-serif", "sans-serif"],
         fleur: ['"Fleur De Leah"', "ui-serif", "serif"],
         robotomono: ['"Roboto Mono"', "ui-monospace", "monospace"],

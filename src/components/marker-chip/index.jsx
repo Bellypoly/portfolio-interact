@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./marker-chip.css";
 import cc from "classcat";
@@ -58,14 +58,25 @@ export const MarkerChipGroup = React.memo(function MarkerChipGroup({
   scrollDirection = "up",
   hiddenMarkerIds = HIDDEN_MARKER_IDS,
   isLightSection = false,
+  /** Mission Gallery: dark frosted panel (mobile-style bg/border) fixed top-right at all breakpoints */
+  missionGalleryStyle = false,
 }) {
-  const isVisible = scrollDirection === "up";
+  const [narrowViewport, setNarrowViewport] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setNarrowViewport(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  const isVisible = narrowViewport || scrollDirection === "up";
   const isHidden = (id) => hiddenMarkerIds.includes(id);
   return (
     <motion.div
       className={cc([
         "marker-chip-group",
         { "marker-chip-group--light-section": isLightSection },
+        { "marker-chip-group--mission-gallery": missionGalleryStyle },
       ])}
       initial={false}
       animate={{

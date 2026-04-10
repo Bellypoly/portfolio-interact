@@ -24,6 +24,23 @@
   @apply md:bg-transparent md:py-0 md:pr-0 md:shadow-none md:backdrop-blur-none;
 }
 
+/*
+ * Mission Gallery section: frosted dark panel (not light-section slate).
+ * - Mobile: same corner as other markers — bottom-left.
+ * - md+: top-right island so it clears the gallery grid.
+ */
+.marker-chip-group.marker-chip-group--mission-gallery {
+  @apply rounded-lg border border-cyan-500/35;
+  @apply bg-black/[0.65] py-2 pr-3 backdrop-blur-md;
+  @apply shadow-lg shadow-[0_10px_15px_-3px_rgb(0_0_0/0.2)];
+
+  @apply max-md:!bottom-4 max-md:!left-4 max-md:!top-auto max-md:!right-auto max-md:items-start;
+
+  @apply md:!top-4 md:!right-4 md:!bottom-auto md:!left-auto md:items-end md:justify-start md:pl-2;
+  @apply md:!rounded-lg md:!border md:!border-cyan-500/35 md:!border-solid;
+  @apply md:!bg-black/[0.65] md:!py-2 md:!px-3 md:!pl-2 md:!pr-3 md:!shadow-lg md:!backdrop-blur-md;
+}
+
 /* --- One chip row --- */
 .marker-chip-container {
   @apply relative z-10 flex items-center gap-1;
@@ -71,7 +88,8 @@
   text-shadow: var(--marker-glow-slate-strong);
 }
 
-.marker-chip-group.marker-chip-group--light-section .marker-chip-btn.active:hover {
+.marker-chip-group.marker-chip-group--light-section
+  .marker-chip-btn.active:hover {
   color: var(--pf-editorial-rust);
 }
 
@@ -79,7 +97,8 @@
   @apply text-slate-700 transition-colors duration-150;
 }
 
-.marker-chip-group.marker-chip-group--light-section .marker-chip-btn.inactive:hover {
+.marker-chip-group.marker-chip-group--light-section
+  .marker-chip-btn.inactive:hover {
   color: var(--pf-editorial-rust);
 }
 

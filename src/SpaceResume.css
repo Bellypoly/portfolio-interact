@@ -78,7 +78,7 @@
   @apply min-h-[100vh] flex items-center justify-center;
 }
 .app-section-item--intro {
-  @apply relative z-10 w-full overflow-hidden flex flex-col justify-end min-h-[300vh] md:min-h-[190vh];
+  @apply relative z-10 w-full overflow-hidden flex flex-col justify-end min-h-[500vh] md:min-h-[300vh] lg:min-h-[250vh];
 }
 .app-section-item--rocket {
   @apply relative z-[3] w-full min-h-[100vh] p-0 overflow-visible;

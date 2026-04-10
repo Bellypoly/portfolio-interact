@@ -64,8 +64,7 @@
 }
 
 .project-card__title {
-  @apply font-bold tracking-tight leading-tight text-white transition-colors duration-150;
-  font-family: Georgia, "Times New Roman", Times, ui-serif, serif;
+  @apply font-georgia font-bold tracking-tight leading-tight text-white transition-colors duration-150;
   font-size: clamp(1.15rem, 2.75vw + 0.68rem, 1.5rem);
 }
 

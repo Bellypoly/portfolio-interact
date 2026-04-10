@@ -548,6 +548,12 @@
   @apply mx-auto max-w-[min(100%,9rem)] sm:max-w-[min(100%,10.25rem)] md:max-w-[min(100%,11.5rem)];
 }
 
+/* Parliament Watch OCR — featured hero slightly shorter than default compact (not as tall as full strip) */
+.project-case-study--parliament-watch-ocr
+  .project-case-study__featured-wrap--compact {
+  @apply h-[14rem] sm:h-[17rem] md:h-[24rem] lg:h-[27rem];
+}
+
 .project-case-study__no-shadow .project-case-study__figure-img {
   box-shadow: none;
 }

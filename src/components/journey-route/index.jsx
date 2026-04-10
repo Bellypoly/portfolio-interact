@@ -141,7 +141,7 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [100.5018, 13.7563],
-    company: "Provincial Electricity Authority",
+    company: "PEA (Provincial Electricity Authority)",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "work-pea",

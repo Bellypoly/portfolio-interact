@@ -506,6 +506,11 @@ export const PORTFOLIO_PROJECTS = [
       featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center top",
+      featuredImageSource: {
+        prefix: "Live article",
+        href: "https://www.dallasnews.com/business/airlines/2025/10/08/staffing-shortages-cause-more-us-flight-delays-as-government-shutdown-reaches-7th-day/",
+        label: "The Dallas Morning News",
+      },
       task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4 / Datadog / BlueConic instrumentation. Partnered with product, design, and ads.",
       taskBodyType: true,
       disciplines: [
@@ -757,9 +762,13 @@ export const PORTFOLIO_PROJECTS = [
         "images/portfolio/local-elections-hub/featured-image.webp",
       featuredImageAlt:
         "The Dallas Morning News Voter Guide — Elections 2022: blue and red voting booths on a ballot-pattern background with headline typography",
+      featuredImageSource: {
+        href: "https://voterguide.dallasnews.com/",
+        label: "The Dallas Morning News Voter Guide",
+      },
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Senior full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
+      task: "Full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
       taskBodyType: true,
       disciplines: [
         "Frontend architecture (React · Arc XP)",
@@ -926,6 +935,160 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
+    slug: "parliament-watch-ocr",
+    name: "Parliament Watch — Thai Voting Record OCR",
+    desc: "Parliament Watch — OCR pipeline that turns scanned House voting PDFs into structured tables for open data and infographics (Thai script & numerals, handwriting, inconsistent layouts).",
+    cardImagePosition: "center 71%",
+    img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
+    imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
+    alt: "WeVis Election 69 — party unity voting chart for Thailand\u2019s 26th House of Representatives (2566\u20132568)",
+    link: "https://wevis.info/partyunityvisual/",
+    caseStudy: {
+      eyebrow: "Civic Tech · OCR · Open Data",
+      featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
+      featuredImgWebp:
+        "images/portfolio/parliament-watch-ocr/featured-image.webp",
+      featuredImageAlt:
+        "WeVis Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
+      disciplines: ["Document OCR", "Data engineering", "Civic technology"],
+      context: "WeVis / Parliament Watch (open-source civic tech, Thailand)",
+      techStack: [
+        {
+          label: "Python",
+          href: "https://www.python.org/",
+        },
+        {
+          label: "OCR",
+          href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
+        },
+        {
+          label: "WeVis / Parliament Watch",
+          href: "https://parliamentwatch.wevis.info",
+        },
+        {
+          label: "Open Data (CC BY-NC 4.0)",
+          href: "https://creativecommons.org/licenses/by-nc/4.0/",
+        },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "Thailand\u2019s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th. These are not machine-readable: they\u2019re scanned documents in government templates, with Thai-language text, Thai numerals, handwritten annotations, embedded photos, and inconsistent table layouts across sessions.",
+        "Parliament Watch (by WeVis) needed this data in structured form to power voting visualizations like the Party Unity chart, which maps how 7 major parties voted across 107 motions in the 26th House. My role was the OCR layer: turning those PDFs into clean tabular data that downstream analysts and front-end developers could use directly.",
+        {
+          text: "Live visualization: ",
+          externalLink: {
+            href: "https://wevis.info/partyunityvisual/",
+            label: "Party Unity Visual (WeVis)",
+          },
+          after: "",
+        },
+        {
+          text: "Structured output (open data): ",
+          externalLink: {
+            href: "https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250",
+            label: "Vote26 Data — per-party voting records (Google Sheets)",
+          },
+          after:
+            " \u2014 the tabular dataset my OCR pipeline produced from scanned parliament PDFs, used directly by the visualization and analysis teams.",
+        },
+      ],
+      strategyTitle: "What I built",
+      pillars: [
+        {
+          title: "Thai-language OCR pipeline",
+          body: "Handled Thai script, Thai numerals (\u0E50\u2013\u0E59), and mixed Thai/Arabic number formats that standard OCR engines misclassify or skip entirely.",
+        },
+        {
+          title: "Layout-aware extraction",
+          body: "Parsed scanned government templates where table structures, column alignment, and cell boundaries vary across sessions \u2014 some pages include handwritten marks, stamps, or embedded photographs that break naive grid detection.",
+        },
+        {
+          title: "Validation and downstream handoff",
+          body: "Output clean, structured records (per-MP vote, per-motion) that Parliament Watch consumed directly for front-end rendering and open data export \u2014 no manual correction step.",
+        },
+      ],
+      approachTitle: "How I approached it",
+      approach: [
+        "I treated each PDF page as an image-first problem: detect table regions, segment cells, then run OCR per cell rather than full-page text extraction. This handled the inconsistent layouts and inline noise (stamps, handwriting) much better than document-level OCR.",
+        "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
+      ],
+      results: null,
+    },
+  },
+  {
+    slug: "electricity-bill-breakdown",
+    name: "Where Does Your Electricity Bill Go?",
+    desc: "Flow design and information architecture for a civic explainer that breaks down Thai electricity bills — where charges come from, who gets paid, and whether the pricing is fair.",
+    img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
+    imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
+    alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
+    link: "https://electricity-bill-breakdown.justpow.co/",
+    caseStudy: {
+      eyebrow: "Civic Tech · Flow Design · Energy Literacy",
+      featuredImg:
+        "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
+      featuredImgWebp:
+        "images/portfolio/electricity-bill-breakdown/featured-image.webp",
+      featuredImageAlt:
+        "JustPow — Electricity BiLL BREAKDOWN on light textured paper: yellow lightning bolt and BiLL accent, English subtitle on where your monthly bill goes and who gets paid, ring of gray energy lifecycle line icons",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Design the user flow and information structure for a civic tool that explains Thai electricity bills — what each charge means, where the money goes, and whether the pricing is fair — so readers without a utility background can follow a complex regulatory topic one step at a time.",
+      disciplines: [
+        "User-flow design",
+        "Information architecture",
+        "Domain translation (energy → plain language)",
+      ],
+      context: "JustPow (Thailand)",
+      techStack: [
+        {
+          label: "FigJam",
+          href: "https://www.figma.com/figjam/",
+        },
+        {
+          label: "WordPress",
+          href: "https://wordpress.org/",
+        },
+        {
+          label: "Elementor Pro",
+          href: "https://elementor.com/",
+        },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "Most Thai consumers see a single total on their electricity bill. Behind it sits a layered structure — base energy charges, a variable fuel tariff (Ft), regulatory surcharges, VAT — that few people can parse without domain knowledge. This tool unpacks that structure and asks an uncomfortable civic question: is the price fair?",
+        "My role was flow design and information support. I mapped the reader journey from casual curiosity through progressive disclosure of each charge component, making sure every screen earns the next rather than dumping definitions upfront. I also grounded the copy in how Thai billing and tariff mechanisms actually work, so the tool educates without hand-waving.",
+        "I brought firsthand utility-system context from my time at PEA (Provincial Electricity Authority of Thailand) — outage management, billing integrations, real-time consumption dashboards — which gave me the mental model to connect what appears on a PDF bill to the engineering and regulatory reality underneath.",
+      ],
+      strategyTitle: "What I shaped",
+      strategyIntro:
+        "My lane: flow architecture and domain-grounded information design. Engineering (WordPress / Elementor) was handled by the team; I owned how users move through the content and whether the explanations hold up technically.",
+      pillars: [
+        {
+          title: "Progressive disclosure flow",
+          body: "Mapped the journey from a single question (\u201cwhat am I paying for?\u201d) through energy charges, Ft, fixed costs, and taxes — each screen resolves one layer before introducing the next, so complexity builds gradually rather than all at once.",
+        },
+        {
+          title: "Domain-accurate language",
+          body: "Wrote and reviewed explanations against real Thai tariff structures and PEA billing logic, replacing vague or outdated folklore with grounded, plain-language descriptions that a non-engineer can follow.",
+        },
+        {
+          title: "Fairness as reader judgment",
+          body: "Framed the closing question (\u201cis it fair?\u201d) as an informed conclusion the reader reaches on their own — evidence in the flow, opinion left to the user. The tool is civic, not a campaign.",
+        },
+      ],
+      approachTitle: "How PEA experience shaped my contribution",
+      approach: [
+        "At PEA I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",
+        "I used that context to keep terminology consistent with what Thai consumers see on real bills while explaining the engineering levers (variable fuel components, demand charges, cross-subsidy structures) in language that doesn't require a utility background.",
+      ],
+      results: null,
+    },
+  },
+  {
     slug: "federated-learning-energy",
     name: "On Simulating Energy Consumption of Federated Learning Systems",
     desc: "MATLAB simulation study: federated learning energy use under NOMA — compute vs radio, sweepable regimes, reproducible figures.",
@@ -998,70 +1161,88 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
-    slug: "rdfd",
-    name: "RDFD — Discovering Fake Drivers",
-    desc: "Machine learning approach for driver identification.",
-    img: "images/portfolio/rdfd/thumbnail.jpg",
-    imgWebp: "images/portfolio/rdfd/thumbnail.webp",
-    alt: "Illustration — driver at the wheel with temporal data charts and magnifying glass over trend lines",
-    link: "https://github.com/Bellypoly/Discovering-Fake-Drivers-Based-on-Temporal-Driving-Behaviors",
+    slug: "industrial-logistics-evaluation",
+    anchorId: "portfolio-logistics",
+    name: "Industrial Logistic Performance Evaluation",
+    desc: "IEOM 2016 — evaluated logistics at a Thai printing & packaging company using the World Bank LPI framework: dimension mapping, gap analysis, and improvement paths.",
+    img: "images/portfolio/industrial-logistics-evaluation/thumbnail.jpg",
+    imgWebp: "images/portfolio/industrial-logistics-evaluation/thumbnail.webp",
+    alt: "Diagram — supply chain service delivery: policy inputs (customs, infrastructure, service quality) and performance outcomes (timeliness, international shipments, tracking)",
+    link: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
     caseStudy: {
-      eyebrow: "Research · Machine learning",
-      featuredImg: "images/portfolio/rdfd/featured-image.jpg",
-      featuredImgWebp: "images/portfolio/rdfd/featured-image.webp",
+      eyebrow: "Research · Logistics · IEOM 2016",
+      featuredImg:
+        "images/portfolio/industrial-logistics-evaluation/featured-image.jpg",
+      featuredImgWebp:
+        "images/portfolio/industrial-logistics-evaluation/featured-image.webp",
       featuredImageAlt:
-        "Illustration — driver at the wheel with phone and watch maps, dashboard trend lines under a magnifying glass, and alert monitoring",
+        "LPI radar chart — Thailand, Singapore, and Malaysia 2014 compared on timeliness, customs, international shipments, and logistics competence; Thailand map and forklift illustration",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Explore whether temporal driving behavior can expose impersonation or credential sharing—without relying only on one-off login signals.",
+      task: "Evaluate logistics performance at a printing and packaging company in Thailand — map the operation against World Bank LPI dimensions, quantify where cost, lead time, and service reliability break down, and frame actionable improvement paths.",
       disciplines: [
-        "ML modeling",
-        "Time-series analysis",
-        "Driver verification",
+        "Operations research",
+        "LPI benchmarking",
+        "Case study methodology",
       ],
-      context: "Research / proof of concept",
+      context: "IEOM 2016 · Academic research (Thailand)",
       techStack: [
-        { label: "Python", href: "https://www.python.org/" },
         {
-          label: "Machine learning",
-          href: "https://en.wikipedia.org/wiki/Machine_learning",
+          label: "MATLAB",
+          href: "https://www.mathworks.com/products/matlab.html",
         },
         {
-          label: "Time-series pipeline",
-          href: "https://en.wikipedia.org/wiki/Time_series",
+          label: "C",
+          href: "https://en.wikipedia.org/wiki/C_(programming_language)",
+        },
+        {
+          label: "World Bank LPI",
+          href: "https://lpi.worldbank.org/",
+        },
+        {
+          label: "Thailand ILPI (DOL handbook)",
+          href: "https://dol.dip.go.th/uploadcontent/DOL/Pert/ILPI_Handbook_2560.pdf",
+        },
+        {
+          label: "IEOM proceedings",
+          href: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
         },
       ],
+      overviewTitle: "Overview",
       overview: [
-        "Raw trip data is noisy: routes, pace, and stops all vary with traffic and intent. The problem was to turn sequences of behavior into a signal that stays stable for the real driver and drifts when someone else is behind the wheel.",
-        "The approach emphasized interpretable features and robust evaluation—so outcomes could be discussed with safety stakeholders, not only accuracy on a held-out set.",
+        "Printing and packaging sits at the intersection of make-to-order pressure, material handling, and outbound distribution. “Logistics performance” in this context is never a single number — it depends on which dimensions you measure and what level of the operation you look at.",
+        "This paper applies the World Bank LPI framework to one Thai company and asks: which dimensions (timeliness, customs, infrastructure, service quality, tracking, international shipments) actually constrain this business, and what does the gap between Thailand’s national LPI score and shop-floor reality look like?",
+        {
+          text: "Full paper (IEOM 2016 proceedings): ",
+          externalLink: {
+            href: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
+            label:
+              "Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand (PDF)",
+          },
+          after: "",
+        },
       ],
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role: own temporal feature design, evaluation framing, and the proof-of-concept ML pipeline for driver verification. Before modeling, I clarified what “fake” means in production: shared accounts, borrowed credentials, and scripted fraud can look different from random mistakes. I focused the plan on separability over time and calm false-positive rates.",
+      strategyTitle: "What I evaluated",
       pillars: [
         {
-          title: "Signal quality",
-          body: "I defined behavior features that capture habit—not just speed averages, but rhythm, hesitation, and consistency across segments.",
+          title: "LPI dimension mapping",
+          body: "Mapped the six World Bank LPI dimensions to specific operational touch-points inside the company — receiving, warehousing, production scheduling, and outbound shipping — so each score connects to an observable process, not an abstract national average.",
         },
         {
-          title: "Evaluation rigor",
-          body: "I designed stress tests across drivers, vehicles, and cities so the model couldn’t only work on tidy lab routes.",
+          title: "Gap analysis",
+          body: "Compared the company’s performance against Thailand’s 2014 LPI scores and regional peers (Singapore, Malaysia) to identify where domestic infrastructure, customs friction, and internal process gaps compound.",
         },
         {
-          title: "Operational safety",
-          body: "I specified bias checks and conservative thresholds so verification supports humans rather than punishing edge cases.",
+          title: "Improvement framing",
+          body: "Closed with concrete recommendations: which dimensions the company can influence directly (warehouse throughput, tracking), which require policy or infrastructure change, and where the biggest cost-to-improvement leverage sits.",
         },
       ],
-      approachTitle: "How I shipped it",
+      approachTitle: "How I approached it",
       approach: [
-        "I built a pipeline from trip segments to temporal representations, paired with classifiers and ranking strategies suited to sparse labels.",
-        "I ran iteration loops with error analysis—when the model misfired, I traced failures to route context, sensor gaps, or label ambiguity.",
+        "I used a structured case-study methodology: site observation, operational data, and stakeholder interviews to ground the LPI scores in what actually happens on the warehouse floor and the loading dock.",
+        "I kept the paper readable across audiences — operations managers, logistics academics, and Thai industrial SME stakeholders — with explicit assumptions and data tables rather than opaque scoring.",
       ],
-      results: [
-        { value: "Temporal", label: "Behavior-first signal" },
-        { value: "Rigorous", label: "Evaluation framing" },
-        { value: "Open", label: "Research artifacts" },
-      ],
+      results: null,
     },
   },
   {
@@ -1230,93 +1411,163 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
-    slug: "industrial-logistics-evaluation",
-    anchorId: "portfolio-logistics",
-    name: "Industrial Logistic Performance Evaluation",
-    desc: "IEOM 2016 — evaluated logistics at a Thai printing & packaging company using the World Bank LPI framework: dimension mapping, gap analysis, and improvement paths.",
-    img: "images/portfolio/industrial-logistics-evaluation/thumbnail.jpg",
-    imgWebp: "images/portfolio/industrial-logistics-evaluation/thumbnail.webp",
-    alt: "Diagram — supply chain service delivery: policy inputs (customs, infrastructure, service quality) and performance outcomes (timeliness, international shipments, tracking)",
-    link: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
+    slug: "rdfd",
+    name: "RDFD — Discovering Fake Drivers",
+    desc: "Machine learning approach for driver identification.",
+    img: "images/portfolio/rdfd/thumbnail.jpg",
+    imgWebp: "images/portfolio/rdfd/thumbnail.webp",
+    alt: "Illustration — driver at the wheel with temporal data charts and magnifying glass over trend lines",
+    link: "https://github.com/Bellypoly/Discovering-Fake-Drivers-Based-on-Temporal-Driving-Behaviors",
     caseStudy: {
-      eyebrow: "Research · Logistics · IEOM 2016",
-      featuredImg:
-        "images/portfolio/industrial-logistics-evaluation/featured-image.jpg",
-      featuredImgWebp:
-        "images/portfolio/industrial-logistics-evaluation/featured-image.webp",
+      eyebrow: "Research · Machine learning",
+      featuredImg: "images/portfolio/rdfd/featured-image.jpg",
+      featuredImgWebp: "images/portfolio/rdfd/featured-image.webp",
       featuredImageAlt:
-        "LPI radar chart — Thailand, Singapore, and Malaysia 2014 compared on timeliness, customs, international shipments, and logistics competence; Thailand map and forklift illustration",
+        "Illustration — driver at the wheel with phone and watch maps, dashboard trend lines under a magnifying glass, and alert monitoring",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Evaluate logistics performance at a printing and packaging company in Thailand — map the operation against World Bank LPI dimensions, quantify where cost, lead time, and service reliability break down, and frame actionable improvement paths.",
+      task: "Explore whether temporal driving behavior can expose impersonation or credential sharing—without relying only on one-off login signals.",
       disciplines: [
-        "Operations research",
-        "LPI benchmarking",
-        "Case study methodology",
+        "ML modeling",
+        "Time-series analysis",
+        "Driver verification",
       ],
-      context: "IEOM 2016 · Academic research (Thailand)",
+      context: "Research / proof of concept",
+      techStack: [
+        { label: "Python", href: "https://www.python.org/" },
+        {
+          label: "Machine learning",
+          href: "https://en.wikipedia.org/wiki/Machine_learning",
+        },
+        {
+          label: "Time-series pipeline",
+          href: "https://en.wikipedia.org/wiki/Time_series",
+        },
+      ],
+      overview: [
+        "Raw trip data is noisy: routes, pace, and stops all vary with traffic and intent. The problem was to turn sequences of behavior into a signal that stays stable for the real driver and drifts when someone else is behind the wheel.",
+        "The approach emphasized interpretable features and robust evaluation—so outcomes could be discussed with safety stakeholders, not only accuracy on a held-out set.",
+      ],
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role: own temporal feature design, evaluation framing, and the proof-of-concept ML pipeline for driver verification. Before modeling, I clarified what “fake” means in production: shared accounts, borrowed credentials, and scripted fraud can look different from random mistakes. I focused the plan on separability over time and calm false-positive rates.",
+      pillars: [
+        {
+          title: "Signal quality",
+          body: "I defined behavior features that capture habit—not just speed averages, but rhythm, hesitation, and consistency across segments.",
+        },
+        {
+          title: "Evaluation rigor",
+          body: "I designed stress tests across drivers, vehicles, and cities so the model couldn’t only work on tidy lab routes.",
+        },
+        {
+          title: "Operational safety",
+          body: "I specified bias checks and conservative thresholds so verification supports humans rather than punishing edge cases.",
+        },
+      ],
+      approachTitle: "How I shipped it",
+      approach: [
+        "I built a pipeline from trip segments to temporal representations, paired with classifiers and ranking strategies suited to sparse labels.",
+        "I ran iteration loops with error analysis—when the model misfired, I traced failures to route context, sensor gaps, or label ambiguity.",
+      ],
+      results: [
+        { value: "Temporal", label: "Behavior-first signal" },
+        { value: "Rigorous", label: "Evaluation framing" },
+        { value: "Open", label: "Research artifacts" },
+      ],
+    },
+  },
+  {
+    slug: "jerdi-kids",
+    name: "JerDi-Kids — เจอดิ",
+    desc: "Missing-person platform using QR codes and BLE beacons — scans and proximity signals in one system.",
+    img: "images/portfolio/jerdi-kids/thumbnail.png",
+    alt: "JerDi — NEVER LOST HOPE banner, QR and beacon-based missing person detection platform",
+    cardImageFit: "top-clip",
+    caseStudy: {
+      eyebrow: "System design · BLE · Social impact",
+      featuredImg: "images/portfolio/jerdi-kids/thumbnail.png",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Design a scalable, community-driven platform to locate missing children and elderly people using both QR codes and BLE beacon technology — shared notification pipeline, complementary strengths for public scans vs proximity detection.",
+      disciplines: [
+        "System architecture",
+        "BLE / QR prototyping",
+        "Community platform design",
+      ],
+      context: "Young Technopreneur — Samart × NSTDA BIC (2017)",
       techStack: [
         {
-          label: "MATLAB",
-          href: "https://www.mathworks.com/products/matlab.html",
+          label: "QR codes",
+          href: "https://en.wikipedia.org/wiki/QR_code",
         },
         {
-          label: "C",
-          href: "https://en.wikipedia.org/wiki/C_(programming_language)",
+          label: "BLE beacons",
+          href: "https://en.wikipedia.org/wiki/Bluetooth_Low_Energy_beacon",
         },
         {
-          label: "World Bank LPI",
-          href: "https://lpi.worldbank.org/",
+          label: "Web platform",
+          href: "https://developer.mozilla.org/en-US/docs/Web",
         },
         {
-          label: "Thailand ILPI (DOL handbook)",
-          href: "https://dol.dip.go.th/uploadcontent/DOL/Pert/ILPI_Handbook_2560.pdf",
+          label: "Real-time notifications",
+          href: "https://en.wikipedia.org/wiki/Push_technology",
         },
-        {
-          label: "IEOM proceedings",
-          href: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
-        },
+      ],
+      results: [
+        { value: "฿30,000", label: "Development grant (ทุนพัฒนาผลงาน)" },
+        { value: "Top 20", label: "Final round — 138 teams entered" },
       ],
       overviewTitle: "Overview",
       overview: [
-        "Printing and packaging sits at the intersection of make-to-order pressure, material handling, and outbound distribution. “Logistics performance” in this context is never a single number — it depends on which dimensions you measure and what level of the operation you look at.",
-        "This paper applies the World Bank LPI framework to one Thai company and asks: which dimensions (timeliness, customs, infrastructure, service quality, tracking, international shipments) actually constrain this business, and what does the gap between Thailand’s national LPI score and shop-floor reality look like?",
-        {
-          text: "Full paper (IEOM 2016 proceedings): ",
-          externalLink: {
-            href: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
-            label: "Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand (PDF)",
-          },
-          after: "",
-        },
+        "JerDi (เจอดิ) means \u201cencounter it\u201d in Thai — the name captures the core promise: anyone nearby can help a family find their missing person.",
+        "JerDi-Kids is a community-driven platform that uses both technologies together: QR codes on wristbands for universal identification (any smartphone camera, no app required) and BLE beacons for proximity-based detection where Bluetooth is available — indoors, schools, or hospitals. Scans and beacon hits feed the same real-time notification pipeline to family, a call center, and authorities.",
+        "The project competed in the electronics & software industry track of Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี), a national startup program co-run by Samart Group and NSTDA BIC. From 138 teams, JerDi-Kids reached the final 20 and received the ฿30,000 development grant (ทุนพัฒนาผลงาน).",
       ],
-      strategyTitle: "What I evaluated",
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role covered system architecture, the web platform, and prototyping both QR-based flows and BLE beacon hardware so the product could rely on QR codes and beacon technology in parallel.",
       pillars: [
         {
-          title: "LPI dimension mapping",
-          body: "Mapped the six World Bank LPI dimensions to specific operational touch-points inside the company — receiving, warehousing, production scheduling, and outbound shipping — so each score connects to an observable process, not an abstract national average.",
+          title: "System architecture",
+          body: "I designed the end-to-end pipeline so QR scans and beacon proximity events both route \u2192 backend \u2192 real-time notification to family, call center, and police. QR covers the widest public surface (zero install); beacons add passive proximity where Bluetooth is on and the environment is suitable.",
         },
         {
-          title: "Gap analysis",
-          body: "Compared the company’s performance against Thailand’s 2014 LPI scores and regional peers (Singapore, Malaysia) to identify where domestic infrastructure, customs friction, and internal process gaps compound.",
+          title: "BLE beacon prototyping",
+          body: "I prototyped and evaluated commodity BLE beacon hardware, testing proximity accuracy, signal stability indoors vs outdoors, battery lifecycle, and the constraint that passive detection needs Bluetooth enabled on the bystander\u2019s phone.",
         },
         {
-          title: "Improvement framing",
-          body: "Closed with concrete recommendations: which dimensions the company can influence directly (warehouse throughput, tracking), which require policy or infrastructure change, and where the biggest cost-to-improvement leverage sits.",
+          title: "QR + BLE in one product",
+          body: "The project deliberately combines both: QR wristbands for frictionless, battery-free identification at a distance of a scan, and BLE for exploration and alerts when devices can hear nearby beacons. I documented how each channel fits different contexts and how they reinforce the same missing-person workflow.",
         },
       ],
-      approachTitle: "How I approached it",
+      approachTitle: "The competition",
       approach: [
-        "I used a structured case-study methodology: site observation, operational data, and stakeholder interviews to ground the LPI scores in what actually happens on the warehouse floor and the loading dock.",
-        "I kept the paper readable across audiences — operations managers, logistics academics, and Thai industrial SME stakeholders — with explicit assumptions and data tables rather than opaque scoring.",
+        "Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี) is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. The program runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
+        "JerDi-Kids entered the electronics & software track, cleared the field of 138 teams to reach the final 20, and was awarded the ฿30,000 development grant — the funding tier for the highest-scoring finalists below the top-3 prize podium.",
       ],
-      results: null,
+      showcase: {
+        title: "On stage at Samart Innovation Awards",
+        figureGridColumns: 2,
+        mobile: [
+          {
+            img: "images/portfolio/jerdi-kids/award-ceremony.png",
+            alt: "JerDi-Kids team receiving the ฿30,000 development grant cheque at Samart Innovation Awards",
+            caption: "Receiving the ฿30,000 ทุนพัฒนาผลงาน (development grant) at Samart Innovation Awards",
+          },
+          {
+            img: "images/portfolio/jerdi-kids/team.png",
+            alt: "JerDi-Kids team selfie at the Young Technopreneur awards ceremony",
+            caption: "Team photo at the award announcement — Young Technopreneur × NSTDA BIC",
+          },
+        ],
+      },
     },
   },
   {
     slug: "pea-e-service",
     name: "PEA E‑Service",
-    desc: "One‑stop service for Thai Provincial Electricity Authority.",
+    desc: "One‑stop service for PEA (Provincial Electricity Authority of Thailand).",
     img: "images/portfolio/coe.jpg",
     alt: "PEA E-Service",
     link: "https://peacos.pea.co.th/views/paperex/",
@@ -1329,7 +1580,7 @@ export const PORTFOLIO_PROJECTS = [
         "Information architecture",
         "Accessibility",
       ],
-      context: "Provincial Electricity Authority (Thailand)",
+      context: "PEA — Provincial Electricity Authority (Thailand)",
       techStack: [
         {
           label: "Web",

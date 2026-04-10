@@ -226,6 +226,7 @@ export default function ProjectCaseStudyPage() {
           compactHeight={cs.featuredImageCompact}
           objectPosition={cs.featuredImageObjectPosition}
           objectPositionMd={cs.featuredImageObjectPositionMd}
+          source={cs.featuredImageSource}
         />
 
         {cs.task ? (
