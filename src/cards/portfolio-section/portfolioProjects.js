@@ -2,8 +2,9 @@
  * Portfolio projects — one entry drives Mission Gallery cards and `/project/:slug` case studies.
  * Optional `caseStudy.techStack`: `{ label, href }[]` (or legacy `string[]`) — Stack row in meta; links open in a new tab.
  *
- * `portfolioGroup` + `portfolioYear` drive Mission Gallery order: professional work and competitions
- * first (newest year first), then research tied to the Education timeline (newest first).
+ * Mission Gallery order: `getMissionGalleryProjects()` uses `PROFESSIONAL_MISSION_GALLERY_ORDER` for
+ * professional entries (fallback: `portfolioYear` newest first, then slug). Research uses
+ * `portfolioYear` + slug only.
  *
  * `portfolioLabel` — short Mission Gallery context tag (fixed vocabulary): Product, Competition,
  * Thesis, Paper, Academic, Marketplace, Platform, Civic tech, Public sector.
@@ -19,6 +20,31 @@ function compareMissionGalleryOrder(a, b) {
   return (a.slug ?? "").localeCompare(b.slug ?? "");
 }
 
+/** Slug order for Mission Gallery — professional group only (overrides year + slug). */
+const PROFESSIONAL_MISSION_GALLERY_ORDER = [
+  "article-page-redesign",
+  "dynamic-paywall",
+  "subscription-checkout-activation",
+  "local-elections-hub",
+  "electricity-bill-breakdown",
+  "parliament-watch-ocr",
+  "vote62-ect-report-69",
+  "jobthai",
+  "map-magic",
+  "pea-e-service",
+  "jerdi-kids",
+];
+
+function compareProfessionalMissionGallery(a, b) {
+  const ia = PROFESSIONAL_MISSION_GALLERY_ORDER.indexOf(a.slug ?? "");
+  const ib = PROFESSIONAL_MISSION_GALLERY_ORDER.indexOf(b.slug ?? "");
+  const aKnown = ia !== -1;
+  const bKnown = ib !== -1;
+  if (aKnown && bKnown) return ia - ib;
+  if (aKnown !== bKnown) return aKnown ? -1 : 1;
+  return compareMissionGalleryOrder(a, b);
+}
+
 /** Ordered list for the Mission Gallery section (group 1: work + competitions, group 2: research). */
 export function getMissionGalleryProjects() {
   const professional = PORTFOLIO_PROJECTS.filter(
@@ -28,7 +54,7 @@ export function getMissionGalleryProjects() {
     (p) => p.portfolioGroup === "research",
   );
   return [
-    ...professional.sort(compareMissionGalleryOrder),
+    ...professional.sort(compareProfessionalMissionGallery),
     ...research.sort(compareMissionGalleryOrder),
   ];
 }
@@ -321,6 +347,196 @@ export const PORTFOLIO_PROJECTS = [
         "I generated plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
       ],
       results: null,
+    },
+  },
+  {
+    slug: "local-elections-hub",
+    portfolioGroup: "professional",
+    portfolioYear: 2022,
+    portfolioLabel: "Product",
+    name: "Local Elections Hub",
+    desc: "Data-driven elections UI — dynamic race tables, anchor navigation, lightweight viz, and a responsive grid built for real-time coverage and mobile.",
+    img: "images/portfolio/local-elections-hub/thumbnail.png",
+    imgWebp: "images/portfolio/local-elections-hub/thumbnail.webp",
+    cardImagePosition: "center top",
+    alt: "Illustration — hand placing a marked ballot into a ballot box on a patterned background",
+    caseStudy: {
+      eyebrow: "Product · Data UI · Newsroom",
+      featuredImg: "images/portfolio/local-elections-hub/featured-image.png",
+      featuredImgWebp:
+        "images/portfolio/local-elections-hub/featured-image.webp",
+      featuredImageAlt:
+        "The Dallas Morning News Voter Guide — Elections 2022: blue and red voting booths on a ballot-pattern background with headline typography",
+      featuredImageSource: {
+        href: "https://voterguide.dallasnews.com/",
+        label: "The Dallas Morning News Voter Guide",
+      },
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
+      taskBodyType: true,
+      disciplines: [
+        "Frontend architecture (React · Arc XP)",
+        "Data-heavy UI & visualization",
+        "Performance & progressive disclosure",
+        "Accessibility & semantic HTML",
+      ],
+      context: "The Dallas Morning News",
+      techStack: [
+        {
+          label: "Arc XP",
+          href: "https://www.arcpublishing.com/products/arcxp/",
+        },
+        {
+          label: "React",
+          href: "https://react.dev/",
+        },
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        {
+          label: "GraphQL",
+          href: "https://graphql.org/",
+        },
+        {
+          label: "Semantic HTML",
+          href: "https://developer.mozilla.org/en-US/docs/Glossary/Semantics",
+        },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "After AMP and alongside broader Arc XP work, election coverage needed the same discipline as the rest of the site: one coherent rendering model for dense, updating data — not a different ad-hoc page per race. I rebuilt the hub as a scalable, data-driven UI system so counties, races, and candidates map to reusable components instead of one-off modules.",
+      ],
+      overviewSystemDesign: {
+        sectionTitle: "Data to UI",
+        intro:
+          "Editorial and wire data normalize into typed race/candidate models; the UI layer maps those models to tables, progress indicators, and metadata chips — with client-side navigation across counties without extra round-trips.",
+        diagram: [
+          "Feeds / CMS — structured election payloads",
+          "↓",
+          "Normalize — counties, races, candidates, party, vote totals",
+          "↓",
+          "Component registry — tables · vote bars · status tags · reporting footer",
+          "↓",
+          "Render — responsive grid (6-col) · anchor nav · progressive disclosure",
+        ],
+        caption:
+          "One pipeline from structured data to reusable components; navigation and layout stay on the client where it helps perceived performance.",
+        diagramAlt:
+          "Flow from election data through normalization to component registry and responsive render with anchor navigation",
+      },
+      problemSection: {
+        title: "Problem",
+        paragraphs: [
+          "The earlier hub was built from loosely aligned modules: election data showed up inconsistently across counties and races, mobile hierarchy was weak, and there was no shared pattern for live results or candidate metadata at scale.",
+        ],
+        listGroups: [
+          {
+            title: "What failed the newsroom and readers",
+            items: [
+              "Fragmented rendering of election data across counties and races.",
+              "Poor mobile hierarchy and limited scanability on dense, updating tables.",
+              "No clear system for lightweight visualization of standings (percent bars) alongside raw numbers.",
+              "Limited patterns for candidate metadata (e.g. party, runoff status) without cluttering the layout.",
+              "Hard to scale for large datasets and traffic spikes on election night.",
+            ],
+          },
+        ],
+        figureCaption:
+          "Two production mobile views from different election cycles — not a date mistake: before (May 2021) vs after (November 2022) — showing clearer hierarchy, metadata, and scan-friendly tables after the rebuild.",
+        beforeAfterCompare: {
+          diagramAlt:
+            "Before and after mobile screenshots of the Dallas Morning News local elections hub from 2021 and 2022 cycles",
+          rows: [
+            {
+              rowTitle: "Representative mobile views",
+              beforeTitle: "Before",
+              afterTitle: "After",
+              before: {
+                img: "images/portfolio/local-elections-hub/hub-before-2021-mobile.png",
+                imgWebp:
+                  "images/portfolio/local-elections-hub/hub-before-2021-mobile.webp",
+                alt: "Dallas Morning News mobile — Dallas City Council races, May 2021: tables with votes, percentages, and RUNOFF tags.",
+                caption:
+                  "2021 hub — dense tables and status tags; groundwork for the later component model.",
+              },
+              after: {
+                img: "images/portfolio/local-elections-hub/hub-after-2022-mobile.png",
+                imgWebp:
+                  "images/portfolio/local-elections-hub/hub-after-2022-mobile.webp",
+                alt: "Dallas Morning News mobile — Local Elections November 2022, Dallas County: candidate rows with party badges and vote share bars.",
+                caption:
+                  "2022 hub — same product family with county navigation, party indicators, and lightweight vote-share bars for faster scanning.",
+              },
+            },
+          ],
+          caption:
+            "Different races and timestamps on purpose: the comparison is across cycles after the new data model and UI system shipped.",
+        },
+      },
+      strategyTitle: "What I built",
+      strategyBullets: null,
+      pillars: [
+        {
+          title: "Dynamic data rendering layer",
+          body: "Reusable components for structured election payloads — candidates, vote counts, percentages — with consistent formatting whether the race is county-wide, city council, or down-ballot.",
+        },
+        {
+          title: "Client-side navigation",
+          body: "Anchor-based in-page navigation across counties so readers can jump without a full reload — fewer round-trips during high-traffic windows.",
+        },
+        {
+          title: "Lightweight visualization",
+          body: "Small vote-share / progress bar components next to numeric results so standings are scannable without relying on walls of text.",
+        },
+        {
+          title: "Metadata in the model",
+          body: "Extended the data shape and UI for party affiliation, runoff and reporting status — surfaced as compact chips and badges that stay legible on narrow viewports.",
+        },
+        {
+          title: "Progressive disclosure",
+          body: "Patterns like “view all races” to keep initial render manageable while still supporting deep exploration when readers want the full ballot.",
+        },
+        {
+          title: "Grid, semantics & a11y",
+          body: "Moved to a flexible six-column grid for better density control on small screens; enforced heading order and semantic tables/regions for screen readers and SEO on high-interest pages.",
+        },
+      ],
+      approachTitle: "How I shipped it",
+      approach: [
+        "Election night is the worst time to discover layout thrash or unbounded lists. I biased toward stable shells (reserved row height where possible), bounded “view more” paths, and client navigation so the server wasn’t replaying full pages for every county hop.",
+        "The hard part wasn’t a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns.",
+      ],
+      results: [
+        {
+          value: "Readable",
+          label:
+            "Denser results stayed scannable on mobile after hierarchy and metadata work",
+        },
+        {
+          value: "Faster",
+          label:
+            "County and race jumps without full reloads during peak traffic",
+        },
+        {
+          value: "Reusable",
+          label:
+            "Component system reused across races instead of one-off election pages",
+        },
+        {
+          value: "Ready",
+          label:
+            "Layout and semantics suited to high-visibility, high-stakes publishing windows",
+        },
+      ],
+      businessOutcome:
+        "The hub became a reusable elections surface — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
+      relatedProject: {
+        slug: "article-page-redesign",
+        label:
+          "Same platform: article experience, ads, engagement, and reader state →",
+      },
     },
   },
   {
@@ -968,196 +1184,6 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
-    slug: "local-elections-hub",
-    portfolioGroup: "professional",
-    portfolioYear: 2022,
-    portfolioLabel: "Product",
-    name: "Local Elections Hub",
-    desc: "Data-driven elections UI — dynamic race tables, anchor navigation, lightweight viz, and a responsive grid built for real-time coverage and mobile.",
-    img: "images/portfolio/local-elections-hub/thumbnail.png",
-    imgWebp: "images/portfolio/local-elections-hub/thumbnail.webp",
-    cardImagePosition: "center top",
-    alt: "Illustration — hand placing a marked ballot into a ballot box on a patterned background",
-    caseStudy: {
-      eyebrow: "Product · Data UI · Newsroom",
-      featuredImg: "images/portfolio/local-elections-hub/featured-image.png",
-      featuredImgWebp:
-        "images/portfolio/local-elections-hub/featured-image.webp",
-      featuredImageAlt:
-        "The Dallas Morning News Voter Guide — Elections 2022: blue and red voting booths on a ballot-pattern background with headline typography",
-      featuredImageSource: {
-        href: "https://voterguide.dallasnews.com/",
-        label: "The Dallas Morning News Voter Guide",
-      },
-      featuredImageCompact: true,
-      featuredImageObjectPosition: "center center",
-      task: "Full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
-      taskBodyType: true,
-      disciplines: [
-        "Frontend architecture (React · Arc XP)",
-        "Data-heavy UI & visualization",
-        "Performance & progressive disclosure",
-        "Accessibility & semantic HTML",
-      ],
-      context: "The Dallas Morning News",
-      techStack: [
-        {
-          label: "Arc XP",
-          href: "https://www.arcpublishing.com/products/arcxp/",
-        },
-        {
-          label: "React",
-          href: "https://react.dev/",
-        },
-        {
-          label: "JavaScript",
-          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-        },
-        {
-          label: "GraphQL",
-          href: "https://graphql.org/",
-        },
-        {
-          label: "Semantic HTML",
-          href: "https://developer.mozilla.org/en-US/docs/Glossary/Semantics",
-        },
-      ],
-      overviewTitle: "Overview",
-      overview: [
-        "After AMP and alongside broader Arc XP work, election coverage needed the same discipline as the rest of the site: one coherent rendering model for dense, updating data — not a different ad-hoc page per race. I rebuilt the hub as a scalable, data-driven UI system so counties, races, and candidates map to reusable components instead of one-off modules.",
-      ],
-      overviewSystemDesign: {
-        sectionTitle: "Data to UI",
-        intro:
-          "Editorial and wire data normalize into typed race/candidate models; the UI layer maps those models to tables, progress indicators, and metadata chips — with client-side navigation across counties without extra round-trips.",
-        diagram: [
-          "Feeds / CMS — structured election payloads",
-          "↓",
-          "Normalize — counties, races, candidates, party, vote totals",
-          "↓",
-          "Component registry — tables · vote bars · status tags · reporting footer",
-          "↓",
-          "Render — responsive grid (6-col) · anchor nav · progressive disclosure",
-        ],
-        caption:
-          "One pipeline from structured data to reusable components; navigation and layout stay on the client where it helps perceived performance.",
-        diagramAlt:
-          "Flow from election data through normalization to component registry and responsive render with anchor navigation",
-      },
-      problemSection: {
-        title: "Problem",
-        paragraphs: [
-          "The earlier hub was built from loosely aligned modules: election data showed up inconsistently across counties and races, mobile hierarchy was weak, and there was no shared pattern for live results or candidate metadata at scale.",
-        ],
-        listGroups: [
-          {
-            title: "What failed the newsroom and readers",
-            items: [
-              "Fragmented rendering of election data across counties and races.",
-              "Poor mobile hierarchy and limited scanability on dense, updating tables.",
-              "No clear system for lightweight visualization of standings (percent bars) alongside raw numbers.",
-              "Limited patterns for candidate metadata (e.g. party, runoff status) without cluttering the layout.",
-              "Hard to scale for large datasets and traffic spikes on election night.",
-            ],
-          },
-        ],
-        figureCaption:
-          "Two production mobile views from different election cycles — not a date mistake: before (May 2021) vs after (November 2022) — showing clearer hierarchy, metadata, and scan-friendly tables after the rebuild.",
-        beforeAfterCompare: {
-          diagramAlt:
-            "Before and after mobile screenshots of the Dallas Morning News local elections hub from 2021 and 2022 cycles",
-          rows: [
-            {
-              rowTitle: "Representative mobile views",
-              beforeTitle: "Before",
-              afterTitle: "After",
-              before: {
-                img: "images/portfolio/local-elections-hub/hub-before-2021-mobile.png",
-                imgWebp:
-                  "images/portfolio/local-elections-hub/hub-before-2021-mobile.webp",
-                alt: "Dallas Morning News mobile — Dallas City Council races, May 2021: tables with votes, percentages, and RUNOFF tags.",
-                caption:
-                  "2021 hub — dense tables and status tags; groundwork for the later component model.",
-              },
-              after: {
-                img: "images/portfolio/local-elections-hub/hub-after-2022-mobile.png",
-                imgWebp:
-                  "images/portfolio/local-elections-hub/hub-after-2022-mobile.webp",
-                alt: "Dallas Morning News mobile — Local Elections November 2022, Dallas County: candidate rows with party badges and vote share bars.",
-                caption:
-                  "2022 hub — same product family with county navigation, party indicators, and lightweight vote-share bars for faster scanning.",
-              },
-            },
-          ],
-          caption:
-            "Different races and timestamps on purpose: the comparison is across cycles after the new data model and UI system shipped.",
-        },
-      },
-      strategyTitle: "What I built",
-      strategyBullets: null,
-      pillars: [
-        {
-          title: "Dynamic data rendering layer",
-          body: "Reusable components for structured election payloads — candidates, vote counts, percentages — with consistent formatting whether the race is county-wide, city council, or down-ballot.",
-        },
-        {
-          title: "Client-side navigation",
-          body: "Anchor-based in-page navigation across counties so readers can jump without a full reload — fewer round-trips during high-traffic windows.",
-        },
-        {
-          title: "Lightweight visualization",
-          body: "Small vote-share / progress bar components next to numeric results so standings are scannable without relying on walls of text.",
-        },
-        {
-          title: "Metadata in the model",
-          body: "Extended the data shape and UI for party affiliation, runoff and reporting status — surfaced as compact chips and badges that stay legible on narrow viewports.",
-        },
-        {
-          title: "Progressive disclosure",
-          body: "Patterns like “view all races” to keep initial render manageable while still supporting deep exploration when readers want the full ballot.",
-        },
-        {
-          title: "Grid, semantics & a11y",
-          body: "Moved to a flexible six-column grid for better density control on small screens; enforced heading order and semantic tables/regions for screen readers and SEO on high-interest pages.",
-        },
-      ],
-      approachTitle: "How I shipped it",
-      approach: [
-        "Election night is the worst time to discover layout thrash or unbounded lists. I biased toward stable shells (reserved row height where possible), bounded “view more” paths, and client navigation so the server wasn’t replaying full pages for every county hop.",
-        "The hard part wasn’t a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns.",
-      ],
-      results: [
-        {
-          value: "Readable",
-          label:
-            "Denser results stayed scannable on mobile after hierarchy and metadata work",
-        },
-        {
-          value: "Faster",
-          label:
-            "County and race jumps without full reloads during peak traffic",
-        },
-        {
-          value: "Reusable",
-          label:
-            "Component system reused across races instead of one-off election pages",
-        },
-        {
-          value: "Ready",
-          label:
-            "Layout and semantics suited to high-visibility, high-stakes publishing windows",
-        },
-      ],
-      businessOutcome:
-        "The hub became a reusable elections surface — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
-      relatedProject: {
-        slug: "article-page-redesign",
-        label:
-          "Same platform: article experience, ads, engagement, and reader state →",
-      },
-    },
-  },
-  {
     slug: "jobthai",
     portfolioGroup: "professional",
     portfolioYear: 2019,
@@ -1574,6 +1600,127 @@ export const PORTFOLIO_PROJECTS = [
         "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
       ],
       results: null,
+    },
+  },
+  {
+    slug: "vote62-ect-report-69",
+    portfolioGroup: "professional",
+    portfolioYear: 2026,
+    portfolioLabel: "Civic tech",
+    name: "VOTE62 — ECT Report 69 Constituency OCR",
+    desc: "Turned Thailand\u2019s 2026 election PDFs from the Election Commission into spreadsheet-ready data: 400 local races, turnout, and ballot stats — despite mixed Thai text, Thai and Western numbers, bad scans, and pen corrections.",
+    img: "images/portfolio/vote62-ect-report-69/thumbnail.png",
+    imgWebp: "images/portfolio/vote62-ect-report-69/thumbnail.webp",
+    cardImagePosition: "center center",
+    alt: "VOTE62 project: Election Commission of Thailand unofficial results PDFs converted by OCR into rows for newsrooms and analysts",
+    link: "https://rocketmedialab.co/database-vote62-report-69-1/",
+    caseStudy: {
+      eyebrow: "Civic Tech · OCR · Elections Data",
+      featuredImg: "images/portfolio/vote62-ect-report-69/featured-image.png",
+      featuredImgWebp:
+        "images/portfolio/vote62-ect-report-69/featured-image.webp",
+      featuredImageAlt:
+        "Election data pipeline — Thai government PDFs converted through OCR into structured spreadsheet rows for journalists",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "I contributed to an OCR pipeline that reads unofficial results PDFs from Thailand\u2019s Election Commission (ECT) and outputs clean tables for the VOTE62 project — one row per local constituency (400 nationwide), with voter turnout and ballot breakdowns for both the constituency ballot and the nationwide party-list ballot. The real challenge is not generic OCR: these official-style PDFs mix Thai wording, Thai-style digits, ordinary Western digits, scan noise, and handwritten corrections in the same grid.",
+      disciplines: [
+        "Document OCR",
+        "Table extraction",
+        "Data validation",
+        "Civic technology",
+      ],
+      context:
+        "VOTE62 — OpenDream × iLaw × Rocket Media Lab (Thailand general election, February 2026 — Buddhist Era 2569)",
+      techStack: [
+        {
+          label: "Python",
+          href: "https://www.python.org/",
+        },
+        {
+          label: "OCR",
+          href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
+        },
+        {
+          label: "ECT Report 69 (Election Commission of Thailand)",
+          href: "https://ectreport69.ect.go.th/",
+        },
+        {
+          label: "Rocket Media Lab — VOTE62",
+          href: "https://rocketmedialab.co/database-vote62-report-69-1/",
+        },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "In Thailand\u2019s February 2026 general election (often written as B.E. 2569), the Election Commission of Thailand (ECT) released rolling, unofficial counts as PDFs through a portal called ECT Report 69 — in Thai, an unofficial scoreboard for House of Representatives races and referenda. The country is divided into 400 single-seat constituencies (local districts). Newsrooms and civic groups needed those 400 rows in a database, not a folder of PDFs.",
+        "Each file follows a government layout: region, province, district number, voter turnout, and ballot stacks for both ballot types Thai voters use — the local constituency vote and the separate nationwide party-list (proportional) vote — plus valid, spoiled, and blank votes where the form lists them. Partners also mirrored PDFs by district on Google Drive. A person can read the pages; they are not ready for charts or filters until every cell is extracted and consistent.",
+        "Why this is hard for software: one row may mix Thai script (for example province names), Thai-style digits (๐–๙), and ordinary Western digits (0–9) in the same table — sometimes side by side, sometimes after a manual correction. OCR tuned for English or Latin invoices often misreads Thai letters, mixes digit systems, or drops thousands separators. Handwriting, crossed-out numbers, stamps, and poor scans add noise: the page looks like a table, but the signal is part print, part pen, part blur.",
+        "My role was to help build and run the OCR side: detect the ECT layout, read cells reliably, normalize every number into one format, and pass rows to the team\u2019s validation so the coalition could publish an open Google Sheet for the press.",
+        {
+          text: "Public spreadsheet (built for journalists — columns include region, province, constituency index, turnout for the local ballot vs the party-list ballot, reported percent counted, and ballot-quality counts for each ballot): ",
+          externalLink: {
+            href: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/edit?gid=780194054#gid=780194054",
+            label: "Google Sheets (Thai sheet title: media turnout comparison table)",
+          },
+          after:
+            ". Numbers change when the ECT updates unofficial totals; this sheet is the machine-readable output the pipeline feeds.",
+        },
+        {
+          text: "Background article and raw-data notes (in Thai), including coverage of all 400 districts: ",
+          externalLink: {
+            href: "https://rocketmedialab.co/database-vote62-report-69-1/",
+            label: "Rocket Media Lab — unofficial Feb 2026 results, 400 districts (raw data)",
+          },
+          after:
+            ". VOTE62 is a joint effort: OpenDream (engineering), iLaw (law and policy), and Rocket Media Lab (data and reporting).",
+        },
+        {
+          text: "Original PDF source (ECT unofficial reporting portal): ",
+          externalLink: {
+            href: "https://ectreport69.ect.go.th/",
+            label: "ectreport69.ect.go.th",
+          },
+          after: ".",
+        },
+        {
+          text: "Mirror folder with PDFs grouped by district (Google Drive; folder titles in Thai): ",
+          externalLink: {
+            href: "https://drive.google.com/drive/u/0/folders/1MApGQ8YpAG1hVMOWqfKdfag3KLWYYWY5?sort=13&direction=a",
+            label: "Drive — House election 69 unofficial count reports",
+          },
+          after: ".",
+        },
+      ],
+      strategyTitle: "What I contributed",
+      pillars: [
+        {
+          title: "From ECT layout to rows",
+          body: "Mapped the commission\u2019s unofficial-report template into columns an English-speaking analyst would recognize: region, province, constituency number, headline turnout, then paired stacks for the local-district ballot versus the party-list ballot — including valid votes, spoiled ballots, and abstentions where the PDF shows them. (In Thai forms these are often labeled แบ่งเขต vs บัญชีรายชื่อ.)",
+        },
+        {
+          title: "Thai text and two numeral systems",
+          body: "State forms do not stick to one style. Headers use Thai script; counts may appear as Thai digits (๐–๙) or Western digits (0–9), sometimes in the same row. After OCR, I normalized every numeric cell to one canonical format before validation so the pipeline did not need a different rule for every province.",
+        },
+        {
+          title: "Handwriting and scan noise",
+          body: "Even “official” PDFs included pen corrections over printed totals, ticks, crossed-out figures, and stamps. Extracting by table region and by cell limited bleed from handwriting into neighboring cells; ambiguous reads were caught in validation before export to the public sheet.",
+        },
+        {
+          title: "Living data, not a snapshot",
+          body: "Unofficial counts change when the ECT revises figures. The team kept the structured sheet aligned with that update cycle so corrections did not mean retyping hundreds of districts by hand.",
+        },
+      ],
+      approachTitle: "How we approached it",
+      approach: [
+        "Start from layout, not from a plain-text dump: anchor columns to the ECT template, then OCR each cell or region. Copy-pasting a whole page fails because Thai text and numbers do not survive as clean, aligned Unicode when mixed with table lines and stamps.",
+        "Normalize numbers in one place: accept strings written with Thai digits, strip thousand separators, convert to integers, and feed a single schema — so mixed notation never forced a fork of the code per file.",
+        "Sanity-check against geography: 400 constituencies, province subtotals, and obvious total mismatches so bad pages were flagged before journalists relied on them.",
+      ],
+      results: [
+        { value: "400", label: "Single-seat constituencies nationwide" },
+        { value: "ECT 69", label: "Election Commission unofficial PDF portal" },
+        { value: "Open sheet", label: "Shared Google Sheet for newsrooms" },
+      ],
     },
   },
   {
