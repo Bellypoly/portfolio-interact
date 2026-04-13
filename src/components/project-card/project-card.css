@@ -48,6 +48,25 @@
   transform-origin: top center;
 }
 
+.project-card__badges {
+  @apply pointer-events-none absolute left-3 top-3 z-[2] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-1.5;
+}
+
+.project-card__badge {
+  @apply shrink-0 truncate rounded border border-white/20 bg-black/55 px-2 py-0.5 font-silkscreen text-[0.625rem] font-normal uppercase tracking-[0.12em] backdrop-blur-sm;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+  max-width: 11rem;
+}
+
+.project-card__badge--context {
+  color: var(--pf-teal-cyan);
+}
+
+.project-card__badge--research {
+  border-color: rgb(var(--pf-gold-rgb) / 0.45);
+  color: color-mix(in srgb, var(--pf-gold) 45%, #fde047 55%);
+}
+
 .project-card__scrim {
   @apply absolute inset-0 pointer-events-none;
   background: linear-gradient(

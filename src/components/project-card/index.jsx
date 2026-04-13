@@ -17,6 +17,10 @@ const ProjectCard = React.memo(function ProjectCard({
   /** "top-clip" = 100% width, natural height, top-aligned, bottom clipped; default "cover" */
   imageFit = "cover",
   imagePosition,
+  /** Mission Gallery context tag (Product, Civic tech, …) */
+  contextLabel,
+  /** Second pill when present (e.g. Research) */
+  groupBadge,
 }) {
   const base = import.meta.env.BASE_URL;
   const isTopClip = imageFit === "top-clip";
@@ -55,6 +59,20 @@ const ProjectCard = React.memo(function ProjectCard({
   const body = (
     <>
       <div className={mediaClass}>
+        {contextLabel || groupBadge ? (
+          <div className="project-card__badges">
+            {contextLabel ? (
+              <span className="project-card__badge project-card__badge--context">
+                {contextLabel}
+              </span>
+            ) : null}
+            {groupBadge ? (
+              <span className="project-card__badge project-card__badge--research">
+                {groupBadge}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
         {imageEl}
         <div className="project-card__scrim" aria-hidden="true" />
       </div>

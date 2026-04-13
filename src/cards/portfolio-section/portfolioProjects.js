@@ -1,15 +1,44 @@
 /**
  * Portfolio projects — one entry drives Mission Gallery cards and `/project/:slug` case studies.
  * Optional `caseStudy.techStack`: `{ label, href }[]` (or legacy `string[]`) — Stack row in meta; links open in a new tab.
+ *
+ * `portfolioGroup` + `portfolioYear` drive Mission Gallery order: professional work and competitions
+ * first (newest year first), then research tied to the Education timeline (newest first).
+ *
+ * `portfolioLabel` — short Mission Gallery context tag (fixed vocabulary): Product, Competition,
+ * Thesis, Paper, Academic, Marketplace, Platform, Civic tech, Public sector.
  */
 
 export function getPortfolioProjectBySlug(slug) {
   return PORTFOLIO_PROJECTS.find((p) => p.slug === slug) ?? null;
 }
 
+function compareMissionGalleryOrder(a, b) {
+  const y = (b.portfolioYear ?? 0) - (a.portfolioYear ?? 0);
+  if (y !== 0) return y;
+  return (a.slug ?? "").localeCompare(b.slug ?? "");
+}
+
+/** Ordered list for the Mission Gallery section (group 1: work + competitions, group 2: research). */
+export function getMissionGalleryProjects() {
+  const professional = PORTFOLIO_PROJECTS.filter(
+    (p) => p.portfolioGroup !== "research",
+  );
+  const research = PORTFOLIO_PROJECTS.filter(
+    (p) => p.portfolioGroup === "research",
+  );
+  return [
+    ...professional.sort(compareMissionGalleryOrder),
+    ...research.sort(compareMissionGalleryOrder),
+  ];
+}
+
 export const PORTFOLIO_PROJECTS = [
   {
     slug: "dynamic-paywall",
+    portfolioGroup: "professional",
+    portfolioYear: 2025,
+    portfolioLabel: "Product",
     anchorId: "portfolio",
     name: "AI-Powered Dynamic Paywall",
     desc: "ML-driven dynamic paywall balancing subscription growth against reader engagement.",
@@ -110,7 +139,195 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
+    slug: "jerdi-kids",
+    portfolioGroup: "professional",
+    portfolioYear: 2017,
+    portfolioLabel: "Competition",
+    name: "JerDi — เจอดิ",
+    desc: "Architected, designed, and built — UI/UX for app and wristband, plus hands-on development; QR + BLE and receivers where you need coverage.",
+    img: "images/portfolio/jerdi/thumbnail.png",
+    imgWebp: "images/portfolio/jerdi/thumbnail.webp",
+    alt: "JerDi — JERDi wordmark, robotic hand holding QR wristband, phone app wireframes and human outline on teal tech background",
+    caseStudy: {
+      eyebrow: "System design · UI/UX · Development · QR & BLE · Social impact",
+      featuredImg: "images/portfolio/jerdi/featured-image.png",
+      featuredImgWebp: "images/portfolio/jerdi/featured-image.webp",
+      featuredImageAlt:
+        "JerDi hero — Stay Connected Stay Safe tagline, phone showing Finding JerDi-Kid map UI with Navigate and Play Sound, QR wristband, Found notification, Quick Find QR callout, family in park",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Design a scalable, community-driven platform to locate missing children and elderly people by combining QR code wristbands (universal camera scan) with BLE beacon wristbands and deployed receivers (phones, tablets, or fixed gateways) that listen for proximity — unified backend, notifications, and a rollout path for public and institutional settings. I owned UI/UX for the caregiver-facing application (flows for alerts, maps, and status) and for the wristband touchpoint: QR layout and legibility at a glance, band surface treatment, and visual continuity with the app so the hardware read as one product family. I was also the developer: I implemented the web platform and application UI in code, wiring integrations and notification paths — not only mocks or specs.",
+      disciplines: [
+        "System architecture",
+        "UI/UX — mobile app & wristband touchpoint",
+        "Software development — web platform & app",
+        "BLE / QR prototyping",
+        "Community platform design",
+      ],
+      context: "Young Technopreneur — Samart × NSTDA BIC (2017)",
+      techStack: [
+        {
+          label: "QR codes",
+          href: "https://en.wikipedia.org/wiki/QR_code",
+        },
+        {
+          label: "BLE beacons",
+          href: "https://en.wikipedia.org/wiki/Bluetooth_Low_Energy_beacon",
+        },
+        {
+          label: "Web platform",
+          href: "https://developer.mozilla.org/en-US/docs/Web",
+        },
+        {
+          label: "Real-time notifications",
+          href: "https://en.wikipedia.org/wiki/Push_technology",
+        },
+      ],
+      results: [
+        { value: "฿30,000", label: "Development grant (ทุนพัฒนาผลงาน)" },
+        { value: "Top 20", label: "Final round — 138 teams entered" },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "JerDi (เจอดิ) means \u201cencounter it\u201d in Thai — the name captures the core promise: anyone nearby can help a family find their missing person.",
+        "JerDi is a community-driven platform built on two complementary technologies: QR codes on wristbands so any bystander can identify and report a sighting with a phone camera — no app required for the scan — and BLE beacons on wristbands so a missing person can be sensed when they come within range of a receiver. Receivers mean any listening device you control: a caregiver phone with the app, a tablet mounted on a school bus, a gateway at a school gate or hospital ward entrance, or Bluetooth-enabled kiosks in a mall or transit hub. Where you place receivers defines where passive detection is possible; both paths feed the same real-time notification pipeline to family, call center, and authorities.",
+        "The project competed in the electronics & software industry track of Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี), a national startup program co-run by Samart Group and NSTDA (National Science and Technology Development Agency) BIC. From 138 teams, the JerDi-Kids entry reached the final 20 and received the ฿30,000 development grant (ทุนพัฒนาผลงาน).",
+        {
+          text: "Competition materials included the full ",
+          externalLink: {
+            href: "https://drive.google.com/file/d/1cQqFZYl-9I-GLykKMzgalBebXird2AuS/view?usp=drive_link",
+            label: "JerDi business plan (PDF)",
+          },
+          after:
+            " — market, operations, and rollout narrative as submitted to the program.",
+        },
+      ],
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role covered system architecture for both QR and beacon flows, hands-on software development on the web platform and app, BLE hardware evaluation, UI/UX for the app and the wearable surface, and how those pieces read as one product.",
+      pillars: [
+        {
+          title: "System architecture",
+          body: "I designed unified pipelines for both paths: QR scan \u2192 backend \u2192 notifications to family, call center, and police, plus beacon proximity events from deployed receivers \u2192 the same backend so institutional and public scenarios share one alert model. I implemented the client and integration layers for those flows in code, not only on paper. The QR path maximizes reach; the beacon path adds passive detection wherever listening hardware or apps are in range.",
+        },
+        {
+          title: "App & wristband UI/UX",
+          body: "For the application I structured flows for high-stress use: clear alerts, map and status context, and paths for family and authorities without burying the main action. For the wristband I treated the face as a UI surface: QR size and contrast for camera scan at arm\u2019s length, brand and typography aligned with the app, and a layout that still reads when the band is partially obscured. The goal was one mental model — scan in public, sense in covered spaces — expressed consistently on glass and on the band.",
+        },
+        {
+          title: "BLE beacon prototyping",
+          body: "I prototyped and evaluated commodity BLE beacon hardware, testing proximity accuracy, signal stability indoors vs outdoors, battery lifecycle, and real-world constraints: the missing person\u2019s band must be within radio range of a receiver, and someone\u2019s phone only helps if Bluetooth is on and the app or OS can scan — which is why fixed or vehicle-mounted receivers (e.g. a school-bus tablet) matter for predictable coverage.",
+        },
+        {
+          title: "QR + beacon as one product",
+          body: "The project deliberately uses both QR codes and beacon technology: QR scales to any smartphone with a camera for broad public participation; beacons pair with receivers you deploy for coverage you design — e.g. roll call on a school bus route, check-in at a clinic lobby, perimeter alerts at a care home, or footfall zones in retail and transit. I documented how each mode fits different deployment contexts while keeping a single family-facing experience.",
+        },
+      ],
+      approachTitle: "The competition",
+      approach: [
+        "Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี) is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. The program runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
+        "The JerDi-Kids entry entered the electronics & software track, cleared the field of 138 teams to reach the final 20, and was awarded the ฿30,000 development grant — the funding tier for the highest-scoring finalists below the top-3 prize podium.",
+      ],
+      showcase: {
+        title: "On stage at Samart Innovation Awards",
+        figureGridColumns: 2,
+        mobile: [
+          {
+            img: "images/portfolio/jerdi/award-ceremony.png",
+            alt: "JerDi team receiving the ฿30,000 development grant cheque at Samart Innovation Awards",
+            caption:
+              "Receiving the ฿30,000 ทุนพัฒนาผลงาน (development grant) at Samart Innovation Awards",
+          },
+          {
+            img: "images/portfolio/jerdi/team.png",
+            alt: "JerDi team selfie at the Young Technopreneur awards ceremony",
+            caption:
+              "Team photo at the award announcement — Young Technopreneur × NSTDA BIC",
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: "federated-learning-energy",
+    portfolioGroup: "research",
+    portfolioYear: 2020,
+    portfolioLabel: "Thesis",
+    name: "On Simulating Energy Consumption of Federated Learning Systems",
+    desc: "MATLAB simulation study: federated learning energy use under NOMA — compute vs radio, sweepable regimes, reproducible figures.",
+    img: "images/portfolio/federated-learning-energy/thumbnail.png",
+    imgWebp: "images/portfolio/federated-learning-energy/thumbnail.webp",
+    alt: "Federated learning poster — rocket, satellite, and rover linked to a central cloud with ΔW updates; tagline: local training, no raw data sharing",
+    link: "https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems",
+    caseStudy: {
+      eyebrow: "Research · Systems · Wireless",
+      featuredImg:
+        "images/portfolio/federated-learning-energy/featured-image.jpg",
+      featuredImgWebp:
+        "images/portfolio/federated-learning-energy/featured-image.webp",
+      featuredImageAlt:
+        "Diagram — server aggregates local updates ΔW from devices with battery energy indicators; title: On Simulating Energy Consumption of Federated Learning systems",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Simulate how federated learning workloads consume energy when non-orthogonal multiple access (NOMA) shapes the radio budget.",
+      disciplines: [
+        "MATLAB simulation",
+        "Federated learning",
+        "Wireless modeling",
+      ],
+      context: "Academic / systems research",
+      techStack: [
+        {
+          label: "MATLAB",
+          href: "https://www.mathworks.com/products/matlab.html",
+        },
+        {
+          label: "C",
+          href: "https://en.wikipedia.org/wiki/C_(programming_language)",
+        },
+        {
+          label: "Federated learning",
+          href: "https://en.wikipedia.org/wiki/Federated_learning",
+        },
+        {
+          label: "NOMA (wireless)",
+          href: "https://en.wikipedia.org/wiki/Non-orthogonal_multiple_access",
+        },
+      ],
+      overview: [
+        "Federated learning pushes computation to the edge, but the training story is incomplete without the cost of communication. NOMA changes who interferes with whom—so energy curves are not interchangeable with vanilla orthogonality assumptions.",
+        "The simulation's value is comparative: sweep regimes, quantify tradeoffs, and make assumptions explicit for reproducibility.",
+      ],
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role: implement the MATLAB simulation and analysis for federated learning energy use under NOMA. I kept the model legible to wireless and ML readers—parameters with physical meanings, outputs that separate compute vs transmit costs.",
+      pillars: [
+        {
+          title: "Faithful abstraction",
+          body: "I encoded channel and scheduling assumptions without over-claiming full-stack fidelity.",
+        },
+        {
+          title: "Sweep-ready",
+          body: "I built parameter grids that highlight breakpoints—when FL round budgets dominate, when NOMA wins, and saturation regimes.",
+        },
+        {
+          title: "Open artifacts",
+          body: "I published scripts and figures so others could re-run and challenge the conclusions.",
+        },
+      ],
+      approachTitle: "How I shipped it",
+      approach: [
+        "I wrote MATLAB modules for client sampling, aggregation rounds, and energy accounting tied to the RF model.",
+        "I generated plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
+      ],
+      results: null,
+    },
+  },
+  {
     slug: "subscription-checkout-activation",
+    portfolioGroup: "professional",
+    portfolioYear: 2025,
+    portfolioLabel: "Product",
     name: "End-to-End Subscription Conversion System",
     desc: "Rebuilt a leaking 3-page checkout into a single-page conversion pipeline — then kept new subscribers engaged.",
     img: "images/portfolio/subscription-checkout/thumbnail.png",
@@ -494,6 +711,9 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     slug: "article-page-redesign",
+    portfolioGroup: "professional",
+    portfolioYear: 2025,
+    portfolioLabel: "Product",
     name: "Article Experience & Engagement Optimization",
     desc: "Article surface rebuilt for readability, engagement, and Core Web Vitals — smarter GAM, Viafoura commenting, paywall-aware UI, GA4 & ops monitoring.",
     img: "images/portfolio/article-redesign/thumbnail.png",
@@ -749,6 +969,9 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     slug: "local-elections-hub",
+    portfolioGroup: "professional",
+    portfolioYear: 2022,
+    portfolioLabel: "Product",
     name: "Local Elections Hub",
     desc: "Data-driven elections UI — dynamic race tables, anchor navigation, lightweight viz, and a responsive grid built for real-time coverage and mobile.",
     img: "images/portfolio/local-elections-hub/thumbnail.png",
@@ -935,233 +1158,129 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
-    slug: "parliament-watch-ocr",
-    name: "Parliament Watch — Thai Voting Record OCR",
-    desc: "Parliament Watch — OCR pipeline that turns scanned House voting PDFs into structured tables for open data and infographics (Thai script & numerals, handwriting, inconsistent layouts).",
-    cardImagePosition: "center 71%",
-    img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
-    imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
-    alt: "WeVis Election 69 — party unity voting chart for Thailand\u2019s 26th House of Representatives (2566\u20132568)",
-    link: "https://wevis.info/partyunityvisual/",
+    slug: "jobthai",
+    portfolioGroup: "professional",
+    portfolioYear: 2019,
+    portfolioLabel: "Marketplace",
+    name: "JobThai",
+    desc: "Thailand job search platform — search/recommendations, resume creator.",
+    img: "images/portfolio/jobthai.jpg",
+    alt: "JobThai",
+    link: "https://www.jobthai.com/en/resume",
+    anchorId: "portfolio-jobthai",
     caseStudy: {
-      eyebrow: "Civic Tech · OCR · Open Data",
-      featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
-      featuredImgWebp:
-        "images/portfolio/parliament-watch-ocr/featured-image.webp",
-      featuredImageAlt:
-        "WeVis Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
-      featuredImageCompact: true,
-      featuredImageObjectPosition: "center center",
-      task: "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
-      disciplines: ["Document OCR", "Data engineering", "Civic technology"],
-      context: "WeVis / Parliament Watch (open-source civic tech, Thailand)",
+      eyebrow: "Product · Marketplace",
+      task: "Improve how seekers discover relevant roles—and how they present themselves—without turning the experience into a factory of generic resumes.",
+      disciplines: ["Search & discovery", "Recommendations", "Resume tools"],
+      context: "National job marketplace",
       techStack: [
+        { label: "Laravel", href: "https://laravel.com/" },
         {
-          label: "Python",
-          href: "https://www.python.org/",
+          label: "Elasticsearch",
+          href: "https://www.elastic.co/elasticsearch",
         },
         {
-          label: "OCR",
-          href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
         },
-        {
-          label: "WeVis / Parliament Watch",
-          href: "https://parliamentwatch.wevis.info",
-        },
-        {
-          label: "Open Data (CC BY-NC 4.0)",
-          href: "https://creativecommons.org/licenses/by-nc/4.0/",
-        },
-      ],
-      overviewTitle: "Overview",
-      overview: [
-        "Thailand\u2019s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th. These are not machine-readable: they\u2019re scanned documents in government templates, with Thai-language text, Thai numerals, handwritten annotations, embedded photos, and inconsistent table layouts across sessions.",
-        "Parliament Watch (by WeVis) needed this data in structured form to power voting visualizations like the Party Unity chart, which maps how 7 major parties voted across 107 motions in the 26th House. My role was the OCR layer: turning those PDFs into clean tabular data that downstream analysts and front-end developers could use directly.",
-        {
-          text: "Live visualization: ",
-          externalLink: {
-            href: "https://wevis.info/partyunityvisual/",
-            label: "Party Unity Visual (WeVis)",
-          },
-          after: "",
-        },
-        {
-          text: "Structured output (open data): ",
-          externalLink: {
-            href: "https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250",
-            label: "Vote26 Data — per-party voting records (Google Sheets)",
-          },
-          after:
-            " \u2014 the tabular dataset my OCR pipeline produced from scanned parliament PDFs, used directly by the visualization and analysis teams.",
-        },
-      ],
-      strategyTitle: "What I built",
-      pillars: [
-        {
-          title: "Thai-language OCR pipeline",
-          body: "Handled Thai script, Thai numerals (\u0E50\u2013\u0E59), and mixed Thai/Arabic number formats that standard OCR engines misclassify or skip entirely.",
-        },
-        {
-          title: "Layout-aware extraction",
-          body: "Parsed scanned government templates where table structures, column alignment, and cell boundaries vary across sessions \u2014 some pages include handwritten marks, stamps, or embedded photographs that break naive grid detection.",
-        },
-        {
-          title: "Validation and downstream handoff",
-          body: "Output clean, structured records (per-MP vote, per-motion) that Parliament Watch consumed directly for front-end rendering and open data export \u2014 no manual correction step.",
-        },
-      ],
-      approachTitle: "How I approached it",
-      approach: [
-        "I treated each PDF page as an image-first problem: detect table regions, segment cells, then run OCR per cell rather than full-page text extraction. This handled the inconsistent layouts and inline noise (stamps, handwriting) much better than document-level OCR.",
-        "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
-      ],
-      results: null,
-    },
-  },
-  {
-    slug: "electricity-bill-breakdown",
-    name: "Where Does Your Electricity Bill Go?",
-    desc: "Flow design and information architecture for a civic explainer that breaks down Thai electricity bills — where charges come from, who gets paid, and whether the pricing is fair.",
-    img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
-    imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
-    alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
-    link: "https://electricity-bill-breakdown.justpow.co/",
-    caseStudy: {
-      eyebrow: "Civic Tech · Flow Design · Energy Literacy",
-      featuredImg:
-        "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
-      featuredImgWebp:
-        "images/portfolio/electricity-bill-breakdown/featured-image.webp",
-      featuredImageAlt:
-        "JustPow — Electricity BiLL BREAKDOWN on light textured paper: yellow lightning bolt and BiLL accent, English subtitle on where your monthly bill goes and who gets paid, ring of gray energy lifecycle line icons",
-      featuredImageCompact: true,
-      featuredImageObjectPosition: "center center",
-      task: "Design the user flow and information structure for a civic tool that explains Thai electricity bills — what each charge means, where the money goes, and whether the pricing is fair — so readers without a utility background can follow a complex regulatory topic one step at a time.",
-      disciplines: [
-        "User-flow design",
-        "Information architecture",
-        "Domain translation (energy → plain language)",
-      ],
-      context: "JustPow (Thailand)",
-      techStack: [
-        {
-          label: "FigJam",
-          href: "https://www.figma.com/figjam/",
-        },
-        {
-          label: "WordPress",
-          href: "https://wordpress.org/",
-        },
-        {
-          label: "Elementor Pro",
-          href: "https://elementor.com/",
-        },
-      ],
-      overviewTitle: "Overview",
-      overview: [
-        "Most Thai consumers see a single total on their electricity bill. Behind it sits a layered structure — base energy charges, a variable fuel tariff (Ft), regulatory surcharges, VAT — that few people can parse without domain knowledge. This tool unpacks that structure and asks an uncomfortable civic question: is the price fair?",
-        "My role was flow design and information support. I mapped the reader journey from casual curiosity through progressive disclosure of each charge component, making sure every screen earns the next rather than dumping definitions upfront. I also grounded the copy in how Thai billing and tariff mechanisms actually work, so the tool educates without hand-waving.",
-        "I brought firsthand utility-system context from my time at PEA (Provincial Electricity Authority of Thailand) — outage management, billing integrations, real-time consumption dashboards — which gave me the mental model to connect what appears on a PDF bill to the engineering and regulatory reality underneath.",
-      ],
-      strategyTitle: "What I shaped",
-      strategyIntro:
-        "My lane: flow architecture and domain-grounded information design. Engineering (WordPress / Elementor) was handled by the team; I owned how users move through the content and whether the explanations hold up technically.",
-      pillars: [
-        {
-          title: "Progressive disclosure flow",
-          body: "Mapped the journey from a single question (\u201cwhat am I paying for?\u201d) through energy charges, Ft, fixed costs, and taxes — each screen resolves one layer before introducing the next, so complexity builds gradually rather than all at once.",
-        },
-        {
-          title: "Domain-accurate language",
-          body: "Wrote and reviewed explanations against real Thai tariff structures and PEA billing logic, replacing vague or outdated folklore with grounded, plain-language descriptions that a non-engineer can follow.",
-        },
-        {
-          title: "Fairness as reader judgment",
-          body: "Framed the closing question (\u201cis it fair?\u201d) as an informed conclusion the reader reaches on their own — evidence in the flow, opinion left to the user. The tool is civic, not a campaign.",
-        },
-      ],
-      approachTitle: "How PEA experience shaped my contribution",
-      approach: [
-        "At PEA I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",
-        "I used that context to keep terminology consistent with what Thai consumers see on real bills while explaining the engineering levers (variable fuel components, demand charges, cross-subsidy structures) in language that doesn't require a utility background.",
-      ],
-      results: null,
-    },
-  },
-  {
-    slug: "federated-learning-energy",
-    name: "On Simulating Energy Consumption of Federated Learning Systems",
-    desc: "MATLAB simulation study: federated learning energy use under NOMA — compute vs radio, sweepable regimes, reproducible figures.",
-    img: "images/portfolio/federated-learning-energy/thumbnail.png",
-    imgWebp: "images/portfolio/federated-learning-energy/thumbnail.webp",
-    alt: "Federated learning poster — rocket, satellite, and rover linked to a central cloud with ΔW updates; tagline: local training, no raw data sharing",
-    link: "https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems",
-    caseStudy: {
-      eyebrow: "Research · Systems · Wireless",
-      featuredImg:
-        "images/portfolio/federated-learning-energy/featured-image.jpg",
-      featuredImgWebp:
-        "images/portfolio/federated-learning-energy/featured-image.webp",
-      featuredImageAlt:
-        "Diagram — server aggregates local updates ΔW from devices with battery energy indicators; title: On Simulating Energy Consumption of Federated Learning systems",
-      featuredImageCompact: true,
-      featuredImageObjectPosition: "center center",
-      task: "Simulate how federated learning workloads consume energy when non-orthogonal multiple access (NOMA) shapes the radio budget.",
-      disciplines: [
-        "MATLAB simulation",
-        "Federated learning",
-        "Wireless modeling",
-      ],
-      context: "Academic / systems research",
-      techStack: [
-        {
-          label: "MATLAB",
-          href: "https://www.mathworks.com/products/matlab.html",
-        },
-        {
-          label: "C",
-          href: "https://en.wikipedia.org/wiki/C_(programming_language)",
-        },
-        {
-          label: "Federated learning",
-          href: "https://en.wikipedia.org/wiki/Federated_learning",
-        },
-        {
-          label: "NOMA (wireless)",
-          href: "https://en.wikipedia.org/wiki/Non-orthogonal_multiple_access",
-        },
+        { label: "MySQL", href: "https://www.mysql.com/" },
       ],
       overview: [
-        "Federated learning pushes computation to the edge, but the training story is incomplete without the cost of communication. NOMA changes who interferes with whom—so energy curves are not interchangeable with vanilla orthogonality assumptions.",
-        "The simulation's value is comparative: sweep regimes, quantify tradeoffs, and make assumptions explicit for reproducibility.",
+        "Job search products compete on relevance, trust, and speed. Small friction in filters, dead-ends in search, or weak preview of requirements cost applications.",
+        "Resume tooling sits in the same journey: the right guidance increases completion, but heavy-handed templates make everyone look the same.",
       ],
       strategyTitle: "What I did",
       strategyIntro:
-        "My role: implement the MATLAB simulation and analysis for federated learning energy use under NOMA. I kept the model legible to wireless and ML readers—parameters with physical meanings, outputs that separate compute vs transmit costs.",
+        "My role: improve search/discovery and resume tooling on a national marketplace (Laravel, Elasticsearch, MySQL). I aligned three journeys—fast browsing, targeted search, and deep prep (resume, alerts)—each with its own hierarchy inside one design system.",
       pillars: [
         {
-          title: "Faithful abstraction",
-          body: "I encoded channel and scheduling assumptions without over-claiming full-stack fidelity.",
+          title: "Clarity of fit",
+          body: "I pushed salary, location, and seniority earlier in the journey so seekers didn’t invest in mismatched roles.",
         },
         {
-          title: "Sweep-ready",
-          body: "I built parameter grids that highlight breakpoints—when FL round budgets dominate, when NOMA wins, and saturation regimes.",
+          title: "Momentum",
+          body: "I reduced steps between interest, saved searches, and application-ready profiles.",
         },
         {
-          title: "Open artifacts",
-          body: "I published scripts and figures so others could re-run and challenge the conclusions.",
+          title: "Credibility",
+          body: "I emphasized signals employers and seekers trust: verification, posting freshness, and human-readable requirements.",
         },
       ],
       approachTitle: "How I shipped it",
       approach: [
-        "I wrote MATLAB modules for client sampling, aggregation rounds, and energy accounting tied to the RF model.",
-        "I generated plots that isolate uplink vs downlink, per-device heterogeneity, and convergence milestones.",
+        "I shipped flows that pair search refinement with explainable filters and resume guidance as checkpoints instead of a wall of fields.",
+        "I added instrumentation for drop-off by segment (mobile vs desktop, new vs returning) and prioritized the worst leaks first.",
+      ],
+      results: null,
+    },
+  },
+  {
+    slug: "map-magic",
+    portfolioGroup: "professional",
+    portfolioYear: 2018,
+    portfolioLabel: "Platform",
+    name: "Map Magic",
+    desc: "Thailand map API and integration toolkit.",
+    img: "images/portfolio/mapmagic.jpg",
+    alt: "MapMagic",
+    link: "https://maps.thinknet.co.th/",
+    caseStudy: {
+      eyebrow: "Platform · Geospatial",
+      task: "Give product teams dependable map primitives—search, tiles, and overlays—so maps feel native instead of bolted on.",
+      disciplines: ["API design", "Geospatial UX", "Integrations"],
+      context: "Public mapping toolkit",
+      techStack: [
+        {
+          label: "REST map APIs",
+          href: "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+        },
+        {
+          label: "Tiles & geocoding",
+          href: "https://en.wikipedia.org/wiki/Tiled_web_map",
+        },
+        {
+          label: "JavaScript",
+          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        },
+        {
+          label: "Partner integrations",
+          href: "https://en.wikipedia.org/wiki/Application_programming_interface",
+        },
+      ],
+      overview: [
+        "Teams were rebuilding the same glue around basemaps, geocoding, and styling. The goal was a cohesive surface area with predictable limits, documentation, and examples that shorten time-to-first-map.",
+        "Mobile-first usage meant performance and clarity matter as much as feature breadth: fewer surprises in the field beats a long menu of options.",
+      ],
+      strategyTitle: "What I did",
+      strategyIntro:
+        "My role: shape the public map API and integration toolkit so product teams shipped maps faster—with clear contracts, docs, and examples. I balanced backward compatibility with a cleaner conceptual model for new consumers across GIS, frontend, and partner teams.",
+      pillars: [
+        {
+          title: "Consistency",
+          body: "I standardized vocabulary for endpoints, errors, and units so mistakes surface in the IDE, not only in production traffic.",
+        },
+        {
+          title: "Progressive disclosure",
+          body: "I wrote simple examples for the common path and kept advanced controls available without cluttering the quickstart.",
+        },
+        {
+          title: "Reliability",
+          body: "I defined caching, fallbacks, and observability hooks so maps degrade gracefully instead of failing silently.",
+        },
+      ],
+      approachTitle: "How I shipped it",
+      approach: [
+        "I hardened API contracts, reference embedding flows, and guardrails for rate limits and attribution.",
+        "I documented design patterns for overlays and interaction states that stay legible across light/dark basemap styles.",
       ],
       results: null,
     },
   },
   {
     slug: "industrial-logistics-evaluation",
+    portfolioGroup: "research",
+    portfolioYear: 2016,
+    portfolioLabel: "Paper",
     anchorId: "portfolio-logistics",
     name: "Industrial Logistic Performance Evaluation",
     desc: "IEOM 2016 — evaluated logistics at a Thai printing & packaging company using the World Bank LPI framework: dimension mapping, gap analysis, and improvement paths.",
@@ -1246,120 +1365,10 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
-    slug: "map-magic",
-    name: "Map Magic",
-    desc: "Thailand map API and integration toolkit.",
-    img: "images/portfolio/mapmagic.jpg",
-    alt: "MapMagic",
-    link: "https://maps.thinknet.co.th/",
-    caseStudy: {
-      eyebrow: "Platform · Geospatial",
-      task: "Give product teams dependable map primitives—search, tiles, and overlays—so maps feel native instead of bolted on.",
-      disciplines: ["API design", "Geospatial UX", "Integrations"],
-      context: "Public mapping toolkit",
-      techStack: [
-        {
-          label: "REST map APIs",
-          href: "https://developer.mozilla.org/en-US/docs/Glossary/REST",
-        },
-        {
-          label: "Tiles & geocoding",
-          href: "https://en.wikipedia.org/wiki/Tiled_web_map",
-        },
-        {
-          label: "JavaScript",
-          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-        },
-        {
-          label: "Partner integrations",
-          href: "https://en.wikipedia.org/wiki/Application_programming_interface",
-        },
-      ],
-      overview: [
-        "Teams were rebuilding the same glue around basemaps, geocoding, and styling. The goal was a cohesive surface area with predictable limits, documentation, and examples that shorten time-to-first-map.",
-        "Mobile-first usage meant performance and clarity matter as much as feature breadth: fewer surprises in the field beats a long menu of options.",
-      ],
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role: shape the public map API and integration toolkit so product teams shipped maps faster—with clear contracts, docs, and examples. I balanced backward compatibility with a cleaner conceptual model for new consumers across GIS, frontend, and partner teams.",
-      pillars: [
-        {
-          title: "Consistency",
-          body: "I standardized vocabulary for endpoints, errors, and units so mistakes surface in the IDE, not only in production traffic.",
-        },
-        {
-          title: "Progressive disclosure",
-          body: "I wrote simple examples for the common path and kept advanced controls available without cluttering the quickstart.",
-        },
-        {
-          title: "Reliability",
-          body: "I defined caching, fallbacks, and observability hooks so maps degrade gracefully instead of failing silently.",
-        },
-      ],
-      approachTitle: "How I shipped it",
-      approach: [
-        "I hardened API contracts, reference embedding flows, and guardrails for rate limits and attribution.",
-        "I documented design patterns for overlays and interaction states that stay legible across light/dark basemap styles.",
-      ],
-      results: null,
-    },
-  },
-  {
-    slug: "jobthai",
-    name: "JobThai",
-    desc: "Thailand job search platform — search/recommendations, resume creator.",
-    img: "images/portfolio/jobthai.jpg",
-    alt: "JobThai",
-    link: "https://www.jobthai.com/en/resume",
-    anchorId: "portfolio-jobthai",
-    caseStudy: {
-      eyebrow: "Product · Marketplace",
-      task: "Improve how seekers discover relevant roles—and how they present themselves—without turning the experience into a factory of generic resumes.",
-      disciplines: ["Search & discovery", "Recommendations", "Resume tools"],
-      context: "National job marketplace",
-      techStack: [
-        { label: "Laravel", href: "https://laravel.com/" },
-        {
-          label: "Elasticsearch",
-          href: "https://www.elastic.co/elasticsearch",
-        },
-        {
-          label: "JavaScript",
-          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-        },
-        { label: "MySQL", href: "https://www.mysql.com/" },
-      ],
-      overview: [
-        "Job search products compete on relevance, trust, and speed. Small friction in filters, dead-ends in search, or weak preview of requirements cost applications.",
-        "Resume tooling sits in the same journey: the right guidance increases completion, but heavy-handed templates make everyone look the same.",
-      ],
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role: improve search/discovery and resume tooling on a national marketplace (Laravel, Elasticsearch, MySQL). I aligned three journeys—fast browsing, targeted search, and deep prep (resume, alerts)—each with its own hierarchy inside one design system.",
-      pillars: [
-        {
-          title: "Clarity of fit",
-          body: "I pushed salary, location, and seniority earlier in the journey so seekers didn’t invest in mismatched roles.",
-        },
-        {
-          title: "Momentum",
-          body: "I reduced steps between interest, saved searches, and application-ready profiles.",
-        },
-        {
-          title: "Credibility",
-          body: "I emphasized signals employers and seekers trust: verification, posting freshness, and human-readable requirements.",
-        },
-      ],
-      approachTitle: "How I shipped it",
-      approach: [
-        "I shipped flows that pair search refinement with explainable filters and resume guidance as checkpoints instead of a wall of fields.",
-        "I added instrumentation for drop-off by segment (mobile vs desktop, new vs returning) and prioritized the worst leaks first.",
-      ],
-      results: null,
-    },
-  },
-  {
     slug: "squeeze-it",
+    portfolioGroup: "research",
+    portfolioYear: 2014,
+    portfolioLabel: "Academic",
     name: "Squeeze It",
     desc: "Heuristic search marble game AI (D3.js & ML).",
     img: "images/portfolio/squeeze-it.jpg",
@@ -1412,6 +1421,9 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     slug: "rdfd",
+    portfolioGroup: "research",
+    portfolioYear: 2020,
+    portfolioLabel: "Thesis",
     name: "RDFD — Discovering Fake Drivers",
     desc: "Machine learning approach for driver identification.",
     img: "images/portfolio/rdfd/thumbnail.jpg",
@@ -1478,94 +1490,170 @@ export const PORTFOLIO_PROJECTS = [
     },
   },
   {
-    slug: "jerdi-kids",
-    name: "JerDi-Kids — เจอดิ",
-    desc: "Missing-person platform using QR codes and BLE beacons — scans and proximity signals in one system.",
-    img: "images/portfolio/jerdi-kids/thumbnail.png",
-    alt: "JerDi — NEVER LOST HOPE banner, QR and beacon-based missing person detection platform",
-    cardImageFit: "top-clip",
+    slug: "parliament-watch-ocr",
+    portfolioGroup: "professional",
+    portfolioYear: 2024,
+    portfolioLabel: "Civic tech",
+    name: "Parliament Watch — Thai Voting Record OCR",
+    desc: "Parliament Watch — OCR pipeline that turns scanned House voting PDFs into structured tables for open data and infographics (Thai script & numerals, handwriting, inconsistent layouts).",
+    cardImagePosition: "center 71%",
+    img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
+    imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
+    alt: "WeVis Election 69 — party unity voting chart for Thailand\u2019s 26th House of Representatives (2566\u20132568)",
+    link: "https://wevis.info/partyunityvisual/",
     caseStudy: {
-      eyebrow: "System design · BLE · Social impact",
-      featuredImg: "images/portfolio/jerdi-kids/thumbnail.png",
+      eyebrow: "Civic Tech · OCR · Open Data",
+      featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
+      featuredImgWebp:
+        "images/portfolio/parliament-watch-ocr/featured-image.webp",
+      featuredImageAlt:
+        "WeVis Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Design a scalable, community-driven platform to locate missing children and elderly people using both QR codes and BLE beacon technology — shared notification pipeline, complementary strengths for public scans vs proximity detection.",
-      disciplines: [
-        "System architecture",
-        "BLE / QR prototyping",
-        "Community platform design",
-      ],
-      context: "Young Technopreneur — Samart × NSTDA BIC (2017)",
+      task: "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
+      disciplines: ["Document OCR", "Data engineering", "Civic technology"],
+      context: "WeVis / Parliament Watch (open-source civic tech, Thailand)",
       techStack: [
         {
-          label: "QR codes",
-          href: "https://en.wikipedia.org/wiki/QR_code",
+          label: "Python",
+          href: "https://www.python.org/",
         },
         {
-          label: "BLE beacons",
-          href: "https://en.wikipedia.org/wiki/Bluetooth_Low_Energy_beacon",
+          label: "OCR",
+          href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
         },
         {
-          label: "Web platform",
-          href: "https://developer.mozilla.org/en-US/docs/Web",
+          label: "WeVis / Parliament Watch",
+          href: "https://parliamentwatch.wevis.info",
         },
         {
-          label: "Real-time notifications",
-          href: "https://en.wikipedia.org/wiki/Push_technology",
+          label: "Open Data (CC BY-NC 4.0)",
+          href: "https://creativecommons.org/licenses/by-nc/4.0/",
         },
-      ],
-      results: [
-        { value: "฿30,000", label: "Development grant (ทุนพัฒนาผลงาน)" },
-        { value: "Top 20", label: "Final round — 138 teams entered" },
       ],
       overviewTitle: "Overview",
       overview: [
-        "JerDi (เจอดิ) means \u201cencounter it\u201d in Thai — the name captures the core promise: anyone nearby can help a family find their missing person.",
-        "JerDi-Kids is a community-driven platform that uses both technologies together: QR codes on wristbands for universal identification (any smartphone camera, no app required) and BLE beacons for proximity-based detection where Bluetooth is available — indoors, schools, or hospitals. Scans and beacon hits feed the same real-time notification pipeline to family, a call center, and authorities.",
-        "The project competed in the electronics & software industry track of Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี), a national startup program co-run by Samart Group and NSTDA BIC. From 138 teams, JerDi-Kids reached the final 20 and received the ฿30,000 development grant (ทุนพัฒนาผลงาน).",
+        "Thailand\u2019s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th. These are not machine-readable: they\u2019re scanned documents in government templates, with Thai-language text, Thai numerals, handwritten annotations, embedded photos, and inconsistent table layouts across sessions.",
+        "Parliament Watch (by WeVis) needed this data in structured form to power voting visualizations like the Party Unity chart, which maps how 7 major parties voted across 107 motions in the 26th House. My role was the OCR layer: turning those PDFs into clean tabular data that downstream analysts and front-end developers could use directly.",
+        {
+          text: "Live visualization: ",
+          externalLink: {
+            href: "https://wevis.info/partyunityvisual/",
+            label: "Party Unity Visual (WeVis)",
+          },
+          after: "",
+        },
+        {
+          text: "Structured output (open data): ",
+          externalLink: {
+            href: "https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250",
+            label: "Vote26 Data — per-party voting records (Google Sheets)",
+          },
+          after:
+            " \u2014 the tabular dataset my OCR pipeline produced from scanned parliament PDFs, used directly by the visualization and analysis teams.",
+        },
       ],
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role covered system architecture, the web platform, and prototyping both QR-based flows and BLE beacon hardware so the product could rely on QR codes and beacon technology in parallel.",
+      strategyTitle: "What I built",
       pillars: [
         {
-          title: "System architecture",
-          body: "I designed the end-to-end pipeline so QR scans and beacon proximity events both route \u2192 backend \u2192 real-time notification to family, call center, and police. QR covers the widest public surface (zero install); beacons add passive proximity where Bluetooth is on and the environment is suitable.",
+          title: "Thai-language OCR pipeline",
+          body: "Handled Thai script, Thai numerals (\u0E50\u2013\u0E59), and mixed Thai/Arabic number formats that standard OCR engines misclassify or skip entirely.",
         },
         {
-          title: "BLE beacon prototyping",
-          body: "I prototyped and evaluated commodity BLE beacon hardware, testing proximity accuracy, signal stability indoors vs outdoors, battery lifecycle, and the constraint that passive detection needs Bluetooth enabled on the bystander\u2019s phone.",
+          title: "Layout-aware extraction",
+          body: "Parsed scanned government templates where table structures, column alignment, and cell boundaries vary across sessions \u2014 some pages include handwritten marks, stamps, or embedded photographs that break naive grid detection.",
         },
         {
-          title: "QR + BLE in one product",
-          body: "The project deliberately combines both: QR wristbands for frictionless, battery-free identification at a distance of a scan, and BLE for exploration and alerts when devices can hear nearby beacons. I documented how each channel fits different contexts and how they reinforce the same missing-person workflow.",
+          title: "Validation and downstream handoff",
+          body: "Output clean, structured records (per-MP vote, per-motion) that Parliament Watch consumed directly for front-end rendering and open data export \u2014 no manual correction step.",
         },
       ],
-      approachTitle: "The competition",
+      approachTitle: "How I approached it",
       approach: [
-        "Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี) is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. The program runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
-        "JerDi-Kids entered the electronics & software track, cleared the field of 138 teams to reach the final 20, and was awarded the ฿30,000 development grant — the funding tier for the highest-scoring finalists below the top-3 prize podium.",
+        "I treated each PDF page as an image-first problem: detect table regions, segment cells, then run OCR per cell rather than full-page text extraction. This handled the inconsistent layouts and inline noise (stamps, handwriting) much better than document-level OCR.",
+        "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
       ],
-      showcase: {
-        title: "On stage at Samart Innovation Awards",
-        figureGridColumns: 2,
-        mobile: [
-          {
-            img: "images/portfolio/jerdi-kids/award-ceremony.png",
-            alt: "JerDi-Kids team receiving the ฿30,000 development grant cheque at Samart Innovation Awards",
-            caption: "Receiving the ฿30,000 ทุนพัฒนาผลงาน (development grant) at Samart Innovation Awards",
-          },
-          {
-            img: "images/portfolio/jerdi-kids/team.png",
-            alt: "JerDi-Kids team selfie at the Young Technopreneur awards ceremony",
-            caption: "Team photo at the award announcement — Young Technopreneur × NSTDA BIC",
-          },
-        ],
-      },
+      results: null,
+    },
+  },
+  {
+    slug: "electricity-bill-breakdown",
+    portfolioGroup: "professional",
+    portfolioYear: 2024,
+    portfolioLabel: "Civic tech",
+    name: "Where Does Your Electricity Bill Go?",
+    desc: "Flow design and information architecture for a civic explainer that breaks down Thai electricity bills — where charges come from, who gets paid, and whether the pricing is fair.",
+    img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
+    imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
+    alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
+    link: "https://electricity-bill-breakdown.justpow.co/",
+    caseStudy: {
+      eyebrow: "Civic Tech · Flow Design · Energy Literacy",
+      featuredImg:
+        "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
+      featuredImgWebp:
+        "images/portfolio/electricity-bill-breakdown/featured-image.webp",
+      featuredImageAlt:
+        "JustPow — Electricity BiLL BREAKDOWN on light textured paper: yellow lightning bolt and BiLL accent, English subtitle on where your monthly bill goes and who gets paid, ring of gray energy lifecycle line icons",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Design the user flow and information structure for a civic tool that explains Thai electricity bills — what each charge means, where the money goes, and whether the pricing is fair — so readers without a utility background can follow a complex regulatory topic one step at a time.",
+      disciplines: [
+        "User-flow design",
+        "Information architecture",
+        "Domain translation (energy → plain language)",
+      ],
+      context: "JustPow (Thailand)",
+      techStack: [
+        {
+          label: "FigJam",
+          href: "https://www.figma.com/figjam/",
+        },
+        {
+          label: "WordPress",
+          href: "https://wordpress.org/",
+        },
+        {
+          label: "Elementor Pro",
+          href: "https://elementor.com/",
+        },
+      ],
+      overviewTitle: "Overview",
+      overview: [
+        "Most Thai consumers see a single total on their electricity bill. Behind it sits a layered structure — base energy charges, a variable fuel tariff (Ft), regulatory surcharges, VAT — that few people can parse without domain knowledge. This tool unpacks that structure and asks an uncomfortable civic question: is the price fair?",
+        "My role was flow design and information support. I mapped the reader journey from casual curiosity through progressive disclosure of each charge component, making sure every screen earns the next rather than dumping definitions upfront. I also grounded the copy in how Thai billing and tariff mechanisms actually work, so the tool educates without hand-waving.",
+        "I brought firsthand utility-system context from my time at PEA (Provincial Electricity Authority of Thailand) — outage management, billing integrations, real-time consumption dashboards — which gave me the mental model to connect what appears on a PDF bill to the engineering and regulatory reality underneath.",
+      ],
+      strategyTitle: "What I shaped",
+      strategyIntro:
+        "My lane: flow architecture and domain-grounded information design. Engineering (WordPress / Elementor) was handled by the team; I owned how users move through the content and whether the explanations hold up technically.",
+      pillars: [
+        {
+          title: "Progressive disclosure flow",
+          body: "Mapped the journey from a single question (\u201cwhat am I paying for?\u201d) through energy charges, Ft, fixed costs, and taxes — each screen resolves one layer before introducing the next, so complexity builds gradually rather than all at once.",
+        },
+        {
+          title: "Domain-accurate language",
+          body: "Wrote and reviewed explanations against real Thai tariff structures and PEA billing logic, replacing vague or outdated folklore with grounded, plain-language descriptions that a non-engineer can follow.",
+        },
+        {
+          title: "Fairness as reader judgment",
+          body: "Framed the closing question (\u201cis it fair?\u201d) as an informed conclusion the reader reaches on their own — evidence in the flow, opinion left to the user. The tool is civic, not a campaign.",
+        },
+      ],
+      approachTitle: "How PEA experience shaped my contribution",
+      approach: [
+        "At PEA I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",
+        "I used that context to keep terminology consistent with what Thai consumers see on real bills while explaining the engineering levers (variable fuel components, demand charges, cross-subsidy structures) in language that doesn't require a utility background.",
+      ],
+      results: null,
     },
   },
   {
     slug: "pea-e-service",
+    portfolioGroup: "professional",
+    portfolioYear: 2019,
+    portfolioLabel: "Public sector",
     name: "PEA E‑Service",
     desc: "One‑stop service for PEA (Provincial Electricity Authority of Thailand).",
     img: "images/portfolio/coe.jpg",

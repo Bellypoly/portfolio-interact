@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../../components/project-card";
-import { PORTFOLIO_PROJECTS } from "./portfolioProjects";
+import { getMissionGalleryProjects } from "./portfolioProjects";
 
 const PortfolioSection = React.memo(function PortfolioSection({
   sectionProgress,
@@ -13,10 +13,12 @@ const PortfolioSection = React.memo(function PortfolioSection({
     [0, 1, 1, 0.3],
   );
 
+  const missionProjects = useMemo(() => getMissionGalleryProjects(), []);
+
   return (
     <motion.div className="portfolio-section" style={{ opacity }}>
       <h2 className="portfolio-section__title">Mission Gallery</h2>
-      {PORTFOLIO_PROJECTS.map(
+      {missionProjects.map(
         ({
           anchorId,
           name,
@@ -28,6 +30,8 @@ const PortfolioSection = React.memo(function PortfolioSection({
           slug,
           cardImageFit,
           cardImagePosition,
+          portfolioGroup,
+          portfolioLabel,
         }) => {
           const card = (
             <ProjectCard
@@ -40,6 +44,10 @@ const PortfolioSection = React.memo(function PortfolioSection({
               slug={slug}
               imageFit={cardImageFit}
               imagePosition={cardImagePosition}
+              contextLabel={portfolioLabel}
+              groupBadge={
+                portfolioGroup === "research" ? "Research" : undefined
+              }
             />
           );
           return anchorId ? (
