@@ -7,7 +7,7 @@
 .edu-section {
   @apply relative z-[1] flex flex-col gap-8 w-full min-w-0;
   --edu-title-amp: clamp(2.35rem, 4.25vw + 1.2rem, 3.1rem);
-  --edu-title-mobile: clamp(2.2rem, 4.5vw + 1.25rem, 2.875rem);
+  --edu-title-mobile: clamp(2.2rem, 4.5vw + 1.25rem, 1.875rem);
   --edu-shadow-education:
     1px 1px 0 rgb(var(--pf-teal-glow-rgb) / 0.85),
     2px 2px 0 rgb(var(--pf-teal-glow-rgb) / 0.8),

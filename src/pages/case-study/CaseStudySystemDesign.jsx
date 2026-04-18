@@ -20,7 +20,7 @@ export default function CaseStudySystemDesign({ systemDesign: sd, baseUrl }) {
     mode === "ascii"
       ? "project-case-study__diagram project-case-study__diagram--ascii"
       : mode === "beforeAfter"
-        ? "project-case-study__diagram project-case-study__diagram--before-after"
+        ? "project-case-study__diagram project-case-study__diagram--before-after project-case-study__media-bleed"
         : "project-case-study__diagram";
 
   const alt = sd.diagramAlt || "System design diagram";

@@ -17,6 +17,7 @@ export default function CaseStudyFeaturedImage({
   objectPosition,
   objectPositionMd,
   source,
+  lightboxAriaLabel,
 }) {
   const wrapClass = [
     "project-case-study__featured-wrap",
@@ -53,15 +54,17 @@ export default function CaseStudyFeaturedImage({
           img={img}
           imgWebp={imgWebp}
           alt={label}
+          lightboxAriaLabel={lightboxAriaLabel}
           imgClassName={imgClassName}
           imgStyle={imgStyle}
           loading="eager"
           decoding="async"
+          fetchPriority="high"
           fillFeatured={Boolean(compactHeight)}
         />
       </div>
       {source?.href ? (
-        <p className="project-case-study__caption max-w-[68ch]">
+        <p className="project-case-study__caption max-w-none">
           {source.prefix ?? "Image source"}:{" "}
           <a
             href={source.href}

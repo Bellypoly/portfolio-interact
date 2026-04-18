@@ -1,4 +1,4 @@
-/* CaseStudyVersionCompareDiagram — checkout version compare (v1v2 / v1v3 / v2v3); --ba-* tokens live on .project-case-study (project-case-study.css) */
+/* Checkout BA compare (v1v2 / v1v3 / v2v3). --ba-* + list reset: project-case-study.css */
 
 .project-case-study__ba {
   max-width: 78rem;
@@ -14,7 +14,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.75rem;
-  /* Match row height to the taller column so before/after panels align */
   align-items: stretch;
 }
 
@@ -79,7 +78,6 @@
   justify-content: center;
 }
 
-/* Smaller mocks + chrome only in the before (3-phone) row */
 .project-case-study__ba-phone-row .project-case-study__ba-arrow {
   font-size: clamp(1.1rem, 2.2vw, 2rem);
 }
@@ -219,7 +217,7 @@
   color: #111;
 }
 
-/* V2 single-page mock: Select Plan → Payment → Confirmation progress bar */
+/* V2 mock checkout stepper */
 .project-case-study__ba-stepper {
   display: flex;
   align-items: center;
@@ -387,12 +385,13 @@
 }
 
 .project-case-study__ba-notes {
-  margin: 0;
   padding-left: 1.5rem;
-  display: grid;
-  gap: 14px;
   font-size: clamp(0.95rem, 1.2vw, 1.1875rem);
   line-height: 1.35;
+}
+
+.project-case-study__ba-notes > li + li {
+  margin-top: 14px;
 }
 
 .project-case-study__ba-notes li::marker {
@@ -407,7 +406,7 @@
   color: #46615b;
 }
 
-/* V2 vs V3: two desktops in one row — slightly narrower each */
+/* v2v3: two desktops per row */
 .project-case-study__ba--v2v3 .project-case-study__ba-device--desktop {
   width: min(100%, 100%);
   max-width: 352px;
@@ -427,7 +426,6 @@
   }
 }
 
-/* Two-column grid: modest scale-down so half-width panels don’t overflow */
 @media (min-width: 1201px) {
   .project-case-study__ba-grid {
     gap: 1.45rem;
@@ -481,9 +479,12 @@
   }
 
   .project-case-study__ba-notes {
-    gap: 11px;
     padding-left: 1.35rem;
     font-size: clamp(0.88rem, 1.05vw, 1.08rem);
+  }
+
+  .project-case-study__ba-notes > li + li {
+    margin-top: 11px;
   }
 }
 

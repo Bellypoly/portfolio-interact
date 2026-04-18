@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { createPortal } from "react-dom";
 
 /**
@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
  * `project-case-study__lightbox-trigger` (+ `--featured`) are layout hooks for
  * `.project-case-study__featured-wrap` rules in project-case-study.css.
  */
-export default function CaseStudyLightboxImage({
+function CaseStudyLightboxImage({
   baseUrl,
   img,
   imgWebp,
@@ -16,11 +16,15 @@ export default function CaseStudyLightboxImage({
   imgClassName = "project-case-study__figure-img",
   loading = "lazy",
   decoding = "async",
+  /** `"high"` for above-the-fold hero (LCP); omit for lazy figures. */
+  fetchPriority,
   triggerClassName,
   /** Inline styles for the thumbnail img (e.g. object-position). */
   imgStyle,
   /** When true, trigger fills `.project-case-study__featured-wrap--compact` height. */
   fillFeatured = false,
+  /** Optional shorter label for the lightbox button (`View larger: …`). Modal still uses `alt`. */
+  lightboxAriaLabel,
 }) {
   const [open, setOpen] = useState(false);
   const fullSrc = `${baseUrl}${img}`;
@@ -53,29 +57,24 @@ export default function CaseStudyLightboxImage({
   const modalImgClass =
     "mx-auto block h-auto max-h-[92vh] w-auto max-w-full rounded object-contain shadow-[0_12px_48px_rgb(0_0_0/0.35)]";
 
+  const thumbImgProps = {
+    src: fullSrc,
+    alt: "",
+    role: "presentation",
+    className: imgClassName,
+    loading,
+    decoding,
+    style: imgStyle,
+    ...(fetchPriority ? { fetchPriority } : {}),
+  };
+
   const thumbImg = imgWebp ? (
     <picture>
       <source srcSet={`${baseUrl}${imgWebp}`} type="image/webp" />
-      <img
-        src={fullSrc}
-        alt=""
-        role="presentation"
-        className={imgClassName}
-        loading={loading}
-        decoding={decoding}
-        style={imgStyle}
-      />
+      <img {...thumbImgProps} />
     </picture>
   ) : (
-    <img
-      src={fullSrc}
-      alt=""
-      role="presentation"
-      className={imgClassName}
-      loading={loading}
-      decoding={decoding}
-      style={imgStyle}
-    />
+    <img {...thumbImgProps} />
   );
 
   const modal =
@@ -111,15 +110,32 @@ export default function CaseStudyLightboxImage({
           {imgWebp ? (
             <picture>
               <source srcSet={`${baseUrl}${imgWebp}`} type="image/webp" />
-              <img src={fullSrc} alt={alt} className={modalImgClass} />
+              <img
+                src={fullSrc}
+                alt={alt}
+                className={modalImgClass}
+                decoding="async"
+                fetchPriority="high"
+              />
             </picture>
           ) : (
-            <img src={fullSrc} alt={alt} className={modalImgClass} />
+            <img
+              src={fullSrc}
+              alt={alt}
+              className={modalImgClass}
+              decoding="async"
+              fetchPriority="high"
+            />
           )}
         </div>
       </div>,
       document.body,
     );
+
+  const triggerAria =
+    lightboxAriaLabel != null && lightboxAriaLabel !== ""
+      ? `View larger: ${lightboxAriaLabel}`
+      : `View larger: ${alt || "image"}`;
 
   return (
     <>
@@ -127,7 +143,7 @@ export default function CaseStudyLightboxImage({
         type="button"
         className={triggerClasses}
         onClick={() => setOpen(true)}
-        aria-label={`View larger: ${alt}`}
+        aria-label={triggerAria}
       >
         {thumbImg}
         <span
@@ -143,3 +159,5 @@ export default function CaseStudyLightboxImage({
     </>
   );
 }
+
+export default memo(CaseStudyLightboxImage);

@@ -6,7 +6,7 @@ export default function CaseStudyFlourishEmbed({ flourishEmbed, flourishCaption 
   return (
     <section className="project-case-study__section project-case-study__section--embed">
       {flourishCaption ? (
-        <p className="project-case-study__p">{flourishCaption}</p>
+        <p className="project-case-study__p mx-auto max-w-none">{flourishCaption}</p>
       ) : null}
       <div className="project-case-study__embed-wrap">
         <iframe
@@ -16,6 +16,8 @@ export default function CaseStudyFlourishEmbed({ flourishEmbed, flourishCaption 
           frameBorder="0"
           scrolling="no"
           allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
         />
       </div>
     </section>

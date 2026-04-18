@@ -2,9 +2,7 @@ import React from "react";
 import CaseStudySection from "./CaseStudySection";
 import CaseStudyLightboxImage from "./CaseStudyLightboxImage";
 
-/**
- * One or more captioned figures (WebP optional). Use columns=2 for side-by-side on md+.
- */
+/** Captioned figures; `columns={3}` wraps grid in `media-bleed` + `wide-inner`. */
 export default function CaseStudyFigures({
   title,
   intro,
@@ -23,7 +21,7 @@ export default function CaseStudyFigures({
         ? "project-case-study__figure-grid project-case-study__figure-grid--2"
         : "project-case-study__figure-grid project-case-study__figure-grid--1";
 
-  const grid = (
+  const gridInner = (
     <div className={gridClass}>
       {figures.map((f) => (
         <figure key={f.alt || f.caption} className="project-case-study__figure">
@@ -44,6 +42,15 @@ export default function CaseStudyFigures({
       ))}
     </div>
   );
+
+  const grid =
+    columns === 3 ? (
+      <div className="project-case-study__media-bleed">
+        <div className="project-case-study__wide-inner">{gridInner}</div>
+      </div>
+    ) : (
+      gridInner
+    );
 
   const inner = (
     <>

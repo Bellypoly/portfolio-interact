@@ -44,6 +44,7 @@ const ProjectCard = React.memo(function ProjectCard({
         className={imgClass}
         style={posStyle}
         loading="lazy"
+        decoding="async"
       />
     </picture>
   ) : (
@@ -53,6 +54,7 @@ const ProjectCard = React.memo(function ProjectCard({
       className={imgClass}
       style={posStyle}
       loading="lazy"
+      decoding="async"
     />
   );
 

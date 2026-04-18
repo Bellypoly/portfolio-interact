@@ -4,7 +4,11 @@ import CaseStudySystemDesign from "./CaseStudySystemDesign";
 import CaseStudyFigures from "./CaseStudyFigures";
 import CaseStudyBeforeAfterCompare from "./CaseStudyBeforeAfterCompare";
 
-export default function CaseStudyProblemSection({ section, baseUrl }) {
+export default function CaseStudyProblemSection({
+  section,
+  baseUrl,
+  sectionId,
+}) {
   if (!section) return null;
 
   const {
@@ -20,7 +24,7 @@ export default function CaseStudyProblemSection({ section, baseUrl }) {
 
   return (
     <>
-      <CaseStudySection title={title}>
+      <CaseStudySection title={title} sectionId={sectionId}>
         {paragraphs?.map((p, i) => (
           <p key={i} className="project-case-study__p">
             {p}

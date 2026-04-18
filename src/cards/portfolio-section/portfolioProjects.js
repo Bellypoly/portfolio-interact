@@ -1,5 +1,5 @@
 /**
- * Portfolio projects — one entry drives Mission Gallery cards and `/project/:slug` case studies.
+ * Portfolio projects — one entry drives Mission Gallery cards and `/mission/:slug` case studies.
  * Optional `caseStudy.techStack`: `{ label, href }[]` (or legacy `string[]`) — Stack row in meta; links open in a new tab.
  *
  * Mission Gallery order: `getMissionGalleryProjects()` uses `PROFESSIONAL_MISSION_GALLERY_ORDER` for
@@ -67,7 +67,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioLabel: "Product",
     anchorId: "portfolio",
     name: "AI-Powered Dynamic Paywall",
-    desc: "ML-driven dynamic paywall balancing subscription growth against reader engagement.",
+    desc: "Sophi ML paywall on Arc XP—gate, meter, or let stories through per visit while GA4 and flags keep rollout safe.",
     img: "images/portfolio/dynamic-paywall/thumbnail.png",
     imgWebp: "images/portfolio/dynamic-paywall/thumbnail.webp",
     /* Mission Gallery: full image width, top-aligned; bottom clipped to square */
@@ -121,7 +121,7 @@ export const PORTFOLIO_PROJECTS = [
       overviewTitle: "Overview",
       overview: [
         "Those gains came from solving a fundamental problem: static paywalls treat every reader the same. Block too early and you lose casual readers who might have converted later. Block too late and you leave revenue on the table.",
-        "Making it harder was the fact that different content behaves differently — politics, crime, and restaurant coverage drive the most subscription starts, while high school sports, commentary, and business convert at the highest rates. No single rule could account for that.",
+        "What made it harder was that different content behaves differently — politics, crime, and restaurant coverage drive the most subscription starts, while high school sports, commentary, and business convert at the highest rates. No single static rule could capture that.",
         "The metrics in the Impact section (+22% conversion, +15% more subscription starts) were referenced in the DMN employee town hall on August 13, 2025.",
       ],
       strategyTitle: "What I did",
@@ -182,7 +182,7 @@ export const PORTFOLIO_PROJECTS = [
         "JerDi hero — Stay Connected Stay Safe tagline, phone showing Finding JerDi-Kid map UI with Navigate and Play Sound, QR wristband, Found notification, Quick Find QR callout, family in park",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Design a scalable, community-driven platform to locate missing children and elderly people by combining QR code wristbands (universal camera scan) with BLE beacon wristbands and deployed receivers (phones, tablets, or fixed gateways) that listen for proximity — unified backend, notifications, and a rollout path for public and institutional settings. I owned UI/UX for the caregiver-facing application (flows for alerts, maps, and status) and for the wristband touchpoint: QR layout and legibility at a glance, band surface treatment, and visual continuity with the app so the hardware read as one product family. I was also the developer: I implemented the web platform and application UI in code, wiring integrations and notification paths — not only mocks or specs.",
+      task: "Design and build a community-driven safety net: QR wristbands any passerby can scan with a camera, BLE bands heard by receivers you place where coverage matters (caregiver phones, tablets on a school bus, fixed gateways)—one notification backbone for families, call centers, and authorities. I owned caregiver UI/UX (alerts, maps, status), the wristband face (QR legibility and finish, consistent with the app), and hands-on engineering—the web platform and app UI in production code with integrations, not handoff-only mocks.",
       disciplines: [
         "System architecture",
         "UI/UX — mobile app & wristband touchpoint",
@@ -295,7 +295,7 @@ export const PORTFOLIO_PROJECTS = [
         "Diagram — server aggregates local updates ΔW from devices with battery energy indicators; title: On Simulating Energy Consumption of Federated Learning systems",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Simulate how federated learning workloads consume energy when non-orthogonal multiple access (NOMA) shapes the radio budget.",
+      task: "Quantify how federated learning burns energy at the edge when the radio channel is non-orthogonal multiple access (NOMA)—so training stories stay honest about compute and transmission cost.",
       disciplines: [
         "MATLAB simulation",
         "Federated learning",
@@ -321,8 +321,8 @@ export const PORTFOLIO_PROJECTS = [
         },
       ],
       overview: [
-        "Federated learning pushes computation to the edge, but the training story is incomplete without the cost of communication. NOMA changes who interferes with whom—so energy curves are not interchangeable with vanilla orthogonality assumptions.",
-        "The simulation's value is comparative: sweep regimes, quantify tradeoffs, and make assumptions explicit for reproducibility.",
+        "Federated learning moves training closer to data, but the bill is never compute alone: every aggregation round pays radio energy too. With NOMA, who shares spectrum—and how—changes interference patterns, so you cannot reuse “plain OFDMA” energy arguments without lying to the reader.",
+        "The thesis contribution is deliberately comparative: sweep operating regimes, separate uplink vs compute spend where the model allows, and publish assumptions so another lab can rerun the sweep or argue with the numbers.",
       ],
       strategyTitle: "What I did",
       strategyIntro:
@@ -355,7 +355,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2022,
     portfolioLabel: "Product",
     name: "Local Elections Hub",
-    desc: "Data-driven elections UI — dynamic race tables, anchor navigation, lightweight viz, and a responsive grid built for real-time coverage and mobile.",
+    desc: "Elections hub rebuilt for Arc XP—typed race data, county anchors, lightweight viz, and mobile-first grids for live returns.",
     img: "images/portfolio/local-elections-hub/thumbnail.png",
     imgWebp: "images/portfolio/local-elections-hub/thumbnail.webp",
     cardImagePosition: "center top",
@@ -406,7 +406,7 @@ export const PORTFOLIO_PROJECTS = [
       ],
       overviewTitle: "Overview",
       overview: [
-        "After AMP and alongside broader Arc XP work, election coverage needed the same discipline as the rest of the site: one coherent rendering model for dense, updating data — not a different ad-hoc page per race. I rebuilt the hub as a scalable, data-driven UI system so counties, races, and candidates map to reusable components instead of one-off modules.",
+        "Election night is deadline journalism: readers refresh, editors watch the same tables, and a fragmented hub burns trust fast. After AMP and alongside broader Arc XP work, I rebuilt the hub as one coherent, data-driven system—counties, races, and candidates mapped to reusable components instead of a bespoke page per contest.",
       ],
       overviewSystemDesign: {
         sectionTitle: "Data to UI",
@@ -545,7 +545,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2025,
     portfolioLabel: "Product",
     name: "End-to-End Subscription Conversion System",
-    desc: "Rebuilt a leaking 3-page checkout into a single-page conversion pipeline — then kept new subscribers engaged.",
+    desc: "Rebuilt a three-page checkout leak into one React surface—then used Clarity evidence to refine the flow and onboard new subscribers.",
     img: "images/portfolio/subscription-checkout/thumbnail.png",
     imgWebp: "images/portfolio/subscription-checkout/thumbnail.webp",
     cardImagePosition: "center 10%",
@@ -709,7 +709,7 @@ export const PORTFOLIO_PROJECTS = [
         lead: 'The first pass rewrote the architecture. We collapsed the 3-page flow into a single React-driven surface, unified 3 payment providers behind one abstraction, and wired deterministic identity resolution into the entry point. It shipped as the "Single Page Checkout" and moved digital subscriptions materially within the first month.',
         bullets: [
           "Moved member info, payment, and order summary onto a single page — eliminating 2 full navigations and 2 server round-trips. Client state now lives in one component tree instead of being serialized and prayed-for across page loads.",
-          "Built a unified payment abstraction over Braintree, Stripe, and Apple Pay. Each provider has its own tokenization flow, validation contract, and error shape; the abstraction normalises all of that behind one interface so the checkout form doesn't care which provider is active.",
+          "Built a unified payment abstraction over Braintree, Stripe, and Apple Pay. Each provider has its own tokenization flow, validation contract, and error shape; the abstraction normalizes all of that behind one interface so the checkout form doesn't care which provider is active.",
           "Arc XP's subscription API required validated member info before it would create an order. I enforced that constraint on the client by gating payment fields behind member-info validation — the fields stayed disabled until the backend confirmed the identity. Clean engineering; the payment form couldn't submit junk. Readers saw it differently, but I didn't know that yet.",
           "Added a 3-step progress bar (Select Plan → Payment → Confirmation) and a benefits sidebar. Both felt like smart additions — wayfinding for the reader, confidence for the purchase. We were proud of them.",
         ],
@@ -931,7 +931,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2025,
     portfolioLabel: "Product",
     name: "Article Experience & Engagement Optimization",
-    desc: "Article surface rebuilt for readability, engagement, and Core Web Vitals — smarter GAM, Viafoura commenting, paywall-aware UI, GA4 & ops monitoring.",
+    desc: "Article stack after AMP—single-column story, lazy GAM, Viafoura, paywall-aware branches, GA4 · Datadog · BlueConic instrumentation.",
     img: "images/portfolio/article-redesign/thumbnail.png",
     imgWebp: "images/portfolio/article-redesign/thumbnail.webp",
     cardImagePosition: "center 100%",
@@ -1038,7 +1038,7 @@ export const PORTFOLIO_PROJECTS = [
       ],
       overviewTitle: "Overview",
       overview: [
-        "AMP deprecation gave us back full control of the article DOM. I rebuilt the PageBuilder surface: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura SDK integration with auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — all behind feature flags for incremental rollout starting September, targeting full deployment by year-end.",
+        "When AMP went away, we regained full control of the article DOM—and inherited the work to make that control measurable. I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs—rolled out behind feature flags from September toward full deployment by year-end.",
       ],
       overviewSystemDesign: {
         sectionTitle: "Article stack",
@@ -1189,17 +1189,24 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2019,
     portfolioLabel: "Marketplace",
     name: "JobThai",
-    desc: "Thailand job search platform — search/recommendations, resume creator.",
-    img: "images/portfolio/jobthai.jpg",
-    alt: "JobThai",
-    link: "https://www.jobthai.com/en/resume",
+    desc: "Thailand\u2019s national job board—Elasticsearch search, resume flows, and map-grounded filters (e.g. BTS/MRT corridors, industrial estates / นิคมอุตสาหกรรม) so listings match real commutes.",
+    img: "images/portfolio/jobthai/thumbnail.png",
+    alt: "JobThai Resume — flat illustration of a job seeker at a laptop and a recruiter with clipboard, with JobThai branding",
+    link: "https://www.jobthai.com/jobsearch",
     anchorId: "portfolio-jobthai",
     caseStudy: {
       eyebrow: "Product · Marketplace",
-      task: "Improve how seekers discover relevant roles—and how they present themselves—without turning the experience into a factory of generic resumes.",
+      featuredImg: "images/portfolio/jobthai/featured-image.png",
+      featuredImageAlt:
+        "JobThai — job seeker and recruiter illustration with Resume branding and soft green workspace palette",
+      task: "Move seekers from skimming listings to confident applications: search that surfaces the right roles under real filters, and resume tooling that strengthens each profile instead of collapsing everything into the same template.",
       disciplines: ["Search & discovery", "Recommendations", "Resume tools"],
-      context: "National job marketplace",
+      context: "JobThai — THiNKNET Co., Ltd. · national job marketplace (Thailand)",
       techStack: [
+        {
+          label: "THiNKNET",
+          href: "https://www.thinknet.co.th/",
+        },
         { label: "Laravel", href: "https://laravel.com/" },
         {
           label: "Elasticsearch",
@@ -1212,30 +1219,33 @@ export const PORTFOLIO_PROJECTS = [
         { label: "MySQL", href: "https://www.mysql.com/" },
       ],
       overview: [
-        "Job search products compete on relevance, trust, and speed. Small friction in filters, dead-ends in search, or weak preview of requirements cost applications.",
-        "Resume tooling sits in the same journey: the right guidance increases completion, but heavy-handed templates make everyone look the same.",
+        "At national scale, the job isn’t “show more rows.” It’s whether someone can answer fast: Is this role for me? Is this employer real? Is applying worth the time? When those questions stay fuzzy, people bounce—or they blast the same generic application into the void.",
+        "Search and recommendations carry the first half of that decision; resume tooling carries the second. Search has to feel fast and legible under real filters (location, pay band, seniority). Resumes need guardrails so people finish, but not so much rigidity that every profile reads like the same template.",
+        "In Thailand, “where?” rarely means a single city string—commuters care about BTS/MRT corridors; manufacturing and logistics roles cluster near industrial estates (นิคมอุตสาหกรรม). JobThai drew on THiNKNET\u2019s map and POI layer so seekers could discover roles by geography the way they plan a commute, not only by typing a province name.",
+        "I worked across that full arc—Elasticsearch-backed discovery, Laravel/MySQL-backed flows, and front-end surfaces in JavaScript—so browsing, targeted search, and apply-prep (resume, alerts) each had the right density of controls under one coherent system.",
       ],
-      strategyTitle: "What I did",
+      strategyTitle: "What I focused on",
       strategyIntro:
-        "My role: improve search/discovery and resume tooling on a national marketplace (Laravel, Elasticsearch, MySQL). I aligned three journeys—fast browsing, targeted search, and deep prep (resume, alerts)—each with its own hierarchy inside one design system.",
+        "Three product bets, expressed as journeys: make fit legible early, keep momentum from interest to an application-ready profile, and surface trust signals employers and seekers both lean on.",
       pillars: [
         {
           title: "Clarity of fit",
-          body: "I pushed salary, location, and seniority earlier in the journey so seekers didn’t invest in mismatched roles.",
+          body: "Salary, seniority, and geography moved earlier in the path—including map-grounded location so a role\u2019s “near BTS,” “along this corridor,” or “industrial estate / นิคม” reads as concretely as pay band, not a vague address line.",
         },
         {
           title: "Momentum",
-          body: "I reduced steps between interest, saved searches, and application-ready profiles.",
+          body: "Saved searches, alerts, and resume checkpoints were chained so “I like this” didn’t dead-end—the next obvious step was always one lightweight action away, especially on mobile.",
         },
         {
           title: "Credibility",
-          body: "I emphasized signals employers and seekers trust: verification, posting freshness, and human-readable requirements.",
+          body: "Posting freshness, verification cues, and human-readable requirements were treated as first-class UI—not fine print—so the same screen that sells the role also answers “why should I trust this?”",
         },
       ],
-      approachTitle: "How I shipped it",
+      approachTitle: "How it went to production",
       approach: [
-        "I shipped flows that pair search refinement with explainable filters and resume guidance as checkpoints instead of a wall of fields.",
-        "I added instrumentation for drop-off by segment (mobile vs desktop, new vs returning) and prioritized the worst leaks first.",
+        "Search refinement shipped as explainable filters: seekers could tighten results without guessing what the backend was doing. Elasticsearch work sat behind that—tuning relevance and query behavior so the experience felt obvious on the surface even when the ranking logic underneath was not.",
+        "Resume guidance shipped as progressive checkpoints rather than a single wall of fields—enough structure to increase completion, enough flexibility that profiles still sounded like people.",
+        "Funnel instrumentation split mobile vs desktop and new vs returning cohorts; we chased the worst drop-offs first instead of polishing screens nobody reached.",
       ],
       results: null,
     },
@@ -1246,58 +1256,85 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2018,
     portfolioLabel: "Platform",
     name: "Map Magic",
-    desc: "Thailand map API and integration toolkit.",
-    img: "images/portfolio/mapmagic.jpg",
-    alt: "MapMagic",
-    link: "https://maps.thinknet.co.th/",
+    desc: "Thailand map platform (OSM-based, THiNKNET data & routing)—APIs, consumer maps, back-office tooling, and turn-by-turn.",
+    img: "images/portfolio/map-magic/thumbnail.png",
+    alt: "Isometric mapping toolkit on orange — laptop, phone with city pins, world-map screen, 360 street-view car, connected nodes and logo on tiered blocks",
+    link: "https://maps.thinknet.co.th/th",
     caseStudy: {
       eyebrow: "Platform · Geospatial",
-      task: "Give product teams dependable map primitives—search, tiles, and overlays—so maps feel native instead of bolted on.",
-      disciplines: ["API design", "Geospatial UX", "Integrations"],
-      context: "Public mapping toolkit",
+      featuredImg: "images/portfolio/map-magic/featured-image.png",
+      featuredImageAlt:
+        "MapMagic app promo — logo above two phones: map list (Silom Complex) and satellite view over an aerial golden-hour city; orange location pin focal point",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      task: "Ship THiNKNET’s Thailand-focused map stack on an OpenStreetMap geographic base: custom tiles, data pipelines, and routing—not an off-the-shelf OSM viewer—plus dependable APIs and UIs, internal tooling to grow proprietary map data, and routes that stay trustworthy on real roads.",
+      disciplines: [
+        "Map platform & APIs",
+        "Routing",
+        "Back-office apps",
+        "Geospatial UX",
+      ],
+      context: "THiNKNET Co., Ltd. · Map Magic (consumer brand: THiNKNET Maps)",
       techStack: [
         {
-          label: "REST map APIs",
-          href: "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+          label: "THiNKNET",
+          href: "https://www.thinknet.co.th/",
         },
         {
-          label: "Tiles & geocoding",
+          label: "THiNKNET Maps",
+          href: "https://maps.thinknet.co.th/th",
+        },
+        {
+          label: "OpenStreetMap",
+          href: "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap",
+        },
+        {
+          label: "Map APIs, tiles, routing & geocoding",
           href: "https://en.wikipedia.org/wiki/Tiled_web_map",
-        },
-        {
-          label: "JavaScript",
-          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-        },
-        {
-          label: "Partner integrations",
-          href: "https://en.wikipedia.org/wiki/Application_programming_interface",
         },
       ],
       overview: [
-        "Teams were rebuilding the same glue around basemaps, geocoding, and styling. The goal was a cohesive surface area with predictable limits, documentation, and examples that shorten time-to-first-map.",
-        "Mobile-first usage meant performance and clarity matter as much as feature breadth: fewer surprises in the field beats a long menu of options.",
+        "At THiNKNET the product line was Map Magic; today the public mapping experiences are branded THiNKNET Maps for end users. Geographically we built on OpenStreetMap as the shared baseline, then invested in customized technology and proprietary Thailand data—our own tiles, POI depth, internal tooling, and routing—so the product is not a thin skin over stock OSM. That Thailand-first layer powers job search (e.g. location-aware listings on JobThai), travel and editorial products (guide books, physical maps), and hospitality surfaces such as HotelGuide Thailand, with shared assets across those lines.",
+        {
+          text: "The live customer-facing map experience is ",
+          externalLink: {
+            href: "https://maps.thinknet.co.th/th",
+            label: "THiNKNET Maps",
+          },
+          after: ".",
+        },
+        {
+          text: "The MapMagic Android client (package com.thinknet.mapmagicgl) is also listed on third-party mirrors such as ",
+          externalLink: {
+            href: "https://apkpure.com/mapmagic/com.thinknet.mapmagicgl",
+            label: "APKPure",
+          },
+          after: ", alongside major app stores.",
+        },
+        "My work spanned the map API and integration surface (predictable contracts, tiles, search/geocoding, embedding patterns for partners), web and mobile back-office applications used by operations to gather and validate data that feeds the map database, and a substantial contribution to the map routing algorithm so turn-by-turn and path results matched Thailand road reality.",
       ],
       strategyTitle: "What I did",
       strategyIntro:
-        "My role: shape the public map API and integration toolkit so product teams shipped maps faster—with clear contracts, docs, and examples. I balanced backward compatibility with a cleaner conceptual model for new consumers across GIS, frontend, and partner teams.",
+        "I split time between external developer experience—making map capabilities easy and safe to embed—and internal velocity: tooling that let data teams curate and ship updates without breaking consumers. OSM gave us a credible geographic starting point; the hard part was our customized stack on top. Routing work sat in the middle: correctness and performance where bad geometry or bad graph logic shows up immediately on the user's route preview.",
       pillars: [
         {
-          title: "Consistency",
-          body: "I standardized vocabulary for endpoints, errors, and units so mistakes surface in the IDE, not only in production traffic.",
+          title: "Data & operations",
+          body: "I built back-office web and mobile flows so teams could capture, review, and publish updates into our database—aligned where it helps with the OSM world, but centered on THiNKNET-owned fields, QA, and Thailand-specific detail you do not get from importing OSM alone.",
         },
         {
-          title: "Progressive disclosure",
-          body: "I wrote simple examples for the common path and kept advanced controls available without cluttering the quickstart.",
+          title: "Routing you can trust",
+          body: "I contributed to the routing stack so paths respect the road network and cost models we maintained—fewer nonsense detours or impossible turns where Thai topology differs from generic global routers.",
         },
         {
-          title: "Reliability",
-          body: "I defined caching, fallbacks, and observability hooks so maps degrade gracefully instead of failing silently.",
+          title: "Platform ergonomics",
+          body: "I kept API vocabulary, error shapes, and examples aligned so integrations failed in obvious ways, and map UI patterns stayed legible on phones in daylight traffic—not demo-perfect mock data only.",
         },
       ],
       approachTitle: "How I shipped it",
       approach: [
-        "I hardened API contracts, reference embedding flows, and guardrails for rate limits and attribution.",
-        "I documented design patterns for overlays and interaction states that stay legible across light/dark basemap styles.",
+        "Hardened REST contracts, embedding patterns, rate limits, and attribution so partner maps and first-party apps stayed stable as data churned underneath.",
+        "Delivered back-office apps on web and mobile for map data collection and QA workflows that fed production tiles and search indexes.",
+        "Improved routing graph usage and algorithm behavior on top of OSM-derived geometry but with our cost models and graph edits for real Thailand road cases, alongside documentation and guardrails for overlays across basemap styles.",
       ],
       results: null,
     },
@@ -1309,7 +1346,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioLabel: "Paper",
     anchorId: "portfolio-logistics",
     name: "Industrial Logistic Performance Evaluation",
-    desc: "IEOM 2016 — evaluated logistics at a Thai printing & packaging company using the World Bank LPI framework: dimension mapping, gap analysis, and improvement paths.",
+    desc: "IEOM 2016 — logistics performance at a Thai printing & packaging firm via the World Bank LPI: tie national scores to the warehouse and loading dock, benchmark peers, propose improvements.",
     img: "images/portfolio/industrial-logistics-evaluation/thumbnail.jpg",
     imgWebp: "images/portfolio/industrial-logistics-evaluation/thumbnail.webp",
     alt: "Diagram — supply chain service delivery: policy inputs (customs, infrastructure, service quality) and performance outcomes (timeliness, international shipments, tracking)",
@@ -1355,7 +1392,7 @@ export const PORTFOLIO_PROJECTS = [
       ],
       overviewTitle: "Overview",
       overview: [
-        "Printing and packaging sits at the intersection of make-to-order pressure, material handling, and outbound distribution. “Logistics performance” in this context is never a single number — it depends on which dimensions you measure and what level of the operation you look at.",
+        "Printing and packaging sits where make-to-order pressure, material handling, and outbound distribution meet. “Logistics performance” is never one headline number—it depends which LPI dimensions you measure and whether you stay at national averages or walk the shop floor.",
         "This paper applies the World Bank LPI framework to one Thai company and asks: which dimensions (timeliness, customs, infrastructure, service quality, tracking, international shipments) actually constrain this business, and what does the gap between Thailand’s national LPI score and shop-floor reality look like?",
         {
           text: "Full paper (IEOM 2016 proceedings): ",
@@ -1396,13 +1433,13 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2014,
     portfolioLabel: "Academic",
     name: "Squeeze It",
-    desc: "Heuristic search marble game AI (D3.js & ML).",
+    desc: "Heuristic-search AI for a marble puzzle—D3 board you can read, agent whose reasoning stays visible.",
     img: "images/portfolio/squeeze-it.jpg",
     alt: "Squeeze It",
     link: "https://github.com/Bellypoly/AI-project1",
     caseStudy: {
       eyebrow: "AI · Visualization",
-      task: "Build an engaging marble puzzle UI and an agent that plays with human-legible heuristics—not only a black-box score.",
+      task: "Ship a marble puzzle people can parse move-by-move, and an AI opponent steered by legible heuristics—not an opaque win/loss score.",
       disciplines: ["Heuristic search", "D3.js", "Game UX"],
       context: "Academic AI project",
       techStack: [
@@ -1417,8 +1454,8 @@ export const PORTFOLIO_PROJECTS = [
         },
       ],
       overview: [
-        "Small state spaces still deserve thoughtful UI: moves must read clearly, and the board should help players understand why the AI chose a line of play.",
-        "D3.js grounded the visualization in smooth transitions and legible geometry so the game reads as a product, not a debug plot.",
+        "Even a compact game board fails if motion is ambiguous: readers should see the last move, the next options, and why the bot leaned one way. I treated clarity as the product—not chrome around a solver.",
+        "D3.js carried transitions and stable geometry so the puzzle felt like software someone would demo, not a Matlab plot with buttons.",
       ],
       strategyTitle: "What I did",
       strategyIntro:
@@ -1451,7 +1488,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2020,
     portfolioLabel: "Thesis",
     name: "RDFD — Discovering Fake Drivers",
-    desc: "Machine learning approach for driver identification.",
+    desc: "ML proof-of-concept: inferring shared or spoofed driver accounts from how people actually drive over time—not a single login check.",
     img: "images/portfolio/rdfd/thumbnail.jpg",
     imgWebp: "images/portfolio/rdfd/thumbnail.webp",
     alt: "Illustration — driver at the wheel with temporal data charts and magnifying glass over trend lines",
@@ -1483,8 +1520,8 @@ export const PORTFOLIO_PROJECTS = [
         },
       ],
       overview: [
-        "Raw trip data is noisy: routes, pace, and stops all vary with traffic and intent. The problem was to turn sequences of behavior into a signal that stays stable for the real driver and drifts when someone else is behind the wheel.",
-        "The approach emphasized interpretable features and robust evaluation—so outcomes could be discussed with safety stakeholders, not only accuracy on a held-out set.",
+        "Trip logs are messy: the same commuter and an impostor can share a corridor, so naive averages lie. The question is whether temporal behavior leaves a stable fingerprint for the enrolled driver—and breaks when credentials are borrowed.",
+        "I biased the work toward interpretable features and conservative evaluation so product and safety reviewers could argue about failure modes, not chase leaderboard accuracy alone.",
       ],
       strategyTitle: "What I did",
       strategyIntro:
@@ -1521,7 +1558,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2024,
     portfolioLabel: "Civic tech",
     name: "Parliament Watch — Thai Voting Record OCR",
-    desc: "Parliament Watch — OCR pipeline that turns scanned House voting PDFs into structured tables for open data and infographics (Thai script & numerals, handwriting, inconsistent layouts).",
+    desc: "Parliament Watch OCR—from scanned House voting PDFs (Thai script & numerals, handwriting, messy tables) to rows WeVis could chart.",
     cardImagePosition: "center 71%",
     img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
     imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
@@ -1559,8 +1596,8 @@ export const PORTFOLIO_PROJECTS = [
       ],
       overviewTitle: "Overview",
       overview: [
-        "Thailand\u2019s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th. These are not machine-readable: they\u2019re scanned documents in government templates, with Thai-language text, Thai numerals, handwritten annotations, embedded photos, and inconsistent table layouts across sessions.",
-        "Parliament Watch (by WeVis) needed this data in structured form to power voting visualizations like the Party Unity chart, which maps how 7 major parties voted across 107 motions in the 26th House. My role was the OCR layer: turning those PDFs into clean tabular data that downstream analysts and front-end developers could use directly.",
+        "Thailand\u2019s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th—not spreadsheets. They are scans: government templates, Thai text and numerals, handwriting, photos, stamps, and tables that shift shape between sessions.",
+        "Parliament Watch (WeVis) needed those pages as rows—fuel for charts like Party Unity, mapping seven major parties across 107 motions in the 26th House. I owned extraction: from PDF pixels to validated tables analysts and front-end engineers could trust.",
         {
           text: "Live visualization: ",
           externalLink: {
@@ -1607,120 +1644,161 @@ export const PORTFOLIO_PROJECTS = [
     portfolioGroup: "professional",
     portfolioYear: 2026,
     portfolioLabel: "Civic tech",
-    name: "VOTE62 — ECT Report 69 Constituency OCR",
-    desc: "Turned Thailand\u2019s 2026 election PDFs from the Election Commission into spreadsheet-ready data: 400 local races, turnout, and ballot stats — despite mixed Thai text, Thai and Western numbers, bad scans, and pen corrections.",
+    name: "VOTE62 — ECT Report 69: OCR, ETL & open election data",
+    desc: "VOTE62 — 400 Thai constituencies rebuilt from ECT tally PDFs into validated tables so civic tech and newsrooms run on structure, not hand-typed cells.",
     img: "images/portfolio/vote62-ect-report-69/thumbnail.png",
-    imgWebp: "images/portfolio/vote62-ect-report-69/thumbnail.webp",
+    imgWebp: "",
     cardImagePosition: "center center",
-    alt: "VOTE62 project: Election Commission of Thailand unofficial results PDFs converted by OCR into rows for newsrooms and analysts",
+    alt: "VOTE62 Mission Gallery thumbnail: stylized tally tables and constituency-style election graphics",
     link: "https://rocketmedialab.co/database-vote62-report-69-1/",
     caseStudy: {
-      eyebrow: "Civic Tech · OCR · Elections Data",
+      eyebrow:
+        "Civic Tech · OCR · ETL · Data Engineering · Data Storytelling",
       featuredImg: "images/portfolio/vote62-ect-report-69/featured-image.png",
-      featuredImgWebp:
-        "images/portfolio/vote62-ect-report-69/featured-image.webp",
+      featuredImgWebp: "",
       featuredImageAlt:
-        "Election data pipeline — Thai government PDFs converted through OCR into structured spreadsheet rows for journalists",
+        "Stacks of Thai election tally forms with handwritten edits \u2014 the paper truth voters see before it becomes rows in an open dataset.",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "I contributed to an OCR pipeline that reads unofficial results PDFs from Thailand\u2019s Election Commission (ECT) and outputs clean tables for the VOTE62 project — one row per local constituency (400 nationwide), with voter turnout and ballot breakdowns for both the constituency ballot and the nationwide party-list ballot. The real challenge is not generic OCR: these official-style PDFs mix Thai wording, Thai-style digits, ordinary Western digits, scan noise, and handwritten corrections in the same grid.",
+      task:
+        "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows validation actually flags.",
       disciplines: [
-        "Document OCR",
-        "Table extraction",
+        "OCR & document parsing",
+        "Data engineering & ETL",
         "Data validation",
-        "Civic technology",
+        "Data storytelling",
       ],
-      context:
-        "VOTE62 — OpenDream × iLaw × Rocket Media Lab (Thailand general election, February 2026 — Buddhist Era 2569)",
+      context: "VOTE62 — OpenDream × iLaw × Rocket Media Lab",
       techStack: [
-        {
-          label: "Python",
-          href: "https://www.python.org/",
-        },
+        { label: "Python", href: "https://www.python.org/" },
         {
           label: "OCR",
           href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
         },
         {
-          label: "ECT Report 69 (Election Commission of Thailand)",
+          label: "ECT Report 69",
           href: "https://ectreport69.ect.go.th/",
         },
         {
           label: "Rocket Media Lab — VOTE62",
-          href: "https://rocketmedialab.co/database-vote62-report-69-1/",
+          href: "https://rocketmedialab.co/tag/vote62/",
         },
-      ],
-      overviewTitle: "Overview",
-      overview: [
-        "In Thailand\u2019s February 2026 general election (often written as B.E. 2569), the Election Commission of Thailand (ECT) released rolling, unofficial counts as PDFs through a portal called ECT Report 69 — in Thai, an unofficial scoreboard for House of Representatives races and referenda. The country is divided into 400 single-seat constituencies (local districts). Newsrooms and civic groups needed those 400 rows in a database, not a folder of PDFs.",
-        "Each file follows a government layout: region, province, district number, voter turnout, and ballot stacks for both ballot types Thai voters use — the local constituency vote and the separate nationwide party-list (proportional) vote — plus valid, spoiled, and blank votes where the form lists them. Partners also mirrored PDFs by district on Google Drive. A person can read the pages; they are not ready for charts or filters until every cell is extracted and consistent.",
-        "Why this is hard for software: one row may mix Thai script (for example province names), Thai-style digits (๐–๙), and ordinary Western digits (0–9) in the same table — sometimes side by side, sometimes after a manual correction. OCR tuned for English or Latin invoices often misreads Thai letters, mixes digit systems, or drops thousands separators. Handwriting, crossed-out numbers, stamps, and poor scans add noise: the page looks like a table, but the signal is part print, part pen, part blur.",
-        "My role was to help build and run the OCR side: detect the ECT layout, read cells reliably, normalize every number into one format, and pass rows to the team\u2019s validation so the coalition could publish an open Google Sheet for the press.",
-        {
-          text: "Public spreadsheet (built for journalists — columns include region, province, constituency index, turnout for the local ballot vs the party-list ballot, reported percent counted, and ballot-quality counts for each ballot): ",
-          externalLink: {
-            href: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/edit?gid=780194054#gid=780194054",
-            label: "Google Sheets (Thai sheet title: media turnout comparison table)",
-          },
-          after:
-            ". Numbers change when the ECT updates unofficial totals; this sheet is the machine-readable output the pipeline feeds.",
-        },
-        {
-          text: "Background article and raw-data notes (in Thai), including coverage of all 400 districts: ",
-          externalLink: {
-            href: "https://rocketmedialab.co/database-vote62-report-69-1/",
-            label: "Rocket Media Lab — unofficial Feb 2026 results, 400 districts (raw data)",
-          },
-          after:
-            ". VOTE62 is a joint effort: OpenDream (engineering), iLaw (law and policy), and Rocket Media Lab (data and reporting).",
-        },
-        {
-          text: "Original PDF source (ECT unofficial reporting portal): ",
-          externalLink: {
-            href: "https://ectreport69.ect.go.th/",
-            label: "ectreport69.ect.go.th",
-          },
-          after: ".",
-        },
-        {
-          text: "Mirror folder with PDFs grouped by district (Google Drive; folder titles in Thai): ",
-          externalLink: {
-            href: "https://drive.google.com/drive/u/0/folders/1MApGQ8YpAG1hVMOWqfKdfag3KLWYYWY5?sort=13&direction=a",
-            label: "Drive — House election 69 unofficial count reports",
-          },
-          after: ".",
-        },
-      ],
-      strategyTitle: "What I contributed",
-      pillars: [
-        {
-          title: "From ECT layout to rows",
-          body: "Mapped the commission\u2019s unofficial-report template into columns an English-speaking analyst would recognize: region, province, constituency number, headline turnout, then paired stacks for the local-district ballot versus the party-list ballot — including valid votes, spoiled ballots, and abstentions where the PDF shows them. (In Thai forms these are often labeled แบ่งเขต vs บัญชีรายชื่อ.)",
-        },
-        {
-          title: "Thai text and two numeral systems",
-          body: "State forms do not stick to one style. Headers use Thai script; counts may appear as Thai digits (๐–๙) or Western digits (0–9), sometimes in the same row. After OCR, I normalized every numeric cell to one canonical format before validation so the pipeline did not need a different rule for every province.",
-        },
-        {
-          title: "Handwriting and scan noise",
-          body: "Even “official” PDFs included pen corrections over printed totals, ticks, crossed-out figures, and stamps. Extracting by table region and by cell limited bleed from handwriting into neighboring cells; ambiguous reads were caught in validation before export to the public sheet.",
-        },
-        {
-          title: "Living data, not a snapshot",
-          body: "Unofficial counts change when the ECT revises figures. The team kept the structured sheet aligned with that update cycle so corrections did not mean retyping hundreds of districts by hand.",
-        },
-      ],
-      approachTitle: "How we approached it",
-      approach: [
-        "Start from layout, not from a plain-text dump: anchor columns to the ECT template, then OCR each cell or region. Copy-pasting a whole page fails because Thai text and numbers do not survive as clean, aligned Unicode when mixed with table lines and stamps.",
-        "Normalize numbers in one place: accept strings written with Thai digits, strip thousand separators, convert to integers, and feed a single schema — so mixed notation never forced a fork of the code per file.",
-        "Sanity-check against geography: 400 constituencies, province subtotals, and obvious total mismatches so bad pages were flagged before journalists relied on them.",
       ],
       results: [
-        { value: "400", label: "Single-seat constituencies nationwide" },
-        { value: "ECT 69", label: "Election Commission unofficial PDF portal" },
-        { value: "Open sheet", label: "Shared Google Sheet for newsrooms" },
+        { value: "400", label: "Constituencies processed end-to-end" },
+        {
+          value: "0 manual entry",
+          label:
+            "No wholesale retyping of the corpus—operators step in only where validation flags a suspect cell before publish",
+        },
+        {
+          value: "Validated",
+          label: "Hard checks run before anything is published as open data",
+        },
       ],
+      overviewTitle: "When the official release is only paper on a screen",
+      overview: [
+        "Thailand\u2019s election commission publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, no API for the same numbers living inside the scan.",
+        "That split creates real pressure. Newsrooms need trustworthy tables under deadline. Civic open-data projects need the same figures in a joinable format for charts, joins, and audits. Until someone reconstructs the grids, everyone is stuck retyping—or shipping charts built on fragile copy-paste. VOTE62 exists to close that gap as a coalition effort.",
+        {
+          mediaBlock: {
+            type: "image",
+            src: "images/portfolio/vote62-ect-report-69/problem-evidence.png",
+            alt: "Side-by-side scans of two Thai election return forms (ส.ส. 5/18): same official layout, different handwriting styles in the vote columns — illustrating real-world variability for OCR.",
+            caption:
+              "Same official template, different handwriting and corrections in the wild—the kind of noise that breaks naive extraction.",
+          },
+        },
+        "Across 400 constituencies I built the reconstruction path: detect layout first, OCR cells in context (never one naive text dump), then validation aggressive enough that bad numbers surface before they become someone else\u2019s \u201cground truth.\u201d The gallery below compresses that arc—paper chaos, extractor logs with warnings, reviewer-ready tables—in three lightbox panels.",
+        "The product goal I pushed for was never pretend-perfect OCR. It was to make uncertainty legible—so a chart or an open dataset does not silently inherit a cell that never matched the official scan.",
+      ],
+      strategyTitle: "What the pipeline had to get right",
+      strategyIntro:
+        "VOTE62 is bigger than one pipeline: partners shape how the story is told and how data reaches people. My contribution sat in the ingestion layer—Python, OCR, table reconstruction, validation, and rerunnable jobs—so the coalition could trust the rows underneath the headlines and spreadsheets.",
+      pillars: [
+        {
+          title: "Layout-aware extraction",
+          body:
+            "Government templates repeat, but scans do not: stamps, handwriting, and crooked grids punish document-level OCR. I segmented regions and read cells in context so numbers stayed tied to the headers they belonged to.",
+        },
+        {
+          title: "Numeral normalization",
+          body:
+            "Official rows mix Thai (๐–๙) and Arabic (0–9) digits in the same table. I mapped both to one canonical representation for arithmetic and joins—while still preserving ambiguity when the read was not safe to force.",
+        },
+        {
+          title: "Ambiguity detection",
+          body:
+            "I treated totals, cross-checks, and low-confidence reads as first-class outputs: mismatches and suspicious tokens surface upstream instead of vanishing into a \u201cclean\u201d CSV.",
+        },
+        {
+          title: "Re-runnable architecture",
+          body:
+            "Returns trickle out and PDFs get revised. I designed the job to rerun incrementally so refreshed official pages did not mean rebuilding every constituency from scratch.",
+        },
+      ],
+      strategyAppend: [
+        {
+          referenceTable: {
+            transpose: true,
+            rows: [
+              ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+              ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"],
+            ],
+            caption:
+              "Same value, two glyph systems: Western Arabic (top row) and Thai numerals (ตัวเลขไทย, bottom). ECT scans mix them in one run; the pipeline normalizes for math and joins while validation still protects ambiguous reads from being overwritten quietly.",
+          },
+        },
+      ],
+      approachTitle: "Trust beats a clean-looking lie",
+      approach: [
+        "I insisted validation be allowed to say \u201cno\u201d: totals that do not add up, candidate rows that disagree with ballot counts, and tokens that are not plausible digits stay visible as warnings—not auto-smoothed into a tidy fiction.",
+        "I wired provenance so every structured value keeps a path back to the PDF region it came from—so a skeptic with the official scan and the spreadsheet can answer the same question: where did this number appear?",
+        "That is the contribution I cared about shipping: transparency over vanity metrics—a dataset that shows where the machine is confident, where it is guessing, and where a human still has to intervene after validation.",
+      ],
+      mediaBlock: {
+        type: "ascii",
+        lines: [
+          "PDF ingest → OCR → table rebuild → validate → structured dataset",
+        ],
+      },
+      galleryBlock: {
+        title: "Messy human input → OCR output → validated output",
+        figureColumns: 3,
+        images: [
+          {
+            img: "images/portfolio/vote62-ect-report-69/ocr-failure-example.png",
+            alt: "Messy human input: ECT return with handwritten ballot summaries and strike-through corrections (e.g. digits overwritten on printed totals) plus a candidate table filled in ink over dotted guides",
+            caption: "Messy human input — ink corrections, thick digits, and cursive Thai tallies on the official grid.",
+          },
+          {
+            img: "images/portfolio/vote62-ect-report-69/raw-ocr-output.png",
+            alt: "OCR output: terminal log from extract_ect_report.py—extracted turnout and candidate rows with mixed Thai/Arabic numerals, suspected bad tokens, and validation warnings",
+            caption: "OCR output — structured logs with mixed numerals, bad tokens, and validation warnings.",
+          },
+          {
+            img: "images/portfolio/vote62-ect-report-69/clean-structured-table.png",
+            alt: "Validated output: monospaced tables and checks—aligned fields with Arabic numerals and explicit warnings when totals disagree with valid ballots",
+            caption: "Validated output — aligned tables with explicit checks before open data.",
+          },
+        ],
+        caption:
+          "Same story in three frames: what officials and voters put on paper, what the extractor prints before anyone trusts it, and what validation clears for downstream open data.",
+      },
+      iframeEmbed: {
+        src: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/preview?gid=780194054",
+        title: "VOTE62 — structured election dataset",
+        caption:
+          "Live structured turnout and tallies derived from the same official PDFs—kept current as ECT releases updates, so downstream work stays tied to the source of truth.",
+        minHeight: "580px",
+      },
+      businessOutcome:
+        "My contribution on this project was not a prettier spreadsheet—it was helping shift the labor from wholesale retyping onto a pipeline where machines do the bulk extraction, validation decides what is safe to publish, and humans spend their time only on rows that checks actually flag.",
+      futureBlock: {
+        title: "Next steps",
+        body:
+          "Where I would push next: stronger ML table detection, richer per-cell confidence, and a review surface purpose-built for post-validation fixes—so the same transparency scales when the document mix gets harder.",
+      },
     },
   },
   {
@@ -1729,7 +1807,7 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2024,
     portfolioLabel: "Civic tech",
     name: "Where Does Your Electricity Bill Go?",
-    desc: "Flow design and information architecture for a civic explainer that breaks down Thai electricity bills — where charges come from, who gets paid, and whether the pricing is fair.",
+    desc: "Civic explainer for Thai electricity bills—progressive flow from one honest question (“what am I paying for?”) to tariffs, Ft, and fairness.",
     img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
     imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
     alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
@@ -1759,11 +1837,7 @@ export const PORTFOLIO_PROJECTS = [
         {
           label: "WordPress",
           href: "https://wordpress.org/",
-        },
-        {
-          label: "Elementor Pro",
-          href: "https://elementor.com/",
-        },
+        }
       ],
       overviewTitle: "Overview",
       overview: [
@@ -1802,14 +1876,14 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2019,
     portfolioLabel: "Public sector",
     name: "PEA E‑Service",
-    desc: "One‑stop service for PEA (Provincial Electricity Authority of Thailand).",
+    desc: "One-stop digital front door for Thailand\u2019s Provincial Electricity Authority—outages, billing, connections—without hopping legacy silos.",
     img: "images/portfolio/coe.jpg",
     alt: "PEA E-Service",
     link: "https://peacos.pea.co.th/views/paperex/",
     anchorId: "portfolio-pea",
     caseStudy: {
       eyebrow: "Public service · UX",
-      task: "Consolidate citizen-facing tasks into one calm doorway—reducing duplication, opaque statuses, and dead ends across legacy touchpoints.",
+      task: "Consolidate what citizens need from PEA—outage info, bills, new service—into one calm entry point: fewer duplicated forms, clearer status, fewer exits to nowhere.",
       disciplines: [
         "Service design",
         "Information architecture",
@@ -1833,8 +1907,8 @@ export const PORTFOLIO_PROJECTS = [
         { label: "Selenium", href: "https://www.selenium.dev/" },
       ],
       overview: [
-        "Utility service sites often grow by accretion: each department ships a flow, and citizens shoulder the navigation tax. The objective was a single mental model: find my task, finish it, know what happens next.",
-        "High-stakes moments—outages, billing disputes, new connections—need calm typography, resilient forms, and clarity on timelines.",
+        "Utility portals usually accrete: every department ships a corner of the site, and citizens pay the navigation tax. The goal here was one mental model—pick your job, complete it, see what happens next—rather than mirroring the org chart.",
+        "Outages, bill disputes, and new connections are high-stress; they need calm type, forms that recover from mistakes, and honest timelines—not optimistic microcopy alone.",
       ],
       strategyTitle: "What I did",
       strategyIntro:

@@ -1,4 +1,4 @@
-/* UX section — before/after friction; panel surfaces match .project-case-study__ba-panel */
+/* UX friction compare; panel styles mirror BA. List reset: project-case-study.css */
 
 .project-case-study__ux-compare {
   @apply m-0 mt-8;
@@ -17,7 +17,6 @@
   }
 }
 
-/* Same base as .project-case-study__ba-panel */
 .project-case-study__ux-compare-panel {
   background: rgba(255, 255, 255, 0.44);
   border: 1.5px solid var(--ba-border);
@@ -27,7 +26,6 @@
   min-height: 0;
 }
 
-/* Same as .project-case-study__ba-panel--before */
 .project-case-study__ux-compare-panel--before {
   background: linear-gradient(
     180deg,
@@ -36,7 +34,6 @@
   );
 }
 
-/* Same as .project-case-study__ba-panel--after */
 .project-case-study__ux-compare-panel--after {
   background: linear-gradient(
     180deg,
@@ -45,7 +42,6 @@
   );
 }
 
-/* Same title color as .project-case-study__ba-panel-title */
 .project-case-study__ux-compare-title {
   margin: 0 0 0.65rem;
   font-size: var(--cs-text-subhead);
@@ -56,12 +52,16 @@
 }
 
 .project-case-study__ux-compare-list {
-  margin: 0;
   padding-left: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
   font-size: var(--cs-text-ui);
   line-height: var(--cs-lh-ui);
   color: var(--ba-muted);
+}
+
+.project-case-study__ux-compare-list > li + li {
+  margin-top: 0.45rem;
+}
+
+.project-case-study__ux-compare-list li::marker {
+  color: var(--ba-teal);
 }

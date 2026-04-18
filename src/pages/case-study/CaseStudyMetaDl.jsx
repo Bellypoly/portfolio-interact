@@ -39,6 +39,26 @@ function StackEntry({ item, index }) {
   );
 }
 
+function renderContext(context) {
+  if (context && typeof context === "object") {
+    const summary = typeof context.summary === "string" ? context.summary : "";
+    const detail = typeof context.detail === "string" ? context.detail : "";
+    if (summary || detail) {
+      return (
+        <div className="project-case-study__meta-context">
+          {summary ? (
+            <p className="project-case-study__meta-context-summary">{summary}</p>
+          ) : null}
+          {detail ? (
+            <p className="project-case-study__meta-context-detail">{detail}</p>
+          ) : null}
+        </div>
+      );
+    }
+  }
+  return context;
+}
+
 /** Focus + Context (+ optional Stack) definition list (Task section and standalone layout). */
 export default function CaseStudyMetaDl({ disciplines, context, techStack }) {
   const stackItems = normalizeStackItems(techStack);
@@ -53,7 +73,7 @@ export default function CaseStudyMetaDl({ disciplines, context, techStack }) {
       </div>
       <div className="project-case-study__meta-row">
         <dt className="project-case-study__meta-term">Context</dt>
-        <dd className="project-case-study__meta-def">{context}</dd>
+        <dd className="project-case-study__meta-def">{renderContext(context)}</dd>
       </div>
       {stackItems.length ? (
         <div className="project-case-study__meta-row">

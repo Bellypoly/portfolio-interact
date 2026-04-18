@@ -4,11 +4,9 @@ import "./CaseStudyVersionCompareDiagram.css";
 import "./CaseStudyBeforeAfterCompare.css";
 
 /**
- * Side-by-side screenshot compare inside `.project-case-study__diagram--before-after`.
- * Reuses `--ba-*` panel chrome from CaseStudyVersionCompareDiagram.css.
- *
+ * Before/after screenshot rows (BA chrome, same `--ba-*` as version compare).
  * `block.rows[]`: { rowTitle?, beforeTitle?, afterTitle?, before, after }
- * Each of before/after: { img, imgWebp?, alt, caption? }
+ * before/after: { img, imgWebp?, alt, caption? }
  */
 export default function CaseStudyBeforeAfterCompare({ block, baseUrl }) {
   const rows = block?.rows;
@@ -17,7 +15,7 @@ export default function CaseStudyBeforeAfterCompare({ block, baseUrl }) {
   return (
     <div
       id={block.anchorId}
-      className="project-case-study__diagram project-case-study__diagram--before-after project-case-study__no-shadow"
+      className="project-case-study__diagram project-case-study__diagram--before-after project-case-study__media-bleed project-case-study__no-shadow"
     >
       {block.diagramAlt ? (
         <p className="sr-only">{block.diagramAlt}</p>
@@ -72,7 +70,7 @@ export default function CaseStudyBeforeAfterCompare({ block, baseUrl }) {
         ))}
       </div>
       {block.caption ? (
-        <p className="project-case-study__caption mx-auto mt-6 max-w-[68ch] px-1">
+        <p className="project-case-study__caption mx-auto mt-6 max-w-none px-1">
           {block.caption}
         </p>
       ) : null}

@@ -1,7 +1,6 @@
-/* Case study — warm editorial; typography from .project-case-study tokens */
+/* Case study page: layout, prose, wide media, BA panel tokens */
 
 .project-case-study {
-  /* Surfaces (tokens: design-tokens.css) */
   --cs-page-bg: var(--pf-editorial-page-bg);
   --cs-panel-bg: var(--pf-editorial-panel-bg);
   --cs-header-bg: rgb(251 250 248 / 0.95);
@@ -14,17 +13,15 @@
     var(--pf-editorial-teal-muted) 100%
   );
 
-  /* Font stacks (aligned with tailwind.config fontFamily.roboto / robotomono) */
   --cs-font-body: "Roboto Condensed", ui-sans-serif, system-ui, sans-serif;
   --cs-font-serif: Georgia, "Times New Roman", Times, ui-serif, serif;
   --cs-font-mono: "Roboto Mono", ui-monospace, monospace;
 
-  /* Type scale (rem) — body drives inheritance for .project-case-study__p, bullets, meta def */
-  --cs-text-body: 1.0625rem;
-  --cs-text-body-md: 1.125rem;
+  /* Type: --cs-text-body* drives .project-case-study__p and inherited prose */
+  --cs-text-body: 1.125rem;
+  --cs-text-body-md: 1.1875rem;
   --cs-text-ui: 1rem;
-  --cs-text-caption: 0.9375rem;
-  /* Overlines: eyebrow, section h2, meta terms, result labels */
+  --cs-text-caption: 1.0625rem;
   --cs-text-overline: 0.9375rem;
   --cs-text-overline-md: 1rem;
   --cs-text-lead: 1.25rem;
@@ -33,8 +30,8 @@
   --cs-text-subhead-md: 1.25rem;
   --cs-text-stat: 1.85rem;
   --cs-text-stat-md: 2.25rem;
-  --cs-lh-body: 1.8;
-  --cs-lh-body-md: 1.82;
+  --cs-lh-body: 1.72;
+  --cs-lh-body-md: 1.74;
   --cs-lh-tight: 1.72;
   --cs-lh-ui: 1.65;
   --cs-tracking-body: 0.01em;
@@ -42,7 +39,7 @@
   --cs-tracking-overline-md: 0.12em;
   --cs-tracking-label: 0.1em;
 
-  /* Before/after panels: CaseStudyVersionCompareDiagram + CaseStudyUxFrictionCompare */
+  /* BA compare panels (diagram + UX friction components) */
   --ba-teal: var(--pf-editorial-teal);
   --ba-teal-soft: var(--pf-editorial-teal-soft);
   --ba-sand: var(--pf-editorial-sand);
@@ -66,7 +63,44 @@
 }
 
 .project-case-study__header-inner {
-  @apply flex w-full max-w-[90ch] items-center justify-start px-5 md:px-8;
+  @apply relative flex w-full max-w-[90ch] items-center justify-start px-5 md:px-8;
+}
+
+/* Skip link: off-screen until :focus */
+.project-case-study__skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.project-case-study__skip-link:focus {
+  position: fixed;
+  top: 0.65rem;
+  left: 0.65rem;
+  z-index: 10004;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border-radius: 0.35rem;
+  font-size: var(--cs-text-ui);
+  line-height: var(--cs-lh-ui);
+  text-decoration: none;
+  color: #fafaf9;
+  background-color: rgb(28 25 23 / 0.96);
+  box-shadow: 0 2px 14px rgb(0 0 0 / 0.22);
+}
+.project-case-study__skip-link:focus-visible {
+  outline: 2px solid var(--pf-editorial-teal);
+  outline-offset: 2px;
 }
 
 .project-case-study__back {
@@ -79,7 +113,6 @@
   color: var(--pf-editorial-rust);
 }
 
-/* Hover-reveal: match slot height to UI type; reveal on parent hover (full hit target) */
 .project-case-study .project-case-study__hover-reveal {
   max-width: 100%;
   height: 1.35em;
@@ -95,12 +128,12 @@
   @apply -translate-y-1/2;
 }
 
-/* Body column: base size for all prose that inherits */
 .project-case-study__article {
   @apply mx-auto w-full max-w-[90ch] px-5 pb-28 pt-9 md:px-8 md:pt-14;
   font-family: var(--cs-font-body);
   font-size: var(--cs-text-body);
   line-height: var(--cs-lh-body);
+  scroll-margin-top: 4.75rem; /* sticky header */
 }
 
 @media (min-width: 768px) {
@@ -110,7 +143,6 @@
   }
 }
 
-/* Overlines — same pixel scale, weight varies */
 .project-case-study__eyebrow {
   font-size: var(--cs-text-overline);
   line-height: 1.35;
@@ -168,7 +200,6 @@
   @apply h-full w-full object-cover;
 }
 
-/* Mobile vs md+ object-position (set --cs-featured-obj* on .project-case-study__featured-wrap) */
 .project-case-study__featured-img--responsive-pos {
   object-position: var(--cs-featured-obj, center center);
 }
@@ -186,7 +217,6 @@
   @apply block h-auto w-full object-cover;
 }
 
-/* Featured strip: lightbox trigger fills compact frame (image object-fit unchanged) */
 .project-case-study__featured-wrap--compact
   .project-case-study__lightbox-trigger,
 .project-case-study__featured-wrap--compact
@@ -218,10 +248,11 @@
 
 .project-case-study__section {
   @apply mt-14 border-t border-stone-300/70 pt-11 md:mt-16 md:pt-12;
+  scroll-margin-top: 4.75rem; /* sticky header */
 }
 
 .project-case-study__lead {
-  @apply mt-7 font-normal text-stone-900;
+  @apply mt-7 max-w-none font-normal text-stone-900;
   font-size: var(--cs-text-lead);
   line-height: 1.7;
 }
@@ -263,15 +294,89 @@
   }
 }
 
+.project-case-study__reference-table-figure {
+  @apply my-6 md:my-7;
+}
+
+.project-case-study__reference-table-scroll {
+  @apply overflow-x-auto rounded-md border border-stone-300/90 bg-[var(--cs-panel-bg)];
+}
+
+.project-case-study__reference-table {
+  @apply w-full min-w-[12rem] border-collapse text-left text-sm text-stone-900;
+}
+
+.project-case-study__reference-table th,
+.project-case-study__reference-table td {
+  @apply border-b border-stone-200/95 px-3 py-2 md:px-4 md:py-2.5;
+}
+
+.project-case-study__reference-table thead th {
+  @apply bg-stone-100/90 font-semibold text-stone-700;
+  font-size: 0.8125rem;
+  letter-spacing: var(--cs-tracking-label);
+}
+
+.project-case-study__reference-table tbody tr:last-child th,
+.project-case-study__reference-table tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+.project-case-study__reference-table-rowhead {
+  @apply w-[42%] font-medium text-stone-800 tabular-nums;
+  font-size: 1.05em;
+}
+
+.project-case-study__reference-table td {
+  @apply tabular-nums text-stone-700;
+}
+
+.project-case-study__reference-table--transpose th,
+.project-case-study__reference-table--transpose td {
+  @apply w-[9%] min-w-[2.35rem] text-center;
+}
+
+.project-case-study__reference-table--transpose thead th {
+  @apply text-base font-semibold text-stone-800;
+  font-size: 1.0625em;
+}
+
+.project-case-study__reference-table--transpose tbody td {
+  @apply font-medium text-stone-700;
+}
+
+.project-case-study__reference-table-digit-col {
+  @apply tabular-nums;
+}
+
+.project-case-study__reference-table-caption {
+  @apply mt-2.5 max-w-none text-stone-600;
+}
+
 .project-case-study__meta-def {
   @apply m-0 text-stone-900;
   font-size: 1em;
   line-height: 1.65;
 }
 
+.project-case-study__meta-context-summary,
+.project-case-study__meta-context-detail {
+  @apply m-0;
+}
+
+.project-case-study__meta-context-detail {
+  @apply mt-2.5 border-l-2 border-stone-300/90 pl-3.5 text-stone-600;
+  font-size: 0.9375em;
+  line-height: 1.6;
+}
+
 @media (min-width: 768px) {
   .project-case-study__meta-def {
     line-height: 1.7;
+  }
+
+  .project-case-study__meta-context-detail {
+    line-height: 1.65;
   }
 }
 
@@ -293,32 +398,40 @@
   text-decoration-color: var(--pf-editorial-rust);
 }
 
-/* Prose — inherits article font-size / line-height */
 .project-case-study__p {
-  @apply mt-6 text-stone-800 first:mt-7;
+  @apply mt-6 max-w-none text-stone-800 first:mt-7;
+  font-size: inherit;
+  line-height: inherit;
   letter-spacing: var(--cs-tracking-body);
 }
 
 .project-case-study__p--tight {
-  @apply mt-3.5 text-stone-800;
+  @apply mt-3.5 max-w-none text-stone-800;
   font-size: 1em;
   line-height: var(--cs-lh-tight);
   letter-spacing: 0.008em;
 }
 
 .project-case-study__p--bridge {
-  @apply mt-7 italic text-stone-500;
+  @apply mt-7 max-w-none italic text-stone-500;
   font-size: var(--cs-text-ui);
   line-height: var(--cs-lh-ui);
 }
 
 .project-case-study__bullet-list,
 .project-case-study__pillars {
-  @apply border-l-2 border-stone-300 pl-6 md:pl-8;
+  @apply max-w-none border-l-2 border-stone-300 pl-6 md:pl-8;
 }
 
 .project-case-study__bullet-list {
   @apply mt-8 list-none space-y-5;
+}
+
+/* BA + UX friction lists: avoid flex/grid on `<ul>` or list markers disappear */
+.project-case-study__ba-notes,
+.project-case-study__ux-compare-list {
+  margin: 0;
+  list-style: disc outside;
 }
 
 .project-case-study__bullet-item {
@@ -364,8 +477,8 @@
   @apply block h-auto w-full;
 }
 
-.project-case-study__diagram--before-after {
-  @apply mt-0 bg-transparent;
+/* `media-bleed`: viewport band; `wide-inner`: 78rem cap (figures, three-up, compare) */
+.project-case-study__media-bleed {
   width: 100vw;
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -376,15 +489,44 @@
 }
 
 @media (min-width: 768px) {
-  .project-case-study__diagram--before-after {
+  .project-case-study__media-bleed {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
+.project-case-study__wide-inner {
+  @apply mx-auto w-full max-w-[78rem];
+}
+
+/* Before/after diagram: clear default panel chrome; use with `media-bleed` */
+.project-case-study__diagram--before-after {
+  @apply mt-0 bg-transparent;
+}
+
+/* Breakout is already full-bleed — reset nested `media-bleed` padding */
+.project-case-study__section--breakout .project-case-study__media-bleed {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .project-case-study__diagram--ascii {
   @apply overflow-x-auto bg-transparent;
   background: var(--cs-diagram-bg);
+}
+
+.project-case-study__figure--ascii-compact .project-case-study__diagram-pre {
+  @apply px-4 py-4 md:px-6 md:py-5;
+  font-size: 0.6875rem;
+}
+
+@media (min-width: 768px) {
+  .project-case-study__figure--ascii-compact .project-case-study__diagram-pre {
+    font-size: 0.8125rem;
+  }
 }
 
 .project-case-study__diagram-pre {
@@ -401,7 +543,6 @@
   }
 }
 
-/* Secondary caption under figures, diagrams, or ASCII blocks (not impact-chart lead copy). */
 .project-case-study__caption {
   @apply mt-3 italic text-stone-500;
   font-size: var(--cs-text-caption);
@@ -413,7 +554,6 @@
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 }
 
-/* Early impact: V2 | V3 split (subscription snapshot) */
 .project-case-study__early-impact-groups {
   @apply grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10;
 }
@@ -457,12 +597,55 @@
   }
 }
 
+.project-case-study__section--embed,
+.project-case-study__section--breakout {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  overflow-x: clip;
+}
+
 .project-case-study__section--embed {
   @apply border-t-0 pt-0;
 }
 
+@media (min-width: 768px) {
+  .project-case-study__section--embed,
+  .project-case-study__section--breakout {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.project-case-study__section--breakout .project-case-study__h2 {
+  @apply mx-auto max-w-[90ch];
+}
+
+.project-case-study__section--breakout .project-case-study__figure-grid {
+  @apply mx-auto w-full max-w-[78rem];
+}
+
+.project-case-study__section--breakout > .project-case-study__caption {
+  @apply mx-auto;
+}
+
+.project-case-study__section--breakout .project-case-study__p {
+  @apply mx-auto w-full max-w-[90ch];
+}
+
+.project-case-study__section--embed > .project-case-study__p {
+  @apply mx-auto;
+}
+
+.project-case-study__placeholder-box {
+  @apply rounded-md border border-dashed border-stone-400/90 bg-stone-100/60 px-5 py-4;
+}
+
 .project-case-study__embed-wrap {
-  @apply mt-8 w-[calc(100%+3rem)] -ml-6 overflow-hidden rounded-sm border-0 md:w-[calc(100%+6rem)] md:-ml-12;
+  @apply mx-auto mt-8 w-full max-w-[78rem] overflow-hidden rounded-sm border-0;
 }
 
 .project-case-study__embed {
@@ -491,7 +674,6 @@
   text-decoration-color: var(--pf-editorial-rust);
 }
 
-/* Rich case study: problem subgroups */
 .project-case-study__problem-group {
   @apply mt-10 first:mt-8;
 }
@@ -500,7 +682,6 @@
   @apply mt-5 space-y-3.5;
 }
 
-/* Figure grids (checkout, onboarding) */
 .project-case-study__figure-grid {
   @apply mt-8 grid gap-8;
 }
@@ -509,6 +690,7 @@
   @apply md:grid-cols-2 md:gap-10;
 }
 
+/* Three-up: wrap with `media-bleed` > `wide-inner` (see CaseStudyFigures) */
 .project-case-study__figure-grid--3 {
   @apply grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8;
 }
@@ -521,14 +703,32 @@
   @apply m-0;
 }
 
+.project-case-study__figure--compare .project-case-study__compare-grid {
+  @apply mx-auto grid w-full max-w-[78rem] grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6;
+}
+
+.project-case-study__figure--compare > .project-case-study__caption {
+  @apply mx-auto w-full max-w-[78rem] px-1;
+}
+
+.project-case-study__figure--compare .project-case-study__lightbox-trigger {
+  @apply min-h-0;
+}
+
+.project-case-study__figure--compare .project-case-study__figure-img {
+  @apply max-h-[min(70vh,28rem)] w-full object-contain sm:max-h-[min(75vh,32rem)];
+}
+
 .project-case-study__figure-img {
   @apply block w-full rounded-sm;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Local Elections Hub — before/after: stay inside article/section (no full-bleed diagram) */
+/* local-elections-hub: no viewport breakout on compare / BA */
 .project-case-study--local-elections-hub
-  .project-case-study__diagram--before-after {
+  .project-case-study__diagram--before-after.project-case-study__media-bleed,
+.project-case-study--local-elections-hub
+  .project-case-study__figure--compare.project-case-study__media-bleed {
   width: 100%;
   max-width: 100%;
   margin-left: 0;
@@ -541,14 +741,12 @@
   max-width: 100%;
 }
 
-/* Local Elections Hub — before/after mobile shots: slightly narrower than full column */
 .project-case-study--local-elections-hub
   .project-case-study__ba
   .project-case-study__figure-img {
   @apply mx-auto max-w-[min(100%,9rem)] sm:max-w-[min(100%,10.25rem)] md:max-w-[min(100%,11.5rem)];
 }
 
-/* Parliament Watch OCR — featured hero slightly shorter than default compact (not as tall as full strip) */
 .project-case-study--parliament-watch-ocr
   .project-case-study__featured-wrap--compact {
   @apply h-[14rem] sm:h-[17rem] md:h-[24rem] lg:h-[27rem];
@@ -558,12 +756,10 @@
   box-shadow: none;
 }
 
-/* Impact bar chart */
 .project-case-study__impact-chart {
   @apply mt-10 w-full;
 }
 
-/* Lead paragraph above the bars (body-sized), not a small figure caption. */
 .project-case-study__impact-chart-intro {
   @apply mb-8 text-stone-700;
   font-size: var(--cs-text-ui);
@@ -617,7 +813,6 @@
   min-width: 4px;
 }
 
-/* Cross-link to related project */
 .project-case-study__related {
   @apply mt-14 text-center;
 }

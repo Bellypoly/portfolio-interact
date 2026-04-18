@@ -3,7 +3,7 @@
 }
 
 .profile-icon-stack {
-  @apply relative w-[55px] h-[55px] flex items-center justify-center cursor-pointer;
+  @apply relative w-[72px] h-[72px] flex items-center justify-center cursor-pointer;
 }
 .profile-icon-stack:hover .radio-signal-wave {
   @apply border-cyan-400 bg-cyan-400/40;
@@ -13,7 +13,7 @@
 }
 
 .radio-signal-wave {
-  @apply absolute rounded-full w-[55px] h-[55px] pointer-events-none z-[21];
+  @apply absolute rounded-full w-[72px] h-[72px] pointer-events-none z-[21];
   @apply border border-[rgba(94,234,212,0.85)];
   box-shadow:
     0 0 10px rgba(94, 234, 212, 0.4),
@@ -21,7 +21,7 @@
 }
 
 .profile-icon-img {
-  @apply relative w-[55px] h-[55px] object-cover rounded-full border-2 border-white z-[22];
+  @apply relative w-[72px] h-[72px] object-cover rounded-full border-2 border-white z-[22];
   background-color: var(--pf-teal-ui);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }

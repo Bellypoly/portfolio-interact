@@ -47,8 +47,8 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
           </picture>
           <svg
             width="90"
-            height="70"
-            viewBox="0 0 90 70"
+            height="85"
+            viewBox="0 0 90 55"
             className="astronaut-id-label"
           >
             <defs>
