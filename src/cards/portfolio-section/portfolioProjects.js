@@ -557,7 +557,7 @@ export const PORTFOLIO_PROJECTS = [
         "images/portfolio/subscription-checkout/featured-image.webp",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Replace a leaking 3-page, server-rendered checkout with a single React surface, unify Braintree / Stripe / Apple Pay behind one payment abstraction, and implement deterministic Arc XP identity resolution at the email boundary — then iterate with Microsoft Clarity on production so evidence, not assumptions, drove the V3 UX fixes.",
+      task: "Replace a leaking 3-page, server-rendered checkout with a single React surface, unify Braintree, Stripe, and Apple Pay behind one payment abstraction, and implement deterministic Arc XP identity resolution at email entry — then iterate with Microsoft Clarity in production so evidence, not assumptions, drove the V3 UX fixes.",
       disciplines: [
         "Checkout & payments system",
         "Identity & session continuity",
@@ -616,7 +616,8 @@ export const PORTFOLIO_PROJECTS = [
           after:
             " — more readers than ever were reaching the moment they wanted to subscribe. But the checkout they hit was 3 server-rendered pages with no shared client state: member info, payment, password. Every navigation was a full round-trip, a fresh DOM, and another chance for the reader to close the tab.",
         },
-        "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified 3 payment providers (Braintree, Stripe, Apple Pay) behind one tokenization interface, and wrote deterministic identity resolution against Arc XP so the system could tell new visitors from existing accounts from active subscribers — all at the email-entry boundary. The second pass used Microsoft Clarity tap heatmaps on production to prove that some of my own V1 engineering decisions were now the problem, and I shipped fixes against the evidence.",
+        "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified 3 payment providers (Braintree, Stripe, Apple Pay) behind one tokenization interface, and wrote deterministic identity resolution against Arc XP so the system could distinguish new visitors, existing accounts, and active subscribers — all at the email-entry boundary.",
+        "The second pass used Microsoft Clarity tap heatmaps in production to show that some of my own earlier engineering choices had become the UX bottleneck. I shipped fixes directly against that evidence.",
       ],
       relatedProject: {
         slug: "dynamic-paywall",
@@ -708,7 +709,7 @@ export const PORTFOLIO_PROJECTS = [
         title: "Version 2: Single-page checkout",
         lead: 'The first pass rewrote the architecture. We collapsed the 3-page flow into a single React-driven surface, unified 3 payment providers behind one abstraction, and wired deterministic identity resolution into the entry point. It shipped as the "Single Page Checkout" and moved digital subscriptions materially within the first month.',
         bullets: [
-          "Moved member info, payment, and order summary onto a single page — eliminating 2 full navigations and 2 server round-trips. Client state now lives in one component tree instead of being serialized and prayed-for across page loads.",
+          "Moved member info, payment, and order summary onto a single page — eliminating two full navigations and two server round-trips. Client state now lives in one component tree instead of being serialized and hoped to survive across page loads.",
           "Built a unified payment abstraction over Braintree, Stripe, and Apple Pay. Each provider has its own tokenization flow, validation contract, and error shape; the abstraction normalizes all of that behind one interface so the checkout form doesn't care which provider is active.",
           "Arc XP's subscription API required validated member info before it would create an order. I enforced that constraint on the client by gating payment fields behind member-info validation — the fields stayed disabled until the backend confirmed the identity. Clean engineering; the payment form couldn't submit junk. Readers saw it differently, but I didn't know that yet.",
           "Added a 3-step progress bar (Select Plan → Payment → Confirmation) and a benefits sidebar. Both felt like smart additions — wayfinding for the reader, confidence for the purchase. We were proud of them.",
@@ -750,9 +751,9 @@ export const PORTFOLIO_PROJECTS = [
             "↓",
             "Account exists?",
             "   → No  → Create identity inline → Continue",
-            "   → Yes → Active subscription?             ",
+            "   → Yes → Active subscription?",
             "           → Yes → Exit checkout → Status screen",
-            "            → No  → Auth → Resume with cart intact",
+            "           → No  → Auth → Resume with cart intact",
           ],
           caption:
             "One async lookup, 3 deterministic branches. No guessing, no dead ends, no lost state.",
@@ -760,7 +761,7 @@ export const PORTFOLIO_PROJECTS = [
       },
       claritySection: {
         title: "Version 3: What Clarity showed us",
-        lead: "V2 worked: strong subscription lift, clean architecture, unified payments. We could have stopped. Instead I wired Microsoft Clarity into production — session replay and tap heatmaps on the exact DOM readers touched — because shipping isn't the same as knowing. What the data showed was uncomfortable: the friction readers hit in V2 wasn't a design oversight or a missing feature. It was my own engineering decisions surfacing as UX problems. Iterating on that evidence — progress bar, payment affordance, benefits chrome — stacked another conversion uplift on top of the V2 launch.",
+        lead: "V2 worked: strong subscription lift, clean architecture, unified payments. We could have stopped. Instead I wired Microsoft Clarity into production — session replay and tap heatmaps on the exact DOM readers touched — because shipping is not the same as knowing. The friction readers hit in V2 was not a design oversight or a missing feature; it was my own engineering choices showing up as UX problems. Iterating on that evidence — progress bar, payment affordance, benefits chrome — stacked another conversion uplift on the V2 launch.",
         figureIntro:
           "The progress bar was the first thing that lit up. Aggregate taps stacked on Confirmation while the active step was still Payment — readers were treating it like tab navigation. This is the kind of bug you will never catch in a happy-path test suite; it only shows up when you overlay thousands of real sessions on the markup you shipped. Chrome Mobile (left) and Mobile Safari (right) in the same 3-day window — same page, different engines, different tap distributions. That cross-browser delta alone is why you instrument production instead of trusting a single QA device.",
         figures: [
@@ -874,14 +875,14 @@ export const PORTFOLIO_PROJECTS = [
           },
           {
             value: "+22%",
-            label: "Credit Card / Payment details completed",
+            label: "Credit card / payment details completed",
           },
         ],
       },
       approachTitle: "What I learned",
       approach: [
-        "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — 3 pages meant 3 round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
-        "Version 3 was the humbling part. The progress bar I added for wayfinding was being used as navigation. The payment gating I built for backend safety was making inputs look broken. Clarity didn’t show me someone else’s mistakes — it showed me mine. The takeaway isn’t ‘test more’; it’s that engineering decisions have UX consequences you can’t predict from the code alone, and the only honest way to find them is to instrument production and let real sessions talk back.",
+        "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — three pages meant three round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
+        "Version 3 was the humbling part. The progress bar I added for wayfinding was being used as navigation. The payment gating I built for backend safety was making inputs look broken. Clarity did not surface someone else’s mistakes — it surfaced mine. The takeaway is not simply “test more”; engineering decisions have UX consequences you cannot predict from code alone, and the honest way to find them is to instrument production and let real sessions push back.",
       ],
       showcase: {
         title: "The result",
@@ -947,7 +948,7 @@ export const PORTFOLIO_PROJECTS = [
         href: "https://www.dallasnews.com/business/airlines/2025/10/08/staffing-shortages-cause-more-us-flight-delays-as-government-shutdown-reaches-7th-day/",
         label: "The Dallas Morning News",
       },
-      task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4 / Datadog / BlueConic instrumentation. Partnered with product, design, and ads.",
+      task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
       taskBodyType: true,
       disciplines: [
         "Article frontend & Arc XP PageBuilder",
@@ -1038,7 +1039,8 @@ export const PORTFOLIO_PROJECTS = [
       ],
       overviewTitle: "Overview",
       overview: [
-        "When AMP went away, we regained full control of the article DOM—and inherited the work to make that control measurable. I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs—rolled out behind feature flags from September toward full deployment by year-end.",
+        "When AMP went away, we regained full control of the article DOM — and inherited the work to make that control measurable.",
+        "I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out behind feature flags from September through full deployment by year-end.",
       ],
       overviewSystemDesign: {
         sectionTitle: "Article stack",
@@ -1063,7 +1065,7 @@ export const PORTFOLIO_PROJECTS = [
       problemSection: {
         title: "Problem",
         paragraphs: [
-          "The old experience was sidebar-heavy: ads and modules competed with the story, loads were unpredictable for Core Web Vitals, and growth paths (subscribe, register, newsletter) sat outside a coherent reading line — so engagement stayed passive and iteration was slow.",
+          "The old experience was sidebar-heavy: ads and modules competed with the story, Core Web Vitals were hard to defend under shifting load, and growth paths (subscribe, register, newsletter) sat outside a coherent reading line — so engagement stayed passive and iteration was slow.",
         ],
         figureCaption:
           "2 comparisons: representative production pages, then Arc XP PageBuilder templates — same before/after story at different levels of fidelity.",
@@ -1144,11 +1146,11 @@ export const PORTFOLIO_PROJECTS = [
       ],
       approachTitle: "What I learned",
       approach: [
-        "Lazy-loading the comment widget protects LCP but delays first interaction. We landed on an intersection-observer trigger at roughly the midpoint of the article as the tradeoff. That pattern (defer cost, measure where engagement actually starts) carried over to GAM slots and the newsletter CTA.",
-        "Shipping layout, ads, commenting, and reader-state as one rollout instead of separate tracks meant fewer integration surprises, but every feature-flag combination needed its own test matrix. The unit and integration coverage on render-branch permutations was the hardest part of the project.",
+        "Lazy-loading the comment widget protects LCP but delays first interaction. We settled on an intersection-observer trigger near the midpoint of the article as the tradeoff. That pattern — defer cost, then measure where engagement actually starts — carried over to GAM slots and the newsletter CTA.",
+        "Shipping layout, ads, commenting, and reader-state in one coordinated rollout instead of parallel tracks meant fewer integration surprises, but every feature-flag combination needed its own test matrix. Unit and integration coverage across render-branch permutations was the hardest part of the project.",
       ],
       businessOutcome:
-        "One implementation surface in production, rolled out incrementally with product, design, and ads from September toward full deployment by year-end.",
+        "One implementation surface in production, rolled out incrementally with product, design, and ads from September through full deployment by year-end.",
       showcase: {
         title: "The result",
         figureGridColumns: 3,
@@ -1221,8 +1223,9 @@ export const PORTFOLIO_PROJECTS = [
       overview: [
         "At national scale, the job isn’t “show more rows.” It’s whether someone can answer fast: Is this role for me? Is this employer real? Is applying worth the time? When those questions stay fuzzy, people bounce—or they blast the same generic application into the void.",
         "Search and recommendations carry the first half of that decision; resume tooling carries the second. Search has to feel fast and legible under real filters (location, pay band, seniority). Resumes need guardrails so people finish, but not so much rigidity that every profile reads like the same template.",
-        "In Thailand, “where?” rarely means a single city string—commuters care about BTS/MRT corridors; manufacturing and logistics roles cluster near industrial estates (นิคมอุตสาหกรรม). JobThai drew on THiNKNET\u2019s map and POI layer so seekers could discover roles by geography the way they plan a commute, not only by typing a province name.",
-        "I worked across that full arc—Elasticsearch-backed discovery, Laravel/MySQL-backed flows, and front-end surfaces in JavaScript—so browsing, targeted search, and apply-prep (resume, alerts) each had the right density of controls under one coherent system.",
+        "In Thailand, “where?” rarely means a single city string — commuters care about BTS/MRT corridors, and manufacturing and logistics roles cluster near industrial estates (นิคมอุตสาหกรรม).",
+        "JobThai drew on THiNKNET\u2019s map and POI layer so seekers could discover roles by geography the way they plan a commute, not only by typing a province name.",
+        "I worked across that full arc — Elasticsearch-backed discovery, Laravel/MySQL-backed flows, and front-end surfaces in JavaScript — so browsing, targeted search, and apply-prep (resume, alerts) each had the right density of controls under one coherent system.",
       ],
       strategyTitle: "What I focused on",
       strategyIntro:
@@ -1243,7 +1246,7 @@ export const PORTFOLIO_PROJECTS = [
       ],
       approachTitle: "How it went to production",
       approach: [
-        "Search refinement shipped as explainable filters: seekers could tighten results without guessing what the backend was doing. Elasticsearch work sat behind that—tuning relevance and query behavior so the experience felt obvious on the surface even when the ranking logic underneath was not.",
+        "Search refinement shipped as explainable filters: seekers could tighten results without guessing what the backend was doing. Elasticsearch work sat behind that — tuning relevance and query behavior so the experience felt obvious on the surface even when the ranking logic underneath was opaque.",
         "Resume guidance shipped as progressive checkpoints rather than a single wall of fields—enough structure to increase completion, enough flexibility that profiles still sounded like people.",
         "Funnel instrumentation split mobile vs desktop and new vs returning cohorts; we chased the worst drop-offs first instead of polishing screens nobody reached.",
       ],
@@ -1294,7 +1297,8 @@ export const PORTFOLIO_PROJECTS = [
         },
       ],
       overview: [
-        "At THiNKNET the product line was Map Magic; today the public mapping experiences are branded THiNKNET Maps for end users. Geographically we built on OpenStreetMap as the shared baseline, then invested in customized technology and proprietary Thailand data—our own tiles, POI depth, internal tooling, and routing—so the product is not a thin skin over stock OSM. That Thailand-first layer powers job search (e.g. location-aware listings on JobThai), travel and editorial products (guide books, physical maps), and hospitality surfaces such as HotelGuide Thailand, with shared assets across those lines.",
+        "At THiNKNET the product line was Map Magic; today the public mapping experiences are branded THiNKNET Maps for end users. Geographically we built on OpenStreetMap as the shared baseline, then invested in customized technology and proprietary Thailand data—our own tiles, POI depth, internal tooling, and routing—so the product is not a thin skin over stock OSM.",
+        "That Thailand-first layer powers job search (e.g. location-aware listings on JobThai), travel and editorial products (guide books, physical maps), and hospitality surfaces such as HotelGuide Thailand, with shared assets across those lines.",
         {
           text: "The live customer-facing map experience is ",
           externalLink: {
@@ -1304,12 +1308,12 @@ export const PORTFOLIO_PROJECTS = [
           after: ".",
         },
         {
-          text: "The MapMagic Android client (package com.thinknet.mapmagicgl) is also listed on third-party mirrors such as ",
+          text: "The MapMagic Android client (package com.thinknet.mapmagicgl) is listed on third-party mirrors such as ",
           externalLink: {
             href: "https://apkpure.com/mapmagic/com.thinknet.mapmagicgl",
             label: "APKPure",
           },
-          after: ", alongside major app stores.",
+          after: ", in addition to major app stores.",
         },
         "My work spanned the map API and integration surface (predictable contracts, tiles, search/geocoding, embedding patterns for partners), web and mobile back-office applications used by operations to gather and validate data that feeds the map database, and a substantial contribution to the map routing algorithm so turn-by-turn and path results matched Thailand road reality.",
       ],
@@ -1661,7 +1665,7 @@ export const PORTFOLIO_PROJECTS = [
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
       task:
-        "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows validation actually flags.",
+        "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
       disciplines: [
         "OCR & document parsing",
         "Data engineering & ETL",
@@ -1698,7 +1702,7 @@ export const PORTFOLIO_PROJECTS = [
       ],
       overviewTitle: "When the official release is only paper on a screen",
       overview: [
-        "Thailand\u2019s election commission publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, no API for the same numbers living inside the scan.",
+        "Thailand\u2019s Election Commission (ECT) publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, no API for the same numbers living inside the scan.",
         "That split creates real pressure. Newsrooms need trustworthy tables under deadline. Civic open-data projects need the same figures in a joinable format for charts, joins, and audits. Until someone reconstructs the grids, everyone is stuck retyping—or shipping charts built on fragile copy-paste. VOTE62 exists to close that gap as a coalition effort.",
         {
           mediaBlock: {
@@ -1709,7 +1713,7 @@ export const PORTFOLIO_PROJECTS = [
               "Same official template, different handwriting and corrections in the wild—the kind of noise that breaks naive extraction.",
           },
         },
-        "Across 400 constituencies I built the reconstruction path: detect layout first, OCR cells in context (never one naive text dump), then validation aggressive enough that bad numbers surface before they become someone else\u2019s \u201cground truth.\u201d The gallery below compresses that arc—paper chaos, extractor logs with warnings, reviewer-ready tables—in three lightbox panels.",
+        "Across 400 constituencies I built the reconstruction path: detect layout first, OCR cells in context (never a single naive text dump), then validation aggressive enough that bad numbers surface before they become someone else\u2019s \u201cground truth.\u201d The gallery further down compresses that arc—paper chaos, extractor logs with warnings, reviewer-ready tables—in three lightbox panels.",
         "The product goal I pushed for was never pretend-perfect OCR. It was to make uncertainty legible—so a chart or an open dataset does not silently inherit a cell that never matched the official scan.",
       ],
       strategyTitle: "What the pipeline had to get right",
@@ -1789,15 +1793,30 @@ export const PORTFOLIO_PROJECTS = [
         src: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/preview?gid=780194054",
         title: "VOTE62 — structured election dataset",
         caption:
-          "Live structured turnout and tallies derived from the same official PDFs—kept current as ECT releases updates, so downstream work stays tied to the source of truth.",
+          "Live structured turnout and tallies derived from the same official PDFs—updated when ECT publishes revisions, so downstream work stays tied to the source of truth.",
         minHeight: "580px",
       },
       businessOutcome:
-        "My contribution on this project was not a prettier spreadsheet—it was helping shift the labor from wholesale retyping onto a pipeline where machines do the bulk extraction, validation decides what is safe to publish, and humans spend their time only on rows that checks actually flag.",
+        "My contribution was not a prettier spreadsheet—it was shifting labor from wholesale retyping to a pipeline where machines do the bulk extraction, validation decides what is safe to publish, and humans spend their time only on rows that checks actually flag.",
       futureBlock: {
         title: "Next steps",
         body:
           "Where I would push next: stronger ML table detection, richer per-cell confidence, and a review surface purpose-built for post-validation fixes—so the same transparency scales when the document mix gets harder.",
+      },
+      referenceSection: {
+        title: "Raw sources",
+        intro:
+          "Official ECT return PDFs for the ส.ส. 69 count—fixed-layout scans, grouped by constituency (เขตเลือกตั้ง) in the same folder layout the commission uses when it bundles releases.",
+        paragraphs: [
+          {
+            text: "Google Drive copy (รายงานผลการนับคะแนน สส.69): ",
+            externalLink: {
+              href: "https://drive.google.com/drive/folders/1MApGQ8YpAG1hVMOWqfKdfag3KLWYYWY5?usp=drive_link",
+              label: "Raw PDFs by constituency",
+            },
+            after: " — useful for audit, reruns, and spot-checking against the live sheet.",
+          },
+        ],
       },
     },
   },
