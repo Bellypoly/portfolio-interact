@@ -29,7 +29,11 @@ import {
   formatDurationMs,
   getScrollMetrics,
   getSectionScrollSpyDebug,
+  replaceHistoryHash,
+  resetOpeningCrawlScroller,
   resolveActiveIndexFromViewportProbe,
+  scrollDocumentToTop,
+  scrollDocumentToY,
   SCROLL_SPY_PROBE_RATIO,
 } from "./utils/spaceResumeScroll";
 import { consumeMissionScrollRestore } from "./utils/spaceResumeNavigation";
@@ -52,6 +56,8 @@ const WORK_SECTION_INDEX = 2;
 const EDUCATION_SECTION_INDEX = 4;
 const MISSION_GALLERY_GATE_SECTION_INDEX = 5;
 const PORTFOLIO_SECTION_INDEX = 6;
+/** How long scroll-spy defers to `jumpingToRef` after a marker jump (smooth scroll). */
+const MARKER_JUMP_SUPPRESS_MS = 1200;
 const MOUSE_SPRING = { stiffness: 150, damping: 20 };
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
@@ -210,19 +216,25 @@ export default function SpaceResume() {
       if (jumpTimeoutRef.current) clearTimeout(jumpTimeoutRef.current);
       jumpingToRef.current = i;
       setActiveIndex(i);
-      const ref = sectionRefs.current[i];
-      if (ref?.current) {
-        const el = ref.current;
-        const y = el.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: y, behavior: "smooth" });
-        if (SECTIONS[i]?.id) {
-          window.location.hash = `#${SECTIONS[i].id}`;
+      // Index 0: document top (scrollY = 0). #intro’s DOM top is lower, so we do not
+      // scrollIntoView(intro) — that would misalign “progress zero” with the crawl.
+      if (i === 0) {
+        scrollDocumentToTop();
+        resetOpeningCrawlScroller();
+        replaceHistoryHash(SECTIONS[0]?.id);
+      } else {
+        const el = sectionRefs.current[i]?.current;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          scrollDocumentToY(top, "smooth");
+          const id = SECTIONS[i]?.id;
+          if (id) window.location.hash = `#${id}`;
         }
       }
       jumpTimeoutRef.current = setTimeout(() => {
         jumpingToRef.current = null;
         jumpTimeoutRef.current = null;
-      }, 1200);
+      }, MARKER_JUMP_SUPPRESS_MS);
     },
     [SECTIONS],
   );
@@ -335,10 +347,11 @@ export default function SpaceResume() {
   }, [SECTION_COUNT, sectionIds]);
 
   // --- Window size + Stars ---
-  const [windowSize, setWindowSize] = useState({
-    width: 1920,
-    height: 1080,
-  });
+  const [windowSize, setWindowSize] = useState(() =>
+    typeof window !== "undefined"
+      ? { width: window.innerWidth, height: window.innerHeight }
+      : { width: 1920, height: 1080 },
+  );
   useEffect(() => {
     const handler = () =>
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
@@ -349,8 +362,8 @@ export default function SpaceResume() {
 
   const starsRef = useRef();
   if (!starsRef.current) {
-    const w = typeof window !== "undefined" ? window.innerWidth : 1920;
-    const h = typeof window !== "undefined" ? window.innerHeight : 1080;
+    const w = windowSize.width;
+    const h = windowSize.height;
     starsRef.current = Object.fromEntries(
       STAR_LAYER_DEFS.map((def, i) => [
         def.key,
@@ -598,7 +611,27 @@ export default function SpaceResume() {
                 viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
                 style={{ y: scrollY }}
               >
-                <g>
+                <defs>
+                  <filter
+                    id={`space-resume-star-glow-${key}`}
+                    x="-25%"
+                    y="-25%"
+                    width="150%"
+                    height="150%"
+                    colorInterpolationFilters="sRGB"
+                  >
+                    <feGaussianBlur
+                      in="SourceGraphic"
+                      stdDeviation="0.85"
+                      result="blur"
+                    />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g filter={`url(#space-resume-star-glow-${key})`}>
                   {starsRef.current[key].map((s, i) => (
                     <Star key={i} {...s} />
                   ))}

@@ -113,3 +113,47 @@ export function formatDurationMs(ms) {
   const rs = s % 60;
   return `${m}m ${rs.toFixed(0)}s`;
 }
+
+/** Matches `.crawl-content` in `opening-crawl.css` (nested overflow-y scroll). */
+const OPENING_CRAWL_SCROLLABLE_SELECTOR = ".crawl-content";
+
+/**
+ * Instant jump to the layout scroll origin. Uses `behavior: "auto"` so wheel/touch
+ * cannot strand the page mid–smooth-scroll (Framer `scrollYProgress` would lag).
+ */
+export function scrollDocumentToTop() {
+  if (typeof window === "undefined") return;
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
+/**
+ * Clears OpeningCrawl’s inner scroller so copy matches window progress at top.
+ * Sync + next frame: one `querySelector`, same node reference after layout.
+ */
+export function resetOpeningCrawlScroller() {
+  if (typeof document === "undefined") return;
+  const el = document.querySelector(OPENING_CRAWL_SCROLLABLE_SELECTOR);
+  if (!el) return;
+  el.scrollTop = 0;
+  requestAnimationFrame(() => {
+    el.scrollTop = 0;
+  });
+}
+
+/**
+ * Set the URL hash without scrolling. Used for marker index 0: scroll is y=0,
+ * not aligning the viewport to `#intro`’s element top.
+ */
+export function replaceHistoryHash(sectionId) {
+  if (typeof window === "undefined" || !sectionId) return;
+  const url = `${window.location.pathname}${window.location.search}#${sectionId}`;
+  window.history.replaceState(null, "", url);
+}
+
+/** Scroll the document to an absolute Y (e.g. section offset). */
+export function scrollDocumentToY(top, behavior = "smooth") {
+  if (typeof window === "undefined") return;
+  window.scrollTo({ top, left: 0, behavior });
+}

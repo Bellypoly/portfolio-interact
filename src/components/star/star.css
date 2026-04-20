@@ -1,7 +1,7 @@
+/* Glow is applied on the parent <g filter="url(#…)"> in SpaceResume (valid SVG defs). */
 .star-core,
 .star-glow {
   @apply fill-[var(--star-fill,white)] transition-[fill] duration-500 ease-out;
-  filter: url(#star-glow);
 }
 
 .star-glow {
