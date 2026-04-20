@@ -12,7 +12,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
   useMotionValue,
   useMotionValueEvent,
 } from "framer-motion";
@@ -37,6 +36,7 @@ import {
   SCROLL_SPY_PROBE_RATIO,
 } from "./utils/spaceResumeScroll";
 import { consumeMissionScrollRestore } from "./utils/spaceResumeNavigation";
+import { usePreferSimpleMotion } from "./hooks/usePreferSimpleMotion";
 
 const PrequelSection = lazy(() => import("./cards/prequel-section"));
 const RocketSection = lazy(() => import("./cards/rocket-section"));
@@ -50,6 +50,8 @@ const MissionGalleryGateSection = lazy(
 );
 
 const STAR_COUNT = 200;
+/** Fewer SVG nodes + no twinkle on touch / reduced-motion (Safari GPU). */
+const STAR_COUNT_SIMPLE = 64;
 const SECTION_COUNT = 7;
 const PREQUEL_SECTION_INDEX = 1;
 const WORK_SECTION_INDEX = 2;
@@ -58,7 +60,6 @@ const MISSION_GALLERY_GATE_SECTION_INDEX = 5;
 const PORTFOLIO_SECTION_INDEX = 6;
 /** How long scroll-spy defers to `jumpingToRef` after a marker jump (smooth scroll). */
 const MARKER_JUMP_SUPPRESS_MS = 1200;
-const MOUSE_SPRING = { stiffness: 150, damping: 20 };
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
 
@@ -94,13 +95,21 @@ function makeTwinkle(i, layer) {
   };
 }
 
-function generateStarLayer(count, layerIndex, size, baseOpacity, w, h) {
+function generateStarLayer(
+  count,
+  layerIndex,
+  size,
+  baseOpacity,
+  w,
+  h,
+  enableTwinkle,
+) {
   return Array.from({ length: count }, (_, i) => ({
     x: Math.random() * w,
     y: Math.random() * h,
     size,
     o: baseOpacity + Math.random() * 0.3,
-    twinkle: makeTwinkle(i, layerIndex),
+    twinkle: enableTwinkle ? makeTwinkle(i, layerIndex) : null,
   }));
 }
 
@@ -111,15 +120,10 @@ function getSectionItemClass(id, index) {
   return "app-section-item--landing";
 }
 
-function useMouseParallaxSpring(axisX, axisY, range) {
-  const x = useSpring(
-    useTransform(axisX, [-1, 1], [-range, range]),
-    MOUSE_SPRING,
-  );
-  const y = useSpring(
-    useTransform(axisY, [-1, 1], [-range, range]),
-    MOUSE_SPRING,
-  );
+/** Parallax follows pointer without springs — avoids extra physics work each frame on iOS. */
+function useMouseParallax(axisX, axisY, range) {
+  const x = useTransform(axisX, [-1, 1], [-range, range]);
+  const y = useTransform(axisY, [-1, 1], [-range, range]);
   return [x, y];
 }
 
@@ -139,6 +143,8 @@ export default function SpaceResume() {
       clearTimeout(t);
     };
   }, []);
+
+  const preferSimpleMotion = usePreferSimpleMotion();
 
   // --- Scroll tracking ---
   const { scrollYProgress } = useScroll();
@@ -360,22 +366,36 @@ export default function SpaceResume() {
     return () => window.removeEventListener("resize", handler);
   }, []);
 
-  const starsRef = useRef();
-  if (!starsRef.current) {
-    const w = windowSize.width;
-    const h = windowSize.height;
-    starsRef.current = Object.fromEntries(
-      STAR_LAYER_DEFS.map((def, i) => [
-        def.key,
-        generateStarLayer(STAR_COUNT, i, def.size, def.baseOpacity, w, h),
-      ]),
-    );
-  }
+  const starCount = preferSimpleMotion ? STAR_COUNT_SIMPLE : STAR_COUNT;
+  const starsByLayer = useMemo(
+    () =>
+      Object.fromEntries(
+        STAR_LAYER_DEFS.map((def, i) => [
+          def.key,
+          generateStarLayer(
+            starCount,
+            i,
+            def.size,
+            def.baseOpacity,
+            windowSize.width,
+            windowSize.height,
+            !preferSimpleMotion,
+          ),
+        ]),
+      ),
+    [
+      windowSize.width,
+      windowSize.height,
+      starCount,
+      preferSimpleMotion,
+    ],
+  );
 
   // --- Mouse parallax ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   useEffect(() => {
+    if (preferSimpleMotion) return undefined;
     function onMouseMove(e) {
       const x = (e.clientX / window.innerWidth - 0.5) * 2;
       const y = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -384,11 +404,11 @@ export default function SpaceResume() {
     }
     window.addEventListener("mousemove", onMouseMove);
     return () => window.removeEventListener("mousemove", onMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, preferSimpleMotion]);
 
-  const [mouseFarX, mouseFarY] = useMouseParallaxSpring(mouseX, mouseY, 12);
-  const [mouseMidX, mouseMidY] = useMouseParallaxSpring(mouseX, mouseY, 24);
-  const [mouseNearX, mouseNearY] = useMouseParallaxSpring(mouseX, mouseY, 40);
+  const [mouseFarX, mouseFarY] = useMouseParallax(mouseX, mouseY, 12);
+  const [mouseMidX, mouseMidY] = useMouseParallax(mouseX, mouseY, 24);
+  const [mouseNearX, mouseNearY] = useMouseParallax(mouseX, mouseY, 40);
 
   // --- Scroll-driven effects ---
   const nebulaFromPrequel = useTransform(
@@ -401,9 +421,9 @@ export default function SpaceResume() {
     [0, 0.25],
     [1, 0],
   );
-  const bgNebulaOpacity = useSpring(
-    useTransform([nebulaFromPrequel, educationFadeOut], ([p, e]) => p * e),
-    { stiffness: 10, damping: 20 },
+  const bgNebulaOpacity = useTransform(
+    [nebulaFromPrequel, educationFadeOut],
+    ([p, e]) => p * e,
   );
   const bottomBlurOpacity = useTransform(
     workScroll.scrollYProgress,
@@ -596,11 +616,13 @@ export default function SpaceResume() {
           className="app-starfield"
           style={{ "--star-fill": starFill }}
         >
-          <div className="app-shooting-stars">
-            <ShootingStar delay={0} />
-            <ShootingStar delay={5} />
-            <ShootingStar delay={10} />
-          </div>
+          {!preferSimpleMotion ? (
+            <div className="app-shooting-stars">
+              <ShootingStar delay={0} />
+              <ShootingStar delay={5} />
+              <ShootingStar delay={10} />
+            </div>
+          ) : null}
           {starLayers.map(({ key, cls, mx, my, scrollY }) => (
             <motion.div
               key={key}
@@ -611,31 +633,41 @@ export default function SpaceResume() {
                 viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
                 style={{ y: scrollY }}
               >
-                <defs>
-                  <filter
-                    id={`space-resume-star-glow-${key}`}
-                    x="-25%"
-                    y="-25%"
-                    width="150%"
-                    height="150%"
-                    colorInterpolationFilters="sRGB"
-                  >
-                    <feGaussianBlur
-                      in="SourceGraphic"
-                      stdDeviation="0.85"
-                      result="blur"
-                    />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-                <g filter={`url(#space-resume-star-glow-${key})`}>
-                  {starsRef.current[key].map((s, i) => (
-                    <Star key={i} {...s} />
-                  ))}
-                </g>
+                {!preferSimpleMotion ? (
+                  <>
+                    <defs>
+                      <filter
+                        id={`space-resume-star-glow-${key}`}
+                        x="-25%"
+                        y="-25%"
+                        width="150%"
+                        height="150%"
+                        colorInterpolationFilters="sRGB"
+                      >
+                        <feGaussianBlur
+                          in="SourceGraphic"
+                          stdDeviation="0.85"
+                          result="blur"
+                        />
+                        <feMerge>
+                          <feMergeNode in="blur" />
+                          <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                      </filter>
+                    </defs>
+                    <g filter={`url(#space-resume-star-glow-${key})`}>
+                      {starsByLayer[key].map((s, i) => (
+                        <Star key={i} {...s} />
+                      ))}
+                    </g>
+                  </>
+                ) : (
+                  <g>
+                    {starsByLayer[key].map((s, i) => (
+                      <Star key={i} {...s} />
+                    ))}
+                  </g>
+                )}
               </motion.svg>
             </motion.div>
           ))}

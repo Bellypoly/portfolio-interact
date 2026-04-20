@@ -42,10 +42,20 @@
 }
 .crawl-inner {
   @apply w-full flex justify-center [perspective:800px];
+  /* Let only the text port capture touches (avoids iOS fighting nested vs page scroll). */
+  pointer-events: none;
 }
 .crawl-title {
   @apply text-yellow-300 text-center origin-bottom scale-[1.8]  [transform-origin:50%_100%] [transform-style:preserve-3d];
   rotate: x 50deg;
+  pointer-events: none;
+}
+/* Coarse pointers (iPad, phones): lighter 3D = cheaper paints while document scroll drives motion. */
+@media (pointer: coarse) {
+  .crawl-title {
+    @apply scale-[1.35];
+    rotate: x 34deg;
+  }
 }
 .crawl-content {
   @apply mx-auto font-roboto uppercase tracking-[0.2em] max-h-[200vh] overflow-y-auto;
@@ -53,6 +63,12 @@
   @apply [scrollbar-width:thin] [scrollbar-color:#000000ff_#000000ff];
   @apply [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar]:bg-black;
   @apply [&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb]:rounded-lg;
+  pointer-events: auto;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  /* Own compositor layer for the scrollport (parent has 3D + Framer y). */
+  transform: translateZ(0);
 }
 
 .crawl-paragraph {
