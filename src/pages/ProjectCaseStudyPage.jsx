@@ -447,7 +447,7 @@ export default function ProjectCaseStudyPage() {
             onClick={goToMission}
           >
             <HoverRevealText className="project-case-study__hover-reveal">
-              🠔 Back to mission 🚀
+            ← Back to mission 🚀
             </HoverRevealText>
           </button>
         </div>
