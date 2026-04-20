@@ -10,6 +10,12 @@
     0 0 15px rgb(0 255 255 / 0.6), 0 0 12px rgb(0 255 255 / 0.6);
 
   @apply z-[20000] mb-2 flex flex-col justify-start text-xs text-cyan-300;
+  /* Avoid one-frame “pop” when section chrome toggles (e.g. gallery → intro after Launch Mission). */
+  transition:
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    color 0.18s ease;
 
   @apply fixed bottom-4 left-4 items-start pl-2;
   @apply md:bottom-auto md:left-auto md:right-4 md:top-4 md:items-end;

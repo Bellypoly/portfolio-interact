@@ -15,8 +15,9 @@ const MarkerChip = ({
       <motion.div
         className={cc(["marker-chip-container"])}
         initial={false}
-        animate={{ opacity: 1, height: "auto" }}
-        exit={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
       >
         {section.title && (
           <a
