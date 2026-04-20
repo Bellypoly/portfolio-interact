@@ -31,10 +31,7 @@ function CaseStudyImpactBlock({ block, baseUrl, sectionId }) {
   const caption = block.figureCaption;
   const fig = block.figure;
   return (
-    <CaseStudySection
-      title={block.title || "Impact"}
-      sectionId={sectionId}
-    >
+    <CaseStudySection title={block.title || "Impact"} sectionId={sectionId}>
       {block.intro ? (
         <p className="project-case-study__p">{block.intro}</p>
       ) : null}
@@ -130,8 +127,7 @@ function renderCaseStudyParagraph(paragraph, key, baseUrl) {
     );
   }
   if (
-    (paragraph.mediaBlock?.type === "image" &&
-      paragraph.mediaBlock?.src) ||
+    (paragraph.mediaBlock?.type === "image" && paragraph.mediaBlock?.src) ||
     (paragraph.mediaBlock?.type === "ascii" &&
       paragraph.mediaBlock?.lines?.length)
   ) {
@@ -140,10 +136,7 @@ function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   if (paragraph.figureBlock?.img) {
     const fb = paragraph.figureBlock;
     return (
-      <figure
-        key={key}
-        className="project-case-study__figure mt-6 md:mt-7"
-      >
+      <figure key={key} className="project-case-study__figure mt-6 md:mt-7">
         <CaseStudyLightboxImage
           baseUrl={baseUrl}
           img={fb.img}
@@ -203,7 +196,10 @@ function renderCaseStudyParagraph(paragraph, key, baseUrl) {
 
     if (transpose) {
       return (
-        <figure key={key} className="project-case-study__reference-table-figure">
+        <figure
+          key={key}
+          className="project-case-study__reference-table-figure"
+        >
           <div className="project-case-study__reference-table-scroll">
             <table className="project-case-study__reference-table project-case-study__reference-table--transpose">
               <thead>
@@ -261,7 +257,10 @@ function renderCaseStudyParagraph(paragraph, key, baseUrl) {
                 <tr key={ri}>
                   {row.map((cell, ci) =>
                     ci === 0 ? (
-                      <th scope="row" className="project-case-study__reference-table-rowhead">
+                      <th
+                        scope="row"
+                        className="project-case-study__reference-table-rowhead"
+                      >
                         {cell}
                       </th>
                     ) : (
@@ -373,10 +372,7 @@ function renderApproachBlock(item, baseUrl, key) {
       baseUrl,
     );
   }
-  if (
-    item?.compareFigures?.left?.img &&
-    item?.compareFigures?.right?.img
-  ) {
+  if (item?.compareFigures?.left?.img && item?.compareFigures?.right?.img) {
     return renderCaseStudyParagraph(
       { compareFigures: item.compareFigures },
       key,
@@ -451,7 +447,7 @@ export default function ProjectCaseStudyPage() {
             onClick={goToMission}
           >
             <HoverRevealText className="project-case-study__hover-reveal">
-              ← Back to mission 🚀
+              🠔 Back to mission 🚀
             </HoverRevealText>
           </button>
         </div>
@@ -907,7 +903,9 @@ export default function ProjectCaseStudyPage() {
             sectionId={`${slug}-ambiguity`}
           >
             {cs.ambiguitySection.body ? (
-              <p className="project-case-study__p">{cs.ambiguitySection.body}</p>
+              <p className="project-case-study__p">
+                {cs.ambiguitySection.body}
+              </p>
             ) : null}
             {cs.ambiguitySection.figureBlock?.img
               ? renderCaseStudyParagraph(
@@ -920,15 +918,18 @@ export default function ProjectCaseStudyPage() {
         ) : null}
 
         {((cs.mediaBlock?.type === "image" && cs.mediaBlock?.src) ||
-          (cs.mediaBlock?.type === "ascii" &&
-            cs.mediaBlock?.lines?.length)) &&
-        renderCaseStudyMediaBlock(cs.mediaBlock, "case-study-media", baseUrl)}
+          (cs.mediaBlock?.type === "ascii" && cs.mediaBlock?.lines?.length)) &&
+          renderCaseStudyMediaBlock(cs.mediaBlock, "case-study-media", baseUrl)}
 
         {cs.galleryBlock?.images?.length ? (
           <CaseStudySection
             title={cs.galleryBlock.title}
             sectionId={`${slug}-gallery`}
-            className="project-case-study__section--breakout"
+            className={
+              slug === "map-magic"
+                ? "map-magic-gallery"
+                : "project-case-study__section--breakout"
+            }
           >
             <CaseStudyFigures
               embedded

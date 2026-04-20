@@ -260,12 +260,14 @@ export const PORTFOLIO_PROJECTS = [
         mobile: [
           {
             img: "images/portfolio/jerdi/award-ceremony.png",
+            imgWebp: "images/portfolio/jerdi/award-ceremony.webp",
             alt: "JerDi team receiving the ฿30,000 development grant cheque at Samart Innovation Awards",
             caption:
               "Receiving the ฿30,000 ทุนพัฒนาผลงาน (development grant) at Samart Innovation Awards",
           },
           {
             img: "images/portfolio/jerdi/team.png",
+            imgWebp: "images/portfolio/jerdi/team.webp",
             alt: "JerDi team selfie at the Young Technopreneur awards ceremony",
             caption:
               "Team photo at the award announcement — Young Technopreneur × NSTDA BIC",
@@ -1193,17 +1195,20 @@ export const PORTFOLIO_PROJECTS = [
     name: "JobThai",
     desc: "Thailand\u2019s national job board—Elasticsearch search, resume flows, and map-grounded filters (e.g. BTS/MRT corridors, industrial estates / นิคมอุตสาหกรรม) so listings match real commutes.",
     img: "images/portfolio/jobthai/thumbnail.png",
+    imgWebp: "images/portfolio/jobthai/thumbnail.webp",
     alt: "JobThai Resume — flat illustration of a job seeker at a laptop and a recruiter with clipboard, with JobThai branding",
     link: "https://www.jobthai.com/jobsearch",
     anchorId: "portfolio-jobthai",
     caseStudy: {
       eyebrow: "Product · Marketplace",
       featuredImg: "images/portfolio/jobthai/featured-image.png",
+      featuredImgWebp: "images/portfolio/jobthai/featured-image.webp",
       featuredImageAlt:
         "JobThai — job seeker and recruiter illustration with Resume branding and soft green workspace palette",
       task: "Move seekers from skimming listings to confident applications: search that surfaces the right roles under real filters, and resume tooling that strengthens each profile instead of collapsing everything into the same template.",
       disciplines: ["Search & discovery", "Recommendations", "Resume tools"],
-      context: "JobThai — THiNKNET Co., Ltd. · national job marketplace (Thailand)",
+      context:
+        "JobThai — THiNKNET Co., Ltd. · national job marketplace (Thailand)",
       techStack: [
         {
           label: "THiNKNET",
@@ -1258,26 +1263,28 @@ export const PORTFOLIO_PROJECTS = [
     portfolioGroup: "professional",
     portfolioYear: 2018,
     portfolioLabel: "Platform",
-    name: "Map Magic",
-    desc: "Thailand map platform (OSM-based, THiNKNET data & routing)—APIs, consumer maps, back-office tooling, and turn-by-turn.",
+    name: "MapMagic",
+    desc: "Thailand map infrastructure I helped build—REST map APIs, custom tiles and POI, field Android capture, and routing that survives real Bangkok traffic, not demo coordinates.",
     img: "images/portfolio/map-magic/thumbnail.png",
+    imgWebp: "images/portfolio/map-magic/thumbnail.webp",
     alt: "Isometric mapping toolkit on orange — laptop, phone with city pins, world-map screen, 360 street-view car, connected nodes and logo on tiered blocks",
     link: "https://maps.thinknet.co.th/th",
     caseStudy: {
       eyebrow: "Platform · Geospatial",
       featuredImg: "images/portfolio/map-magic/featured-image.png",
+      featuredImgWebp: "images/portfolio/map-magic/featured-image.webp",
       featuredImageAlt:
         "MapMagic app promo — logo above two phones: map list (Silom Complex) and satellite view over an aerial golden-hour city; orange location pin focal point",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task: "Ship THiNKNET’s Thailand-focused map stack on an OpenStreetMap geographic base: custom tiles, data pipelines, and routing—not an off-the-shelf OSM viewer—plus dependable APIs and UIs, internal tooling to grow proprietary map data, and routes that stay trustworthy on real roads.",
+      task: "Turn OpenStreetMap from a respectable starting line into a Thailand-native map platform: proprietary tiles and POI, dependable REST APIs for partners and first-party Android, internal capture/QA loops that fed production indexes, and routing that respected our graph and cost models—not whatever a generic global router imagines a soi should do.",
       disciplines: [
         "Map platform & APIs",
-        "Routing",
-        "Back-office apps",
+        "Routing & graph",
+        "Field + back-office ops",
         "Geospatial UX",
       ],
-      context: "THiNKNET Co., Ltd. · Map Magic (consumer brand: THiNKNET Maps)",
+      context: "THiNKNET Co., Ltd. · MapMagic (consumer brand: THiNKNET Maps)",
       techStack: [
         {
           label: "THiNKNET",
@@ -1292,54 +1299,110 @@ export const PORTFOLIO_PROJECTS = [
           href: "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap",
         },
         {
+          label: "JOSM",
+          href: "https://josm.openstreetmap.de/",
+        },
+        {
           label: "Map APIs, tiles, routing & geocoding",
           href: "https://en.wikipedia.org/wiki/Tiled_web_map",
         },
       ],
       overview: [
-        "At THiNKNET the product line was Map Magic; today the public mapping experiences are branded THiNKNET Maps for end users. Geographically we built on OpenStreetMap as the shared baseline, then invested in customized technology and proprietary Thailand data—our own tiles, POI depth, internal tooling, and routing—so the product is not a thin skin over stock OSM.",
-        "That Thailand-first layer powers job search (e.g. location-aware listings on JobThai), travel and editorial products (guide books, physical maps), and hospitality surfaces such as HotelGuide Thailand, with shared assets across those lines.",
+        "At THiNKNET the product line was MapMagic; today most people meet it as THiNKNET Maps in the browser. We started from OpenStreetMap because it gave us a credible geography to argue with—but Thailand is not a tutorial bbox. Heat, traffic, patchy mobile signal, and Thai addressing habits will embarrass lazy tiles, lazy POIs, and lazy routing faster than any QA script. The work was never “skin OSM”; it was building the proprietary layer—tiles, POI depth, capture tooling, and a router that understood our graph—so the map felt local when it mattered.",
         {
-          text: "The live customer-facing map experience is ",
+          text: "That stack quietly props up everyday products: map-grounded job search on JobThai, travel and editorial lines such as ",
+          externalLink: {
+            href: "https://www.naiin.com/search-result?title=THiNKNET",
+            label:
+              "printed THiNKNET guidebooks, highway atlases, and road maps",
+          },
+          after:
+            "—still the kind of highway-first print drivers trust—plus other digital surfaces that reuse the same tiles, search, and routing muscle.",
+        },
+        "HotelGuide Thailand was one hospitality front built on the same footprint. The standalone app is retired, but the infrastructure underneath—tiles, POI, routing, APIs—did not retire with it; it still feeds THiNKNET\u2019s live map portfolio.",
+        {
+          text: "The public map most people open today is ",
           externalLink: {
             href: "https://maps.thinknet.co.th/th",
             label: "THiNKNET Maps",
           },
-          after: ".",
+          after:
+            ", where you can swap basemap moods without swapping the road network underneath.",
         },
         {
-          text: "The MapMagic Android client (package com.thinknet.mapmagicgl) is listed on third-party mirrors such as ",
+          figureBlock: {
+            img: "images/portfolio/map-magic/thinknet-maps-basemap-styles.png",
+            imgWebp:
+              "images/portfolio/map-magic/thinknet-maps-basemap-styles.webp",
+            alt: "Examples of THiNKNET Maps basemap styles over the same Thailand viewport (e.g. Ivory, Hybrid, Charcoal, Cha Thai, Terrain, Cloudy)—illustrative, not a complete catalog.",
+            caption:
+              "Sample basemaps on THiNKNET Maps—same view, different styles; more options exist beyond this strip.",
+          },
+        },
+        {
+          text: "",
           externalLink: {
             href: "https://apkpure.com/mapmagic/com.thinknet.mapmagicgl",
-            label: "APKPure",
+            label: "The Map Magic Android client",
           },
-          after: ", in addition to major app stores.",
+          after: " was how we carried the map into the field—capture, lists, and detail screens on that familiar orange UI, all backed by the same APIs and database the desk-side tooling guarded.",
         },
-        "My work spanned the map API and integration surface (predictable contracts, tiles, search/geocoding, embedding patterns for partners), web and mobile back-office applications used by operations to gather and validate data that feeds the map database, and a substantial contribution to the map routing algorithm so turn-by-turn and path results matched Thailand road reality.",
+        "My footprint was deliberately split: I owned the map API surface partners and the Android client actually called—REST contracts, tiles, search and geocoding, embed patterns that did not snap when data churned. I built the web and mobile back-office loops that moved field capture and QA into production tiles and search indexes. And I put serious time into the routing stack—graph usage, cost models, and algorithm behavior on OSM-derived geometry edited for Thailand—so previews and turn-by-turn did not fantasize turns the asphalt would refuse.",
       ],
       strategyTitle: "What I did",
       strategyIntro:
-        "I split time between external developer experience—making map capabilities easy and safe to embed—and internal velocity: tooling that let data teams curate and ship updates without breaking consumers. OSM gave us a credible geographic starting point; the hard part was our customized stack on top. Routing work sat in the middle: correctness and performance where bad geometry or bad graph logic shows up immediately on the user's route preview.",
+        "Two audiences, one database. Partners wanted map capabilities that felt boring in the best way—predictable REST, embeddings that did not rot when tiles revved, errors a human could action from a log. Ops wanted to move geometry and POIs from motorcycles and desk QA into production without playing telephone. OpenStreetMap bought us honesty on day one; the craft was everything we layered on top. Routing sat in the uncomfortable center—bad graph math does not hide behind copywriting, it shows up as a nonsense turn someone tries to drive.",
       pillars: [
         {
           title: "Data & operations",
-          body: "I built back-office web and mobile flows so teams could capture, review, and publish updates into our database—aligned where it helps with the OSM world, but centered on THiNKNET-owned fields, QA, and Thailand-specific detail you do not get from importing OSM alone.",
+          body: "I built the web and mobile flows that let teams capture in the field, review with a straight face, and publish into our database—THiNKNET-owned fields and QA gates, not a naive OSM import. When a bike or van was the wrong tool, we still edited the network in JOSM and ArcGIS Editor so geometry and connectivity were right before tiles and routing ate the change.",
         },
         {
           title: "Routing you can trust",
-          body: "I contributed to the routing stack so paths respect the road network and cost models we maintained—fewer nonsense detours or impossible turns where Thai topology differs from generic global routers.",
+          body: "I contributed to the routing stack so paths honored our road graph and cost models—fewer fairy-tale detours or impossible maneuvers where Thai topology punishes generic global routers. The win was not a slick demo line; it was a preview you would actually follow.",
         },
         {
           title: "Platform ergonomics",
-          body: "I kept API vocabulary, error shapes, and examples aligned so integrations failed in obvious ways, and map UI patterns stayed legible on phones in daylight traffic—not demo-perfect mock data only.",
+          body: "I tightened API vocabulary, error shapes, and examples so integrations failed in legible ways, and kept map UI patterns readable on a phone in glare—not a lab screenshot with perfect signal.",
         },
       ],
       approachTitle: "How I shipped it",
       approach: [
-        "Hardened REST contracts, embedding patterns, rate limits, and attribution so partner maps and first-party apps stayed stable as data churned underneath.",
-        "Delivered back-office apps on web and mobile for map data collection and QA workflows that fed production tiles and search indexes.",
-        "Improved routing graph usage and algorithm behavior on top of OSM-derived geometry but with our cost models and graph edits for real Thailand road cases, alongside documentation and guardrails for overlays across basemap styles.",
+        "Shipped hardened REST contracts, embedding patterns, rate limits, and attribution so partner embeds and first-party Android stayed upright when POIs and tiles moved underneath.",
+        "Delivered back-office web and mobile capture/QA that fed production tiles and search indexes—field reality in, curated data out.",
+        "Iterated routing graph usage and algorithm behavior on OSM-derived geometry with our cost models and Thailand-specific graph edits, plus docs and guardrails so new basemap skins did not quietly desync overlays.",
       ],
+      galleryBlock: {
+        title: "MapMagic Android — sign-in, discovery, field capture",
+        figureColumns: 3,
+        images: [
+          {
+            img: "images/portfolio/map-magic/mapmagic-android-login.png",
+            imgWebp: "images/portfolio/map-magic/mapmagic-android-login.webp",
+            alt: "MapMagic Android — login screen: orange and black mapmagic wordmark, username and password fields, orange LOGIN button, forgot password and create account links.",
+            caption:
+              "Operator entry point — branded sign-in for the same Android client used in the field.",
+          },
+          {
+            img: "images/portfolio/map-magic/mapmagic-android-silom-map-list.png",
+            imgWebp:
+              "images/portfolio/map-magic/mapmagic-android-silom-map-list.webp",
+            alt: "MapMagic Android — split view: street map of Bangkok Silom with orange POI pins and blue user location dot; scrollable list below showing Thai place names and “Found 140 locations.”",
+            caption:
+              "Map-backed discovery — Silom area with pins synced to a counted result list (Thai UI).",
+          },
+          {
+            img: "images/portfolio/map-magic/mapmagic-android-detail-capture.png",
+            imgWebp:
+              "images/portfolio/map-magic/mapmagic-android-detail-capture.webp",
+            alt: "MapMagic Android — Detail screen: map with orange pin over Soi Silom area, photo thumbnail of an industrial building, Name field filled with Thai text “โรงงาน” (factory), Save action.",
+            caption:
+              "Field-style capture — pin on map, on-site photo, and localized naming before save (Thai labels).",
+          },
+        ],
+        caption:
+          "2018-era MapMagic Android—the pocket half of the same stack (REST, tiles, routing) that desk-side QC guarded. Legacy web back-office UIs from that period are not pictured here.",
+      },
       results: null,
     },
   },
@@ -1431,61 +1494,61 @@ export const PORTFOLIO_PROJECTS = [
       results: null,
     },
   },
-  {
-    slug: "squeeze-it",
-    portfolioGroup: "research",
-    portfolioYear: 2014,
-    portfolioLabel: "Academic",
-    name: "Squeeze It",
-    desc: "Heuristic-search AI for a marble puzzle—D3 board you can read, agent whose reasoning stays visible.",
-    img: "images/portfolio/squeeze-it.jpg",
-    alt: "Squeeze It",
-    link: "https://github.com/Bellypoly/AI-project1",
-    caseStudy: {
-      eyebrow: "AI · Visualization",
-      task: "Ship a marble puzzle people can parse move-by-move, and an AI opponent steered by legible heuristics—not an opaque win/loss score.",
-      disciplines: ["Heuristic search", "D3.js", "Game UX"],
-      context: "Academic AI project",
-      techStack: [
-        {
-          label: "JavaScript",
-          href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-        },
-        { label: "D3.js", href: "https://d3js.org/" },
-        {
-          label: "Heuristic search",
-          href: "https://en.wikipedia.org/wiki/Heuristic_search",
-        },
-      ],
-      overview: [
-        "Even a compact game board fails if motion is ambiguous: readers should see the last move, the next options, and why the bot leaned one way. I treated clarity as the product—not chrome around a solver.",
-        "D3.js carried transitions and stable geometry so the puzzle felt like software someone would demo, not a Matlab plot with buttons.",
-      ],
-      strategyTitle: "What I did",
-      strategyIntro:
-        "My role: build the full-stack academic project—D3.js game UI plus a heuristic search agent with legible reasoning. I designed for two audiences: players who want a tight loop, and reviewers who need to see why the AI moved.",
-      pillars: [
-        {
-          title: "Explainable play",
-          body: "I surfaced heuristic cues that steer search—players can disagree, but they’re never mystified.",
-        },
-        {
-          title: "Performance where it matters",
-          body: "I tuned search depth against frame time so the UI stayed responsive.",
-        },
-        {
-          title: "Joyful feedback",
-          body: "I used motion and timing (color, transitions) to celebrate good moves without noise.",
-        },
-      ],
-      approachTitle: "How I shipped it",
-      approach: [
-        "I implemented the heuristic search core with tunable weights and a replay timeline for interesting branches.",
-        "I built D3-driven board updates with layout that stayed stable across viewport changes.",
-      ],
-      results: null,
-    },
-  },
+  // {
+  //   slug: "squeeze-it",
+  //   portfolioGroup: "research",
+  //   portfolioYear: 2014,
+  //   portfolioLabel: "Academic",
+  //   name: "Squeeze It",
+  //   desc: "Heuristic-search AI for a marble puzzle—D3 board you can read, agent whose reasoning stays visible.",
+  //   img: "images/portfolio/squeeze-it.jpg",
+  //   alt: "Squeeze It",
+  //   link: "https://github.com/Bellypoly/AI-project1",
+  //   caseStudy: {
+  //     eyebrow: "AI · Visualization",
+  //     task: "Ship a marble puzzle people can parse move-by-move, and an AI opponent steered by legible heuristics—not an opaque win/loss score.",
+  //     disciplines: ["Heuristic search", "D3.js", "Game UX"],
+  //     context: "Academic AI project",
+  //     techStack: [
+  //       {
+  //         label: "JavaScript",
+  //         href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  //       },
+  //       { label: "D3.js", href: "https://d3js.org/" },
+  //       {
+  //         label: "Heuristic search",
+  //         href: "https://en.wikipedia.org/wiki/Heuristic_search",
+  //       },
+  //     ],
+  //     overview: [
+  //       "Even a compact game board fails if motion is ambiguous: readers should see the last move, the next options, and why the bot leaned one way. I treated clarity as the product—not chrome around a solver.",
+  //       "D3.js carried transitions and stable geometry so the puzzle felt like software someone would demo, not a Matlab plot with buttons.",
+  //     ],
+  //     strategyTitle: "What I did",
+  //     strategyIntro:
+  //       "My role: build the full-stack academic project—D3.js game UI plus a heuristic search agent with legible reasoning. I designed for two audiences: players who want a tight loop, and reviewers who need to see why the AI moved.",
+  //     pillars: [
+  //       {
+  //         title: "Explainable play",
+  //         body: "I surfaced heuristic cues that steer search—players can disagree, but they’re never mystified.",
+  //       },
+  //       {
+  //         title: "Performance where it matters",
+  //         body: "I tuned search depth against frame time so the UI stayed responsive.",
+  //       },
+  //       {
+  //         title: "Joyful feedback",
+  //         body: "I used motion and timing (color, transitions) to celebrate good moves without noise.",
+  //       },
+  //     ],
+  //     approachTitle: "How I shipped it",
+  //     approach: [
+  //       "I implemented the heuristic search core with tunable weights and a replay timeline for interesting branches.",
+  //       "I built D3-driven board updates with layout that stayed stable across viewport changes.",
+  //     ],
+  //     results: null,
+  //   },
+  // },
   {
     slug: "rdfd",
     portfolioGroup: "research",
@@ -1651,21 +1714,20 @@ export const PORTFOLIO_PROJECTS = [
     name: "VOTE62 — ECT Report 69: OCR, ETL & open election data",
     desc: "VOTE62 — 400 Thai constituencies rebuilt from ECT tally PDFs into validated tables so civic tech and newsrooms run on structure, not hand-typed cells.",
     img: "images/portfolio/vote62-ect-report-69/thumbnail.png",
-    imgWebp: "",
+    imgWebp: "images/portfolio/vote62-ect-report-69/thumbnail.webp",
     cardImagePosition: "center center",
     alt: "VOTE62 Mission Gallery thumbnail: stylized tally tables and constituency-style election graphics",
     link: "https://rocketmedialab.co/database-vote62-report-69-1/",
     caseStudy: {
-      eyebrow:
-        "Civic Tech · OCR · ETL · Data Engineering · Data Storytelling",
+      eyebrow: "Civic Tech · OCR · ETL · Data Engineering · Data Storytelling",
       featuredImg: "images/portfolio/vote62-ect-report-69/featured-image.png",
-      featuredImgWebp: "",
+      featuredImgWebp:
+        "images/portfolio/vote62-ect-report-69/featured-image.webp",
       featuredImageAlt:
         "Stacks of Thai election tally forms with handwritten edits \u2014 the paper truth voters see before it becomes rows in an open dataset.",
       featuredImageCompact: true,
       featuredImageObjectPosition: "center center",
-      task:
-        "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
+      task: "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
       disciplines: [
         "OCR & document parsing",
         "Data engineering & ETL",
@@ -1708,6 +1770,8 @@ export const PORTFOLIO_PROJECTS = [
           mediaBlock: {
             type: "image",
             src: "images/portfolio/vote62-ect-report-69/problem-evidence.png",
+            imgWebp:
+              "images/portfolio/vote62-ect-report-69/problem-evidence.webp",
             alt: "Side-by-side scans of two Thai election return forms (ส.ส. 5/18): same official layout, different handwriting styles in the vote columns — illustrating real-world variability for OCR.",
             caption:
               "Same official template, different handwriting and corrections in the wild—the kind of noise that breaks naive extraction.",
@@ -1722,23 +1786,19 @@ export const PORTFOLIO_PROJECTS = [
       pillars: [
         {
           title: "Layout-aware extraction",
-          body:
-            "Government templates repeat, but scans do not: stamps, handwriting, and crooked grids punish document-level OCR. I segmented regions and read cells in context so numbers stayed tied to the headers they belonged to.",
+          body: "Government templates repeat, but scans do not: stamps, handwriting, and crooked grids punish document-level OCR. I segmented regions and read cells in context so numbers stayed tied to the headers they belonged to.",
         },
         {
           title: "Numeral normalization",
-          body:
-            "Official rows mix Thai (๐–๙) and Arabic (0–9) digits in the same table. I mapped both to one canonical representation for arithmetic and joins—while still preserving ambiguity when the read was not safe to force.",
+          body: "Official rows mix Thai (๐–๙) and Arabic (0–9) digits in the same table. I mapped both to one canonical representation for arithmetic and joins—while still preserving ambiguity when the read was not safe to force.",
         },
         {
           title: "Ambiguity detection",
-          body:
-            "I treated totals, cross-checks, and low-confidence reads as first-class outputs: mismatches and suspicious tokens surface upstream instead of vanishing into a \u201cclean\u201d CSV.",
+          body: "I treated totals, cross-checks, and low-confidence reads as first-class outputs: mismatches and suspicious tokens surface upstream instead of vanishing into a \u201cclean\u201d CSV.",
         },
         {
           title: "Re-runnable architecture",
-          body:
-            "Returns trickle out and PDFs get revised. I designed the job to rerun incrementally so refreshed official pages did not mean rebuilding every constituency from scratch.",
+          body: "Returns trickle out and PDFs get revised. I designed the job to rerun incrementally so refreshed official pages did not mean rebuilding every constituency from scratch.",
         },
       ],
       strategyAppend: [
@@ -1772,18 +1832,27 @@ export const PORTFOLIO_PROJECTS = [
         images: [
           {
             img: "images/portfolio/vote62-ect-report-69/ocr-failure-example.png",
+            imgWebp:
+              "images/portfolio/vote62-ect-report-69/ocr-failure-example.webp",
             alt: "Messy human input: ECT return with handwritten ballot summaries and strike-through corrections (e.g. digits overwritten on printed totals) plus a candidate table filled in ink over dotted guides",
-            caption: "Messy human input — ink corrections, thick digits, and cursive Thai tallies on the official grid.",
+            caption:
+              "Messy human input — ink corrections, thick digits, and cursive Thai tallies on the official grid.",
           },
           {
             img: "images/portfolio/vote62-ect-report-69/raw-ocr-output.png",
+            imgWebp:
+              "images/portfolio/vote62-ect-report-69/raw-ocr-output.webp",
             alt: "OCR output: terminal log from extract_ect_report.py—extracted turnout and candidate rows with mixed Thai/Arabic numerals, suspected bad tokens, and validation warnings",
-            caption: "OCR output — structured logs with mixed numerals, bad tokens, and validation warnings.",
+            caption:
+              "OCR output — structured logs with mixed numerals, bad tokens, and validation warnings.",
           },
           {
             img: "images/portfolio/vote62-ect-report-69/clean-structured-table.png",
+            imgWebp:
+              "images/portfolio/vote62-ect-report-69/clean-structured-table.webp",
             alt: "Validated output: monospaced tables and checks—aligned fields with Arabic numerals and explicit warnings when totals disagree with valid ballots",
-            caption: "Validated output — aligned tables with explicit checks before open data.",
+            caption:
+              "Validated output — aligned tables with explicit checks before open data.",
           },
         ],
         caption:
@@ -1800,8 +1869,7 @@ export const PORTFOLIO_PROJECTS = [
         "My contribution was not a prettier spreadsheet—it was shifting labor from wholesale retyping to a pipeline where machines do the bulk extraction, validation decides what is safe to publish, and humans spend their time only on rows that checks actually flag.",
       futureBlock: {
         title: "Next steps",
-        body:
-          "Where I would push next: stronger ML table detection, richer per-cell confidence, and a review surface purpose-built for post-validation fixes—so the same transparency scales when the document mix gets harder.",
+        body: "Where I would push next: stronger ML table detection, richer per-cell confidence, and a review surface purpose-built for post-validation fixes—so the same transparency scales when the document mix gets harder.",
       },
       referenceSection: {
         title: "Raw sources",
@@ -1814,7 +1882,8 @@ export const PORTFOLIO_PROJECTS = [
               href: "https://drive.google.com/drive/folders/1MApGQ8YpAG1hVMOWqfKdfag3KLWYYWY5?usp=drive_link",
               label: "Raw PDFs by constituency",
             },
-            after: " — useful for audit, reruns, and spot-checking against the live sheet.",
+            after:
+              " — useful for audit, reruns, and spot-checking against the live sheet.",
           },
         ],
       },
@@ -1856,7 +1925,7 @@ export const PORTFOLIO_PROJECTS = [
         {
           label: "WordPress",
           href: "https://wordpress.org/",
-        }
+        },
       ],
       overviewTitle: "Overview",
       overview: [

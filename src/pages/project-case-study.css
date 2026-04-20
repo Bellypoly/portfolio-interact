@@ -513,6 +513,19 @@
   padding-right: 0;
 }
 
+/* MapMagic gallery: same horizontal band as `.project-case-study__article` (no 100vw breakout) */
+.map-magic-gallery .project-case-study__media-bleed {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.map-magic-gallery .project-case-study__wide-inner {
+  max-width: none;
+}
+
 .project-case-study__diagram--ascii {
   @apply overflow-x-auto bg-transparent;
   background: var(--cs-diagram-bg);
