@@ -1,110 +1,113 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import "./marker-chip.css";
+import React, { useMemo, useCallback } from "react";
 import cc from "classcat";
+import "./marker-chip.css";
+import {
+  DEFAULT_HIDDEN_MARKER_IDS,
+  INTRO_MARKER_INDEX,
+  INTRO_MARKER_LABELS,
+  MARKER_NAV_ARIA_LABEL,
+} from "./constants";
+import { useMarkerDockVisible } from "./useMarkerDockVisible";
+import { listMarkerSections } from "./markerChipModel";
 
-const MarkerChip = ({
+const MarkerChipRow = React.memo(function MarkerChipRow({
   index,
   section,
-  jumpToMarker,
   active,
-  visible = true,
-}) => (
-  <AnimatePresence>
-    {visible && (
-      <motion.div
-        className={cc(["marker-chip-container"])}
-        initial={false}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-      >
-        {section.title && (
-          <a
-            href={`#${section.id}`}
-            className={cc([
-              "marker-chip-btn",
-              { active: active, "marker-glow": active, inactive: !active },
-            ])}
-            onClick={(e) => {
-              e.preventDefault();
-              if (typeof jumpToMarker === "function") jumpToMarker(index);
-            }}
-          >
-            {active ? (
-              <span className={index === 0 ? "marker-blink" : undefined}>
-                {"▶ "}
-              </span>
-            ) : (
-              <span className="marker-chip-spacer" />
-            )}
-            {index === 0
-              ? active
-                ? "Scroll to Begin Journey 🚀"
-                : "Launch Mission 🚀"
-              : section.title}
-          </a>
-        )}
-      </motion.div>
-    )}
-  </AnimatePresence>
-);
+  jumpToMarker,
+}) {
+  const onClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      jumpToMarker(index);
+    },
+    [jumpToMarker, index],
+  );
 
-const HIDDEN_MARKER_IDS = ["rocket", "prequel", "pre-gallery"];
+  if (!section.title) return null;
+
+  const label =
+    index === INTRO_MARKER_INDEX
+      ? active
+        ? INTRO_MARKER_LABELS.active
+        : INTRO_MARKER_LABELS.inactive
+      : section.title;
+
+  return (
+    <div className="marker-chip-container">
+      <a
+        href={`#${section.id}`}
+        className={cc([
+          "marker-chip-btn",
+          { active, "marker-glow": active, inactive: !active },
+        ])}
+        onClick={onClick}
+        aria-current={active ? "true" : undefined}
+      >
+        {active ? (
+          <span
+            className={
+              index === INTRO_MARKER_INDEX ? "marker-blink" : undefined
+            }
+            aria-hidden
+          >
+            ▶{" "}
+          </span>
+        ) : (
+          <span className="marker-chip-spacer" aria-hidden />
+        )}
+        {label}
+      </a>
+    </div>
+  );
+});
+
+MarkerChipRow.displayName = "MarkerChipRow";
 
 export const MarkerChipGroup = React.memo(function MarkerChipGroup({
   SECTIONS,
   jumpToMarker,
   activeIndex,
   scrollDirection = "up",
-  hiddenMarkerIds = HIDDEN_MARKER_IDS,
+  hiddenMarkerIds = DEFAULT_HIDDEN_MARKER_IDS,
   isLightSection = false,
-  /** Mission Gallery: dark frosted panel (mobile-style bg/border) fixed top-right at all breakpoints */
   missionGalleryStyle = false,
 }) {
-  const [narrowViewport, setNarrowViewport] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const sync = () => setNarrowViewport(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-  const isVisible = narrowViewport || scrollDirection === "up";
-  const isHidden = (id) => hiddenMarkerIds.includes(id);
+  const dockVisible = useMarkerDockVisible(scrollDirection);
+  const rows = useMemo(
+    () => listMarkerSections(SECTIONS, hiddenMarkerIds),
+    [SECTIONS, hiddenMarkerIds],
+  );
+
+  /** On intro, only the intro row (“Scroll to Begin Journey”) stays in the rail. */
+  const visibleRows = useMemo(() => {
+    if (activeIndex !== INTRO_MARKER_INDEX) return rows;
+    return rows.filter((r) => r.index === INTRO_MARKER_INDEX);
+  }, [rows, activeIndex]);
+
   return (
-    <motion.div
+    <nav
+      aria-label={MARKER_NAV_ARIA_LABEL}
       className={cc([
         "marker-chip-group",
         { "marker-chip-group--light-section": isLightSection },
         { "marker-chip-group--mission-gallery": missionGalleryStyle },
+        { "marker-chip-group--dock-retracted": !dockVisible },
       ])}
-      initial={false}
-      animate={{
-        y: isVisible ? 0 : "-100%",
-        opacity: isVisible ? 1 : 0,
-      }}
-      transition={{
-        type: "tween",
-        duration: 0.25,
-        ease: [0.4, 0, 0.2, 1],
-      }}
-      style={{ pointerEvents: isVisible ? "auto" : "none" }}
     >
-      {SECTIONS.map((s, i) =>
-        isHidden(s.id) ? null : (
-          <MarkerChip
-            key={s.id}
-            index={i}
-            section={s}
-            jumpToMarker={jumpToMarker}
-            active={activeIndex === i}
-            visible={activeIndex === 0 ? i === 0 : true}
-          />
-        ),
-      )}
-    </motion.div>
+      {visibleRows.map(({ section, index }) => (
+        <MarkerChipRow
+          key={section.id}
+          index={index}
+          section={section}
+          jumpToMarker={jumpToMarker}
+          active={activeIndex === index}
+        />
+      ))}
+    </nav>
   );
 });
 
-export default MarkerChip;
+MarkerChipGroup.displayName = "MarkerChipGroup";
+
+export default MarkerChipRow;

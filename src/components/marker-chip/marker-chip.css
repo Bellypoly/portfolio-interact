@@ -30,6 +30,13 @@
   @apply md:bg-transparent md:py-0 md:pr-0 md:shadow-none md:backdrop-blur-none;
 }
 
+/* Dock hide (replaces Framer `y` / `opacity` — same instant snap, less JS work). */
+.marker-chip-group.marker-chip-group--dock-retracted {
+  transform: translate3d(0, -100%, 0);
+  opacity: 0;
+  pointer-events: none;
+}
+
 /*
  * Mission Gallery section: frosted dark panel (not light-section slate).
  * - Mobile: same corner as other markers — bottom-left.
@@ -66,6 +73,14 @@
 
 .marker-chip-btn.inactive:hover {
   color: var(--pf-editorial-rust);
+}
+
+.marker-chip-btn:focus-visible {
+  @apply rounded-sm outline outline-2 outline-offset-2 outline-cyan-400;
+}
+
+.marker-chip-group--light-section .marker-chip-btn:focus-visible {
+  @apply outline-teal-800;
 }
 
 .marker-glow {
@@ -125,5 +140,12 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker-blink {
+    animation: none;
+    opacity: 1;
   }
 }
