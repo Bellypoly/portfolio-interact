@@ -43,14 +43,13 @@
 }
 
 .rocket-section-content {
-  @apply relative w-56 h-56 md:w-64 md:h-64;
+  @apply relative w-56 h-56 md:w-screen md:h-64;
 }
 
 .rocket-section-content
   .rocket
   .rocket-picture:not(.rocket-picture--sparkle)
   img {
-  filter:
-    drop-shadow(0 12px 20px rgba(253, 224, 71, 0.5))
+  filter: drop-shadow(0 12px 20px rgba(253, 224, 71, 0.5))
     drop-shadow(0 20px 36px rgba(253, 224, 71, 0.35));
 }
