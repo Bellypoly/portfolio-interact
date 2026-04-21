@@ -42,14 +42,29 @@
   @apply relative flex items-center justify-center w-full min-h-[80vh] z-10;
 }
 
+/* Content size stays 14rem / 16rem; padding is outside that box (content-box) so
+   drop-shadow has space to paint without scaling the capsule. */
 .rocket-section-content {
-  @apply relative w-56 h-56 md:w-64 md:h-64;
+  box-sizing: content-box;
+  @apply relative overflow-visible;
+  width: 14rem;
+  height: 14rem;
+  padding: clamp(0.75rem, 3.5vmin, 2.25rem);
 }
 
+@media (min-width: 768px) {
+  .rocket-section-content {
+    width: 16rem;
+    height: 16rem;
+    padding: clamp(1rem, 4vmin, 2.75rem);
+  }
+}
+
+/* Softer outer halo: wide blur + lower opacity so edges read less “cut off”. */
 .rocket-section-content
   .rocket
   .rocket-picture:not(.rocket-picture--sparkle)
   img {
-  filter: drop-shadow(0 12px 20px rgba(253, 224, 71, 0.5))
-    drop-shadow(0 20px 36px rgba(253, 224, 71, 0.35));
+  filter: drop-shadow(0 10px 18px rgba(253, 224, 71, 0.48))
+    drop-shadow(0 16px 38px rgba(253, 224, 71, 0.22));
 }

@@ -16,12 +16,16 @@ export default function CaseStudySystemDesign({ systemDesign: sd, baseUrl }) {
   if (!sd) return null;
 
   const mode = diagramMode(sd);
+  const compactClass =
+    sd.diagramCompact && mode !== "ascii" && mode !== "beforeAfter"
+      ? " project-case-study__diagram--compact"
+      : "";
   const wrapClass =
     mode === "ascii"
       ? "project-case-study__diagram project-case-study__diagram--ascii"
       : mode === "beforeAfter"
         ? "project-case-study__diagram project-case-study__diagram--before-after project-case-study__media-bleed"
-        : "project-case-study__diagram";
+        : `project-case-study__diagram${compactClass}`;
 
   const alt = sd.diagramAlt || "System design diagram";
 

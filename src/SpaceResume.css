@@ -150,6 +150,8 @@
 
 .rocket-education-wrapper {
   @apply relative w-full;
+  /* Must match `.rocket-education-wrapper__hud` width — used to inset rocket in landscape. */
+  --rocket-hud-strip: min(6rem, 20vw);
 }
 .rocket-education-wrapper > .app-section-item--rocket,
 .rocket-education-wrapper > .app-section-item--landing {
@@ -158,6 +160,13 @@
 .rocket-education-wrapper > .app-section-item--rocket {
   @apply mb-0;
 }
+
+/* Landscape iPad: left strip HUD (z-4) sits above rocket (z-3) — inset so capsule + glow clear it. */
+@media (min-width: 768px) and (orientation: landscape) {
+  .rocket-education-wrapper > .app-section-item--rocket {
+    padding-left: var(--rocket-hud-strip);
+  }
+}
 .rocket-education-wrapper > #education,
 .rocket-education-wrapper > #pre-gallery {
   @apply mt-0;
@@ -165,7 +174,8 @@
 
 .rocket-education-wrapper__hud {
   @apply absolute left-0 top-0 hidden md:flex flex-col justify-between px-4 pointer-events-none z-[4];
-  @apply w-[min(6rem,20vw)] h-full;
+  width: var(--rocket-hud-strip);
+  @apply h-full;
 }
 .rocket-education-wrapper__hud .atmosphere-hud {
   @apply sticky top-0 min-h-0;

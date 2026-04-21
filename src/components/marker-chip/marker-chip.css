@@ -1,6 +1,8 @@
 /**
  * Section marker navigation
- * - Default: cyan labels on space (frosted island < md, slim strip ≥ md)
+ * - Dock visibility follows scroll direction (see useMarkerDockVisible): same on all widths.
+ * - Layout: frosted island bottom-left < md, slim strip top-right ≥ md.
+ * - Hidden dock: < md slides up from below (translateY(100%)); ≥ md slides down from above (-100%).
  * - .marker-chip-group--light-section: slate text + frosted white panel (all widths)
  */
 
@@ -8,7 +10,7 @@
 .marker-chip-group {
   --marker-glow-cyan:
     0 0 15px rgb(0 255 255 / 0.6), 0 0 12px rgb(0 255 255 / 0.6);
-  /* Slide dock in/out (retracted = translated up). Override for reduced motion below. */
+  /* Slide dock in/out; retracted axis differs by breakpoint (see below). */
   --marker-dock-slide-duration: 0.32s;
 
   @apply z-[20000] mb-2 flex flex-col justify-start text-xs text-cyan-300;
@@ -35,11 +37,18 @@
   @apply md:bg-transparent md:py-0 md:pr-0 md:shadow-none md:backdrop-blur-none;
 }
 
-/* Dock hidden: sits one height above; removing class slides it down into place. */
+/* Dock hidden (md+): sits above top edge; appearing = slide down into place. */
 .marker-chip-group.marker-chip-group--dock-retracted {
   transform: translate3d(0, -100%, 0);
   opacity: 0;
   pointer-events: none;
+}
+
+/* Dock hidden (mobile, bottom-fixed): sits below viewport; appearing = slide up. */
+@media (max-width: 767px) {
+  .marker-chip-group.marker-chip-group--dock-retracted {
+    transform: translate3d(0, 100%, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

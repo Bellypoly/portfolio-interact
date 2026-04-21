@@ -1,19 +1,8 @@
-import { useState, useEffect } from "react";
-import { NARROW_VIEWPORT_QUERY } from "./constants";
-
 /**
- * Dock stays visible on narrow viewports; on md+ it hides when `scrollDirection === "down"`.
+ * Dock is visible only while the user is scrolling toward the top of the page
+ * (`scrollDirection === "up"` in SpaceResume — i.e. scrollY decreasing).
+ * Same rule on all breakpoints so mobile matches desktop (no always-on rail).
  */
 export function useMarkerDockVisible(scrollDirection) {
-  const [narrowViewport, setNarrowViewport] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia(NARROW_VIEWPORT_QUERY);
-    const sync = () => setNarrowViewport(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  return narrowViewport || scrollDirection === "up";
+  return scrollDirection === "up";
 }

@@ -477,6 +477,15 @@
   @apply block h-auto w-full;
 }
 
+/* Narrower diagram (e.g. tall infographics) — opt in via overviewSystemDesign.diagramCompact */
+.project-case-study__diagram--compact {
+  @apply mx-auto w-full max-w-xl md:max-w-2xl;
+}
+
+.project-case-study__diagram--compact .project-case-study__diagram-img {
+  @apply w-full max-h-[min(85vh,56rem)] object-contain;
+}
+
 /* `media-bleed`: viewport band; `wide-inner`: 78rem cap (figures, three-up, compare) */
 .project-case-study__media-bleed {
   width: 100vw;

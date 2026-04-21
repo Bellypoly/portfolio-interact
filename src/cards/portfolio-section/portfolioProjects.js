@@ -1345,7 +1345,8 @@ export const PORTFOLIO_PROJECTS = [
             href: "https://apkpure.com/mapmagic/com.thinknet.mapmagicgl",
             label: "The Map Magic Android client",
           },
-          after: " was how we carried the map into the field—capture, lists, and detail screens on that familiar orange UI, all backed by the same APIs and database the desk-side tooling guarded.",
+          after:
+            " was how we carried the map into the field—capture, lists, and detail screens on that familiar orange UI, all backed by the same APIs and database the desk-side tooling guarded.",
         },
         "My footprint was deliberately split: I owned the map API surface partners and the Android client actually called—REST contracts, tiles, search and geocoding, embed patterns that did not snap when data churned. I built the web and mobile back-office loops that moved field capture and QA into production tiles and search indexes. And I put serious time into the routing stack—graph usage, cost models, and algorithm behavior on OSM-derived geometry edited for Thailand—so previews and turn-by-turn did not fantasize turns the asphalt would refuse.",
       ],
@@ -1964,20 +1965,30 @@ export const PORTFOLIO_PROJECTS = [
     portfolioYear: 2019,
     portfolioLabel: "Public sector",
     name: "PEA E‑Service",
-    desc: "One-stop digital front door for Thailand\u2019s Provincial Electricity Authority—outages, billing, connections—without hopping legacy silos.",
-    img: "images/portfolio/coe.jpg",
-    alt: "PEA E-Service",
-    link: "https://peacos.pea.co.th/views/paperex/",
+    desc: "Engineering with PWA (Provincial Waterworks Authority of Thailand): one authenticated hub for PEA (Provincial Electricity Authority) and water, tied to civil registry, land, highway, and Ministry of Energy flows—including distributed solar with PEA. Also helped deliver PPIM (Power Producer Information Management System) for renewable and grid-interconnection programs.",
+    img: "images/portfolio/pea-e-service/thumbnail.png",
+    imgWebp: "images/portfolio/pea-e-service/thumbnail.webp",
+    alt: "PEA E‑Service — electricity and water portal mockups on tablet and phone, purple branding",
+    link: "https://eservice.pea.co.th/",
     anchorId: "portfolio-pea",
     caseStudy: {
-      eyebrow: "Public service · UX",
-      task: "Consolidate what citizens need from PEA—outage info, bills, new service—into one calm entry point: fewer duplicated forms, clearer status, fewer exits to nowhere.",
+      eyebrow: "Public sector · Engineering & user experience (UX)",
+      featuredImg: "images/portfolio/pea-e-service/featured-image.png",
+      featuredImgWebp: "images/portfolio/pea-e-service/featured-image.webp",
+      featuredImageAlt:
+        "PEA E‑Service banner — purple E‑SERVICE branding; apply for electricity and water; three service paths (individual, organization, check request status); laptop and phone mockups; footer with eservice.pea.co.th and 1129 PEA Contact Center",
+      featuredImageCompact: true,
+      featuredImageObjectPosition: "center center",
+      featuredImageObjectPositionMd: "center 35%",
+      task: "Co-design integrations and UX so each agency keeps its mature services while individuals and organizations see one calm surface: national authentication in front, utilities and line ministries behind it, and handoffs that read as progress—not as a scavenger hunt through org charts.",
       disciplines: [
         "Service design",
         "Information architecture",
+        "Full-stack development",
         "Accessibility",
       ],
-      context: "PEA — Provincial Electricity Authority (Thailand)",
+      context:
+        "PEA (Provincial Electricity Authority), PWA (Provincial Waterworks Authority of Thailand), Ministry of Interior (civil registry), Department of Lands, Department of Highways, Ministry of Energy (including distributed solar trading with PEA) — Thailand public-sector e‑service ecosystem",
       techStack: [
         {
           label: "Web",
@@ -1995,30 +2006,53 @@ export const PORTFOLIO_PROJECTS = [
         { label: "Selenium", href: "https://www.selenium.dev/" },
       ],
       overview: [
-        "Utility portals usually accrete: every department ships a corner of the site, and citizens pay the navigation tax. The goal here was one mental model—pick your job, complete it, see what happens next—rather than mirroring the org chart.",
-        "Outages, bill disputes, and new connections are high-stress; they need calm type, forms that recover from mistakes, and honest timelines—not optimistic microcopy alone.",
+        "I was on the development team alongside PWA. PEA and PWA each evolved their own application programming interfaces (APIs) and channels; our job was to land those capabilities in one public-facing portal with shared government authentication—then sweat the seams where electricity, water, and national reference data meet.",
+        "Production journeys touch civil registration (Ministry of Interior), land and highway facts (Departments of Lands and Highways), and Ministry of Energy policy when households or small producers exchange distributed solar through PEA. Different owners, different latency, different failure semantics: the interface has to surface who waits on whom, for users and for operations—not only after something breaks.",
+        {
+          text: "Everyday apply-for-service flows sat next to specialist energy programs—intake for very small power producers (VSPP), rooftop solar, paid interconnection studies. I also helped design and build ",
+          externalLink: {
+            href: "https://ppim.pea.co.th/",
+            label:
+              "PEA\u2019s PPIM (Power Producer Information Management System)",
+          },
+          after:
+            ", a separate producer-facing surface so VSPP and interconnection work does not drown the main service hub.",
+        },
       ],
+      overviewSystemDesign: {
+        sectionTitle: "System diagram",
+        diagramCompact: true,
+        intro:
+          "Party type (individual vs organization) through one authenticated portal into parallel tracks: electricity, water, reference land and highway data, renewable / solar policy with PEA, and producer partnership outcomes.",
+        diagramImage: "images/portfolio/pea-e-service/system-diagram.png",
+        diagramImageWebp: "images/portfolio/pea-e-service/system-diagram.webp",
+        caption:
+          "Party type and portal at top; five tracks below — PEA (power) through meter install, panel inspection, power active; PWA (water) to water service active; Interior / Lands / Highways (reference data) through survey and permits to road access verified; Ministry of Energy (solar / PEA policy rails) to renewable feed-in approved, with a handoff into the power-producer column and trusted partnership active.",
+        diagramAlt:
+          "Vertical service diagram: Party type Individual or organization, then shared e-service portal with government authentication, then five color-coded columns — PEA electricity steps including meter install, panel inspection, and power active; PWA water through flow meter to water service active; Ministry of Interior with lands and highways reference data, cadastral survey team, highway permit, and road access verified; Ministry of Energy solar and PEA policy rails through grid controls to renewable feed-in approved; Power Producer column with handshake, transmission tower, and trusted partnership active, with a connector from the energy policy track to the producer tower.",
+      },
       strategyTitle: "What I did",
       strategyIntro:
-        "My role: contribute to IA, service patterns, and citizen-facing UX for PEA’s e‑service hub (Laravel, C#, Oracle, Selenium). I grounded the IA in workshops—frontline FAQs, call-center spikes, and digital drop-offs—so navigation reflected real tasks, not org charts.",
+        "On the engineering team I contributed to information architecture (IA), service patterns, and public-facing user experience (UX) for the shared hub (Laravel, C#, Oracle, Selenium). With PWA and program owners I wired APIs and delivery channels into the portal so authentication and forms stayed coherent. Frontline workshops, call-center spikes, and funnel reviews kept navigation tied to cross-agency tasks—not department labels alone.",
       pillars: [
         {
           title: "Plain language",
-          body: "I wrote labels that match how people describe tasks, with secondary detail on demand.",
+          body: "I wrote task-first labels that match how people describe what they need, with technical depth available when they drill in—not at the door.",
         },
         {
-          title: "Status transparency",
-          body: "I specified where a request sits in process and which documents still matter.",
+          title: "Cross-org accountability",
+          body: "I made ownership explicit: where a case sits, which agency or dataset unblocks the next step, and which documents still matter when PEA, PWA, or ministries hand work off.",
         },
         {
-          title: "Inclusive defaults",
-          body: "I pushed large tap targets, readable type, and resilient validation so users recover quickly from errors.",
+          title: "Resilient defaults",
+          body: "I pushed legible type, generous tap targets, and validation that helps people recover from errors fast—utility tasks are stressful enough without punishing mistakes.",
         },
       ],
       approachTitle: "How I shipped it",
       approach: [
-        "I helped ship a hub-and-spoke IA with progressive forms—only the fields each task needs.",
-        "I defined patterns for alerts, receipts, and follow-ups aligned with SMS/email references citizens expect.",
+        "Shipped a hub-and-spoke IA with progressive disclosure—only the fields a task needs—while keeping electricity and water journeys visually related under one authenticated session.",
+        "Defined alert, receipt, and follow-up patterns aligned with short message service (SMS) and email conventions users already recognize, including explicit language when responsibility crosses agencies or program offices.",
+        "Kept producer-heavy programs on PPIM with their own IA and sign-in so rooftop solar, VSPP, and interconnection studies never competed with routine service tasks in the main portal.",
       ],
       results: null,
     },
