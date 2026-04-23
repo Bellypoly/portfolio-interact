@@ -447,130 +447,130 @@ export default function SpaceResume() {
 
   return (
     <>
-      {import.meta.env.DEV && (
-        <div className="app-debug-overlay max-h-[min(85vh,28rem)] overflow-y-auto overflow-x-hidden">
-          <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
-          <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
-          <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
-          <div>activeIndex: {activeIndex}</div>
-          <div>
-            screen: {windowSize.width} × {windowSize.height}
+      {/* {import.meta.env.DEV && ( */}
+      <div className="app-debug-overlay  overflow-y-auto overflow-x-hidden">
+        <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
+        <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
+        <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
+        <div>activeIndex: {activeIndex}</div>
+        <div>
+          screen: {windowSize.width} × {windowSize.height}
+        </div>
+        <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
+          <div className="font-semibold text-cyan-200">
+            Scroll spy (probe y≈{SCROLL_SPY_PROBE_RATIO * 100}% viewport)
           </div>
-          <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
-            <div className="font-semibold text-cyan-200">
-              Scroll spy (probe y≈{SCROLL_SPY_PROBE_RATIO * 100}% viewport)
-            </div>
-            {scrollSpyDebug ? (
-              <>
-                <div>
-                  probe line Y: {scrollSpyDebug.probeY}px · resolved active:{" "}
-                  {scrollSpyDebug.active}
-                </div>
-                <ul className="mt-1 max-h-52 list-none space-y-1 overflow-auto pl-0 font-mono">
-                  {scrollSpyDebug.rows.map((row) => (
-                    <li
-                      key={row.id}
-                      className={
-                        row.containsProbe
-                          ? "text-amber-300"
-                          : row.index === scrollSpyDebug.active
-                            ? "text-cyan-200"
-                            : "text-cyan-500/80"
-                      }
-                    >
-                      <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
-                        <span className="shrink-0 font-semibold">
-                          {row.index} {row.id}
-                        </span>
-                        {row.throughPct != null ? (
-                          <span>
-                            progress{" "}
-                            <span className="text-cyan-100">
-                              {row.throughPct.toFixed(1)}%
-                            </span>
-                            {row.height != null ? (
-                              <span className="text-cyan-500/70">
-                                {" "}
-                                (h {row.height}px)
-                              </span>
-                            ) : null}
-                          </span>
-                        ) : (
-                          <span>—</span>
-                        )}
-                        {row.containsProbe ? (
-                          <span className="text-amber-200">· probe here</span>
-                        ) : null}
-                      </div>
-                      {row.throughPct != null ? (
-                        <div
-                          className="mt-0.5 h-1 w-full max-w-[14rem] overflow-hidden rounded-sm bg-cyan-950/80"
-                          aria-hidden
-                        >
-                          <div
-                            className="h-full rounded-sm bg-gradient-to-r from-cyan-600 to-teal-400"
-                            style={{
-                              width: `${Math.min(100, Math.max(0, row.throughPct))}%`,
-                            }}
-                          />
-                        </div>
-                      ) : null}
-                      {row.top != null ? (
-                        <div className="text-[9px] text-cyan-600/90">
-                          top {row.top}px · bottom {row.bottom}px
-                        </div>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-          </div>
-          <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
-            <div className="font-semibold text-cyan-200">
-              Time on screen (as active section)
-            </div>
-            <p className="mb-1 text-[9px] text-cyan-500/90">
-              Total dwell while that section was active; clock is when you last
-              entered it (this page load).
-            </p>
-            <ul className="max-h-40 list-none space-y-1 overflow-auto pl-0 font-mono">
-              {Array.from({ length: SECTION_COUNT }, (_, i) => {
-                void timingTick;
-                const base = sectionDwellMsRef.current[i];
-                const liveMs =
-                  i === activeIndex
-                    ? base + (performance.now() - segmentStartMsRef.current)
-                    : base;
-                const lastAt = sectionLastEnteredAtRef.current[i];
-                return (
+          {scrollSpyDebug ? (
+            <>
+              <div>
+                probe line Y: {scrollSpyDebug.probeY}px · resolved active:{" "}
+                {scrollSpyDebug.active}
+              </div>
+              <ul className="mt-1 list-none space-y-1 overflow-auto pl-0 font-mono">
+                {scrollSpyDebug.rows.map((row) => (
                   <li
-                    key={`dwell-${SECTIONS[i]?.id ?? i}`}
+                    key={row.id}
                     className={
-                      i === activeIndex ? "text-amber-200" : "text-cyan-500/85"
+                      row.containsProbe
+                        ? "text-amber-300"
+                        : row.index === scrollSpyDebug.active
+                          ? "text-cyan-200"
+                          : "text-cyan-500/80"
                     }
                   >
-                    <span className="font-semibold text-cyan-300/95">
-                      {i} {SECTIONS[i]?.id}
-                    </span>
-                    {" · "}
-                    dwell {formatDurationMs(liveMs)}
-                    {" · "}
-                    last active{" "}
-                    {lastAt != null
-                      ? new Date(lastAt).toLocaleTimeString(undefined, {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          second: "2-digit",
-                        })
-                      : "—"}
+                    <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
+                      <span className="shrink-0 font-semibold">
+                        {row.index} {row.id}
+                      </span>
+                      {row.throughPct != null ? (
+                        <span>
+                          progress{" "}
+                          <span className="text-cyan-100">
+                            {row.throughPct.toFixed(1)}%
+                          </span>
+                          {row.height != null ? (
+                            <span className="text-cyan-500/70">
+                              {" "}
+                              (h {row.height}px)
+                            </span>
+                          ) : null}
+                        </span>
+                      ) : (
+                        <span>—</span>
+                      )}
+                      {row.containsProbe ? (
+                        <span className="text-amber-200">· probe here</span>
+                      ) : null}
+                    </div>
+                    {row.throughPct != null ? (
+                      <div
+                        className="mt-0.5 h-1 w-full max-w-[14rem] overflow-hidden rounded-sm bg-cyan-950/80"
+                        aria-hidden
+                      >
+                        <div
+                          className="h-full rounded-sm bg-gradient-to-r from-cyan-600 to-teal-400"
+                          style={{
+                            width: `${Math.min(100, Math.max(0, row.throughPct))}%`,
+                          }}
+                        />
+                      </div>
+                    ) : null}
+                    {row.top != null ? (
+                      <div className="text-[9px] text-cyan-600/90">
+                        top {row.top}px · bottom {row.bottom}px
+                      </div>
+                    ) : null}
                   </li>
-                );
-              })}
-            </ul>
-          </div>
+                ))}
+              </ul>
+            </>
+          ) : null}
         </div>
-      )}
+        <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
+          <div className="font-semibold text-cyan-200">
+            Time on screen (as active section)
+          </div>
+          <p className="mb-1 text-[9px] text-cyan-500/90">
+            Total dwell while that section was active; clock is when you last
+            entered it (this page load).
+          </p>
+          <ul className="max-h-40 list-none space-y-1 overflow-auto pl-0 font-mono">
+            {Array.from({ length: SECTION_COUNT }, (_, i) => {
+              void timingTick;
+              const base = sectionDwellMsRef.current[i];
+              const liveMs =
+                i === activeIndex
+                  ? base + (performance.now() - segmentStartMsRef.current)
+                  : base;
+              const lastAt = sectionLastEnteredAtRef.current[i];
+              return (
+                <li
+                  key={`dwell-${SECTIONS[i]?.id ?? i}`}
+                  className={
+                    i === activeIndex ? "text-amber-200" : "text-cyan-500/85"
+                  }
+                >
+                  <span className="font-semibold text-cyan-300/95">
+                    {i} {SECTIONS[i]?.id}
+                  </span>
+                  {" · "}
+                  dwell {formatDurationMs(liveMs)}
+                  {" · "}
+                  last active{" "}
+                  {lastAt != null
+                    ? new Date(lastAt).toLocaleTimeString(undefined, {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })
+                    : "—"}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+      {/* )} */}
       <main className="app-main">
         <motion.div
           className="app-bg-nebula"
