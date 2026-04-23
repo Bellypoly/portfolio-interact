@@ -39,8 +39,9 @@
     );
 }
 
+/* `100vh` fallback; `100dvh` when supported (mobile URL bar / dynamic viewport). */
 .app-starfield {
-  @apply relative sticky top-0 h-screen overflow-hidden bg-transparent pointer-events-none z-[5];
+  @apply relative sticky top-0 h-screen supports-[height:100dvh]:h-[100dvh] overflow-hidden bg-transparent pointer-events-none z-[5];
 }
 
 .app-shooting-stars {

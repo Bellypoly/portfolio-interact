@@ -38,7 +38,7 @@
   @apply hidden sm:inline sm:invisible min-[852px]:visible;
 }
 .crawl-container {
-  @apply absolute inset-x-0 top-[32vh] md:top-[35vh] -translate-y-1/2 flex justify-center z-[6000] pointer-events-none;
+  @apply absolute inset-x-0 top-[32vh] supports-[height:100dvh]:top-[32dvh] -translate-y-1/2 flex justify-center z-[6000] pointer-events-none md:top-[35vh] md:supports-[height:100dvh]:top-[35dvh];
 }
 .crawl-inner {
   @apply w-full flex justify-center [perspective:800px];
