@@ -148,7 +148,10 @@ export function resetOpeningCrawlScroller() {
  */
 export function replaceHistoryHash(sectionId) {
   if (typeof window === "undefined" || !sectionId) return;
-  const url = `${window.location.pathname}${window.location.search}#${sectionId}`;
+  let path = window.location.pathname;
+  /* Prefer `/base/#hash` over `/base#hash` when the router omits a trailing slash. */
+  if (path.length > 1 && !path.endsWith("/")) path = `${path}/`;
+  const url = `${path}${window.location.search}#${sectionId}`;
   window.history.replaceState(null, "", url);
 }
 

@@ -120,7 +120,10 @@ const EducationCard = React.memo(function EducationCard({
         )}
       </div>
       {showMissionLog && bullets.length > 0 ? (
-        <div ref={missionLogWrapRef} className="education-card__mission-log-wrap">
+        <div
+          ref={missionLogWrapRef}
+          className="education-card__mission-log-wrap"
+        >
           <button
             type="button"
             className="education-card__mission-log-btn"

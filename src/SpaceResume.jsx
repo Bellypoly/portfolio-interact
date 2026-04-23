@@ -335,10 +335,7 @@ export default function SpaceResume() {
         const next =
           jumpingToRef.current !== null
             ? jumpingToRef.current
-            : resolveActiveIndexFromViewportProbe(
-                sectionRefs,
-                SECTION_COUNT,
-              );
+            : resolveActiveIndexFromViewportProbe(sectionRefs, SECTION_COUNT);
         return next === prev ? prev : next;
       });
 
@@ -412,12 +409,7 @@ export default function SpaceResume() {
           ),
         ]),
       ),
-    [
-      windowSize.width,
-      windowSize.height,
-      starCount,
-      preferSimpleMotion,
-    ],
+    [windowSize.width, windowSize.height, starCount, preferSimpleMotion],
   );
 
   // --- Mouse parallax ---
@@ -596,17 +588,14 @@ export default function SpaceResume() {
                 const base = sectionDwellMsRef.current[i];
                 const liveMs =
                   i === activeIndex
-                    ? base +
-                      (performance.now() - segmentStartMsRef.current)
+                    ? base + (performance.now() - segmentStartMsRef.current)
                     : base;
                 const lastAt = sectionLastEnteredAtRef.current[i];
                 return (
                   <li
                     key={`dwell-${SECTIONS[i]?.id ?? i}`}
                     className={
-                      i === activeIndex
-                        ? "text-amber-200"
-                        : "text-cyan-500/85"
+                      i === activeIndex ? "text-amber-200" : "text-cyan-500/85"
                     }
                   >
                     <span className="font-semibold text-cyan-300/95">

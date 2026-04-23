@@ -67,7 +67,7 @@ export default function CaseStudyProblemSection({
                     {item.text}
                     {item.anchor ? (
                       <a
-                        href={`#${item.anchor.id}`}
+                        href={`/#${item.anchor.id}`}
                         className="project-case-study__inline-link"
                       >
                         {item.anchor.label}

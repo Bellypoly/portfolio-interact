@@ -95,7 +95,7 @@ npm run preview
 
 ### Asset Requirements
 
-- **Profile Picture**: `public/images/profile-pic.jpg`
+- **Profile Picture**: `public/images/profile-pic.webp` and `public/images/profile-pic-2.webp` / `profile-pic-2.png` (see astronaut ID card)
 - **Portfolio Images**: `public/images/portfolio/*.jpg`
 - **Resume PDF**: `public/RESUME_suwaphit.pdf`
 

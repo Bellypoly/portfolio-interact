@@ -21,6 +21,11 @@ const TIMELINE_FILTER = {
   achievement: "achievement",
 };
 
+/** In-app case study URL under the current Vite `base` (Mission Gallery). */
+function missionGalleryHref(slug) {
+  return `${import.meta.env.BASE_URL}mission/${slug}`;
+}
+
 /** Wraps [YYYY] in bullet HTML for the timeline year highlight */
 function withYearSpan(bullets) {
   return (
@@ -44,8 +49,8 @@ const EDUCATION_ITEMS = [
     org: "Texas Tech University",
     where: "Lubbock, TX, USA",
     bullets: [
-      "On Simulating Energy Consumption of Federated Learning Systems : [2020] <a href='https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems' target='_blank' rel='noopener noreferrer' >🔗</a> Pioneered simulations of federated edge learning systems using NOMA protocols in MATLAB, exploring the energy and time trade-offs that shape the future of distributed AI. Leveraged convolutional neural networks (CNNs) to minimize loss functions and optimize model performance, uncovering new strategies for efficient, scalable AI workloads. ",
-      "Discovering Fake Driver Based on Temporal Driving Behaviors : [2020] <a href='https://github.com/Bellypoly/Discovering-Fake-Drivers-Based-on-Temporal-Driving-Behaviors' target='_blank' rel='noopener noreferrer' >🔗</a> Built classification models and optimized data pipelines, demonstrating proficiency in large-scale feature extraction and pattern recognition.",
+      `On Simulating Energy Consumption of Federated Learning Systems : [2020] <a href='${missionGalleryHref("federated-learning-energy")}' title='Mission Gallery — case study'>🔗</a> Pioneered simulations of federated edge learning systems using NOMA protocols in MATLAB, exploring the energy and time trade-offs that shape the future of distributed AI. Leveraged convolutional neural networks (CNNs) to minimize loss functions and optimize model performance, uncovering new strategies for efficient, scalable AI workloads. `,
+      `Discovering Fake Driver Based on Temporal Driving Behaviors : [2020] <a href='${missionGalleryHref("rdfd")}' title='Mission Gallery — case study'>🔗</a> Built classification models and optimized data pipelines, demonstrating proficiency in large-scale feature extraction and pattern recognition.`,
       "Face-masked Recognition Model : [2020] Augmented the Labeled Faces in the Wild (LFW) dataset with simulated face-mask images to address the challenge of masked face recognition during COVID-19. Built and tested a computer vision model that improved robustness against facial occlusions, advancing research into more reliable recognition systems.",
       "Power Consumption Observation on Mobile Web Application : [2019] Developed a React Native mobile application framework to measure and analyze real-time power consumption across mobile websites and devices. Implemented background data collection, local caching, and visualization features to assess battery usage patterns. Applied machine-learning models to predict browsing behavior and identify privacy-related risks, advancing research into energy-efficient, high-performance mobile experiences.",
     ],
@@ -61,7 +66,7 @@ const EDUCATION_ITEMS = [
     where: "Bangkok, Thailand",
     bullets: [
       "Development of Logistics Evaluation System for Industrial Thailand Performance : [2018] Created a decision-support system using causal loop modeling to evaluate Thailand's Logistics Performance Indexes (LPIs). Research outcomes provided insights for policymakers and were applied as guidelines to enhance national industrial logistics performance.",
-      "Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand : [2016] Developed a decision-support model for Thailand's top printing and packaging industry, focusing on logistics performance improvement. Led the creation of a model to evaluate and enhance key indicators in cost, time, and reliability, delivering actionable strategies to boost industry competitiveness.<a href='https://ieomsociety.org/ieom_2016/pdfs/672.pdf' target='_blank' rel='noopener noreferrer' >🔗 ieomsociety.org</a>",
+      `Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand : [2016] Developed a decision-support model for Thailand's top printing and packaging industry, focusing on logistics performance improvement. Led the creation of a model to evaluate and enhance key indicators in cost, time, and reliability, delivering actionable strategies to boost industry competitiveness.<a href='${missionGalleryHref("industrial-logistics-evaluation")}' title='Mission Gallery — case study'>🔗</a>`,
     ],
   },
   {
@@ -280,7 +285,9 @@ export default React.memo(function EducationAchievementsSection() {
                           className="edu-timeline__education"
                           initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                          exit={
+                            reduceMotion ? undefined : { opacity: 0, y: -6 }
+                          }
                           transition={tCol}
                         >
                           <div className="edu-timeline__content">
@@ -318,7 +325,9 @@ export default React.memo(function EducationAchievementsSection() {
                           className="edu-timeline__achievement-col"
                           initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                          exit={
+                            reduceMotion ? undefined : { opacity: 0, y: -6 }
+                          }
                           transition={tCol}
                         >
                           <div className="edu-timeline__content">
