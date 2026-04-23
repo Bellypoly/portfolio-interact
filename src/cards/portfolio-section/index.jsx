@@ -7,11 +7,8 @@ import { getMissionGalleryProjects } from "./portfolioProjects";
 const PortfolioSection = React.memo(function PortfolioSection({
   sectionProgress,
 }) {
-  const opacity = useTransform(
-    sectionProgress,
-    [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0.3],
-  );
+  /** Section scroll 0→1 (see `LandingSectionContent` useScroll). Ramp in briefly, then hold at 1 for the rest of the pass so the grid stays legible while the section is on screen. */
+  const opacity = useTransform(sectionProgress, [0, 0.1, 1], [0, 1, 1]);
 
   const missionProjects = useMemo(() => getMissionGalleryProjects(), []);
 

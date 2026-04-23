@@ -24,9 +24,15 @@ const ProjectCard = React.memo(function ProjectCard({
 }) {
   const base = import.meta.env.BASE_URL;
   const isTopClip = imageFit === "top-clip";
-  const imgClass = isTopClip
-    ? "project-card__image project-card__image--top-clip"
-    : "project-card__image";
+  const imgEffects =
+    "opacity-80 blur-[2px] transition-[opacity,filter] duration-[240ms] ease-in-out group-hover:opacity-100 group-hover:blur-none group-focus-visible:opacity-100 group-focus-visible:blur-none motion-reduce:transition-none";
+  const imgClass = [
+    "project-card__image",
+    isTopClip ? "project-card__image--top-clip" : null,
+    imgEffects,
+  ]
+    .filter(Boolean)
+    .join(" ");
   const mediaClass = isTopClip
     ? "project-card__media project-card__media--top-clip"
     : "project-card__media";
@@ -102,7 +108,7 @@ const ProjectCard = React.memo(function ProjectCard({
         to={`/mission/${slug}`}
         state={{ [SPACE_RESUME_FROM_MISSION]: true }}
         onClick={() => rememberMissionScrollBeforeProject()}
-        className="project-card"
+        className="group project-card"
       >
         {body}
       </Link>
@@ -114,7 +120,7 @@ const ProjectCard = React.memo(function ProjectCard({
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="project-card"
+      className="group project-card"
     >
       {body}
     </a>
