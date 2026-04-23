@@ -447,7 +447,7 @@ export default function ProjectCaseStudyPage() {
             onClick={goToMission}
           >
             <HoverRevealText className="project-case-study__hover-reveal">
-            ← Back to mission 🚀
+              ← Back to mission 🚀
             </HoverRevealText>
           </button>
         </div>
@@ -574,6 +574,13 @@ export default function ProjectCaseStudyPage() {
               </div>
             ) : null}
           </CaseStudySection>
+        ) : null}
+
+        {cs.openingSystemDesign ? (
+          <CaseStudySystemDesign
+            systemDesign={cs.openingSystemDesign}
+            baseUrl={baseUrl}
+          />
         ) : null}
 
         <CaseStudySection
@@ -896,6 +903,13 @@ export default function ProjectCaseStudyPage() {
                 </p>
               ))}
         </CaseStudySection>
+
+        {cs.followUpSystemDesign ? (
+          <CaseStudySystemDesign
+            systemDesign={cs.followUpSystemDesign}
+            baseUrl={baseUrl}
+          />
+        ) : null}
 
         {cs.ambiguitySection ? (
           <CaseStudySection

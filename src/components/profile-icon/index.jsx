@@ -38,7 +38,10 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
             }}
           />
           <picture>
-            <source srcSet={`${import.meta.env.BASE_URL}images/profile-pic-2.webp`} type="image/webp" />
+            <source
+              srcSet={`${import.meta.env.BASE_URL}images/profile-pic-2.webp`}
+              type="image/webp"
+            />
             <img
               src={`${import.meta.env.BASE_URL}images/profile-pic-2.png`}
               alt="Profile"
@@ -61,9 +64,9 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
             <text
               className="astronaut-id-label-text"
               fill="#fff"
-              fontSize="8.5"
-              fontWeight="400"
-              letterSpacing="0.11em"
+              fontSize="11"
+              fontWeight="500"
+              letterSpacing="0.08em"
               textAnchor="middle"
               dominantBaseline="middle"
             >

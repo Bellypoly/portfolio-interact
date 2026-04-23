@@ -60,16 +60,24 @@ function renderContext(context) {
 }
 
 /** Focus + Context (+ optional Stack) definition list (Task section and standalone layout). */
-export default function CaseStudyMetaDl({ disciplines, context, techStack }) {
+export default function CaseStudyMetaDl({
+  disciplines,
+  /** When set, overrides `disciplines.join(" · ")` for the Focus row (exact editorial line). */
+  focus,
+  context,
+  techStack,
+}) {
   const stackItems = normalizeStackItems(techStack);
+  const focusText =
+    typeof focus === "string" && focus.trim()
+      ? focus.trim()
+      : (disciplines ?? []).filter(Boolean).join(" · ");
 
   return (
     <dl className="project-case-study__meta">
       <div className="project-case-study__meta-row">
         <dt className="project-case-study__meta-term">Focus</dt>
-        <dd className="project-case-study__meta-def">
-          {disciplines.join(" · ")}
-        </dd>
+        <dd className="project-case-study__meta-def">{focusText}</dd>
       </div>
       <div className="project-case-study__meta-row">
         <dt className="project-case-study__meta-term">Context</dt>

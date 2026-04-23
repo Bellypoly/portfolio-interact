@@ -535,6 +535,14 @@
   max-width: none;
 }
 
+.project-case-study__diagram-blocks {
+  @apply mt-8 space-y-12;
+}
+
+.project-case-study__diagram-block-title {
+  @apply mb-4 text-stone-950;
+}
+
 .project-case-study__diagram--ascii {
   @apply overflow-x-auto bg-transparent;
   background: var(--cs-diagram-bg);
@@ -723,6 +731,10 @@
 
 .project-case-study__figure {
   @apply m-0;
+}
+
+.project-case-study__figure--full-row {
+  @apply col-span-full;
 }
 
 .project-case-study__figure--compare .project-case-study__compare-grid {

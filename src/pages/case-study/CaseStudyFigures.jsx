@@ -2,7 +2,9 @@ import React from "react";
 import CaseStudySection from "./CaseStudySection";
 import CaseStudyLightboxImage from "./CaseStudyLightboxImage";
 
-/** Captioned figures; `columns={3}` wraps grid in `media-bleed` + `wide-inner`. */
+/** Captioned figures; `columns={3}` wraps grid in `media-bleed` + `wide-inner`.
+ *  Optional `fullRow: true` on a figure spans all grid columns so mixed layouts work
+ *  (e.g. full-width rows then a two-up row). */
 export default function CaseStudyFigures({
   title,
   intro,
@@ -23,8 +25,15 @@ export default function CaseStudyFigures({
 
   const gridInner = (
     <div className={gridClass}>
-      {figures.map((f) => (
-        <figure key={f.alt || f.caption} className="project-case-study__figure">
+      {figures.map((f, i) => (
+        <figure
+          key={f.alt || f.caption || i}
+          className={
+            f.fullRow
+              ? "project-case-study__figure project-case-study__figure--full-row"
+              : "project-case-study__figure"
+          }
+        >
           {f.img ? (
             <CaseStudyLightboxImage
               baseUrl={baseUrl}

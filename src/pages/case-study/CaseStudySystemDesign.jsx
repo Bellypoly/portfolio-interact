@@ -4,10 +4,12 @@ import CaseStudyLightboxImage from "./CaseStudyLightboxImage";
 import CaseStudyVersionCompareDiagram from "./CaseStudyVersionCompareDiagram";
 
 function diagramMode(systemDesign) {
-  const { beforeAfter, diagramImageWebp, diagramImage, diagram } = systemDesign;
+  const { beforeAfter, diagramImageWebp, diagramImage, diagram, diagramBlocks } =
+    systemDesign;
   if (beforeAfter) return "beforeAfter";
   if (diagramImageWebp && diagramImage) return "picture";
   if (diagramImage) return "img";
+  if (diagramBlocks?.length) return "asciiBlocks";
   if (diagram?.length) return "ascii";
   return null;
 }
@@ -69,10 +71,38 @@ export default function CaseStudySystemDesign({ systemDesign: sd, baseUrl }) {
 
   const sectionTitle = sd.sectionTitle ?? "System design";
 
+  const asciiBlocksBody =
+    mode === "asciiBlocks" ? (
+      <div className="project-case-study__diagram-blocks">
+        {sd.diagramBlocks.map((block, i) =>
+          block.diagram?.length ? (
+            <div key={i} className="project-case-study__diagram-block">
+              {block.title ? (
+                <h3 className="project-case-study__h3 project-case-study__diagram-block-title">
+                  {block.title}
+                </h3>
+              ) : null}
+              <div className="project-case-study__diagram project-case-study__diagram--ascii">
+                <pre className="project-case-study__diagram-pre">
+                  {block.diagram.join("\n")}
+                </pre>
+              </div>
+              {block.caption ? (
+                <p className="project-case-study__caption">{block.caption}</p>
+              ) : null}
+            </div>
+          ) : null,
+        )}
+      </div>
+    ) : null;
+
   return (
     <CaseStudySection title={sectionTitle}>
       {sd.intro ? <p className="project-case-study__p">{sd.intro}</p> : null}
-      {diagramBody ? <div className={wrapClass}>{diagramBody}</div> : null}
+      {asciiBlocksBody}
+      {diagramBody && mode !== "asciiBlocks" ? (
+        <div className={wrapClass}>{diagramBody}</div>
+      ) : null}
       {sd.caption ? (
         <p className="project-case-study__caption">{sd.caption}</p>
       ) : null}

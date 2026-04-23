@@ -4,6 +4,29 @@ import CaseStudySystemDesign from "./CaseStudySystemDesign";
 import CaseStudyFigures from "./CaseStudyFigures";
 import CaseStudyBeforeAfterCompare from "./CaseStudyBeforeAfterCompare";
 
+/** `figureCaption`: plain string or `{ text, externalLink?, after? }` (same shape as reference figure captions). */
+function renderProblemFigureCaption(caption) {
+  if (caption == null) return null;
+  if (typeof caption === "string") return caption;
+  if (caption.externalLink) {
+    return (
+      <>
+        {caption.text}
+        <a
+          href={caption.externalLink.href}
+          className="project-case-study__inline-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {caption.externalLink.label}
+        </a>
+        {caption.after}
+      </>
+    );
+  }
+  return caption.text ?? null;
+}
+
 export default function CaseStudyProblemSection({
   section,
   baseUrl,
@@ -60,7 +83,7 @@ export default function CaseStudyProblemSection({
         {(beforeAfterCompare?.rows?.length || figures?.length) &&
         figureCaption ? (
           <p className="project-case-study__p project-case-study__p--figure-intro">
-            {figureCaption}
+            {renderProblemFigureCaption(figureCaption)}
           </p>
         ) : null}
         {beforeAfterCompare?.rows?.length ? (
