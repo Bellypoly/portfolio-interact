@@ -23,7 +23,12 @@ import Star from "./components/star";
 import ShootingStar from "./components/shooting-star";
 import { MarkerChipGroup } from "./components/marker-chip";
 import AtmosphereHud from "./components/atmosphere-hud";
-import { seededRandom } from "./utils/random";
+import {
+  STAR_COUNT,
+  STAR_COUNT_SIMPLE,
+  STAR_LAYER_DEFS,
+  generateStarLayer,
+} from "./utils/spaceStarfield";
 import {
   formatDurationMs,
   getScrollMetrics,
@@ -49,9 +54,6 @@ const MissionGalleryGateSection = lazy(
   () => import("./cards/mission-gallery-section-gate"),
 );
 
-const STAR_COUNT = 200;
-/** Fewer SVG nodes + no twinkle on touch / reduced-motion (Safari GPU). */
-const STAR_COUNT_SIMPLE = 64;
 const SECTION_COUNT = 7;
 const PREQUEL_SECTION_INDEX = 1;
 const WORK_SECTION_INDEX = 2;
@@ -62,56 +64,6 @@ const PORTFOLIO_SECTION_INDEX = 6;
 const MARKER_JUMP_SUPPRESS_MS = 1200;
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
-
-const STAR_LAYER_DEFS = [
-  {
-    key: "far",
-    size: 0.39,
-    baseOpacity: 0.3,
-    parallax: 12,
-    scrollEnd: "-30vh",
-  },
-  {
-    key: "mid",
-    size: 0.42,
-    baseOpacity: 0.4,
-    parallax: 24,
-    scrollEnd: "-60vh",
-  },
-  {
-    key: "near",
-    size: 0.45,
-    baseOpacity: 0.5,
-    parallax: 40,
-    scrollEnd: "-100vh",
-  },
-];
-
-function makeTwinkle(i, layer) {
-  if (seededRandom(i + 42 + layer * 1000) >= 0.15) return null;
-  return {
-    phase: seededRandom(i + 99 + layer * 1000) * 2 * Math.PI,
-    duration: 2.5 + seededRandom(i + 123 + layer * 1000) * 1.5,
-  };
-}
-
-function generateStarLayer(
-  count,
-  layerIndex,
-  size,
-  baseOpacity,
-  w,
-  h,
-  enableTwinkle,
-) {
-  return Array.from({ length: count }, (_, i) => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    size,
-    o: baseOpacity + Math.random() * 0.3,
-    twinkle: enableTwinkle ? makeTwinkle(i, layerIndex) : null,
-  }));
-}
 
 function getSectionItemClass(id, index) {
   if (index === 0) return "app-section-item--intro";

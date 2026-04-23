@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:prod": "cross-env VITE_FORCE_DEV_FALSE=1 vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-index-to-404.mjs",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -22,9 +22,9 @@
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "cross-env": "^7.0.3",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",

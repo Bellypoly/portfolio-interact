@@ -25,18 +25,8 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
         initial={false}
       >
         <div className="profile-icon-stack" onClick={handleProfileClick}>
-          <motion.span
-            className="radio-signal-wave"
-            initial={{ scale: 0.7, opacity: 0.85 }}
-            animate={{ scale: 2, opacity: 0 }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "easeOut",
-              delay: 0,
-            }}
-          />
+          {/* CSS keyframes (not Framer loop): smoother compositing on iOS Safari */}
+          <span className="radio-signal-wave" aria-hidden />
           <picture>
             <source
               srcSet={`${import.meta.env.BASE_URL}images/profile-pic-2.webp`}
@@ -50,8 +40,8 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
           </picture>
           <svg
             width="90"
-            height="85"
-            viewBox="0 0 90 55"
+            height="95"
+            viewBox="0 0 90 50"
             className="astronaut-id-label"
           >
             <defs>

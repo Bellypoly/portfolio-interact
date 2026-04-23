@@ -12,12 +12,40 @@
     drop-shadow(0 0 24px rgba(94, 234, 212, 0.6));
 }
 
+@keyframes radio-signal-wave-pulse {
+  from {
+    transform: scale(0.7) translateZ(0);
+    opacity: 0.85;
+  }
+  to {
+    transform: scale(2) translateZ(0);
+    opacity: 0;
+  }
+}
+
 .radio-signal-wave {
   @apply absolute rounded-full w-[72px] h-[72px] pointer-events-none z-[21];
   @apply border border-[rgba(94,234,212,0.85)];
+  display: block;
+  left: 50%;
+  top: 50%;
+  margin-left: -36px;
+  margin-top: -36px;
   box-shadow:
     0 0 10px rgba(94, 234, 212, 0.4),
     inset 0 0 8px rgba(94, 234, 212, 0.08);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+  animation: radio-signal-wave-pulse 1.8s ease-out infinite;
+}
+
+/* Touch / coarse pointer: lighter paint during scale (iPhone, iPad) */
+@media (hover: none), (pointer: coarse) {
+  .radio-signal-wave {
+    box-shadow: 0 0 8px rgba(94, 234, 212, 0.35);
+  }
 }
 
 .profile-icon-img {

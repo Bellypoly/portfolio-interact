@@ -9,6 +9,29 @@
     <!-- Character encoding for proper text rendering -->
     <meta charset="UTF-8" />
 
+    <!--
+      Legacy GitHub Pages `?/path` recovery (spa-github-pages). Deployed `404.html`
+      is a copy of this file so deep links load the app without this redirect.
+    -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("");
+          window.history.replaceState(
+            null,
+            "",
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
+
     <!-- Favicon for browser tab icon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
