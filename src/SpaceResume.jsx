@@ -247,7 +247,10 @@ export default function SpaceResume() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("up");
+  /** Mirrors `scrollDirection` for scroll handler comparisons without stale closures. */
+  const scrollDirectionRef = useRef("up");
   const lastScrollYRef = useRef(0);
+  const scrollSpyRafRef = useRef(0);
   const [debugScroll, setDebugScroll] = useState(0);
   const [debugCrawlProgress, setDebugCrawlProgress] = useState(0);
   const [debugScrollYProgress, setDebugScrollYProgress] = useState(0);
@@ -297,7 +300,7 @@ export default function SpaceResume() {
 
   const sectionIds = useMemo(() => SECTIONS.map((s) => s.id), [SECTIONS]);
 
-  // --- Scroll handler ---
+  // --- Scroll handler (rAF-batched layout reads + setState only when values change) ---
   useEffect(() => {
     function updateDevDebug() {
       if (!import.meta.env.DEV) return;
@@ -312,24 +315,42 @@ export default function SpaceResume() {
       );
     }
 
-    function onScroll() {
+    function flushScrollSpy() {
       const y = window.scrollY;
       const threshold = 5;
       if (y > lastScrollYRef.current + threshold) {
-        setScrollDirection("down");
+        if (scrollDirectionRef.current !== "down") {
+          scrollDirectionRef.current = "down";
+          setScrollDirection("down");
+        }
       } else if (y < lastScrollYRef.current - threshold) {
-        setScrollDirection("up");
+        if (scrollDirectionRef.current !== "up") {
+          scrollDirectionRef.current = "up";
+          setScrollDirection("up");
+        }
       }
       lastScrollYRef.current = y;
 
-      if (jumpingToRef.current !== null) {
-        setActiveIndex(jumpingToRef.current);
-      } else {
-        setActiveIndex(
-          resolveActiveIndexFromViewportProbe(sectionRefs, SECTION_COUNT),
-        );
-      }
+      setActiveIndex((prev) => {
+        const next =
+          jumpingToRef.current !== null
+            ? jumpingToRef.current
+            : resolveActiveIndexFromViewportProbe(
+                sectionRefs,
+                SECTION_COUNT,
+              );
+        return next === prev ? prev : next;
+      });
+
       updateDevDebug();
+    }
+
+    function scheduleScrollSpy() {
+      if (scrollSpyRafRef.current !== 0) return;
+      scrollSpyRafRef.current = requestAnimationFrame(() => {
+        scrollSpyRafRef.current = 0;
+        flushScrollSpy();
+      });
     }
 
     function onScrollEnd() {
@@ -338,16 +359,24 @@ export default function SpaceResume() {
         jumpTimeoutRef.current = null;
       }
       jumpingToRef.current = null;
-      onScroll();
+      if (scrollSpyRafRef.current !== 0) {
+        cancelAnimationFrame(scrollSpyRafRef.current);
+        scrollSpyRafRef.current = 0;
+      }
+      flushScrollSpy();
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("scroll", scheduleScrollSpy, { passive: true });
+    window.addEventListener("resize", scheduleScrollSpy);
     window.addEventListener("scrollend", onScrollEnd);
-    onScroll();
+    flushScrollSpy();
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      if (scrollSpyRafRef.current !== 0) {
+        cancelAnimationFrame(scrollSpyRafRef.current);
+        scrollSpyRafRef.current = 0;
+      }
+      window.removeEventListener("scroll", scheduleScrollSpy);
+      window.removeEventListener("resize", scheduleScrollSpy);
       window.removeEventListener("scrollend", onScrollEnd);
     };
   }, [SECTION_COUNT, sectionIds]);

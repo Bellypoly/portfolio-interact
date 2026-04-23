@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import HoverRevealText from "../hover-reveal-text";
+import { prefersHoverPopover } from "../../utils/prefersHoverPopover";
 import "./work-timeline-item.css";
 
 // --- BulletPopover ---
@@ -22,11 +23,17 @@ function BulletPopover({
       <button
         type="button"
         className="work-timeline-item__bullet-trigger"
-        onClick={onToggle}
-        onFocus={onOpen}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
         onBlur={onBlur}
-        onMouseEnter={onOpen}
-        onMouseLeave={onClose}
+        onMouseEnter={() => {
+          if (prefersHoverPopover()) onOpen();
+        }}
+        onMouseLeave={() => {
+          if (prefersHoverPopover()) onClose();
+        }}
       >
         <HoverRevealText className="group">{triggerLabel}</HoverRevealText>{" "}
         →

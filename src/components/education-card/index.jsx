@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import cc from "classcat";
 import HoverRevealText from "../hover-reveal-text";
 import LocationOrg from "../location-org";
+import { prefersHoverPopover } from "../../utils/prefersHoverPopover";
 import "./education-card.css";
 
 /** Splits "Summary: detail html" mission bullets; otherwise whole string is summary only */
@@ -123,7 +124,13 @@ const EducationCard = React.memo(function EducationCard({
           <button
             type="button"
             className="education-card__mission-log-btn"
-            onMouseEnter={() => setIsMissionLogOpen(true)}
+            onMouseEnter={() => {
+              if (prefersHoverPopover()) setIsMissionLogOpen(true);
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMissionLogOpen((v) => !v);
+            }}
           >
             <HoverRevealText className="group">Mission log</HoverRevealText> →
           </button>
