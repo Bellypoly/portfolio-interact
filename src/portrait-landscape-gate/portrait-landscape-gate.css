@@ -1,0 +1,36 @@
+/* Full-screen portrait prompt: uses `SpaceVoidShell` for void + stars; this file is copy + chrome only. */
+
+.portrait-landscape-gate {
+  pointer-events: auto;
+}
+
+.portrait-landscape-gate__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #e2f8ff;
+  text-shadow: 0 0 28px rgb(34 211 238 / 0.18);
+}
+
+.portrait-landscape-gate__glyph {
+  font-size: 2.25rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px rgb(34 211 238 / 0.35));
+}
+
+.portrait-landscape-gate__copy {
+  margin: 0;
+  max-width: 20rem;
+}
+
+.portrait-landscape-gate__copy strong {
+  color: #cffafe;
+}

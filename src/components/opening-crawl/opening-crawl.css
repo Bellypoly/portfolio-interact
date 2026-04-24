@@ -13,13 +13,14 @@
   @apply font-quicksand;
 }
 .crawl-welcome {
-  @apply text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
+  @apply text-base sm:text-sm md:text-base lg:text-lg xl:text-xl mb-2 sm:mb-3 tracking-[0.25em] sm:tracking-[0.35em];
 }
 .crawl-of {
-  @apply text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em];
+  @apply text-base sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-3 sm:mb-4 tracking-[0.15em] sm:tracking-[0.25em];
 }
 .crawl-name {
   @apply font-stacknotch mb-4 sm:mb-6 tracking-[0.25em] sm:tracking-[0.35em] font-extrabold leading-none;
+  @apply bg-black  px-1 md:px-0 py-0.5 md:py-0 rounded-sm md:rounded-none w-fit max-w-full mx-auto md:mx-0 md:w-auto md:max-w-none;
 }
 .crawl-name-block,
 .crawl-role-block {
@@ -29,7 +30,7 @@
   @apply font-robotomono mb-6 sm:mb-8 md:mb-10 text-[0.7rem] sm:text-xs md:text-xs lg:text-sm xl:text-[0.9rem] tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center;
   box-shadow:
     0 18px 18px 0 rgba(0, 0, 0, 0.95),
-    0 -18px 18px 0 rgba(0, 0, 0, 0.95);
+    0 -50px 18px 18px rgba(0, 0, 0, 0.95);
 }
 .crawl-role-dot {
   @apply hidden sm:inline;

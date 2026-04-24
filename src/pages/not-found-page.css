@@ -1,60 +1,6 @@
-/* Full-screen 404 — space theme (inspired by animated 404 demos, e.g. play-lottie-animation.webflow.io) */
-
-.not-found-page {
-  --nf-cyan: 34 211 238;
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1.25rem 3rem;
-  overflow: hidden;
-  color: #e3f2f7;
-  background: radial-gradient(
-    ellipse 120% 90% at 50% 115%,
-    rgb(12 55 68) 0%,
-    rgb(0 18 28) 45%,
-    #00050a 100%
-  );
-}
-
-.not-found-page__ambient {
-  position: absolute;
-  inset: -25%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 38%,
-    rgb(var(--nf-cyan) / 0.14) 0%,
-    transparent 45%
-  );
-}
-
-/* One layer: same `Star` + glow as home (`SpaceResume` mid layer), fewer nodes than 3 layers. */
-.not-found-page__stars {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.not-found-page__star-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-}
-
-.not-found-page__star-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
+/* 404 content on top of shared `SpaceVoidShell` (void + stars in space-void-shell.css). */
 
 .not-found-page__content {
-  position: relative;
-  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,19 +8,12 @@
   text-align: center;
 }
 
-.not-found-page__copy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
 .not-found-page__rocket {
   display: block;
   width: min(9rem, 38vw);
   height: auto;
   margin: 0 auto 0.5rem;
-  filter: drop-shadow(0 12px 36px rgb(var(--nf-cyan) / 0.25));
+  filter: drop-shadow(0 12px 36px rgb(34 211 238 / 0.25));
 }
 
 .not-found-page__code {
@@ -86,8 +25,8 @@
   font-size: clamp(1.75rem, 5.5vw, 2.75rem);
   line-height: 1.15;
   text-shadow:
-    0 0 42px rgb(var(--nf-cyan) / 0.35),
-    0 0 80px rgb(var(--nf-cyan) / 0.12);
+    0 0 42px rgb(34 211 238 / 0.35),
+    0 0 80px rgb(34 211 238 / 0.12);
 }
 
 .not-found-page__lead {
@@ -112,7 +51,7 @@
     var(--pf-teal-ui) 100%
   );
   box-shadow:
-    0 4px 20px rgb(var(--nf-cyan) / 0.35),
+    0 4px 20px rgb(34 211 238 / 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
@@ -120,11 +59,18 @@
   .not-found-page__btn:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 10px 36px rgb(var(--nf-cyan) / 0.45),
+      0 10px 36px rgb(34 211 238 / 0.45),
       inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 }
 
 .not-found-page__btn:focus-visible {
   @apply outline outline-2 outline-offset-4 outline-cyan-300;
+}
+
+.not-found-page__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }

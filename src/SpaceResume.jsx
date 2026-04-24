@@ -65,6 +65,16 @@ const MARKER_JUMP_SUPPRESS_MS = 1200;
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
 
+/** Same width bands as `opening-crawl` / Tailwind (sm/md/lg/xl/2xl). */
+function viewportTailwindBand(width) {
+  if (width < 640) return "xs";
+  if (width < 768) return "sm";
+  if (width < 1024) return "md";
+  if (width < 1280) return "lg";
+  if (width < 1536) return "xl";
+  return "2xl";
+}
+
 function getSectionItemClass(id, index) {
   if (index === 0) return "app-section-item--intro";
   if (id === "rocket") return "app-section-item--rocket";
@@ -208,6 +218,8 @@ export default function SpaceResume() {
   const [debugScrollYProgress, setDebugScrollYProgress] = useState(0);
   /** DEV: which section contains the scroll-spy probe line */
   const [scrollSpyDebug, setScrollSpyDebug] = useState(null);
+  const [debugScrollSpyPanelOpen, setDebugScrollSpyPanelOpen] = useState(true);
+  const [debugDwellPanelOpen, setDebugDwellPanelOpen] = useState(true);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     if (import.meta.env.DEV) setDebugScrollYProgress(v);
   });
@@ -364,6 +376,8 @@ export default function SpaceResume() {
     [windowSize.width, windowSize.height, starCount, preferSimpleMotion],
   );
 
+  const crawlBreakpointLabel = viewportTailwindBand(windowSize.width);
+
   // --- Mouse parallax ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -447,130 +461,175 @@ export default function SpaceResume() {
 
   return (
     <>
-      {/* {import.meta.env.DEV && ( */}
-      <div className="app-debug-overlay  overflow-y-auto overflow-x-hidden">
-        <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
-        <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
-        <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
-        <div>activeIndex: {activeIndex}</div>
-        <div>
-          screen: {windowSize.width} × {windowSize.height}
-        </div>
-        <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
-          <div className="font-semibold text-cyan-200">
-            Scroll spy (probe y≈{SCROLL_SPY_PROBE_RATIO * 100}% viewport)
+      {import.meta.env.DEV && (
+        <div className="app-debug-overlay  overflow-y-auto overflow-x-hidden">
+          <div className="mb-1 border-b border-cyan-500/35 pb-1 font-semibold text-cyan-100">
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span>
+                crawl breakpoint:{" "}
+                <span className="font-mono text-amber-200">
+                  {crawlBreakpointLabel}
+                </span>
+              </span>
+              <span className="font-mono text-[11px] font-normal text-cyan-200/95">
+                {windowSize.width}px wide
+              </span>
+            </div>
+            <span className="mt-0.5 block font-mono text-[9px] font-normal text-cyan-500/90">
+              {"<"}640 xs · {"<"}768 sm · {"<"}1024 md · {"<"}1280 lg · {"<"}
+              1536 xl · else 2xl
+            </span>
           </div>
-          {scrollSpyDebug ? (
-            <>
-              <div>
-                probe line Y: {scrollSpyDebug.probeY}px · resolved active:{" "}
-                {scrollSpyDebug.active}
-              </div>
-              <ul className="mt-1 list-none space-y-1 overflow-auto pl-0 font-mono">
-                {scrollSpyDebug.rows.map((row) => (
-                  <li
-                    key={row.id}
-                    className={
-                      row.containsProbe
-                        ? "text-amber-300"
-                        : row.index === scrollSpyDebug.active
-                          ? "text-cyan-200"
-                          : "text-cyan-500/80"
-                    }
-                  >
-                    <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
-                      <span className="shrink-0 font-semibold">
-                        {row.index} {row.id}
-                      </span>
-                      {row.throughPct != null ? (
-                        <span>
-                          progress{" "}
-                          <span className="text-cyan-100">
-                            {row.throughPct.toFixed(1)}%
-                          </span>
-                          {row.height != null ? (
-                            <span className="text-cyan-500/70">
-                              {" "}
-                              (h {row.height}px)
-                            </span>
-                          ) : null}
+          <div>scrollYProgress: {(debugScrollYProgress * 100).toFixed(1)}%</div>
+          <div>crawlProgress: {(debugCrawlProgress * 100).toFixed(1)}%</div>
+          <div>raw progress: {(debugScroll * 100).toFixed(1)}%</div>
+          <div>activeIndex: {activeIndex}</div>
+          <div>
+            viewport: {windowSize.width}px × {windowSize.height}px
+          </div>
+          <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
+            <button
+              type="button"
+              className="flex w-full cursor-pointer select-none items-center justify-between gap-2 text-left font-semibold text-cyan-200 hover:text-cyan-50"
+              onClick={() => setDebugScrollSpyPanelOpen((o) => !o)}
+              aria-expanded={debugScrollSpyPanelOpen}
+            >
+              <span>
+                Scroll spy (probe y≈{SCROLL_SPY_PROBE_RATIO * 100}% viewport)
+              </span>
+              <span className="shrink-0 font-mono text-cyan-400" aria-hidden>
+                {debugScrollSpyPanelOpen ? "▼" : "▶"}
+              </span>
+            </button>
+            {debugScrollSpyPanelOpen && scrollSpyDebug ? (
+              <>
+                <div className="mt-1">
+                  probe line Y: {scrollSpyDebug.probeY}px · resolved active:{" "}
+                  {scrollSpyDebug.active}
+                </div>
+                <ul className="mt-1 list-none space-y-1 overflow-auto pl-0 font-mono">
+                  {scrollSpyDebug.rows.map((row) => (
+                    <li
+                      key={row.id}
+                      className={
+                        row.containsProbe
+                          ? "text-amber-300"
+                          : row.index === scrollSpyDebug.active
+                            ? "text-cyan-200"
+                            : "text-cyan-500/80"
+                      }
+                    >
+                      <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
+                        <span className="shrink-0 font-semibold">
+                          {row.index} {row.id}
                         </span>
-                      ) : (
-                        <span>—</span>
-                      )}
-                      {row.containsProbe ? (
-                        <span className="text-amber-200">· probe here</span>
-                      ) : null}
-                    </div>
-                    {row.throughPct != null ? (
-                      <div
-                        className="mt-0.5 h-1 w-full max-w-[14rem] overflow-hidden rounded-sm bg-cyan-950/80"
-                        aria-hidden
-                      >
+                        {row.throughPct != null ? (
+                          <span>
+                            progress{" "}
+                            <span className="text-cyan-100">
+                              {row.throughPct.toFixed(1)}%
+                            </span>
+                            {row.height != null ? (
+                              <span className="text-cyan-500/70">
+                                {" "}
+                                (h {row.height}px)
+                              </span>
+                            ) : null}
+                          </span>
+                        ) : (
+                          <span>—</span>
+                        )}
+                        {row.containsProbe ? (
+                          <span className="text-amber-200">· probe here</span>
+                        ) : null}
+                      </div>
+                      {row.throughPct != null ? (
                         <div
-                          className="h-full rounded-sm bg-gradient-to-r from-cyan-600 to-teal-400"
-                          style={{
-                            width: `${Math.min(100, Math.max(0, row.throughPct))}%`,
-                          }}
-                        />
-                      </div>
-                    ) : null}
-                    {row.top != null ? (
-                      <div className="text-[9px] text-cyan-600/90">
-                        top {row.top}px · bottom {row.bottom}px
-                      </div>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : null}
-        </div>
-        <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
-          <div className="font-semibold text-cyan-200">
-            Time on screen (as active section)
+                          className="mt-0.5 h-1 w-full max-w-[14rem] overflow-hidden rounded-sm bg-cyan-950/80"
+                          aria-hidden
+                        >
+                          <div
+                            className="h-full rounded-sm bg-gradient-to-r from-cyan-600 to-teal-400"
+                            style={{
+                              width: `${Math.min(100, Math.max(0, row.throughPct))}%`,
+                            }}
+                          />
+                        </div>
+                      ) : null}
+                      {row.top != null ? (
+                        <div className="text-[9px] text-cyan-600/90">
+                          top {row.top}px · bottom {row.bottom}px
+                        </div>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : debugScrollSpyPanelOpen ? (
+              <p className="mt-1 text-cyan-600/90">
+                Scroll to populate probe rows.
+              </p>
+            ) : null}
           </div>
-          <p className="mb-1 text-[9px] text-cyan-500/90">
-            Total dwell while that section was active; clock is when you last
-            entered it (this page load).
-          </p>
-          <ul className="max-h-40 list-none space-y-1 overflow-auto pl-0 font-mono">
-            {Array.from({ length: SECTION_COUNT }, (_, i) => {
-              void timingTick;
-              const base = sectionDwellMsRef.current[i];
-              const liveMs =
-                i === activeIndex
-                  ? base + (performance.now() - segmentStartMsRef.current)
-                  : base;
-              const lastAt = sectionLastEnteredAtRef.current[i];
-              return (
-                <li
-                  key={`dwell-${SECTIONS[i]?.id ?? i}`}
-                  className={
-                    i === activeIndex ? "text-amber-200" : "text-cyan-500/85"
-                  }
-                >
-                  <span className="font-semibold text-cyan-300/95">
-                    {i} {SECTIONS[i]?.id}
-                  </span>
-                  {" · "}
-                  dwell {formatDurationMs(liveMs)}
-                  {" · "}
-                  last active{" "}
-                  {lastAt != null
-                    ? new Date(lastAt).toLocaleTimeString(undefined, {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit",
-                      })
-                    : "—"}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="mt-2 border-t border-cyan-500/40 pt-2 text-[10px] leading-snug">
+            <button
+              type="button"
+              className="flex w-full cursor-pointer select-none items-center justify-between gap-2 text-left font-semibold text-cyan-200 hover:text-cyan-50"
+              onClick={() => setDebugDwellPanelOpen((o) => !o)}
+              aria-expanded={debugDwellPanelOpen}
+            >
+              <span>Time on screen (as active section)</span>
+              <span className="shrink-0 font-mono text-cyan-400" aria-hidden>
+                {debugDwellPanelOpen ? "▼" : "▶"}
+              </span>
+            </button>
+            {debugDwellPanelOpen ? (
+              <>
+                <p className="mb-1 mt-1 text-[9px] text-cyan-500/90">
+                  Total dwell while that section was active; clock is when you
+                  last entered it (this page load).
+                </p>
+                <ul className="max-h-40 list-none space-y-1 overflow-auto pl-0 font-mono">
+                  {Array.from({ length: SECTION_COUNT }, (_, i) => {
+                    void timingTick;
+                    const base = sectionDwellMsRef.current[i];
+                    const liveMs =
+                      i === activeIndex
+                        ? base + (performance.now() - segmentStartMsRef.current)
+                        : base;
+                    const lastAt = sectionLastEnteredAtRef.current[i];
+                    return (
+                      <li
+                        key={`dwell-${SECTIONS[i]?.id ?? i}`}
+                        className={
+                          i === activeIndex
+                            ? "text-amber-200"
+                            : "text-cyan-500/85"
+                        }
+                      >
+                        <span className="font-semibold text-cyan-300/95">
+                          {i} {SECTIONS[i]?.id}
+                        </span>
+                        {" · "}
+                        dwell {formatDurationMs(liveMs)}
+                        {" · "}
+                        last active{" "}
+                        {lastAt != null
+                          ? new Date(lastAt).toLocaleTimeString(undefined, {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit",
+                            })
+                          : "—"}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            ) : null}
+          </div>
         </div>
-      </div>
-      {/* )} */}
+      )}
       <main className="app-main">
         <motion.div
           className="app-bg-nebula"
