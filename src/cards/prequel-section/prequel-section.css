@@ -19,7 +19,19 @@
 }
 
 .prequel-section__title-accent {
-  @apply font-fleur text-yellow-300 font-medium text-[clamp(4.25rem,11vw+2.5rem,8rem)];
+  @apply font-fleur text-yellow-300 font-medium text-[clamp(4.25rem,11vw+2.5rem,8rem)] inline-block break-words whitespace-nowrap;
+}
+
+.prequel-letter-p {
+  @apply inline -ml-[0.4em] pl-[0.4em];
+}
+
+.prequel-letter-l {
+  @apply inline pr-[0.4em];
+}
+
+.prequel-middle {
+  @apply inline tracking-normal;
 }
 @media (max-width: 768px) {
   .prequel-section__title-bold {

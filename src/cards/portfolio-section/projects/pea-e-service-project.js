@@ -62,6 +62,14 @@ export const peaEServiceProject = {
         after:
           " so producer paperwork never hijacked the main hub people use for ordinary requests.",
       },
+      {
+        text: "A live example of the system in action: ",
+        externalLink: {
+          href: "https://peacos.pea.co.th/views/paperex/",
+          label: "PEA PEACOS portal",
+        },
+        after: " showing document submission and case tracking workflows.",
+      },
       "The related link at the bottom of this case study opens the PEA OMS integration story (outage hub, GIS, SAP, dashboards).",
     ],
     overviewSystemDesign: {

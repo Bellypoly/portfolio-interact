@@ -53,7 +53,11 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
             animate={{ opacity: showPrequelFade ? 1 : 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
           >
-            {" prequel "}
+            {" "}
+            <span className="prequel-letter-p">p</span>
+            <span className="prequel-middle">reque</span>
+            <span className="prequel-letter-l">l</span>
+            {" "}
           </motion.span>
         </span>
         <span className="prequel-section__title-line">
