@@ -41,7 +41,7 @@ const BREAKPOINT_STOPS = {
 
 /** Scroll-driven name size: lg / xl / 2xl fixed; sm/md animate with crawl. */
 const CRAWL_NAME_FONT_BY_BAND = {
-  sm: { input: [0, 0.2, 1], output: ["2.6rem", "2rem", "2rem"] },
+  sm: { input: [0, 0.2, 1], output: ["2.6rem", "2.4rem", "2.4rem"] },
   md: { input: [0, 0.2, 1], output: ["4.75rem", "3rem", "3rem"] },
   lg: { input: [0, 1], output: ["4rem", "4rem"] },
   xl: { input: [0, 1], output: ["4rem", "4rem"] },

@@ -45,9 +45,8 @@ function compareMissionGalleryOrder(a, b) {
 
 /** Slug order for Mission Gallery — professional group only (overrides year + slug). */
 const PROFESSIONAL_MISSION_GALLERY_ORDER = [
-  "article-page-redesign",
   "dynamic-paywall",
-  "subscription-checkout-activation",
+  "subscription-checkout-activation","article-page-redesign",
   "local-elections-hub",
   "electricity-bill-breakdown",
   "parliament-watch-ocr",

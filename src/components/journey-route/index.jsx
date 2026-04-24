@@ -100,7 +100,7 @@ const WORLD_ATLAS_URL =
   "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const GLOBE_TILT = 20;
-const TRANSITION_DURATION = 1200;
+const TRANSITION_DURATION = 1800;
 const DOT_RADIUS = 6;
 
 const JOURNEY_STOPS = [
