@@ -8,7 +8,7 @@ import {
 import "./prequel-section.css";
 
 const PREQUEL_BODY =
-  "The story so far — East to West. From Phuket to Bangkok, then across the Pacific to Lubbock, and Dallas. Different places, the same thread: good people building great things, and wherever else that takes me.";
+  "Embarking on a cosmic journey—from the tropical shores of Phuket through the bustling chaos of Bangkok, then soaring across the Pacific to the rugged terrains of Lubbock and the electric vibes of Dallas. Along this stellar path, one constant shines: the brilliance of good people crafting wonders. Now, with galaxies ahead and stars guiding the way, she's poised for the next chapter of adventure.";
 
 /** Stable ref for `useTypingWords` (avoids new array literal every render). */
 const PREQUEL_PARAGRAPHS = [PREQUEL_BODY];
