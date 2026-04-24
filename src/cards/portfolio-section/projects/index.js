@@ -18,3 +18,4 @@ export { vote62EctReport69Project } from "./vote62-ect-report-69-project.js";
 export { electricityBillBreakdownProject } from "./electricity-bill-breakdown-project.js";
 export { peaEServiceProject } from "./pea-e-service-project.js";
 export { outageManagementSystemProject } from "./outage-management-system-project.js";
+export { photographyCompetitionMyHometownProject } from "./photography-competition-my-hometown-project.js";

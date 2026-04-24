@@ -27,6 +27,7 @@ import {
   outageManagementSystemProject,
   parliamentWatchOcrProject,
   peaEServiceProject,
+  photographyCompetitionMyHometownProject,
   rdfdProject,
   subscriptionCheckoutActivationProject,
   vote62EctReport69Project,
@@ -56,6 +57,7 @@ const PROFESSIONAL_MISSION_GALLERY_ORDER = [
   "pea-e-service",
   "outage-management-system",
   "jerdi-kids",
+  "photography-competition-my-hometown",
 ];
 
 function compareProfessionalMissionGallery(a, b) {
@@ -85,6 +87,7 @@ export function getMissionGalleryProjects() {
 export const PORTFOLIO_PROJECTS = [
   dynamicPaywallProject,
   jerdiKidsProject,
+  photographyCompetitionMyHometownProject,
   federatedLearningEnergyProject,
   localElectionsHubProject,
   subscriptionCheckoutActivationProject,
