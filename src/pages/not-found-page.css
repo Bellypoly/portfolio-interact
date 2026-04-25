@@ -1,18 +1,13 @@
 /* 404 content on top of shared `SpaceVoidShell` (void + stars in space-void-shell.css). */
 
 .not-found-page__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 28rem;
-  text-align: center;
+  @apply flex max-w-md flex-col items-center text-center;
 }
 
 .not-found-page__rocket {
-  display: block;
+  @apply block;
   width: min(9rem, 38vw);
-  height: auto;
-  margin: 0 auto 0.5rem;
+  @apply mx-auto mb-2 h-auto;
   filter: drop-shadow(0 12px 36px rgb(34 211 238 / 0.25));
 }
 
@@ -21,7 +16,7 @@
 }
 
 .not-found-page__title {
-  @apply font-orbitron font-bold tracking-[0.06em] mt-4 mb-3;
+  @apply mb-3 mt-4 font-orbitron font-bold tracking-[0.06em];
   font-size: clamp(1.75rem, 5.5vw, 2.75rem);
   line-height: 1.15;
   text-shadow:
@@ -42,7 +37,7 @@
 }
 
 .not-found-page__btn {
-  @apply font-quicksand font-semibold inline-flex items-center justify-center gap-2 mt-9 px-7 py-3 rounded-full no-underline transition-[transform,box-shadow] duration-200 ease-out;
+  @apply mt-9 inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 font-quicksand font-semibold no-underline transition-[transform,box-shadow] duration-200 ease-out;
   color: #001018;
   background: linear-gradient(
     135deg,
@@ -69,8 +64,5 @@
 }
 
 .not-found-page__copy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  @apply flex w-full flex-col items-center;
 }

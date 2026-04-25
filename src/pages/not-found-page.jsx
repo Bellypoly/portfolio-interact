@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import SpaceVoidShell from "../components/space-void-shell/SpaceVoidShell.jsx";
+import SpaceVoidShell from "../components/space-void-shell/space-void-shell.jsx";
 import "./not-found-page.css";
 
 const EASE = [0.22, 1, 0.36, 1];

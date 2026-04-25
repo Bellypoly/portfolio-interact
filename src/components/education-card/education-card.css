@@ -161,6 +161,16 @@
   font-size: inherit;
 }
 
+/* Desktop hover/focus: trigger reveal from parent controls, not only inner text span. */
+@media (min-width: 768px) {
+  .timeline-bullet-btn-detail:hover .hover-reveal-text__track,
+  .timeline-bullet-btn-detail:focus-visible .hover-reveal-text__track,
+  .education-card__mission-log-btn:hover .hover-reveal-text__track,
+  .education-card__mission-log-btn:focus-visible .hover-reveal-text__track {
+    transform: translateY(-50%);
+  }
+}
+
 @media (max-width: 767px) {
   .timeline-bullet-btn-detail .hover-reveal-text {
     @apply overflow-visible h-auto;

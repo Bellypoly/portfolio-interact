@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import HoverRevealText from "../hover-reveal-text";
-import { prefersHoverPopover } from "../../utils/prefersHoverPopover";
+import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
 import "./work-timeline-item.css";
 
 // --- BulletPopover ---
@@ -35,7 +35,9 @@ function BulletPopover({
           if (prefersHoverPopover()) onClose();
         }}
       >
-        <HoverRevealText className="group">{triggerLabel}</HoverRevealText>{" "}
+        <HoverRevealText className="group" revealText="Mission logs">
+          {triggerLabel}
+        </HoverRevealText>{" "}
         →
       </button>
       {isOpen && (
@@ -67,7 +69,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
   where,
   description,
   bullets = [],
-  triggerLabel = "Mission log",
+  triggerLabel = "Mission logs",
   portfolioAnchor,
   showLiveDot = false,
 }) {
@@ -170,7 +172,10 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
                 className="work-timeline-item__portfolio-link"
                 onClick={handleRelatedClick}
               >
-                <HoverRevealText className="group">
+                <HoverRevealText
+                  className="group"
+                  revealText="Deployed missions"
+                >
                   Deployed missions
                 </HoverRevealText>{" "}
                 <span className="work-timeline-item__arrow">↓</span>

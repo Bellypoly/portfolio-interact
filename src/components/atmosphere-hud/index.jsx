@@ -10,7 +10,7 @@ import {
   LINE_PROGRESS_COMPLETE,
   LINE_TOP_END_PCT,
   LINE_TOP_START_PCT,
-} from "./atmosphere-hud.constants";
+} from "./atmosphere-hud-constants";
 
 const AtmosphereHudRow = React.memo(function AtmosphereHudRow({
   label,

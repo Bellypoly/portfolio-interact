@@ -95,6 +95,24 @@ const EDUCATION_ITEMS = [
 const ACHIEVEMENT_ITEMS = [
   {
     type: "achievement",
+    sortYear: 2024,
+    title:
+      "3rd Place (Global) — Digital Replica Revenue Growth to Future Proof Local Journalism",
+    relatedMissionSlug: "subscription-checkout-activation",
+    portfolioAnchor: "portfolio-subscription-checkout",
+    time: "2024",
+    org: "INMA Global Media Awards 2024 (International News Media Association) · The Dallas Morning News",
+    where: "Global",
+    badges: ["Organization Award"],
+    missionLogs: [
+      "Portfolio relevance: Work aligns with subscription systems, paywall optimization, and reader-revenue growth through product and monetization engineering.",
+      "Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value.",
+      "Attribution: Organization/project recognition - contributed to initiatives within the award-winning work.",
+      "Source: <a href='https://www.inma.org/blogs/main/post.cfm/inma-unveils-40-first-place-winners-at-the-global-media-awards-with-helsingin-sanomat-taking-the-top-prize' target='_blank' rel='noreferrer'>INMA winners announcement</a>.",
+    ],
+  },
+  {
+    type: "achievement",
     sortYear: 2020,
     title: "Recipient of J.T. and Margaret Talkington Graduate Fellowship",
     time: "2019 - 2020",
@@ -113,11 +131,13 @@ const ACHIEVEMENT_ITEMS = [
   },
   {
     type: "achievement",
-    sortYear: 2018,
+    sortYear: 2017,
     title:
       "Consolation Prize — Young Technopreneur Innovative Business Plan Development Competition 2018",
-    time: "2018",
-    org: "Samart Innovation Awards 2018",
+    relatedMissionSlug: "jerdi-kids",
+    portfolioAnchor: "portfolio-jerdi",
+    time: "2017",
+    org: "Samart Innovation Awards 2017",
     where: "Bangkok, Thailand",
   },
   {
@@ -137,14 +157,14 @@ function buildTimelineRows(educationItems, achievementItems) {
   const put = (item, key) => {
     const row = byYear.get(item.sortYear) ?? {
       sortYear: item.sortYear,
-      education: null,
-      achievement: null,
+      educationItems: [],
+      achievementItems: [],
     };
-    row[key] = item;
+    row[key].push(item);
     byYear.set(item.sortYear, row);
   };
-  for (const item of educationItems) put(item, "education");
-  for (const item of achievementItems) put(item, "achievement");
+  for (const item of educationItems) put(item, "educationItems");
+  for (const item of achievementItems) put(item, "achievementItems");
   return [...byYear.values()].sort((a, b) => b.sortYear - a.sortYear);
 }
 
@@ -248,11 +268,13 @@ export default React.memo(function EducationAchievementsSection() {
           <div className="edu-timeline__body">
             <AnimatePresence initial={false} mode="sync">
               {TIMELINE_ROWS.map((row) => {
+                const educationItems = row.educationItems ?? [];
+                const achievementItems = row.achievementItems ?? [];
                 const showEducationCol =
-                  Boolean(row.education) &&
+                  educationItems.length > 0 &&
                   timelineFilter !== TIMELINE_FILTER.achievement;
                 const showAchievementCol =
-                  Boolean(row.achievement) &&
+                  achievementItems.length > 0 &&
                   timelineFilter !== TIMELINE_FILTER.education;
 
                 if (!showEducationCol && !showAchievementCol) return null;
@@ -261,14 +283,12 @@ export default React.memo(function EducationAchievementsSection() {
                   showEducationCol && !showAchievementCol;
                 const achievementOnlyRow =
                   showAchievementCol && !showEducationCol;
-                const showDot =
-                  (showEducationCol && row.education) ||
-                  (showAchievementCol && row.achievement);
+                const showDot = showEducationCol || showAchievementCol;
 
                 return (
                   <motion.div
                     key={row.sortYear}
-                    id={row.education?.anchor}
+                    id={educationItems[0]?.anchor}
                     className={cc([
                       "edu-timeline__row",
                       educationOnlyRow && "edu-timeline__row--education-only",
@@ -279,7 +299,7 @@ export default React.memo(function EducationAchievementsSection() {
                     transition={tRow}
                   >
                     <AnimatePresence initial={false} mode="sync">
-                      {showEducationCol && row.education ? (
+                      {showEducationCol ? (
                         <motion.div
                           key={`edu-${row.sortYear}`}
                           className="edu-timeline__education"
@@ -291,16 +311,21 @@ export default React.memo(function EducationAchievementsSection() {
                           transition={tCol}
                         >
                           <div className="edu-timeline__content">
-                            <EducationCard
-                              collapsible={row.education.collapsible}
-                              title={row.education.title}
-                              time={row.education.time}
-                              org={row.education.org}
-                              where={row.education.where}
-                              badges={row.education.badges ?? []}
-                              bullets={withYearSpan(row.education.bullets)}
-                              showMissionLog={true}
-                            />
+                            <div className="edu-timeline__stack">
+                              {educationItems.map((education, i) => (
+                                <EducationCard
+                                  key={`${row.sortYear}-edu-${education.title}-${i}`}
+                                  collapsible={education.collapsible}
+                                  title={education.title}
+                                  time={education.time}
+                                  org={education.org}
+                                  where={education.where}
+                                  badges={education.badges ?? []}
+                                  bullets={withYearSpan(education.bullets)}
+                                  showMissionLog={true}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </motion.div>
                       ) : achievementOnlyRow ? (
@@ -319,7 +344,7 @@ export default React.memo(function EducationAchievementsSection() {
                       <div className="edu-timeline__dot" aria-hidden="true" />
                     ) : null}
                     <AnimatePresence initial={false} mode="sync">
-                      {showAchievementCol && row.achievement ? (
+                      {showAchievementCol ? (
                         <motion.div
                           key={`ach-${row.sortYear}`}
                           className="edu-timeline__achievement-col"
@@ -331,13 +356,23 @@ export default React.memo(function EducationAchievementsSection() {
                           transition={tCol}
                         >
                           <div className="edu-timeline__content">
-                            <AchievementCard
-                              title={row.achievement.title}
-                              time={row.achievement.time}
-                              org={row.achievement.org}
-                              where={row.achievement.where}
-                              badges={row.achievement.badges ?? []}
-                            />
+                            <div className="edu-timeline__stack">
+                              {achievementItems.map((achievement, i) => (
+                                <AchievementCard
+                                  key={`${row.sortYear}-ach-${achievement.title}-${i}`}
+                                  title={achievement.title}
+                                  relatedMissionSlug={
+                                    achievement.relatedMissionSlug
+                                  }
+                                  portfolioAnchor={achievement.portfolioAnchor}
+                                  time={achievement.time}
+                                  org={achievement.org}
+                                  where={achievement.where}
+                                  missionLogs={achievement.missionLogs ?? []}
+                                  badges={achievement.badges ?? []}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </motion.div>
                       ) : null}

@@ -75,6 +75,17 @@
   @apply inline-block;
 }
 
+/* Desktop hover/focus: reveal text follows parent link/button hover like project cards.
+   Use width gate instead of `(hover:hover)` so hybrid touch desktops still animate on mouse. */
+@media (min-width: 768px) {
+  .work-timeline-item__portfolio-link:hover .hover-reveal-text__track,
+  .work-timeline-item__portfolio-link:focus-visible .hover-reveal-text__track,
+  .work-timeline-item__bullet-trigger:hover .hover-reveal-text__track,
+  .work-timeline-item__bullet-trigger:focus-visible .hover-reveal-text__track {
+    transform: translateY(-50%);
+  }
+}
+
 /* --- Bullet popover --- */
 .work-timeline-item__bullet-trigger-wrap {
   @apply relative block w-full;

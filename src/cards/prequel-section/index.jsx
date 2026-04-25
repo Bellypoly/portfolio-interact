@@ -4,7 +4,7 @@ import {
   useTypingWords,
   TYPING_WORD_INTERVAL,
   TYPING_INITIAL_DELAY,
-} from "../../hooks/useTypingWords";
+} from "../../hooks/use-typing-words";
 import "./prequel-section.css";
 
 const PREQUEL_BODY =
@@ -56,8 +56,7 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
             {" "}
             <span className="prequel-letter-p">p</span>
             <span className="prequel-middle">reque</span>
-            <span className="prequel-letter-l">l</span>
-            {" "}
+            <span className="prequel-letter-l">l</span>{" "}
           </motion.span>
         </span>
         <span className="prequel-section__title-line">

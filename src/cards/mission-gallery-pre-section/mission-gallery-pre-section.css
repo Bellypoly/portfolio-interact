@@ -1,0 +1,44 @@
+/* Full-bleed width so flex column centers on viewport (same idea as edu timeline spine). */
+.mission-gallery-pre-section {
+  @apply relative flex flex-col justify-center items-center min-h-[60vh] pb-8;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow-x: clip;
+}
+
+/* 1px vertical rules on the viewport center axis, above / below the glyph column */
+.mission-gallery-pre-section__rule {
+  @apply w-px flex-shrink-0;
+  height: 3rem;
+}
+
+/* Bottom: warm cream (by glyph) → white */
+.mission-gallery-pre-section__rule--below {
+  margin-top: 0.75rem;
+  background: linear-gradient(
+    180deg,
+    var(--pf-sky-pale) 0%,
+    var(--pf-sky-pale) 80%,
+    #fff 100%
+  );
+  box-shadow: 0 0 8px rgba(255, 250, 232, 0.4);
+}
+
+/* Aurebesh column: brown (with upper rule) → #fffae8 → white */
+.mission-gallery-pre-section__glyph {
+  @apply m-0 font-aurebesh text-sm leading-[1.1em] flex flex-col items-center shrink-0 [&>span]:block [&>span]:mb-0.5 [&>span:first-child]:mb-2 [&>span:last-child]:mt-2;
+  /* Brown → stone → sand/brown mix → sky (no extra one-off tokens) */
+  background-image: linear-gradient(
+    to bottom,
+    var(--pf-brown-warm) 0%,
+    rgb(var(--pf-neutral-stone-rgb)) 30%,
+    color-mix(in srgb, var(--pf-editorial-sand) 50%, var(--pf-brown-muted) 50%)
+      52%,
+    var(--pf-sky-pale) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}

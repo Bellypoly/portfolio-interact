@@ -7,8 +7,8 @@ import {
   INTRO_MARKER_LABELS,
   MARKER_NAV_ARIA_LABEL,
 } from "./constants";
-import { useMarkerDockVisible } from "./useMarkerDockVisible";
-import { listMarkerSections } from "./markerChipModel";
+import { useMarkerDockVisible } from "./use-marker-dock-visible";
+import { listMarkerSections } from "./marker-chip-model";
 
 const MarkerChipRow = React.memo(function MarkerChipRow({
   index,

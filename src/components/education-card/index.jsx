@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import cc from "classcat";
 import HoverRevealText from "../hover-reveal-text";
 import LocationOrg from "../location-org";
-import { prefersHoverPopover } from "../../utils/prefersHoverPopover";
+import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
 import "./education-card.css";
 
 /** Splits "Summary: detail html" mission bullets; otherwise whole string is summary only */
@@ -75,7 +75,9 @@ const EducationCard = React.memo(function EducationCard({
               )}
               <span className="timeline-bullet-btn__summary">
                 {detail ? (
-                  <HoverRevealText>{summary}</HoverRevealText>
+                  <HoverRevealText revealText={summary}>
+                    {summary}
+                  </HoverRevealText>
                 ) : (
                   summary
                 )}
@@ -135,7 +137,10 @@ const EducationCard = React.memo(function EducationCard({
               setIsMissionLogOpen((v) => !v);
             }}
           >
-            <HoverRevealText className="group">Mission log</HoverRevealText> →
+            <HoverRevealText className="group" revealText="Mission logs">
+              Mission logs
+            </HoverRevealText>{" "}
+            →
           </button>
           {isMissionLogOpen && (
             <div className="education-card__mission-log-float" tabIndex={-1}>
@@ -152,11 +157,92 @@ const EducationCard = React.memo(function EducationCard({
 
 const AchievementCard = React.memo(function AchievementCard({
   title,
+  portfolioAnchor,
   time,
   org,
   where,
+  missionLogs = [],
   badges = [],
 }) {
+  const [openMissionLogIndex, setOpenMissionLogIndex] = useState(null);
+  const [isMissionLogOpen, setIsMissionLogOpen] = useState(false);
+  const missionLogWrapRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMissionLogOpen) return;
+    const onDocClick = (e) => {
+      if (missionLogWrapRef.current?.contains(e.target)) return;
+      setIsMissionLogOpen(false);
+      setOpenMissionLogIndex(null);
+    };
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, [isMissionLogOpen]);
+
+  const handlePortfolioClick = (e) => {
+    if (!portfolioAnchor) return;
+    e.preventDefault();
+    const el = document.getElementById(portfolioAnchor);
+    el?.scrollIntoView({ behavior: "smooth" });
+    window.location.hash = portfolioAnchor;
+  };
+
+  const renderMissionLogList = () => (
+    <ul
+      className={cc(["timeline-bullet-list", "timeline-bullet-list--in-float"])}
+    >
+      {missionLogs.map((entry, i) => {
+        const { summary: lineSummary, detail } = parseMissionBullet(entry);
+        const isOpen = openMissionLogIndex === i;
+        return (
+          <li key={i} className="timeline-bullet-item">
+            <button
+              type="button"
+              className={cc([
+                "timeline-bullet-btn",
+                { "timeline-bullet-btn-detail": detail },
+              ])}
+              onClick={() =>
+                detail
+                  ? setOpenMissionLogIndex((prev) => (prev === i ? null : i))
+                  : undefined
+              }
+              disabled={!detail}
+            >
+              {detail && (
+                <span
+                  className="timeline-bullet-toggle"
+                  aria-label={isOpen ? "Collapse" : "Expand"}
+                >
+                  {isOpen ? (
+                    <span className="material-symbols-rounded">remove</span>
+                  ) : (
+                    <span className="material-symbols-rounded">add</span>
+                  )}
+                </span>
+              )}
+              <span className="timeline-bullet-btn__summary">
+                {detail ? (
+                  <HoverRevealText revealText={lineSummary}>
+                    {lineSummary}
+                  </HoverRevealText>
+                ) : (
+                  lineSummary
+                )}
+              </span>
+            </button>
+            {detail && isOpen ? (
+              <div
+                className="timeline-bullet-detail__expand"
+                dangerouslySetInnerHTML={{ __html: detail }}
+              />
+            ) : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
+
   return (
     <div className="edu-achievement-card">
       {time && (
@@ -176,6 +262,48 @@ const AchievementCard = React.memo(function AchievementCard({
         <LocationOrg org={org} />
         {where && <span className="timeline-location__where">{where}</span>}
       </div>
+      {missionLogs.length > 0 ? (
+        <div
+          ref={missionLogWrapRef}
+          className="education-card__mission-log-wrap edu-achievement-card__mission-log-wrap"
+        >
+          <button
+            type="button"
+            className="education-card__mission-log-btn"
+            onMouseEnter={() => {
+              if (prefersHoverPopover()) setIsMissionLogOpen(true);
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMissionLogOpen((v) => !v);
+            }}
+          >
+            <HoverRevealText className="group" revealText="Mission logs">
+              Mission logs
+            </HoverRevealText>{" "}
+            →
+          </button>
+          {isMissionLogOpen ? (
+            <div className="education-card__mission-log-float" tabIndex={-1}>
+              {renderMissionLogList()}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+      {portfolioAnchor ? (
+        <div className="edu-achievement-card__portfolio-link-block">
+          <a
+            href={`#${portfolioAnchor}`}
+            className="edu-achievement-card__portfolio-link education-card__mission-log-btn"
+            onClick={handlePortfolioClick}
+          >
+            <HoverRevealText className="group" revealText="Deployed missions">
+              Deployed missions
+            </HoverRevealText>{" "}
+            <span className="edu-achievement-card__portfolio-arrow">↓</span>
+          </a>
+        </div>
+      ) : null}
     </div>
   );
 });

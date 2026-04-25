@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { motion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../../components/project-card";
-import { getMissionGalleryProjects } from "./portfolioProjects";
+import { getMissionGalleryProjects } from "./portfolio-projects";
 
 const PortfolioSection = React.memo(function PortfolioSection({
   sectionProgress,

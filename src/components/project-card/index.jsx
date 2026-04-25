@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   rememberMissionScrollBeforeProject,
   SPACE_RESUME_FROM_MISSION,
-} from "../../utils/spaceResumeNavigation";
+} from "../../utils/space-resume-navigation";
 import "./project-card.css";
 
 const ProjectCard = React.memo(function ProjectCard({

@@ -9,7 +9,11 @@
   @apply inline-block overflow-hidden align-bottom h-[1em] leading-none [contain:layout_style];
 }
 .hover-reveal-text__track {
-  @apply flex flex-col transition-transform duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] pointer-events-none;
+  @apply flex flex-col pointer-events-none;
+  transform: translateY(0);
+  transition-property: transform;
+  transition-duration: 280ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media (hover: hover) {
   .hover-reveal-text:hover .hover-reveal-text__track {

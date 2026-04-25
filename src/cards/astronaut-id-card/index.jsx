@@ -3,7 +3,7 @@ import {
   useTypingWords,
   TYPING_WORD_INTERVAL,
   TYPING_INITIAL_DELAY,
-} from "../../hooks/useTypingWords";
+} from "../../hooks/use-typing-words";
 import "./astronaut-id-card.css";
 
 // --- Constants ---
@@ -112,7 +112,7 @@ export default function AstronautCard({
   email = "suwaphit.b@gmail.com",
   tel = "+1 (806) 283-2312",
   linkedin = "https://www.linkedin.com/in/suwaphit-buabuthr/",
-  resume = "./RESUME_suwaphit.pdf",
+  resume = "./resume-suwaphit.pdf",
   location = ["Earth (US)", "Relocation & Remote ✅"],
   paragraphs = DEFAULT_PARAGRAPHS,
   contact = "Contact",
@@ -197,11 +197,11 @@ export default function AstronautCard({
         <div className="badge">
           <picture>
             <source
-              srcSet={`${BASE}images/rocket_icon.webp`}
+              srcSet={`${BASE}images/rocket-icon.webp`}
               type="image/webp"
             />
             <img
-              src={`${BASE}images/rocket_icon.png`}
+              src={`${BASE}images/rocket-icon.png`}
               alt="Rocket Icon"
               className="badge-rocket__Img"
               draggable="false"

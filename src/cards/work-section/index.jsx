@@ -13,7 +13,7 @@ const SeniorFullStack = ({ showLiveDot }) => (
     org="The Dallas Morning News / Hearst"
     where="Dallas, Texas"
     description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
-    triggerLabel="Mission log"
+    triggerLabel="Mission logs"
     bullets={[
       "ML-driven dynamic paywall (Sophi): +22% conversion, +15% subscription starts; Arc XP integration, GA4, feature-flag rollout.",
       "Single-page checkout (Braintree, Stripe, Apple Pay): +14% digital subs in month one; +7% sustained after launch via behavioral iteration.",

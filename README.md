@@ -23,7 +23,7 @@ _(Same idea as “what runs this site?” — here’s what this project uses.)_
 | **CSS pipeline** | PostCSS + Autoprefixer | Tailwind processing, vendor prefixes                  |
 | **Utilities**    | classcat               | Conditional class names (e.g. content panel, markers) |
 
-- **Entry**: `index.html` → `src/main.jsx` → `SpaceResume.jsx`
+- **Entry**: `index.html` → `src/main.jsx` → `space-resume.jsx`
 - **Fonts**: Google Fonts (Orbitron, Silkscreen, etc.) + Material Symbols Rounded
 - **No backend**: Static SPA; resume PDF and images live in `public/`
 
@@ -74,8 +74,8 @@ npm run preview
 │   ├── images/            # Image assets
 │   └── RESUME_*.pdf       # Resume PDF files
 ├── src/
-│   ├── SpaceResume.jsx    # Main interactive resume component
-│   ├── SpaceResume.css    # Layout styles (Tailwind @apply)
+│   ├── space-resume.jsx    # Main interactive resume component
+│   ├── space-resume.css    # Layout styles (Tailwind @apply)
 │   ├── main.jsx           # React app entry point
 │   └── index.css          # Global styles with Tailwind
 ├── package.json           # Dependencies and scripts
@@ -88,16 +88,16 @@ npm run preview
 
 ### Adding Your Content
 
-1. **Profile Information**: Edit the `SECTIONS` array in `src/SpaceResume.jsx`
+1. **Profile Information**: Edit the `SECTIONS` array in `src/space-resume.jsx`
 2. **Images**: Add your images to `public/images/` and `public/images/portfolio/`
-3. **Resume PDF**: Add your resume as `public/RESUME_suwaphit.pdf`
+3. **Resume PDF**: Add your resume as `public/resume-suwaphit.pdf`
 4. **Styling**: Modify colors and styling in the component or Tailwind config
 
 ### Asset Requirements
 
 - **Profile Picture**: `public/images/profile-pic.webp` and `public/images/profile-pic-2.webp` / `profile-pic-2.png` (see astronaut ID card)
 - **Portfolio Images**: `public/images/portfolio/*.jpg`
-- **Resume PDF**: `public/RESUME_suwaphit.pdf`
+- **Resume PDF**: `public/resume-suwaphit.pdf`
 
 ## Scripts
 
