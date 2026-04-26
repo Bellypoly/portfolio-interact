@@ -15,8 +15,8 @@ const SeniorFullStack = ({ showLiveDot }) => (
     description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
     triggerLabel="Mission logs"
     bullets={[
-      "ML-driven dynamic paywall (Sophi): +22% conversion, +15% subscription starts; Arc XP integration, GA4, feature-flag rollout.",
-      "Single-page checkout (Braintree, Stripe, Apple Pay): +14% digital subs in month one; +7% sustained after launch via behavioral iteration.",
+      "ML-driven dynamic paywall: +22% conversion, +15% subscription starts; Arc XP integration, GA4, feature-flag rollout.",
+      "Single-page checkout: +14% digital subs in month one; +7% sustained after launch via behavioral iteration.",
       "Deterministic reader state (anonymous, signed-in, lapsed) — removed paywall→checkout drop-offs from identity ambiguity.",
       "Unified identity, payments, and personalization (BlueConic, Sailthru) on Arc XP — smoother path from acquisition to retention.",
       "Real-time publishing stack (Node.js, React, GraphQL, Python); feature flags and kill switches for safe, zero-downtime releases.",

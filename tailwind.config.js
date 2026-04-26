@@ -4,13 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        georgia: [
-          "Georgia",
-          '"Times New Roman"',
-          "Times",
-          "ui-serif",
-          "serif",
-        ],
+        georgia: ["Georgia", '"Times New Roman"', "Times", "ui-serif", "serif"],
         aurebesh: ['"Aurebesh"', "ui-sans-serif", "sans-serif"],
         fleur: ['"Fleur De Leah"', "ui-serif", "serif"],
         robotomono: ['"Roboto Mono"', "ui-monospace", "monospace"],
@@ -23,12 +17,6 @@ export default {
           "sans-serif",
         ],
         silkscreen: ['"Silkscreen"', "ui-monospace", "monospace"],
-        spacegrotesk: [
-          '"Space Grotesk"',
-          "ui-sans-serif",
-          "system-ui",
-          "sans-serif",
-        ],
         stacknotch: [
           '"Stack Sans Notch"',
           "ui-sans-serif",

@@ -27,7 +27,7 @@
   @apply block sm:inline;
 }
 .crawl-role {
-  @apply font-robotomono mb-6 sm:mb-8 md:mb-10 text-[0.7rem] sm:text-xs md:text-xs lg:text-sm xl:text-[0.9rem] tracking-[0.12em] sm:tracking-[0.22em] bg-yellow-300 text-black font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center;
+  @apply font-robotomono mb-6 sm:mb-8 md:mb-10 text-[0.7rem] sm:text-xs md:text-xs lg:text-sm xl:text-[0.9rem] tracking-[0.12em] sm:tracking-[0.22em] bg-black text-yellow-300 border border-yellow-300 font-bold px-2 py-2 lg:py-3 rounded-md w-full text-center;
   box-shadow:
     0 18px 18px 0 rgba(0, 0, 0, 0.95),
     0 -50px 18px 18px rgba(0, 0, 0, 0.95);
