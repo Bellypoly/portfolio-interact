@@ -137,7 +137,7 @@ const EducationCard = React.memo(function EducationCard({
               setIsMissionLogOpen((v) => !v);
             }}
           >
-            <HoverRevealText className="group" revealText="Mission logs">
+            <HoverRevealText revealText="Mission logs">
               Mission logs
             </HoverRevealText>{" "}
             →
@@ -261,15 +261,12 @@ const AchievementCard = React.memo(function AchievementCard({
           ))}
         </div>
       )}
-      <div className="edu-achievement-card__location timeline-location">
+      <div className="timeline-location">
         <LocationOrg org={org} />
         {where && <span className="timeline-location__where">{where}</span>}
       </div>
       {missionLogs.length > 0 ? (
-        <div
-          ref={missionLogWrapRef}
-          className="education-card__mission-log-wrap edu-achievement-card__mission-log-wrap"
-        >
+        <div ref={missionLogWrapRef} className="education-card__mission-log-wrap">
           <button
             type="button"
             className="education-card__mission-log-btn"
@@ -281,7 +278,7 @@ const AchievementCard = React.memo(function AchievementCard({
               setIsMissionLogOpen((v) => !v);
             }}
           >
-            <HoverRevealText className="group" revealText="Mission logs">
+            <HoverRevealText revealText="Mission logs">
               Mission logs
             </HoverRevealText>{" "}
             →
@@ -300,7 +297,7 @@ const AchievementCard = React.memo(function AchievementCard({
             className="edu-achievement-card__portfolio-link education-card__mission-log-btn"
             onClick={handlePortfolioClick}
           >
-            <HoverRevealText className="group" revealText="Deployed missions">
+            <HoverRevealText revealText="Deployed missions">
               Deployed missions
             </HoverRevealText>{" "}
             <span className="edu-achievement-card__portfolio-arrow">↓</span>

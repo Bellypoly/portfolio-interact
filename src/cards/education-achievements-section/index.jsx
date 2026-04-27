@@ -40,7 +40,6 @@ function withYearSpan(bullets) {
 
 const EDUCATION_ITEMS = [
   {
-    type: "education",
     anchor: "edu-ttu",
     sortYear: 2020,
     collapsible: true,
@@ -56,7 +55,6 @@ const EDUCATION_ITEMS = [
     ],
   },
   {
-    type: "education",
     anchor: "edu-kmutt",
     sortYear: 2018,
     collapsible: true,
@@ -71,7 +69,6 @@ const EDUCATION_ITEMS = [
     ],
   },
   {
-    type: "education",
     anchor: "edu-stou",
     sortYear: 2016,
     collapsible: true,
@@ -81,7 +78,6 @@ const EDUCATION_ITEMS = [
     where: "Bangkok, Thailand",
   },
   {
-    type: "education",
     anchor: "edu-kmutt",
     sortYear: 2014,
     collapsible: true,
@@ -95,10 +91,8 @@ const EDUCATION_ITEMS = [
 
 const ACHIEVEMENT_ITEMS = [
   {
-    type: "achievement",
     sortYear: 2024,
     title: "3rd Place (Global) — Best Idea to Grow Advertising Sales",
-    relatedMissionSlug: "subscription-checkout-activation",
     portfolioAnchor: "portfolio-subscription-checkout",
     time: "2024",
     org: "INMA Global Media Awards 2024 (International News Media Association)",
@@ -109,7 +103,6 @@ const ACHIEVEMENT_ITEMS = [
     ],
   },
   {
-    type: "achievement",
     sortYear: 2020,
     title: "Recipient of J.T. and Margaret Talkington Graduate Fellowship",
     time: "2019 - 2020",
@@ -118,7 +111,6 @@ const ACHIEVEMENT_ITEMS = [
     badges: ["Scholarship"],
   },
   {
-    type: "achievement",
     sortYear: 2017,
     title: "Recipient of Petchra Prajomklao Graduate Scholarship",
     time: "2015 - 2017",
@@ -127,11 +119,9 @@ const ACHIEVEMENT_ITEMS = [
     badges: ["Scholarship"],
   },
   {
-    type: "achievement",
     sortYear: 2017,
     title:
       "Consolation Prize — Young Technopreneur Innovative Business Plan Development Competition 2018",
-    relatedMissionSlug: "jerdi-kids",
     portfolioAnchor: "portfolio-jerdi",
     time: "2017",
     org: "Samart Innovation Awards 2017",
@@ -139,7 +129,6 @@ const ACHIEVEMENT_ITEMS = [
     badges: ["Award"],
   },
   {
-    type: "achievement",
     sortYear: 2014,
     title:
       "Top 20 Teams — Young Technopreneur Innovative Business Plan Development Competition 2014",
@@ -360,9 +349,6 @@ export default React.memo(function EducationAchievementsSection() {
                                 <AchievementCard
                                   key={`${row.sortYear}-ach-${achievement.title}-${i}`}
                                   title={achievement.title}
-                                  relatedMissionSlug={
-                                    achievement.relatedMissionSlug
-                                  }
                                   portfolioAnchor={achievement.portfolioAnchor}
                                   time={achievement.time}
                                   org={achievement.org}

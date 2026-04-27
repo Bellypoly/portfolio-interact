@@ -35,7 +35,7 @@ function BulletPopover({
           if (prefersHoverPopover()) onClose();
         }}
       >
-        <HoverRevealText className="group" revealText="Mission logs">
+        <HoverRevealText revealText="Mission logs">
           {triggerLabel}
         </HoverRevealText>{" "}
         →
@@ -172,10 +172,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
                 className="work-timeline-item__portfolio-link"
                 onClick={handleRelatedClick}
               >
-                <HoverRevealText
-                  className="group"
-                  revealText="Deployed missions"
-                >
+                <HoverRevealText revealText="Deployed missions">
                   Deployed missions
                 </HoverRevealText>{" "}
                 <span className="work-timeline-item__arrow">↓</span>
