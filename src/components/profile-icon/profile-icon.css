@@ -1,15 +1,16 @@
+/* --- Profile icon: FAB + radio waves + about modal --- */
+
 .profile-icon {
-  @apply fixed bottom-[-20px] right-5 flex flex-col items-center justify-center z-[10003] overflow-visible;
+  @apply fixed bottom-[-20px] right-5 z-[10003] flex flex-col items-center justify-center overflow-visible;
 }
 
 .profile-icon-stack {
-  @apply relative w-[72px] h-[72px] flex items-center justify-center cursor-pointer;
+  @apply relative flex h-[72px] w-[72px] cursor-pointer items-center justify-center;
 }
+
 .profile-icon-stack:hover .radio-signal-wave {
   @apply border-cyan-400 bg-cyan-400/40;
-  filter:
-    brightness(1.8) drop-shadow(0 0 12px #5eead4)
-    drop-shadow(0 0 24px rgba(94, 234, 212, 0.6));
+  @apply [filter:brightness(1.8)_drop-shadow(0_0_12px_#5eead4)_drop-shadow(0_0_24px_rgba(94,234,212,0.6))];
 }
 
 @keyframes radio-signal-wave-pulse {
@@ -26,53 +27,49 @@
 .radio-signal-wave {
   @apply absolute rounded-full w-[72px] h-[72px] pointer-events-none z-[21];
   @apply border border-[rgba(94,234,212,0.85)];
-  display: block;
-  left: 50%;
-  top: 50%;
-  margin-left: -36px;
-  margin-top: -36px;
+  @apply block left-1/2 top-1/2 -ml-9 -mt-9;
   box-shadow:
     0 0 10px rgba(94, 234, 212, 0.4),
     inset 0 0 8px rgba(94, 234, 212, 0.08);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  will-change: transform, opacity;
-  animation: radio-signal-wave-pulse 1.8s ease-out infinite;
+  @apply [transform:translateZ(0)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden];
+  @apply will-change-[transform,opacity] animate-[radio-signal-wave-pulse_1.8s_ease-out_infinite];
 }
 
-/* Touch / coarse pointer: lighter paint during scale (iPhone, iPad) */
+/* --- Coarse / no-hover: lighter wave glow --- */
+
 @media (hover: none), (pointer: coarse) {
   .radio-signal-wave {
-    box-shadow: 0 0 8px rgba(94, 234, 212, 0.35);
+    @apply shadow-[0_0_8px_rgba(94,234,212,0.35)];
   }
 }
 
 .profile-icon-img {
-  @apply relative w-[72px] h-[72px] object-cover rounded-full border-2 border-white z-[22];
-  background-color: var(--pf-teal-ui);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  @apply relative z-[22] h-[72px] w-[72px] rounded-full border-2 border-white object-cover;
+  @apply bg-[var(--pf-teal-ui)] shadow-[0_2px_8px_rgba(0,0,0,0.15)];
 }
 
 .astronaut-id-label {
-  @apply absolute left-1/2 top-[60%] pointer-events-none z-[23] -translate-x-1/2 -translate-y-1/2;
-}
-.astronaut-id-label-text {
-  text-shadow: 0 1px 2px #0e2233;
+  @apply pointer-events-none absolute left-1/2 top-[60%] z-[23] -translate-x-1/2 -translate-y-1/2;
 }
 
-/* --- Modal --- */
+.astronaut-id-label-text {
+  @apply [text-shadow:0_1px_2px_#0e2233];
+}
+
+/* --- About modal --- */
+
 .about-me-modal {
   @apply fixed inset-0 z-[10002] flex flex-col;
 }
 
 .about-me-modal-close {
-  @apply absolute top-4 right-4 text-white text-3xl bg-[rgba(0,0,0,0.4)] rounded-full w-12 h-12 flex items-center justify-center transition-colors z-[31] border-none cursor-pointer;
+  @apply absolute right-4 top-4 z-[31] flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-none bg-[rgba(0,0,0,0.4)] text-3xl text-white transition-colors;
 }
+
 .about-me-modal-close:hover {
   @apply bg-[rgba(0,0,0,0.7)];
 }
 
 .about-me-modal-content {
-  @apply min-h-screen p-[3%] flex-1 overflow-auto;
+  @apply min-h-screen flex-1 overflow-auto p-[3%];
 }

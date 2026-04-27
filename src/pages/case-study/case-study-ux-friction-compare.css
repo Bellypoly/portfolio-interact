@@ -1,4 +1,4 @@
-/* UX friction compare; panel styles mirror BA. List reset: project-case-study.css */
+/* --- Case study: UX friction compare (panels mirror BA; list reset in project-case-study.css) --- */
 
 .project-case-study__ux-compare {
   @apply m-0 mt-8;

@@ -1,41 +1,47 @@
+/* --- App entry: Tailwind layers + shared utilities --- */
+
 @import "./design-tokens.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Reusable hover text reveal (text slides up, same word reveals beneath) */
+/* --- Global: hover-reveal text --- */
+/* Slides the track up; second line reveals under the first (shared pattern for cards/timeline). */
+
 .hover-reveal-text {
-  @apply inline-block overflow-hidden align-bottom h-[1em] leading-none [contain:layout_style];
+  @apply inline-block h-[1em] overflow-hidden align-bottom leading-none [contain:layout_style];
 }
+
 .hover-reveal-text__track {
-  @apply flex flex-col pointer-events-none;
-  transform: translateY(0);
-  transition-property: transform;
-  transition-duration: 280ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  @apply flex translate-y-0 flex-col pointer-events-none transition-transform duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
+
 @media (hover: hover) {
   .hover-reveal-text:hover .hover-reveal-text__track {
     @apply -translate-y-1/2;
   }
 }
+
 .hover-reveal-text__line {
-  @apply block whitespace-nowrap shrink-0 h-[1em] leading-4 pointer-events-none;
+  @apply pointer-events-none block h-[1em] shrink-0 whitespace-nowrap leading-4;
 }
 
-/* Shared cursor blink animation (typing indicator) */
+/* --- Global: cursor blink (typing indicator) --- */
+
 @keyframes blink {
   50% {
     opacity: 0;
   }
 }
+
 .cursor-blink {
   @apply inline-block origin-left;
   @apply [transform:scaleX(1.5)] [animation:blink_1s_step-end_infinite];
 }
 
-/* Aurebesh font (Star Wars) – local files, imported for correct base path */
+/* --- Global: Aurebesh font (local files, correct base path) --- */
+
 @font-face {
   font-family: "Aurebesh";
   src:

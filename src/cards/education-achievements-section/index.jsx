@@ -64,6 +64,7 @@ const EDUCATION_ITEMS = [
     time: "2015 - 2018",
     org: "Institute of Field Robotics : FIBO, King Mongkut's University of Technology Thonburi",
     where: "Bangkok, Thailand",
+    badges: ["Publication"],
     bullets: [
       "Development of Logistics Evaluation System for Industrial Thailand Performance : [2018] Created a decision-support system using causal loop modeling to evaluate Thailand's Logistics Performance Indexes (LPIs). Research outcomes provided insights for policymakers and were applied as guidelines to enhance national industrial logistics performance.",
       `Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand : [2016] Developed a decision-support model for Thailand's top printing and packaging industry, focusing on logistics performance improvement. Led the creation of a model to evaluate and enhance key indicators in cost, time, and reliability, delivering actionable strategies to boost industry competitiveness.<a href='${missionGalleryHref("industrial-logistics-evaluation")}' title='Mission Gallery — case study'>🔗</a>`,
@@ -96,19 +97,15 @@ const ACHIEVEMENT_ITEMS = [
   {
     type: "achievement",
     sortYear: 2024,
-    title:
-      "3rd Place (Global) — Digital Replica Revenue Growth to Future Proof Local Journalism",
+    title: "3rd Place (Global) — Best Idea to Grow Advertising Sales",
     relatedMissionSlug: "subscription-checkout-activation",
     portfolioAnchor: "portfolio-subscription-checkout",
     time: "2024",
-    org: "INMA Global Media Awards 2024 (International News Media Association) · The Dallas Morning News",
-    where: "Global",
+    org: "INMA Global Media Awards 2024 (International News Media Association)",
+    where: "The Dallas Morning News",
     badges: ["Organization Award"],
     missionLogs: [
-      "Portfolio relevance: Work aligns with subscription systems, paywall optimization, and reader-revenue growth through product and monetization engineering.",
-      "Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value.",
-      "Attribution: Organization/project recognition - contributed to initiatives within the award-winning work.",
-      "Source: <a href='https://www.inma.org/blogs/main/post.cfm/inma-unveils-40-first-place-winners-at-the-global-media-awards-with-helsingin-sanomat-taking-the-top-prize' target='_blank' rel='noreferrer'>INMA winners announcement</a>.",
+      "Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems, paywall optimization, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. Source: <a href='https://www.inma.org/blogs/main/post.cfm/inma-unveils-40-first-place-winners-at-the-global-media-awards-with-helsingin-sanomat-taking-the-top-prize' target='_blank' rel='noreferrer'>INMA winners announcement</a>.",
     ],
   },
   {
@@ -139,6 +136,7 @@ const ACHIEVEMENT_ITEMS = [
     time: "2017",
     org: "Samart Innovation Awards 2017",
     where: "Bangkok, Thailand",
+    badges: ["Award"],
   },
   {
     type: "achievement",
@@ -148,6 +146,7 @@ const ACHIEVEMENT_ITEMS = [
     time: "2014",
     org: "Samart Innovation Awards 2014",
     where: "Bangkok, Thailand",
+    badges: ["Award"],
   },
 ];
 

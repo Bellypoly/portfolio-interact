@@ -1,37 +1,46 @@
-/* --- Base --- */
+/* --- Work timeline item: base --- */
+
 .work-timeline-item {
   @apply border-b border-slate-600/80;
 }
+
 .work-section > div:last-child .work-timeline-item {
   @apply border-b-0;
 }
+
 .work-timeline-item__inner {
   @apply py-6 md:py-8;
 }
+
 .work-timeline-item__left {
   @apply flex flex-col gap-3;
 }
 
 .work-timeline-item__label-row {
-  @apply flex flex-row flex-wrap items-baseline justify-between gap-2 mb-3;
-}
-.work-timeline-item__label {
-  @apply font-robotomono text-slate-400 uppercase tracking-wider text-sm leading-none;
-}
-.work-timeline-item .hover-reveal-text,
-.work-timeline-item .hover-reveal-text__line {
-  @apply text-sm leading-none;
+  @apply mb-3 flex flex-row flex-wrap items-baseline justify-between gap-2;
 }
 
-/* --- Content --- */
-.work-timeline-item__title {
-  @apply font-orbitron italic font-bold uppercase tracking-[0.12em] text-slate-100 text-xl md:text-2xl inline-flex items-start gap-2;
+.work-timeline-item__label {
+  @apply font-robotomono text-pf-caption uppercase leading-none tracking-wider text-slate-400;
 }
+
+.work-timeline-item .hover-reveal-text,
+.work-timeline-item .hover-reveal-text__line {
+  @apply text-pf-body leading-none;
+}
+
+/* --- Work timeline item: title + meta + body --- */
+
+.work-timeline-item__title {
+  @apply inline-flex items-start gap-2 font-orbitron text-pf-job-title font-bold uppercase italic tracking-[0.12em] text-slate-100;
+}
+
 .work-timeline-item__live-dot {
-  @apply inline-block w-4 h-4 rounded-full bg-green-500 shrink-0 mt-2;
-  box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.6);
+  @apply mt-2 inline-block h-4 w-4 shrink-0 rounded-full bg-green-500;
+  @apply shadow-[0_0_8px_2px_rgba(34,197,94,0.6)];
   animation: work-live-dot-blink 1s ease-in-out infinite;
 }
+
 @keyframes work-live-dot-blink {
   0%,
   100% {
@@ -43,83 +52,92 @@
     box-shadow: 0 0 4px 1px rgba(34, 197, 94, 0.3);
   }
 }
+
 .work-timeline-item__meta {
-  @apply text-sm font-quicksand font-medium text-slate-400;
+  @apply font-quicksand text-pf-body font-medium text-slate-400;
 }
+
 .work-timeline-item__meta-where {
   @apply text-yellow-300;
 }
+
 .work-timeline-item__description {
-  @apply text-base text-slate-300 leading-relaxed font-roboto font-normal text-justify;
+  @apply text-justify font-roboto text-pf-lead font-normal leading-relaxed text-slate-300;
 }
 
-/* --- Portfolio link + bullet trigger (idle cyan; hover matches mission / case study rust) --- */
+/* --- Portfolio link + bullet trigger (cyan; hover rust like case study) --- */
+
 .work-timeline-item__portfolio-link,
 .work-timeline-item__bullet-trigger {
-  @apply font-roboto font-medium uppercase tracking-wider text-cyan-400 cursor-pointer transition-colors duration-150;
+  @apply cursor-pointer font-roboto text-pf-body font-medium uppercase tracking-wider text-cyan-400 transition-colors duration-150;
 }
+
 .work-timeline-item__portfolio-link:hover,
 .work-timeline-item__bullet-trigger:hover {
-  color: var(--pf-editorial-rust);
+  @apply text-[var(--pf-editorial-rust)];
 }
+
 .work-timeline-item__portfolio-link-block {
-  @apply leading-none md:mt-3 mt-0;
+  @apply mt-0 leading-none md:mt-3;
 }
+
 .work-timeline-item__portfolio-link-block .work-timeline-item__portfolio-link {
-  @apply text-sm leading-none;
+  @apply leading-none;
 }
+
 .work-timeline-item__bullet-trigger {
-  @apply text-sm inline-flex items-center gap-1;
+  @apply inline-flex items-center gap-1;
 }
+
 .work-timeline-item__arrow {
   @apply inline-block;
 }
 
-/* Desktop hover/focus: reveal text follows parent link/button hover like project cards.
-   Use width gate instead of `(hover:hover)` so hybrid touch desktops still animate on mouse. */
+/* --- Desktop (min-width): hover-reveal on link/button parent --- */
+/* Width gate instead of hover:hover so hybrid touch + mouse still animates. */
+
 @media (min-width: 768px) {
   .work-timeline-item__portfolio-link:hover .hover-reveal-text__track,
   .work-timeline-item__portfolio-link:focus-visible .hover-reveal-text__track,
   .work-timeline-item__bullet-trigger:hover .hover-reveal-text__track,
   .work-timeline-item__bullet-trigger:focus-visible .hover-reveal-text__track {
-    transform: translateY(-50%);
+    @apply -translate-y-1/2;
   }
 }
 
-/* --- Bullet popover --- */
+/* --- Bullet detail popover --- */
+
 .work-timeline-item__bullet-trigger-wrap {
   @apply relative block w-full;
 }
+
 .work-timeline-item__bullet-trigger-wrap--label-row {
-  @apply flex w-fit shrink-0 mt-0;
+  @apply mt-0 flex w-fit shrink-0;
 }
+
 .work-timeline-item__bullet-trigger-wrap--desktop {
   @apply hidden md:flex;
 }
+
 .work-timeline-item__bullet-trigger-wrap--mobile {
   @apply mt-3 md:hidden;
 }
+
 .work-timeline-item__bullet-float {
-  @apply absolute left-0 top-full mt-2 z-20 p-4 rounded-lg;
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.08),
-    inset 0 0 0 10px rgba(0, 0, 0, 0.18);
-  background:
-    radial-gradient(
-      circle at 35% 25%,
-      rgba(255, 255, 255, 0.08),
-      transparent 55%
-    ),
-    linear-gradient(180deg, rgb(18, 78, 88), rgb(7, 40, 48));
+  @apply absolute left-0 top-full z-20 mt-2 rounded-lg p-4;
+  @apply shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_0_0_2px_rgba(255,255,255,0.08),inset_0_0_0_10px_rgba(0,0,0,0.18)];
+  @apply bg-[radial-gradient(circle_at_35%_25%,rgba(255,255,255,0.08),transparent_55%),linear-gradient(180deg,rgb(18,78,88),rgb(7,40,48))];
 }
+
 .work-timeline-item__bullet-trigger-wrap--label-row
   .work-timeline-item__bullet-float {
-  @apply left-full -top-8 mt-0 ml-6 w-auto min-w-[45vw] max-w-md;
+  @apply -top-8 left-full ml-6 mt-0 w-auto min-w-[45vw] max-w-md;
 }
+
 .work-timeline-item__bullet-list {
-  @apply list-disc list-inside space-y-2 text-base leading-relaxed font-roboto m-0 p-0 text-[var(--ink)];
+  @apply m-0 list-inside list-disc space-y-2 p-0 font-robotomono font-light text-pf-body leading-relaxed text-[var(--ink)] antialiased;
 }
+
 .work-timeline-item__bullet {
-  @apply p-2;
+  @apply p-2 font-light;
 }

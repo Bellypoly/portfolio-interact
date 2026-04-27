@@ -1,9 +1,7 @@
-/*
- * education-achievements-section.css — layout, title, timeline, cards for this card.
- * Colors: src/design-tokens.css (--pf-*).
- */
+/* --- Education & achievements section --- */
+/* Palette: design-tokens.css (--pf-*). */
 
-/* --- Section root & design tokens --- */
+/* --- Root + local CSS variables --- */
 .edu-section {
   @apply relative z-[1] flex flex-col gap-8 w-full min-w-0;
   --edu-title-amp: clamp(2.35rem, 4.25vw + 1.2rem, 3.1rem);
@@ -32,7 +30,7 @@
   --edu-timeline-stroke: var(--pf-brown-warm);
 }
 
-/* --- Title (single h2; narrow = stacked + lowercase; md+ = centered + uppercase) --- */
+/* --- Title (h2): stacked lowercase < md; centered uppercase md+ --- */
 .edu-title {
   @apply flex flex-col items-center gap-1 w-full mb-4 text-center italic md:block md:mx-auto md:w-full md:min-w-0 md:max-w-5xl md:px-4;
   line-height: 1.05;
@@ -45,7 +43,7 @@
   }
 }
 
-/* “Education &” — flex row < md; inline + nowrap from md (keeps pair together) */
+/* Lead line: flex row < md; inline nowrap md+ (keeps pair together). */
 .edu-title__lead {
   @apply inline-flex items-center justify-center gap-2 font-silkscreen;
   font-size: var(--edu-title-mobile);
@@ -82,7 +80,7 @@
   }
 }
 
-/* md–1249px: force “Achievements” on its own line (below that width; mobile already stacks) */
+/* md–1249px: achievements line on its own row. */
 @media (min-width: 768px) and (max-width: 1249px) {
   .edu-title__achievement {
     display: block;
@@ -105,21 +103,20 @@
   }
 }
 
-/* Very narrow phones: slightly smaller achievement line */
+/* --- Very narrow phones: smaller achievement line --- */
 @media (max-width: 375px) {
   .edu-title__achievement {
     font-size: clamp(1.8rem, 5vw + 0.35rem, 1.85rem);
   }
 }
 
-/* --- Filter legend: darker title-tone labels; hover = glow + drop shadow behind --- */
-/* clip-path clips box-shadow in browsers — use filter: drop-shadow() for outer glow */
+/* --- Filter legend (notched buttons; drop-shadow for glow; clip-path kills box-shadow) --- */
 .edu-timeline__legend {
   @apply flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-2 md:mb-4 px-2 md:mx-auto md:w-full md:max-w-5xl md:px-4 overflow-visible;
 }
 
 .edu-timeline__legend-btn {
-  @apply cursor-pointer font-silkscreen not-italic font-normal uppercase tracking-[0.04em] text-xs sm:text-sm px-5 py-2.5 rounded-sm border backdrop-blur-[8px];
+  @apply cursor-pointer font-silkscreen not-italic font-normal uppercase tracking-[0.04em] text-pf-caption sm:text-pf-body px-5 py-2.5 rounded-sm border backdrop-blur-[8px];
   text-shadow: none;
   transition:
     background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -137,7 +134,7 @@
   );
 }
 
-/* All — idle unselected = light; selected = thicker border + stronger shadow (not same as idle) */
+/* Legend: All filter */
 .edu-timeline__legend-btn--all {
   @apply border;
   border-color: rgb(var(--pf-neutral-stone-rgb) / 0.55);
@@ -176,7 +173,7 @@
     drop-shadow(0 0 22px rgb(var(--pf-neutral-stone-rgb) / 0.6));
 }
 
-/* Education — idle unselected: softer; selected: 2px border + stacked glow (reads “on”) */
+/* Legend: Education */
 .edu-timeline__legend-btn--education {
   @apply border;
   border-color: rgb(var(--pf-teal-primary-rgb) / 0.45);
@@ -212,7 +209,7 @@
     drop-shadow(0 0 24px rgb(var(--pf-teal-accent-rgb) / 0.85));
 }
 
-/* Achievements — idle unselected: softer; selected: 2px border + stacked gold glow */
+/* Legend: Achievements */
 .edu-timeline__legend-btn--achievement {
   @apply border;
   border-color: rgb(var(--pf-gold-ink-rgb) / 0.45);
@@ -248,8 +245,7 @@
     drop-shadow(0 0 24px rgb(var(--pf-gold-rgb) / 0.82));
 }
 
-/* --- Timeline container --- */
-/* Break out to full viewport width so the md spine can sit at true 50vw. */
+/* --- Timeline: full-bleed width (md spine at 50vw) --- */
 .edu-timeline {
   @apply relative flex flex-col gap-8 mb-16;
   width: 100vw;
@@ -267,7 +263,7 @@
   @apply relative z-[1] flex flex-col gap-8;
 }
 
-/* Vertical spine at viewport horizontal center (md+); dot column shares same axis. */
+/* md+: vertical spine at viewport center; dots on same axis. */
 @screen md {
   .edu-timeline::before {
     content: "";
@@ -306,7 +302,7 @@
   @apply relative min-w-0 col-start-2 row-start-1 md:col-start-1 md:row-start-1 overflow-visible md:pl-8;
 }
 
-/* --- Empty education cell when a row is achievement-only (keeps grid alignment) --- */
+/* --- Placeholder education cell (achievement-only rows) --- */
 .edu-timeline__education--placeholder {
   @apply min-h-0 min-w-0 pointer-events-none;
 }
@@ -348,14 +344,14 @@
   @apply pl-0;
 }
 
-/* --- Timeline card headings (bullet popover: education-card.css) --- */
+/* --- Timeline card titles (popover detail in education-card.css) --- */
 .edu-timeline__education .timeline-title {
-  @apply font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0;
+  @apply font-roboto italic font-bold uppercase tracking-[0.06em] text-pf-card-title m-0 p-0;
   color: var(--pf-teal-primary);
   text-shadow: 0.5px 0.5px 0 cyan;
 }
 .edu-achievement-card__title {
-  @apply max-w-[min(100%,25rem)] font-roboto italic font-bold uppercase tracking-[0.06em] text-base md:text-lg m-0 p-0;
+  @apply max-w-[min(100%,25rem)] font-roboto italic font-bold uppercase tracking-[0.06em] text-pf-card-title m-0 p-0;
   color: var(--pf-gold-dark);
   text-shadow: 0.5px 0.5px 0 var(--pf-gold);
 }
@@ -374,7 +370,7 @@
   @apply italic;
 }
 
-/* --- Mission log float: education lane; base styles in education-card.css --- */
+/* --- Mission log float (lane alignment; base in education-card.css) --- */
 .edu-timeline__education .education-card__mission-log-wrap {
   @apply flex justify-start md:justify-end overflow-visible;
 }
@@ -388,7 +384,7 @@
   color: var(--pf-teal-primary);
 }
 .edu-timeline__education .education-card__mission-log-float {
-  @apply text-slate-700 md:left-auto md:right-0 md:top-full md:w-full;
+  @apply font-roboto text-pf-body text-slate-700 md:left-auto md:right-0 md:top-full md:w-full;
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.16),
     0 4px 14px rgba(0, 0, 0, 0.06),
@@ -403,7 +399,7 @@
     linear-gradient(180deg, #ffffff 0%, #f6f7f8 55%, #f0f1f3 100%);
 }
 .edu-timeline__achievement-col .education-card__mission-log-float {
-  @apply text-slate-700 md:left-0 md:right-auto md:top-full md:w-full;
+  @apply font-roboto text-pf-body text-slate-700 md:left-0 md:right-auto md:top-full md:w-full;
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.16),
     0 4px 14px rgba(0, 0, 0, 0.06),
@@ -431,9 +427,9 @@
   @apply flex flex-wrap gap-2;
 }
 
-/* Badges: dark brown fill + light label for readable small-caps; inset highlight on the pill */
+/* --- Achievement badges: pill fill + inset highlight --- */
 .edu-achievement-card__badges .timeline-badge {
-  @apply inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full border;
+  @apply inline-flex items-center text-pf-note font-semibold px-2.5 py-0.5 rounded-full border;
   background-color: var(--pf-badge-bg);
   color: var(--pf-badge-text);
   border-color: var(--pf-badge-border);
@@ -445,7 +441,7 @@
 }
 
 .edu-achievement-card__portfolio-link {
-  @apply no-underline;
+  @apply inline-flex items-center gap-1 font-roboto text-pf-body font-medium uppercase tracking-wider no-underline;
   color: var(--pf-teal-primary);
 }
 

@@ -1,9 +1,8 @@
-/**
- * Portfolio palette — teal, gold/brown, editorial case study.
- * Use var(--pf-*) in CSS; canvas/JS may read via getComputedStyle(document.documentElement).
- */
+/* --- Design tokens: portfolio palette (--pf-*) --- */
+/* Consume as var(--pf-*). Optional: read from JS via getComputedStyle(document.documentElement). */
+
 :root {
-  /* Site — teal */
+  /* Site: teal */
   --pf-teal-primary: #004d5b;
   --pf-teal-primary-hover: #006d82;
   --pf-teal-mid: #0a5f73;
@@ -15,7 +14,7 @@
   /* Work section headline gradient (pairs with --pf-teal-cyan) */
   --pf-accent-yellow: #fde047;
 
-  /* Site — brown / gold */
+  /* Site: brown / gold */
   --pf-brown-warm: #4d4946;
   --pf-brown-muted: #504b48;
   --pf-gold: #d6aa3d;
@@ -28,10 +27,10 @@
   --pf-achievement-ink-muted: #5c3d0a;
   --pf-achievement-ink-hover: #2a1800;
 
-  /* Mission gallery (rule below glyph) */
+  /* Mission gallery (rules near glyph) */
   --pf-sky-pale: #daeef8;
 
-  /* Case study — editorial */
+  /* Case study: editorial */
   --pf-editorial-teal: #1c3131;
   --pf-editorial-teal-rgb: 28 49 49;
   --pf-editorial-teal-muted: #1a2e2e;
@@ -46,7 +45,7 @@
   --pf-editorial-panel-bg: #fffcf9;
   --pf-editorial-diagram-fg: #c8dcd0;
 
-  /* RGB channels for alpha */
+  /* RGB tuples for alpha() */
   --pf-teal-primary-rgb: 0 77 91;
   --pf-teal-accent-rgb: 107 191 228;
   --pf-teal-glow-rgb: 45 95 120;
@@ -57,8 +56,28 @@
   --pf-gold-shadow-dark-rgb: 90 70 25;
   --pf-neutral-stone-rgb: 166 162 158;
   --pf-brown-glow-rgb: 101 96 92;
-  /* Education legend — “All” filter */
+  /* Education legend: neutral "All" filter */
   --pf-neutral-text: #6e6965;
   --pf-neutral-text-hover: #45413e;
   --pf-neutral-text-active: #3a3633;
+
+  /* Type scale — Tailwind `text-pf-*` (tailwind.config.js) or var(--pf-font-*). Hero / crawl may keep local clamps. */
+  --pf-font-micro: 0.625rem;
+  --pf-font-note: 0.75rem;
+  --pf-font-caption: 0.875rem;
+  --pf-font-body: 1rem;
+  --pf-font-lead: 1.125rem;
+  /* Material / UI glyphs (fixed size; not tied to job-title breakpoint). */
+  --pf-font-icon: 1.25rem;
+  --pf-font-card-title: 1rem;
+  --pf-font-job-title: 1.25rem;
+  --pf-font-section: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --pf-font-card-title: 1.125rem;
+    --pf-font-job-title: 1.5rem;
+    --pf-font-section: 1.875rem;
+  }
 }

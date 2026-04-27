@@ -227,7 +227,10 @@ const AchievementCard = React.memo(function AchievementCard({
                     {lineSummary}
                   </HoverRevealText>
                 ) : (
-                  lineSummary
+                  <span
+                    className="timeline-bullet-btn__summary-html"
+                    dangerouslySetInnerHTML={{ __html: lineSummary }}
+                  />
                 )}
               </span>
             </button>

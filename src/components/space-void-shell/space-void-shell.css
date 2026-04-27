@@ -1,11 +1,9 @@
-/* Shared space backdrop: gradient void + cyan ambient + one mid-density star layer (matches 404 / home mid layer). */
+/* --- Space void shell: shared backdrop (404 + portrait gate; void + ambient + stars) --- */
 
 .space-void-shell {
   --space-void-cyan: 34 211 238;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  color: #e3f2f7;
+
+  @apply relative isolate overflow-hidden text-[#e3f2f7];
   background: radial-gradient(
     ellipse 120% 90% at 50% 115%,
     rgb(12 55 68) 0%,
@@ -15,25 +13,17 @@
 }
 
 .space-void-shell--page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1.25rem 3rem;
+  @apply flex min-h-screen items-center justify-center;
+  @apply px-5 pb-12 pt-8;
 }
 
 .space-void-shell--fixed {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483646;
-  box-sizing: border-box;
-  min-height: 100%;
+  @apply fixed inset-0 z-[2147483646] box-border min-h-full;
 }
 
 .space-void-shell__ambient {
-  position: absolute;
+  @apply pointer-events-none absolute;
   inset: -25%;
-  pointer-events: none;
   background: radial-gradient(
     circle at 50% 38%,
     rgb(var(--space-void-cyan) / 0.14) 0%,
@@ -42,29 +32,17 @@
 }
 
 .space-void-shell__stars {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
+  @apply pointer-events-none absolute inset-0 z-[1];
 }
 
 .space-void-shell__star-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
+  @apply absolute inset-0 z-[1] h-full w-full;
 }
 
 .space-void-shell__star-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  @apply absolute inset-0 h-full w-full;
 }
 
 .space-void-shell__content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
+  @apply relative z-[2] w-full;
 }

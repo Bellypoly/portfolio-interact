@@ -1,21 +1,12 @@
-/**
- * SpaceResume layout
- *
- * Sections: main → nebula → starfield → app-section (contents)
- * Rocket/education stacking (rocket-education-wrapper):
- *   2  education backdrop
- *   3  #rocket (incl. rocket-section-atmosphere)
- *   4  atmosphere HUD (above atmosphere gradient)
- *   5  starfield
- *   6  #education shell + content
- */
+/* --- Space resume: app shell --- */
+/* Stack: main → nebula → starfield → app-section. Rocket/education wrapper (bottom to top): education backdrop, #rocket (+ atmosphere), HUD strip, starfield, #education. */
 
 .app-main {
-  @apply relative min-h-screen w-full text-white bg-black;
+  @apply relative min-h-screen w-full bg-black text-white;
 }
 
 .app-bg-nebula {
-  @apply fixed inset-0 pointer-events-none z-0;
+  @apply pointer-events-none fixed inset-0 z-0;
   background:
     radial-gradient(
       ellipse 80% 50% at 20% 40%,
@@ -39,36 +30,42 @@
     );
 }
 
-/* `100vh` fallback; `100dvh` when supported (mobile URL bar / dynamic viewport). */
+/* Starfield height: 100vh fallback; 100dvh when supported (mobile browser chrome). */
+
 .app-starfield {
-  @apply relative sticky top-0 h-screen supports-[height:100dvh]:h-[100dvh] overflow-hidden bg-transparent pointer-events-none z-[5];
+  @apply pointer-events-none relative sticky top-0 z-[5] h-screen overflow-hidden bg-transparent supports-[height:100dvh]:h-[100dvh];
 }
 
 .app-shooting-stars {
-  @apply absolute inset-0 pointer-events-none z-[3000];
+  @apply pointer-events-none absolute inset-0 z-[3000];
 }
 
 .app-star-layer {
-  @apply absolute inset-0 w-full h-full;
+  @apply absolute inset-0 h-full w-full;
 }
+
 .app-star-layer--far {
   @apply z-[1];
 }
+
 .app-star-layer--mid {
   @apply z-[2];
 }
+
 .app-star-layer--near {
   @apply z-[3];
 }
+
 .app-star-layer svg {
-  @apply absolute inset-0 w-full h-full;
+  @apply absolute inset-0 h-full w-full;
 }
 
 .app-debug-overlay {
-  @apply fixed bottom-4 left-4 z-[20000] bg-black/80 text-cyan-300 font-mono text-xs p-2 rounded border border-cyan-500/50;
+  @apply fixed bottom-4 left-4 z-[20000] rounded border border-cyan-500/50 bg-black/80 p-2 font-mono text-pf-note text-cyan-300;
 }
+
 .section-title {
-  @apply text-2xl md:text-3xl font-roboto font-bold text-cyan-400 mt-8;
+  @apply mt-8 font-roboto text-pf-section font-bold text-cyan-400;
 }
 
 .app-section {
@@ -76,36 +73,44 @@
 }
 
 .app-section-item {
-  @apply min-h-[100vh] flex items-center justify-center;
+  @apply flex min-h-[100vh] items-center justify-center;
 }
+
 .app-section-item--intro {
-  @apply relative z-10 w-full overflow-hidden flex flex-col justify-end min-h-[500vh] md:min-h-[300vh] lg:min-h-[250vh];
+  @apply relative z-10 flex min-h-[500vh] w-full flex-col justify-end overflow-hidden md:min-h-[300vh] lg:min-h-[250vh];
 }
+
 .app-section-item--rocket {
-  @apply relative z-[3] w-full min-h-[100vh] p-0 overflow-visible;
+  @apply relative z-[3] min-h-[100vh] w-full overflow-visible p-0;
 }
+
 .app-section-item--rocket .rocket-section {
   @apply absolute inset-0;
 }
+
 .app-section-item--prequel {
-  @apply relative z-10 w-full px-4 sm:px-6 md:px-8 min-h-min flex items-center justify-center;
-}
-.app-section-item--prequel > *,
-.app-section-item--landing > * {
-  @apply w-full max-w-4xl min-w-0;
+  @apply relative z-10 flex min-h-min w-full items-center justify-center px-4 sm:px-6 md:px-8;
 }
 
-/* Mission gallery: full content width (grid spreads edge-to-edge within section padding) */
+.app-section-item--prequel > *,
+.app-section-item--landing > * {
+  @apply min-w-0 w-full max-w-4xl;
+}
+
+/* --- Mission gallery: full content width --- */
+
 #portfolio.app-section-item--landing > * {
   @apply max-w-none;
 }
 
 .app-section-item--landing {
-  @apply relative z-10 w-full px-4 sm:px-6 md:px-8 min-h-min flex items-start justify-center;
+  @apply relative z-10 flex min-h-min w-full items-start justify-center px-4 sm:px-6 md:px-8;
 }
+
 .app-section-loading {
   @apply min-h-[50vh] w-full;
 }
+
 #work.app-section-item--landing > *,
 #education.app-section-item--landing > * {
   @apply max-w-[100vw];
@@ -121,81 +126,64 @@
 }
 
 .portfolio-wrapper__bg {
-  @apply absolute left-0 right-0 pointer-events-none z-[2];
-  top: 0;
-  bottom: 0;
-  min-height: 100vh;
-  background: #ffffff;
+  @apply pointer-events-none absolute inset-x-0 top-0 bottom-0 z-[2] min-h-screen bg-white;
 }
+
 #portfolio.app-section-item--landing {
   @apply relative z-[6] bg-transparent text-slate-900;
 }
+
 .portfolio-wrapper > .app-section-item--landing {
   @apply w-full;
 }
 
 .rocket-education-wrapper__education-bg {
-  @apply absolute left-0 right-0 pointer-events-none z-[2];
+  @apply pointer-events-none absolute inset-x-0 bottom-0 z-[2] min-h-screen bg-[linear-gradient(180deg,#397a96_3%,#c9d9dc_28%,#f9e7e7_45%,#fff6d4_60%,#ffffff_100%)];
   top: 100vh;
-  bottom: 0;
-  min-height: 100vh;
-  background: linear-gradient(
-    180deg,
-    #397a96 3%,
-    #c9d9dc 28%,
-    #f9e7e7 45%,
-    #fff6d4 60%,
-    #ffffff 100%
-  );
 }
 
 .rocket-education-wrapper {
   @apply relative w-full;
-  /* Must match `.rocket-education-wrapper__hud` width — used to inset rocket in landscape. */
+  /* Matches .rocket-education-wrapper__hud width (rocket inset in landscape). */
   --rocket-hud-strip: min(6rem, 20vw);
 }
+
 .rocket-education-wrapper > .app-section-item--rocket,
 .rocket-education-wrapper > .app-section-item--landing {
   @apply w-full;
 }
+
 .rocket-education-wrapper > .app-section-item--rocket {
-  @apply mb-0;
+  @apply mb-0 md:landscape:pl-[var(--rocket-hud-strip)];
 }
 
-/* Landscape iPad: left strip HUD (z-4) sits above rocket (z-3) — inset so capsule + glow clear it. */
-@media (min-width: 768px) and (orientation: landscape) {
-  .rocket-education-wrapper > .app-section-item--rocket {
-    padding-left: var(--rocket-hud-strip);
-  }
-}
 .rocket-education-wrapper > #education,
 .rocket-education-wrapper > #pre-gallery {
   @apply mt-0;
 }
 
 .rocket-education-wrapper__hud {
-  @apply absolute left-0 top-0 hidden md:flex flex-col justify-between px-4 pointer-events-none z-[4];
-  width: var(--rocket-hud-strip);
-  @apply h-full;
+  @apply pointer-events-none absolute left-0 top-0 z-[4] hidden h-full w-[var(--rocket-hud-strip)] flex-col justify-between px-4 md:flex;
 }
+
 .rocket-education-wrapper__hud .atmosphere-hud {
   @apply sticky top-0 min-h-0;
 }
 
 .app-panel-row {
-  @apply fixed top-0 flex flex-row items-end gap-4 z-[10000] w-full;
+  @apply fixed top-0 z-[10000] flex w-full flex-row items-end gap-4;
 }
+
 .app-bottom-blur {
-  @apply fixed inset-x-0 bottom-0 h-32 pointer-events-none z-[10000];
-  background: linear-gradient(to top, #000000, transparent);
+  @apply pointer-events-none fixed inset-x-0 bottom-0 z-[10000] h-32 bg-[linear-gradient(to_top,#000000,transparent)];
 }
 
 .shooting-star {
   @apply absolute;
 }
+
 .shooting-star-line {
-  @apply w-40 h-0.5 -rotate-45;
-  @apply transition-[background] duration-500 ease-out;
+  @apply h-0.5 w-40 -rotate-45 transition-[background] duration-500 ease-out;
   background: linear-gradient(
     to right,
     var(--star-fill, white) 0%,

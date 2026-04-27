@@ -1,4 +1,4 @@
-/* Checkout BA compare (v1v2 / v1v3 / v2v3). --ba-* + list reset: project-case-study.css */
+/* --- Case study: checkout before/after diagram (v1v2 / v1v3 / v2v3; --ba-* in project-case-study) --- */
 
 .project-case-study__ba {
   max-width: 78rem;
@@ -217,7 +217,7 @@
   color: #111;
 }
 
-/* V2 mock checkout stepper */
+/* --- Mock checkout stepper (v2) --- */
 .project-case-study__ba-stepper {
   display: flex;
   align-items: center;
@@ -406,7 +406,7 @@
   color: #46615b;
 }
 
-/* v2v3: two desktops per row */
+/* --- v2v3 layout: two desktops per row --- */
 .project-case-study__ba--v2v3 .project-case-study__ba-device--desktop {
   width: min(100%, 100%);
   max-width: 352px;

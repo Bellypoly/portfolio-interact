@@ -15,6 +15,12 @@ const PortfolioSection = React.memo(function PortfolioSection({
   return (
     <motion.div className="portfolio-section" style={{ opacity }}>
       <h2 className="portfolio-section__title">Mission Gallery</h2>
+      <p className="portfolio-section__caption">
+        Tap a mission tile to open its dossier.
+        <span className="cursor-blink" aria-hidden="true">
+          _
+        </span>
+      </p>
       {missionProjects.map(
         ({
           anchorId,

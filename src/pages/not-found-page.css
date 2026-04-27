@@ -1,61 +1,49 @@
-/* 404 content on top of shared `SpaceVoidShell` (void + stars in space-void-shell.css). */
+/* --- Not found (404): content over SpaceVoidShell --- */
 
 .not-found-page__content {
   @apply flex max-w-md flex-col items-center text-center;
 }
 
 .not-found-page__rocket {
-  @apply block;
-  width: min(9rem, 38vw);
-  @apply mx-auto mb-2 h-auto;
-  filter: drop-shadow(0 12px 36px rgb(34 211 238 / 0.25));
+  @apply mx-auto mb-2 block h-auto;
+  @apply w-[min(9rem,38vw)];
+  @apply [filter:drop-shadow(0_12px_36px_rgb(34_211_238/0.25))];
 }
 
 .not-found-page__code {
-  @apply font-robotomono text-xs tracking-[0.35em] uppercase text-cyan-300/90;
+  @apply font-robotomono text-pf-note uppercase tracking-[0.35em] text-cyan-300/90;
 }
 
 .not-found-page__title {
   @apply mb-3 mt-4 font-orbitron font-bold tracking-[0.06em];
-  font-size: clamp(1.75rem, 5.5vw, 2.75rem);
-  line-height: 1.15;
-  text-shadow:
-    0 0 42px rgb(34 211 238 / 0.35),
-    0 0 80px rgb(34 211 238 / 0.12);
+  @apply text-[clamp(1.75rem,5.5vw,2.75rem)] leading-[1.15];
+  @apply [text-shadow:0_0_42px_rgb(34_211_238/0.35),0_0_80px_rgb(34_211_238/0.12)];
 }
 
 .not-found-page__lead {
-  @apply font-quicksand text-base sm:text-lg text-white/90 leading-relaxed;
+  @apply font-quicksand text-pf-body leading-relaxed text-white/90 sm:text-pf-lead;
 }
 
 .not-found-page__sub {
-  @apply font-quicksand text-sm sm:text-base text-white/55 mt-3 leading-relaxed;
+  @apply mt-3 font-quicksand text-pf-caption leading-relaxed text-white/55 sm:text-pf-body;
 }
 
 .not-found-page__path {
-  @apply font-robotomono text-white/40 text-xs break-all;
+  @apply break-all font-robotomono text-pf-note text-white/40;
 }
 
 .not-found-page__btn {
-  @apply mt-9 inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 font-quicksand font-semibold no-underline transition-[transform,box-shadow] duration-200 ease-out;
-  color: #001018;
-  background: linear-gradient(
-    135deg,
-    var(--pf-teal-cyan) 0%,
-    #5eead4 45%,
-    var(--pf-teal-ui) 100%
-  );
-  box-shadow:
-    0 4px 20px rgb(34 211 238 / 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  @apply mt-9 inline-flex items-center justify-center gap-2 rounded-full px-7 py-3;
+  @apply font-quicksand font-semibold no-underline transition-[transform,box-shadow] duration-200 ease-out;
+  @apply text-[#001018];
+  @apply bg-[linear-gradient(135deg,var(--pf-teal-cyan)_0%,#5eead4_45%,var(--pf-teal-ui)_100%)];
+  @apply shadow-[0_4px_20px_rgb(34_211_238/0.35),inset_0_1px_0_rgba(255,255,255,0.35)];
 }
 
 @media (hover: hover) {
   .not-found-page__btn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 10px 36px rgb(34 211 238 / 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    @apply -translate-y-0.5;
+    @apply shadow-[0_10px_36px_rgb(34_211_238/0.45),inset_0_1px_0_rgba(255,255,255,0.4)];
   }
 }
 

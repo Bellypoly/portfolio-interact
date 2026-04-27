@@ -1,29 +1,37 @@
-/* Layout */
+/* --- Journey route: layout --- */
+
 .journey-route {
-  @apply flex flex-col gap-2 w-full max-w-full min-w-0 items-center justify-center pb-8;
+  @apply flex min-w-0 w-full max-w-full flex-col items-center justify-center gap-2 pb-8;
 }
+
 .journey-route-globe {
-  @apply w-full min-w-0 min-h-[200px] overflow-hidden max-w-[min(100%,100vw-2rem,24rem)];
+  @apply min-h-[200px] min-w-0 w-full max-w-[min(100%,100vw-2rem,24rem)] overflow-hidden text-pf-body;
 }
+
 @screen md {
   .journey-route-globe {
     @apply max-w-[min(100%,26rem)];
   }
 }
 
-/* Location label */
+/* --- Journey route: location label --- */
+
 .journey-route-location {
-  @apply flex flex-col gap-0.5 text-center text-sm tracking-wider min-h-[3.5rem] justify-center;
+  @apply flex min-h-[3.5rem] flex-col justify-center gap-0.5 text-center text-pf-body tracking-wider;
 }
+
 a.journey-route-location {
-  @apply no-underline cursor-pointer;
+  @apply cursor-pointer no-underline;
 }
+
 a.journey-route-location:hover {
   @apply opacity-90;
 }
+
 .journey-route-location__company {
   @apply font-quicksand text-slate-400;
 }
+
 .journey-route-location__location {
-  @apply font-silkscreen text-yellow-300 uppercase text-base;
+  @apply font-silkscreen text-pf-lead uppercase text-yellow-300;
 }

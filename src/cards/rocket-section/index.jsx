@@ -156,7 +156,11 @@ export default React.memo(function RocketSection({ sectionProgress }) {
   );
 
   return (
-    <div className="rocket-section">
+    <div
+      className="rocket-section"
+      aria-label="She crosses the atmosphere — from foundations toward orbit"
+    >
+      <h2 className="sr-only">She crosses the atmosphere</h2>
       <div className="rocket-section-atmosphere" aria-hidden="true">
         <AtmosphericLayers />
       </div>

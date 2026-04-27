@@ -1,4 +1,4 @@
-/* Case study page: layout, prose, wide media, BA panel tokens */
+/* --- Case study page: layout, prose, wide media, BA/UX tokens --- */
 
 .project-case-study {
   --cs-page-bg: var(--pf-editorial-page-bg);
@@ -17,7 +17,7 @@
   --cs-font-serif: Georgia, "Times New Roman", Times, ui-serif, serif;
   --cs-font-mono: "Roboto Mono", ui-monospace, monospace;
 
-  /* Type: --cs-text-body* drives .project-case-study__p and inherited prose */
+  /* Type scale: drives .project-case-study__p and inherited prose */
   --cs-text-body: 1.125rem;
   --cs-text-body-md: 1.1875rem;
   --cs-text-ui: 1rem;
@@ -39,7 +39,7 @@
   --cs-tracking-overline-md: 0.12em;
   --cs-tracking-label: 0.1em;
 
-  /* BA compare panels (diagram + UX friction components) */
+  /* Before/after + UX compare panels */
   --ba-teal: var(--pf-editorial-teal);
   --ba-teal-soft: var(--pf-editorial-teal-soft);
   --ba-sand: var(--pf-editorial-sand);
@@ -66,7 +66,7 @@
   @apply relative flex w-full max-w-[90ch] items-center justify-start px-5 md:px-8;
 }
 
-/* Skip link: off-screen until :focus */
+/* --- Skip link: off-screen until focus --- */
 .project-case-study__skip-link {
   position: absolute;
   width: 1px;
@@ -133,7 +133,7 @@
   font-family: var(--cs-font-body);
   font-size: var(--cs-text-body);
   line-height: var(--cs-lh-body);
-  scroll-margin-top: 4.75rem; /* sticky header */
+  scroll-margin-top: 4.75rem; /* sticky page header */
 }
 
 @media (min-width: 768px) {
@@ -248,7 +248,7 @@
 
 .project-case-study__section {
   @apply mt-14 border-t border-stone-300/70 pt-11 md:mt-16 md:pt-12;
-  scroll-margin-top: 4.75rem; /* sticky header */
+  scroll-margin-top: 4.75rem; /* sticky page header */
 }
 
 .project-case-study__lead {
@@ -303,7 +303,7 @@
 }
 
 .project-case-study__reference-table {
-  @apply w-full min-w-[12rem] border-collapse text-left text-sm text-stone-900;
+  @apply w-full min-w-[12rem] border-collapse text-left text-pf-caption text-stone-900;
 }
 
 .project-case-study__reference-table th,
@@ -337,7 +337,7 @@
 }
 
 .project-case-study__reference-table--transpose thead th {
-  @apply text-base font-semibold text-stone-800;
+  @apply text-pf-body font-semibold text-stone-800;
   font-size: 1.0625em;
 }
 
@@ -427,7 +427,7 @@
   @apply mt-8 list-none space-y-5;
 }
 
-/* BA + UX friction lists: avoid flex/grid on `<ul>` or list markers disappear */
+/* --- BA / UX lists: no flex on ul (preserves markers) --- */
 .project-case-study__ba-notes,
 .project-case-study__ux-compare-list {
   margin: 0;
@@ -477,7 +477,7 @@
   @apply block h-auto w-full;
 }
 
-/* Narrower diagram (e.g. tall infographics) — opt in via overviewSystemDesign.diagramCompact */
+/* --- Compact diagram (tall infographics; opt-in from content) --- */
 .project-case-study__diagram--compact {
   @apply mx-auto w-full max-w-xl md:max-w-2xl;
 }
@@ -486,7 +486,7 @@
   @apply w-full max-h-[min(85vh,56rem)] object-contain;
 }
 
-/* `media-bleed`: viewport band; `wide-inner`: 78rem cap (figures, three-up, compare) */
+/* --- Full-bleed media band + inner max width (figures, grids, compare) --- */
 .project-case-study__media-bleed {
   width: 100vw;
   max-width: 100vw;
@@ -508,12 +508,12 @@
   @apply mx-auto w-full max-w-[78rem];
 }
 
-/* Before/after diagram: clear default panel chrome; use with `media-bleed` */
+/* --- Before/after diagram: strip default panel chrome (pair with media-bleed) --- */
 .project-case-study__diagram--before-after {
   @apply mt-0 bg-transparent;
 }
 
-/* Breakout is already full-bleed — reset nested `media-bleed` padding */
+/* --- Breakout section: nested media-bleed padding reset --- */
 .project-case-study__section--breakout .project-case-study__media-bleed {
   width: 100%;
   max-width: 100%;
@@ -522,7 +522,7 @@
   padding-right: 0;
 }
 
-/* MapMagic gallery: same horizontal band as `.project-case-study__article` (no 100vw breakout) */
+/* --- MapMagic gallery: article-width band (no 100vw breakout) --- */
 .map-magic-gallery .project-case-study__media-bleed {
   width: 100%;
   max-width: 100%;
@@ -589,7 +589,7 @@
 }
 
 .project-case-study__early-impact-group-title {
-  @apply m-0 mb-3 text-base font-semibold tracking-tight text-stone-900;
+  @apply m-0 mb-3 text-pf-body font-semibold tracking-tight text-stone-900;
   font-size: var(--cs-text-ui);
   line-height: var(--cs-lh-ui);
 }
@@ -720,7 +720,7 @@
   @apply md:grid-cols-2 md:gap-10;
 }
 
-/* Three-up: wrap with `media-bleed` > `wide-inner` (see CaseStudyFigures) */
+/* --- Figure grid three-up (media-bleed > wide-inner in CaseStudyFigures) --- */
 .project-case-study__figure-grid--3 {
   @apply grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8;
 }
@@ -758,7 +758,7 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* local-elections-hub: no viewport breakout on compare / BA */
+/* --- Case study modifier: local-elections-hub (no viewport breakout on compare / BA) --- */
 .project-case-study--local-elections-hub
   .project-case-study__diagram--before-after.project-case-study__media-bleed,
 .project-case-study--local-elections-hub
@@ -781,11 +781,13 @@
   @apply mx-auto max-w-[min(100%,9rem)] sm:max-w-[min(100%,10.25rem)] md:max-w-[min(100%,11.5rem)];
 }
 
+/* --- Case study modifier: parliament-watch-ocr (tighter featured hero) --- */
 .project-case-study--parliament-watch-ocr
   .project-case-study__featured-wrap--compact {
   @apply h-[14rem] sm:h-[17rem] md:h-[24rem] lg:h-[27rem];
 }
 
+/* --- Figure images: shadow stripped when parent has .project-case-study__no-shadow --- */
 .project-case-study__no-shadow .project-case-study__figure-img {
   box-shadow: none;
 }

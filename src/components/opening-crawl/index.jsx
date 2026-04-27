@@ -122,59 +122,57 @@ export default React.memo(function OpeningCrawl({
             </span>
             <span className="crawl-role-dot crawl-role-dot-last"> · </span>
             <span className="crawl-role-block crawl-role-nowrap">
-              Data Visualization Engineer
+              Data Storyteller
             </span>
           </div>
         </div>
       </motion.div>
       <motion.div className="crawl-container" style={{ opacity: opacityMV }}>
         <div className="crawl-inner">
-          <motion.div style={{ y: yMV }} className="crawl-title">
-            <div className="crawl-content">
-              <FadeParagraph
-                crawlProgress={crawlProgress}
-                stops={stops1}
-                className="crawl-paragraph"
-              >
-                In a galaxy of data, systems, and dashboards, one full-stack
-                engineer sets out to bring order to chaotic systems and turn raw
-                information into stories.
-              </FadeParagraph>
+          <motion.div style={{ y: yMV }} className="crawl-content">
+            <FadeParagraph
+              crawlProgress={crawlProgress}
+              stops={stops1}
+              className="crawl-paragraph"
+            >
+              In a galaxy of data, systems, and dashboards, one full-stack
+              engineer sets out to bring order to chaotic systems and turn raw
+              information into stories.
+            </FadeParagraph>
 
-              <FadeParagraph
-                crawlProgress={crawlProgress}
-                stops={stops2}
-                className="crawl-paragraph"
-              >
-                Guided by curiosity and precision, she journeys through worlds
-                of electric-grid intelligence, geospatial mapping, subscription
-                platforms, and personalization—where software engineering meets
-                imagination.
-              </FadeParagraph>
+            <FadeParagraph
+              crawlProgress={crawlProgress}
+              stops={stops2}
+              className="crawl-paragraph"
+            >
+              Guided by curiosity and precision, she journeys through worlds of
+              electric-grid intelligence, geospatial mapping, subscription
+              platforms, and personalization—where software engineering meets
+              imagination.
+            </FadeParagraph>
 
-              <FadeParagraph
-                crawlProgress={crawlProgress}
-                stops={stops3}
-                className="crawl-paragraph"
-              >
-                Across these worlds, she engineers the full orbit of modern
-                systems—designing scalable, data-driven platforms that bridge
-                front-end experience with back-end performance and transform
-                complex datasets into clear, visual narratives.
-              </FadeParagraph>
+            <FadeParagraph
+              crawlProgress={crawlProgress}
+              stops={stops3}
+              className="crawl-paragraph"
+            >
+              Across these worlds, she engineers the full orbit of modern
+              systems—designing scalable, data-driven platforms that bridge
+              front-end experience with back-end performance and transform
+              complex datasets into clear, visual narratives.
+            </FadeParagraph>
 
-              <FadeParagraph
-                crawlProgress={crawlProgress}
-                stops={stops4}
-                className="crawl-paragraph"
-              >
-                Her journey continues through space, code, and carefully crafted
-                experiences—building reliable platforms, insightful
-                visualizations, and software that guides millions through
-                digital worlds. That journey began East to West—from Thailand to
-                Texas - and the work that follows is where it landed.
-              </FadeParagraph>
-            </div>
+            <FadeParagraph
+              crawlProgress={crawlProgress}
+              stops={stops4}
+              className="crawl-paragraph"
+            >
+              Her journey continues through space, code, and carefully crafted
+              experiences—building reliable platforms, insightful
+              visualizations, and software that guides millions through digital
+              worlds. That journey began East to West—from Thailand to Texas -
+              and the work that follows is where it landed.
+            </FadeParagraph>
           </motion.div>
         </div>
       </motion.div>

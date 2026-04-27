@@ -1,10 +1,11 @@
-/* --- Card base --- */
+/* --- Education card: base --- */
 .education-card {
   @apply relative pl-8;
   --mission-float-max: 32rem;
   --mission-float-gutter: 1.5rem;
 }
 
+/* --- Collapsible variant --- */
 .education-card--collapsible {
   @apply flex flex-col gap-2 pl-6 text-left md:text-right transition-colors duration-200;
 }
@@ -24,9 +25,9 @@
   @apply text-slate-300 transition-colors duration-200 my-0;
 }
 
-/* --- Shared timeline elements --- */
+/* --- Shared timeline primitives --- */
 .timeline-time {
-  @apply inline-block text-sm leading-none font-robotomono text-slate-500 uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded;
+  @apply inline-block text-pf-caption leading-none font-robotomono text-slate-500 uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded;
 }
 .timeline-header {
   @apply flex flex-col gap-2 mb-3;
@@ -35,35 +36,37 @@
   @apply flex flex-wrap gap-2;
 }
 .timeline-title {
-  @apply max-w-[min(100%,16rem)] font-roboto italic font-bold uppercase tracking-[0.12em] text-slate-100 text-base md:text-lg m-0 p-0;
+  @apply max-w-[min(100%,16rem)] font-roboto italic font-bold uppercase tracking-[0.12em] text-slate-100 text-pf-card-title m-0 p-0;
 }
 .timeline-badge {
-  @apply inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full;
+  @apply inline-block bg-cyan-100 text-cyan-800 text-pf-note font-semibold px-2 py-0.5 rounded-full;
 }
 .timeline-location {
-  @apply flex flex-col gap-0.5 text-sm font-quicksand font-medium text-slate-400;
+  @apply flex flex-col gap-0.5 text-pf-body font-quicksand font-medium text-slate-400;
 }
 
-/* --- Mission log --- */
+/* --- Mission log (button + float) --- */
 .education-card__mission-log-wrap {
   @apply relative block w-full mt-2 overflow-visible;
 }
 .education-card__mission-log-btn {
-  @apply text-sm font-roboto font-medium uppercase tracking-wider cursor-pointer transition-colors;
-  @apply inline-flex items-center gap-1;
+  @apply inline-flex cursor-pointer items-center gap-1 font-roboto text-pf-body font-medium uppercase tracking-wider transition-colors;
 }
 .education-card__mission-log-float {
+  /* Self-contained so achievement cards (no .education-card ancestor) still cap width. */
+  --mission-float-max: 32rem;
+  --mission-float-gutter: 1.5rem;
   @apply absolute left-0 top-full mt-1.5 z-[10002] p-4 rounded-lg;
   @apply min-w-0 w-full box-border overflow-x-auto overflow-y-auto;
-  max-width: min(var(--mission-float-max), calc(100vw - var(--mission-float-gutter)));
+  @apply max-w-[min(32rem,calc(100vw-1.5rem))];
   max-height: min(70vh, var(--mission-float-max));
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.25),
     inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
-/* Mission log popover: bullets (light panel; only usage of --in-float) */
+/* --- Mission log popover: bullet list (light panel, .timeline-bullet-list--in-float) --- */
 .education-card__mission-log-float .timeline-bullet-list--in-float {
-  @apply list-none space-y-4 text-[15px] leading-[1rem] text-slate-700 m-0 p-0 text-left font-roboto;
+  @apply m-0 list-none space-y-4 p-0 text-left font-roboto text-pf-body leading-snug text-slate-700;
 }
 .education-card__mission-log-float
   .timeline-bullet-list--in-float
@@ -78,11 +81,10 @@
 .education-card__mission-log-float
   .timeline-bullet-list--in-float
   .timeline-bullet-btn__summary {
-  @apply flex-1 min-w-0 text-slate-800 break-words;
-  line-height: 1.35;
+  @apply min-w-0 flex-1 break-words text-pf-body leading-snug text-slate-800;
 }
 .education-card__mission-log-float .timeline-bullet-toggle {
-  @apply rounded-full px-2 py-0.5 text-xs font-bold tabular-nums uppercase tracking-wide text-slate-500 bg-black/[0.04];
+  @apply rounded-full bg-black/[0.04] px-2 py-0.5 text-pf-caption font-bold uppercase tabular-nums tracking-wide text-slate-500;
 }
 .education-card__mission-log-float
   .timeline-bullet-btn-detail:hover
@@ -90,7 +92,7 @@
   @apply text-slate-900 bg-black/20;
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand {
-  @apply mt-2 mx-3 pl-4 border-l-2 border-slate-400 text-[15px] text-cyan-800 leading-[1.5rem] max-w-prose;
+  @apply mx-3 mt-2 max-w-prose border-l-2 border-slate-400 pl-4 text-pf-body leading-relaxed text-cyan-800;
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand a {
   @apply font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
@@ -100,52 +102,63 @@
   @apply bg-yellow-300;
   color: var(--pf-teal-primary-hover);
 }
+.education-card__mission-log-float .timeline-bullet-btn__summary-html a {
+  @apply font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
+  color: var(--pf-teal-primary);
+}
+.education-card__mission-log-float .timeline-bullet-btn__summary-html a:hover {
+  @apply bg-yellow-300;
+  color: var(--pf-teal-primary-hover);
+}
 .education-card__mission-log-float .timeline-bullet-year {
-  @apply inline-block font-robotomono text-xs leading-none uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded italic;
+  @apply inline-block rounded bg-[#F0FFFF] px-2 py-0.5 font-robotomono text-pf-caption italic uppercase leading-none tracking-wider;
   color: var(--pf-brown-muted);
 }
 .education-card__mission-log-float
   .timeline-bullet-list--in-float
   .timeline-badge {
-  @apply bg-slate-400 text-white;
+  @apply bg-slate-400 text-pf-caption text-white;
+}
+.education-card__mission-log-float .material-symbols-rounded {
+  @apply text-pf-body;
 }
 
 .timeline-location__where {
   @apply text-yellow-300;
 }
 
-/* --- Bullets --- */
+/* --- Bullet list (collapsible card) --- */
 .education-card--collapsible .timeline-bullet-list {
-  @apply list-none my-0 space-y-2 text-sm leading-relaxed font-roboto text-slate-300 pl-0 min-w-0 w-full max-w-full flex flex-col items-start md:items-end;
+  @apply my-0 flex min-w-0 w-full max-w-full list-none flex-col items-start space-y-2 pl-0 font-roboto text-pf-body leading-relaxed text-slate-300 md:items-end;
 }
 .timeline-bullet-item {
   @apply min-w-0 w-full max-w-full text-left flex flex-col items-start md:items-end justify-center gap-1;
 }
 .timeline-bullet-btn-detail {
-  @apply cursor-pointer w-full min-w-0 flex flex-nowrap items-center gap-2 text-left text-slate-300 text-[15px] flex-row md:flex-row-reverse;
+  @apply flex w-full min-w-0 cursor-pointer flex-row flex-nowrap items-center gap-2 text-left text-pf-body text-slate-300 md:flex-row-reverse;
 }
 .timeline-bullet-btn__summary {
   @apply flex-1 min-w-0 break-words;
 }
 .education-card .material-symbols-rounded {
-  @apply text-[13px];
+  @apply text-pf-icon;
 }
 .timeline-bullet-toggle {
-  @apply flex-shrink-0 inline-flex items-center justify-center rounded-full bg-slate-600/25 px-2 py-0.5 text-xs font-bold tabular-nums uppercase tracking-wider text-slate-500;
+  @apply flex-shrink-0 inline-flex items-center justify-center rounded-full bg-slate-600/25 px-2 py-0.5 text-pf-note font-bold tabular-nums uppercase tracking-wider text-slate-500;
   @apply transition-[background-color,color] duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
 .timeline-bullet-btn-detail:hover .timeline-bullet-toggle {
   @apply bg-cyan-500/70 text-cyan-100;
 }
-/* Inline bullet expand (dark card; when mission log is off) */
+/* --- Inline bullet expand (dark card; mission log closed) --- */
 .timeline-bullet-detail__expand {
-  @apply mt-1 ml-2 text-[13px] opacity-90 border-l-2 border-cyan-100 pl-2 leading-[1.25rem] min-w-0 max-w-full break-words;
+  @apply mt-1 ml-2 min-w-0 max-w-full break-words border-l-2 border-cyan-100 pl-2 text-pf-caption leading-snug opacity-90;
 }
 .timeline-bullet-detail__expand a {
   @apply text-cyan-200 hover:underline;
 }
 
-/* --- Hover reveal --- */
+/* --- Hover-reveal wiring on bullets --- */
 .timeline-bullet-btn-detail .hover-reveal-text {
   @apply inline-block w-full max-w-full overflow-hidden text-[inherit] align-bottom [contain:layout_style];
   line-height: 1.35;
@@ -161,7 +174,7 @@
   font-size: inherit;
 }
 
-/* Desktop hover/focus: trigger reveal from parent controls, not only inner text span. */
+/* --- Desktop: hover-reveal from button parent, not only inner span --- */
 @media (min-width: 768px) {
   .timeline-bullet-btn-detail:hover .hover-reveal-text__track,
   .timeline-bullet-btn-detail:focus-visible .hover-reveal-text__track,

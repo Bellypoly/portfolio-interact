@@ -53,6 +53,9 @@ const PortfolioSection = lazy(() => import("./cards/portfolio-section"));
 const MissionGalleryGateSection = lazy(
   () => import("./cards/mission-gallery-pre-section"),
 );
+const MissionCompleteSection = lazy(
+  () => import("./cards/mission-complete-section"),
+);
 
 const SECTION_COUNT = 7;
 const PREQUEL_SECTION_INDEX = 1;
@@ -839,6 +842,9 @@ export default function SpaceResume() {
               </div>
             );
           })}
+          <Suspense fallback={SECTION_SUSPENSE_FALLBACK}>
+            <MissionCompleteSection />
+          </Suspense>
           <div className="app-panel-row">
             <MarkerChipGroup
               SECTIONS={SECTIONS}

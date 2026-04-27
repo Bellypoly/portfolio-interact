@@ -21,7 +21,7 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
       <motion.div
         className="profile-icon"
         style={{ y, opacity }}
-        title="Astronaut Profile"
+        title="Contact Me"
         initial={false}
       >
         <div className="profile-icon-stack" onClick={handleProfileClick}>

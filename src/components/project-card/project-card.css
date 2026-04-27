@@ -1,16 +1,13 @@
-/* Editorial square tile: full-bleed image, bottom gradient, text anchored bottom-left */
+/* --- Project card: editorial square tile --- */
+/* Full-bleed media, bottom scrim, title + hover-reveal subtitle. */
 
 .project-card {
   @apply relative block aspect-square w-full overflow-hidden rounded-2xl no-underline;
-  box-shadow:
-    0 1px 3px 0 rgb(0 0 0 / 0.12),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  @apply shadow-[0_1px_3px_0_rgb(0_0_0/0.12),0_1px_2px_-1px_rgb(0_0_0/0.1)];
 }
 
 .project-card:hover {
-  box-shadow:
-    0 10px 25px -5px rgb(0 0 0 / 0.2),
-    0 8px 10px -6px rgb(0 0 0 / 0.12);
+  @apply shadow-[0_10px_25px_-5px_rgb(0_0_0/0.2),0_8px_10px_-6px_rgb(0_0_0/0.12)];
 }
 
 .project-card:focus-visible {
@@ -26,7 +23,8 @@
   @apply block h-full w-full;
 }
 
-/* Full width, top-aligned; overflow clips bottom to fit square tile */
+/* --- Media variant: top clip (square tile) --- */
+
 .project-card__media--top-clip {
   @apply overflow-hidden;
 }
@@ -37,15 +35,17 @@
 
 .project-card__image {
   @apply h-full w-full object-cover;
+  @apply opacity-80 blur-[3px] transition-[opacity,filter] duration-[240ms] ease-in-out;
+  @apply motion-reduce:transition-none;
+}
+
+.project-card:hover .project-card__image,
+.project-card:focus-visible .project-card__image {
+  @apply opacity-100 blur-none;
 }
 
 .project-card__image--top-clip {
-  height: auto;
-  width: 100%;
-  max-width: 100%;
-  max-height: none;
-  transform: translateY(-10%);
-  transform-origin: top center;
+  @apply h-auto w-full max-w-full max-h-none origin-top [transform:translateY(-10%)];
 }
 
 .project-card__badges {
@@ -53,29 +53,21 @@
 }
 
 .project-card__badge {
-  @apply shrink-0 truncate rounded border border-white/20 bg-black/55 px-2 py-0.5 font-silkscreen text-[0.625rem] font-normal uppercase tracking-[0.12em] backdrop-blur-sm;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
-  max-width: 11rem;
+  @apply max-w-[11rem] shrink-0 truncate rounded border border-white/20 bg-black/55 px-2 py-0.5 font-silkscreen text-pf-micro font-normal uppercase tracking-[0.12em] backdrop-blur-sm;
+  @apply shadow-[0_1px_2px_rgb(0_0_0/0.35)];
 }
 
 .project-card__badge--context {
-  color: var(--pf-teal-cyan);
+  @apply text-[var(--pf-teal-cyan)];
 }
 
 .project-card__badge--research {
-  border-color: rgb(var(--pf-gold-rgb) / 0.45);
-  color: color-mix(in srgb, var(--pf-gold) 45%, #fde047 55%);
+  @apply border-[rgb(var(--pf-gold-rgb)/0.45)] text-[color-mix(in_srgb,var(--pf-gold)_45%,#fde047_55%)];
 }
 
 .project-card__scrim {
-  @apply absolute inset-0 pointer-events-none;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.94) 0%,
-    rgba(0, 0, 0, 0.58) 36%,
-    rgba(0, 0, 0, 0.18) 60%,
-    transparent 100%
-  );
+  @apply pointer-events-none absolute inset-0;
+  @apply bg-[linear-gradient(to_top,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.58)_36%,rgba(0,0,0,0.18)_60%,transparent_100%)];
 }
 
 .project-card__body {
@@ -83,23 +75,23 @@
 }
 
 .project-card__title {
-  @apply font-georgia font-bold tracking-tight leading-tight text-white transition-colors duration-150;
-  font-size: clamp(1.15rem, 2.75vw + 0.68rem, 1.5rem);
+  @apply font-roboto font-bold leading-tight tracking-tight text-white transition-colors duration-150;
+  @apply text-[clamp(1.15rem,2.75vw+0.68rem,2rem)];
 }
 
 .project-card:hover .project-card__title,
 .project-card:focus-visible .project-card__title {
-  color: var(--pf-teal-cyan);
+  @apply text-[var(--pf-teal-cyan)];
 }
 
-/* Same motion as `.hover-reveal-text` / `index.css` (parent is `.project-card` link) */
+/* --- Subtitle: same hover-reveal motion as index.css (parent is the card link) --- */
+
 .project-card__subtitle {
   @apply mt-2 block max-w-full;
 }
 
 .project-card__subtitle-reveal {
-  @apply block max-w-full overflow-hidden align-bottom [contain:layout_style];
-  height: 2.75rem;
+  @apply block h-[2.75rem] max-w-full overflow-hidden align-bottom [contain:layout_style];
 }
 
 .project-card__subtitle-reveal__track {
@@ -112,23 +104,15 @@
 }
 
 .project-card__subtitle-reveal__line {
-  @apply block max-w-full shrink-0 font-roboto text-base font-normal leading-snug text-white/90 transition-colors duration-150 md:text-base;
-  min-height: 2.75rem;
-  /* Keep description to one visual slot; long copy ellipses */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
+  @apply block max-h-none min-h-[2.75rem] max-w-full shrink-0 overflow-hidden font-robotomono text-pf-body font-normal leading-snug text-white/90 transition-colors duration-150;
+  @apply [-webkit-box-orient:vertical] [-webkit-line-clamp:2] [display:-webkit-box];
 }
 
 .project-card__subtitle-reveal__line:last-child {
-  -webkit-line-clamp: unset;
-  display: flex;
-  align-items: center;
-  overflow: visible;
+  @apply flex items-center overflow-visible [-webkit-line-clamp:unset];
 }
 
 .project-card:hover .project-card__subtitle-reveal__line:last-child,
 .project-card:focus-visible .project-card__subtitle-reveal__line:last-child {
-  color: var(--pf-teal-cyan);
+  @apply text-[var(--pf-teal-cyan)];
 }

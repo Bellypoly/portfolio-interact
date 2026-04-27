@@ -97,7 +97,7 @@ function CaseStudyLightboxImage({
           aria-label="Close enlarged image"
         >
           <span
-            className="material-symbols-rounded text-xl text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]"
+            className="material-symbols-rounded text-pf-icon text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]"
             aria-hidden="true"
           >
             close
@@ -150,7 +150,7 @@ function CaseStudyLightboxImage({
           className="pointer-events-none absolute bottom-2.5 right-2.5 z-[1] flex size-7 items-center justify-center rounded-full bg-[rgb(255_255_255/0.94)] shadow-[0_1px_4px_rgb(0_0_0/0.12)]"
           aria-hidden="true"
         >
-          <span className="material-symbols-rounded text-base text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]">
+          <span className="material-symbols-rounded text-pf-body text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]">
             open_in_full
           </span>
         </span>

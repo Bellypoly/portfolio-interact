@@ -1,26 +1,24 @@
+/* --- Atmosphere HUD (rocket section left rail) --- */
+
 .atmosphere-hud {
-  @apply relative flex flex-col justify-between pt-[10vh] h-[90vh];
-  contain: layout style;
+  @apply relative flex h-[90vh] flex-col justify-between pt-[10vh];
+  @apply [contain:layout_style];
 }
 
 .atmosphere-hud__item {
-  @apply relative z-[2] flex items-center gap-2 font-robotomono text-xs font-light uppercase tracking-[0.2em];
+  @apply relative z-[2] flex items-center gap-2 font-robotomono text-pf-note font-light uppercase tracking-[0.2em];
 }
 
-/* One motion style on parent `color`; line uses currentColor (no extra motion node). */
+/* Line color follows parent currentColor (single motion target). */
+
 .atmosphere-hud__line {
-  @apply block h-px w-6 min-w-[1.25rem] shrink-0;
-  background-color: currentColor;
+  @apply block h-px w-6 min-w-[1.25rem] shrink-0 bg-current;
 }
 
 .atmosphere-hud__scroll-line {
-  @apply absolute z-[4] pointer-events-none left-0 block h-px w-3 min-w-[0.5rem] bg-black opacity-0;
-  margin-top: -0.5px;
-  will-change: top, opacity;
-  box-shadow:
-    0 0 6px rgba(0, 0, 0, 0.55),
-    0 0 14px rgba(0, 0, 0, 0.35),
-    0 0 22px rgba(0, 0, 0, 0.18);
+  @apply pointer-events-none absolute left-0 z-[4] mt-[-0.5px] block h-px w-3 min-w-[0.5rem] bg-black opacity-0;
+  @apply shadow-[0_0_6px_rgba(0,0,0,0.55),0_0_14px_rgba(0,0,0,0.35),0_0_22px_rgba(0,0,0,0.18)];
+  @apply [will-change:top,opacity];
 }
 
 .atmosphere-hud__label {

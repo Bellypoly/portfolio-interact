@@ -1,19 +1,14 @@
-/**
- * Section marker navigation
- * - Dock visibility follows scroll direction (see useMarkerDockVisible): same on all widths.
- * - Layout: frosted island bottom-left < md, slim strip top-right ≥ md.
- * - Hidden dock: < md slides up from below (translateY(100%)); ≥ md slides down from above (-100%).
- * - .marker-chip-group--light-section: slate text + frosted white panel (all widths)
- */
+/* --- Marker chip: section navigation dock --- */
+/* Visibility follows scroll direction (useMarkerDockVisible). < md: bottom-left island; md+: top-right strip. Retracted: slides up on mobile, down on md+. */
 
-/* --- Shell: fixed group --- */
+/* --- Shell (fixed group) --- */
 .marker-chip-group {
   --marker-glow-cyan:
     0 0 15px rgb(0 255 255 / 0.6), 0 0 12px rgb(0 255 255 / 0.6);
-  /* Slide dock in/out; retracted axis differs by breakpoint (see below). */
+  /* Dock slide duration; retract direction differs by breakpoint. */
   --marker-dock-slide-duration: 0.32s;
 
-  @apply z-[20000] mb-2 flex flex-col justify-start text-xs text-cyan-300;
+  @apply z-[20000] mb-2 flex flex-col justify-start text-pf-caption text-cyan-300;
   transform: translate3d(0, 0, 0);
   opacity: 1;
   transition:
@@ -37,14 +32,14 @@
   @apply md:bg-transparent md:py-0 md:pr-0 md:shadow-none md:backdrop-blur-none;
 }
 
-/* Dock hidden (md+): sits above top edge; appearing = slide down into place. */
+/* Retracted (md+): above viewport; shown = slide down. */
 .marker-chip-group.marker-chip-group--dock-retracted {
   transform: translate3d(0, -100%, 0);
   opacity: 0;
   pointer-events: none;
 }
 
-/* Dock hidden (mobile, bottom-fixed): sits below viewport; appearing = slide up. */
+/* Retracted (mobile): below viewport; shown = slide up. */
 @media (max-width: 767px) {
   .marker-chip-group.marker-chip-group--dock-retracted {
     transform: translate3d(0, 100%, 0);
@@ -57,11 +52,7 @@
   }
 }
 
-/*
- * Mission Gallery section: frosted dark panel (not light-section slate).
- * - Mobile: same corner as other markers — bottom-left.
- * - md+: top-right island so it clears the gallery grid.
- */
+/* --- Variant: mission gallery (frosted dark panel; not light-section) --- */
 .marker-chip-group.marker-chip-group--mission-gallery {
   @apply rounded-lg border border-cyan-500/35;
   @apply bg-black/[0.65] py-2 pr-3 backdrop-blur-md;
@@ -74,15 +65,15 @@
   @apply md:!bg-black/[0.65] md:!py-2 md:!px-3 md:!pl-2 md:!pr-3 md:!shadow-lg md:!backdrop-blur-md;
 }
 
-/* --- One chip row --- */
+/* --- Chip row --- */
 .marker-chip-container {
   @apply relative z-10 flex items-center gap-1;
   @apply transition-[opacity,transform] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
 
-/* --- Links (default / cyan theme) --- */
+/* --- Chip links (default cyan theme) --- */
 .marker-chip-btn {
-  @apply min-w-fit border-none bg-transparent px-0 py-1 text-left font-silkscreen text-sm outline-none transition-colors md:px-2;
+  @apply min-w-fit border-none bg-transparent px-0 py-1 text-left font-silkscreen text-pf-body outline-none transition-colors md:px-2 md:text-pf-lead;
 }
 .marker-chip-btn.active {
   @apply text-cyan-400 marker-glow hover:text-cyan-200;
@@ -111,7 +102,7 @@
   @apply ml-3;
 }
 
-/* --- Light section (education → portfolio): panel + slate chrome --- */
+/* --- Variant: light section (education → portfolio), slate chrome --- */
 .marker-chip-group.marker-chip-group--light-section {
   --marker-glow-slate-strong:
     0 0 10px rgb(15 23 42 / 0.45), 0 0 6px rgb(15 23 42 / 0.3);
@@ -147,7 +138,7 @@
   text-shadow: var(--marker-glow-slate-soft);
 }
 
-/* --- Intro “active” caret pulse --- */
+/* --- Intro active caret pulse --- */
 .marker-blink {
   animation: marker-blink-opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
