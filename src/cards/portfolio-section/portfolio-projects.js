@@ -33,6 +33,21 @@ import {
   subscriptionCheckoutActivationProject,
   vote62EctReport69Project,
 } from "../../data/portfolio/projects/index.js";
+import { EDU_TIMELINE_FILTER } from "../../constants/edu-timeline-filter.js";
+
+/**
+ * Ties Mission Gallery tiles to the Education & Achievements legend.
+ * Omitted slugs = professional / work work only; shown when filter is All.
+ */
+const MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG = {
+  "federated-learning-energy": EDU_TIMELINE_FILTER.education,
+  rdfd: EDU_TIMELINE_FILTER.education,
+  "industrial-logistics-evaluation": EDU_TIMELINE_FILTER.education,
+  "dynamic-paywall": EDU_TIMELINE_FILTER.achievement,
+  "subscription-checkout-activation": EDU_TIMELINE_FILTER.achievement,
+  "jerdi-kids": EDU_TIMELINE_FILTER.achievement,
+  "photo-competition-my-hometown": EDU_TIMELINE_FILTER.achievement,
+};
 
 export function getPortfolioProjectBySlug(slug) {
   return PORTFOLIO_PROJECTS.find((p) => p.slug === slug) ?? null;
@@ -71,8 +86,8 @@ function compareProfessionalMissionGallery(a, b) {
   return compareMissionGalleryOrder(a, b);
 }
 
-/** Ordered list for the Mission Gallery section (group 1: work + competitions, group 2: research). */
-export function getMissionGalleryProjects() {
+/** Ordered list for Mission Gallery (group 1: work + competitions, group 2: research). */
+function buildMissionGalleryProjectsOrdered() {
   const professional = PORTFOLIO_PROJECTS.filter(
     (p) => p.portfolioGroup !== "research",
   );
@@ -83,6 +98,25 @@ export function getMissionGalleryProjects() {
     ...professional.sort(compareProfessionalMissionGallery),
     ...research.sort(compareMissionGalleryOrder),
   ];
+}
+
+/**
+ * @param {string} [timelineFilter] Same as `.edu-timeline__legend` (`edu-timeline-filter.js`).
+ */
+export function getMissionGalleryProjects(
+  timelineFilter = EDU_TIMELINE_FILTER.all,
+) {
+  const ordered = buildMissionGalleryProjectsOrdered();
+  if (
+    timelineFilter == null ||
+    timelineFilter === EDU_TIMELINE_FILTER.all
+  ) {
+    return ordered;
+  }
+  return ordered.filter((p) => {
+    const tag = MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""];
+    return tag === timelineFilter;
+  });
 }
 
 export const PORTFOLIO_PROJECTS = [

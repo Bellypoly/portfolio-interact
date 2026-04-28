@@ -14,5 +14,50 @@
 /* Caption: visible without hover (touch + keyboard). */
 
 .portfolio-section__caption {
-  @apply col-span-full mb-12 mt-0 text-center font-silkscreen uppercase tracking-[0.22em] text-[clamp(0.8rem,0.42vw+0.68rem,0.98rem)] text-[var(--pf-teal-mid)] md:mb-14;
+  @apply col-span-full mb-12 mt-0 text-center font-silkscreen text-pf-caption uppercase tracking-[0.22em] text-[var(--pf-teal-mid)] md:mb-14;
+}
+
+/* Shared filter: current value (legend colors) + optional reset (All chip) */
+.portfolio-section__filter-bar {
+  @apply col-span-full -mt-6 mb-10 flex flex-wrap items-center justify-start gap-4 md:-mt-8 md:mb-12 md:gap-6;
+}
+
+.portfolio-section__filter-current {
+  @apply m-0 flex min-w-0 flex-wrap items-baseline justify-start gap-x-2 gap-y-0.5 text-left font-roboto;
+}
+
+.portfolio-section__filter-current-label {
+  @apply shrink-0 font-silkscreen text-pf-caption uppercase tracking-[0.2em] text-[var(--pf-teal-mid)];
+}
+
+.portfolio-section__filter-current-label::after {
+  content: ": ";
+  @apply font-roboto font-normal normal-case tracking-normal;
+}
+
+.portfolio-section__filter-current-value {
+  @apply min-w-0 font-silkscreen text-pf-body font-bold uppercase tracking-[0.12em];
+}
+
+.portfolio-section__filter-current-value--all {
+  color: var(--pf-neutral-text);
+  @apply [text-shadow:1px_1px_0_rgba(120,110,95,0.35)];
+}
+
+.portfolio-section__filter-current-value--education {
+  color: var(--pf-teal-accent);
+  @apply [text-shadow:1px_1px_0_rgba(45,95,120,0.5),2px_2px_0_rgba(45,95,120,0.35)];
+}
+
+.portfolio-section__filter-current-value--achievement {
+  color: var(--pf-gold);
+  @apply [text-shadow:1px_1px_0_rgba(140,95,40,0.45),2px_2px_0_rgba(140,95,40,0.28)];
+}
+
+/* Filtered gallery (Education & Achievements legend) — no matching tiles */
+.portfolio-section__filter-empty {
+  @apply col-span-full mx-auto mb-10 max-w-md text-center font-roboto text-pf-body leading-relaxed text-[var(--pf-teal-mid)];
+}
+.portfolio-section__filter-empty-amp {
+  @apply font-semibold text-[var(--pf-teal-accent)];
 }

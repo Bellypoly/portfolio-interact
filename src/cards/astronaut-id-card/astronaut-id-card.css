@@ -277,7 +277,7 @@
   @apply flex flex-wrap gap-2 m-2;
 }
 .skill-chip {
-  @apply font-robotomono text-pf-caption md:text-pf-icon sm:p-2 p-1 rounded-full font-light;
+  @apply font-robotomono text-pf-note md:text-pf-caption sm:p-2 p-1 rounded-full font-light leading-snug;
   @apply bg-[var(--skill-chip-bg)] text-[var(--skill-chip-fg)];
   animation: skill-chip-in 0.3s ease-out forwards;
 }

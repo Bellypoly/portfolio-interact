@@ -2,23 +2,23 @@
  * Education & achievements — year-based timeline, All/Education/Achievements filter,
  * Framer Motion on rows and columns. Styles: education-achievements-section.css
  */
-import React, { useState } from "react";
+import React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import cc from "classcat";
 import {
   EducationCard,
   AchievementCard,
 } from "../../components/education-card";
+import {
+  EDU_TIMELINE_FILTER,
+  EDU_TIMELINE_FILTER_LABEL,
+} from "../../constants/edu-timeline-filter.js";
 import "./education-achievements-section.css";
 
-/** Display strings for the section title and legend buttons */
-const TITLE = { education: "Education", achievement: "Achievements" };
-
-/** Legend value → which timeline columns are shown */
-const TIMELINE_FILTER = {
-  all: "all",
-  education: "education",
-  achievement: "achievement",
+/** Display strings for the stacked title — match legend labels (`EDU_TIMELINE_FILTER_LABEL`). */
+const TITLE = {
+  education: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.education],
+  achievement: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.achievement],
 };
 
 /** In-app case study URL under the current Vite `base` (Mission Gallery). */
@@ -224,14 +224,18 @@ function TimelineLegend({ value, onChange }) {
       role="group"
       aria-label="Filter timeline by category"
     >
-      {btn(TIMELINE_FILTER.all, "All", "edu-timeline__legend-btn--all")}
       {btn(
-        TIMELINE_FILTER.education,
+        EDU_TIMELINE_FILTER.all,
+        EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.all],
+        "edu-timeline__legend-btn--all",
+      )}
+      {btn(
+        EDU_TIMELINE_FILTER.education,
         TITLE.education,
         "edu-timeline__legend-btn--education",
       )}
       {btn(
-        TIMELINE_FILTER.achievement,
+        EDU_TIMELINE_FILTER.achievement,
         TITLE.achievement,
         "edu-timeline__legend-btn--achievement",
       )}
@@ -241,8 +245,10 @@ function TimelineLegend({ value, onChange }) {
 
 // --- Section: title, legend, timeline rows ---
 
-export default React.memo(function EducationAchievementsSection() {
-  const [timelineFilter, setTimelineFilter] = useState(TIMELINE_FILTER.all);
+export default React.memo(function EducationAchievementsSection({
+  timelineFilter = EDU_TIMELINE_FILTER.all,
+  onTimelineFilterChange,
+}) {
   const reduceMotion = useReducedMotion();
   const tCol = timelineColumnTransition(reduceMotion);
   const tRow = timelineRowTransition(reduceMotion);
@@ -250,7 +256,10 @@ export default React.memo(function EducationAchievementsSection() {
   return (
     <div className="edu-section">
       <SectionTitle />
-      <TimelineLegend value={timelineFilter} onChange={setTimelineFilter} />
+      <TimelineLegend
+        value={timelineFilter}
+        onChange={onTimelineFilterChange}
+      />
       <div className="edu-timeline">
         <div className="edu-timeline__inner">
           <div className="edu-timeline__body">
@@ -260,10 +269,10 @@ export default React.memo(function EducationAchievementsSection() {
                 const achievementItems = row.achievementItems ?? [];
                 const showEducationCol =
                   educationItems.length > 0 &&
-                  timelineFilter !== TIMELINE_FILTER.achievement;
+                  timelineFilter !== EDU_TIMELINE_FILTER.achievement;
                 const showAchievementCol =
                   achievementItems.length > 0 &&
-                  timelineFilter !== TIMELINE_FILTER.education;
+                  timelineFilter !== EDU_TIMELINE_FILTER.education;
 
                 if (!showEducationCol && !showAchievementCol) return null;
 

@@ -42,6 +42,7 @@ import {
 } from "./utils/space-resume-scroll";
 import { consumeMissionScrollRestore } from "./utils/space-resume-navigation";
 import { usePreferSimpleMotion } from "./hooks/use-prefer-simple-motion";
+import { EDU_TIMELINE_FILTER } from "./constants/edu-timeline-filter.js";
 
 const PrequelSection = lazy(() => import("./cards/prequel-section"));
 const RocketSection = lazy(() => import("./cards/rocket-section"));
@@ -110,6 +111,9 @@ export default function SpaceResume() {
   }, []);
 
   const preferSimpleMotion = usePreferSimpleMotion();
+  const [eduTimelineFilter, setEduTimelineFilter] = useState(
+    EDU_TIMELINE_FILTER.all,
+  );
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
     typeof window !== "undefined"
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -179,16 +183,30 @@ export default function SpaceResume() {
       {
         id: "education",
         title: "Education & Achievements",
-        body: <EducationAchievementsSection />,
+        body: (
+          <EducationAchievementsSection
+            timelineFilter={eduTimelineFilter}
+            onTimelineFilterChange={setEduTimelineFilter}
+          />
+        ),
       },
       {
         id: "pre-gallery",
         title: " ",
         body: <MissionGalleryGateSection />,
       },
-      { id: "portfolio", title: "Mission Gallery", body: <PortfolioSection /> },
+      {
+        id: "portfolio",
+        title: "Mission Gallery",
+        body: (
+          <PortfolioSection
+            timelineFilter={eduTimelineFilter}
+            onTimelineFilterChange={setEduTimelineFilter}
+          />
+        ),
+      },
     ],
-    [],
+    [eduTimelineFilter],
   );
 
   // --- Navigation ---
