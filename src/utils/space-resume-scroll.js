@@ -114,7 +114,7 @@ export function formatDurationMs(ms) {
   return `${m}m ${rs.toFixed(0)}s`;
 }
 
-/** Matches `.crawl-content` in `opening-crawl.css` (nested overflow-y scroll). */
+/** Matches `.crawl-content` in `cards/opening-crawl/opening-crawl.css` (nested overflow-y scroll). */
 const OPENING_CRAWL_SCROLLABLE_SELECTOR = ".crawl-content";
 
 /**

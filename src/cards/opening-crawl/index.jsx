@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { motion, useTransform } from "framer-motion";
-import FadeParagraph from "../fade-paragraph.jsx";
+import FadeParagraph from "../../components/fade-paragraph.jsx";
 import "./opening-crawl.css";
 
 // --- Responsive fade stops ---
