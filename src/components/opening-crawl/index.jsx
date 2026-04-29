@@ -16,7 +16,7 @@ const BREAKPOINT_STOPS = {
   para2: {
     xs: [0.15, 0.41, 0.43, 0.45],
     sm: [0.15, 0.41, 0.43, 0.45],
-    md: [0.15, 0.44, 0.45, 0.46],
+    md: [0.15, 0.45, 0.46, 0.47],
     lg: [0.15, 0.44, 0.46, 0.48],
     xl: [0.15, 0.47, 0.49, 0.51],
     "2xl": [0.15, 0.49, 0.51, 0.53],
@@ -135,9 +135,9 @@ export default React.memo(function OpeningCrawl({
               stops={stops1}
               className="crawl-paragraph"
             >
-              In a galaxy of data, systems, and dashboards, one full-stack
-              engineer sets out to bring order to chaotic systems and turn raw
-              information into stories.
+              In a galaxy of data, platforms, and visual narratives, one
+              full-stack engineer sets out to turn complexity into clarity—and
+              raw information into stories people can understand and act on.
             </FadeParagraph>
 
             <FadeParagraph
@@ -146,9 +146,10 @@ export default React.memo(function OpeningCrawl({
               className="crawl-paragraph"
             >
               Guided by curiosity and precision, she journeys through worlds of
-              electric-grid intelligence, geospatial mapping, subscription
-              platforms, and personalization—where software engineering meets
-              imagination.
+              power-grid intelligence, geospatial mapping, subscription systems,
+              and personalization—engineering data-driven platforms at scale for
+              real-world infrastructure and digital products, where software
+              engineering meets imagination.
             </FadeParagraph>
 
             <FadeParagraph
@@ -157,7 +158,7 @@ export default React.memo(function OpeningCrawl({
               className="crawl-paragraph"
             >
               Across these worlds, she engineers the full orbit of modern
-              systems—designing scalable, data-driven platforms that bridge
+              systems—designing scalable, data-driven platforms that connect
               front-end experience with back-end performance and transform
               complex datasets into clear, visual narratives.
             </FadeParagraph>
@@ -167,11 +168,11 @@ export default React.memo(function OpeningCrawl({
               stops={stops4}
               className="crawl-paragraph"
             >
-              Her journey continues through space, code, and carefully crafted
-              experiences—building reliable platforms, insightful
+              Her work continues across code and carefully crafted
+              experiences—building reliable solutions, insightful
               visualizations, and software that guides millions through digital
-              worlds. That journey began East to West—from Thailand to Texas -
-              and the work that follows is where it landed.
+              platforms. That journey spans East to West—from Thailand to
+              Texas—and the work that follows is where it landed.
             </FadeParagraph>
           </motion.div>
         </div>

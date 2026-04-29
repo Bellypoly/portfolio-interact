@@ -50,6 +50,10 @@
 }
 
 .prequel-section__body {
-  @apply w-full max-w-xl text-left;
+  @apply flex w-full max-w-xl flex-col gap-4 text-left;
   @apply font-robotomono text-pf-caption font-light leading-relaxed text-slate-200 md:text-pf-body;
+}
+
+.prequel-section__body-para {
+  @apply m-0;
 }

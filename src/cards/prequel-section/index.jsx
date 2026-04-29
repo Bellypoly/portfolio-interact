@@ -7,11 +7,12 @@ import {
 } from "../../hooks/use-typing-words";
 import "./prequel-section.css";
 
-const PREQUEL_BODY =
-  "Embarking on a cosmic journey—from the tropical shores of Phuket through the bustling chaos of Bangkok, then soaring across the Pacific to the rugged terrains of Lubbock and the electric vibes of Dallas. Along this stellar path, one constant shines: the brilliance of good people crafting wonders. Now, with galaxies ahead and stars guiding the way, she's poised for the next chapter of adventure.";
-
 /** Stable ref for `useTypingWords` (avoids new array literal every render). */
-const PREQUEL_PARAGRAPHS = [PREQUEL_BODY];
+const PREQUEL_PARAGRAPHS = [
+  "From Phuket to Bangkok, and across the Pacific to Texas, her journey spans diverse systems, cultures, and challenges.",
+  "Along the way, one constant stands out: the brilliant people behind the work—collaborating to turn complex ideas into real-world solutions.",
+  "With more ahead, she moves forward—ready for the work that follows and what comes next.",
+];
 
 const TYPING_START_THRESHOLD = 0.15;
 const PREQUEL_FADE_THRESHOLD = 0.2;
@@ -19,11 +20,14 @@ const PREQUEL_FADE_THRESHOLD = 0.2;
 export default React.memo(function PrequelSection({ sectionProgress }) {
   const [show, setShow] = useState(false);
   const [showPrequelFade, setShowPrequelFade] = useState(false);
-  const { words, visibleWordCount } = useTypingWords(PREQUEL_PARAGRAPHS, {
-    enabled: show,
-    wordInterval: TYPING_WORD_INTERVAL,
-    initialDelay: TYPING_INITIAL_DELAY,
-  });
+  const { words, paraEnds, visibleWordCount } = useTypingWords(
+    PREQUEL_PARAGRAPHS,
+    {
+      enabled: show,
+      wordInterval: TYPING_WORD_INTERVAL,
+      initialDelay: TYPING_INITIAL_DELAY,
+    },
+  );
 
   useMotionValueEvent(sectionProgress, "change", (v) => {
     if (!show && v >= TYPING_START_THRESHOLD) setShow(true);
@@ -37,9 +41,6 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
     [0, 0.15, 0.52, 0.8, 1],
     [0, 1, 1, 0, 0],
   );
-
-  const visibleWords = words.slice(0, visibleWordCount);
-  const text = visibleWords.join(" ");
 
   return (
     <motion.div className="prequel-section" style={{ opacity }}>
@@ -63,13 +64,34 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
           <span className="prequel-section__title-bold">TO TODAY</span>
         </span>
       </h2>
-      <p className="prequel-section__body">
-        {text}
-        {"\u2060"}
-        <span className="cursor-blink" aria-hidden="true">
-          _
-        </span>
-      </p>
+      <div className="prequel-section__body">
+        {paraEnds.map((end, i) => {
+          const start = i === 0 ? 0 : paraEnds[i - 1];
+          const visibleEnd = Math.min(visibleWordCount, end);
+          const visibleWords = words.slice(start, visibleEnd);
+          const text = visibleWords.join(" ");
+          const isCursorPara =
+            (visibleWordCount === 0 && i === 0) ||
+            (visibleWordCount > start && visibleWordCount <= end);
+          const hasContent =
+            visibleEnd > start || (visibleWordCount === 0 && i === 0);
+
+          if (!hasContent) return null;
+          return (
+            <p key={i} className="prequel-section__body-para">
+              {text}
+              {isCursorPara && (
+                <>
+                  {"\u2060"}
+                  <span className="cursor-blink" aria-hidden="true">
+                    _
+                  </span>
+                </>
+              )}
+            </p>
+          );
+        })}
+      </div>
     </motion.div>
   );
 });

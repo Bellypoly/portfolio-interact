@@ -1,6 +1,6 @@
 /**
  * PEA outage management / OMS integration — portfolio entry + full case study.
- * Extracted from portfolio-projects.js for maintainability.
+ * Extracted from portfolioProjects.js for maintainability.
  */
 
 export const outageManagementSystemProject = {
@@ -130,7 +130,7 @@ export const outageManagementSystemProject = {
       diagramImage:
         "images/portfolio/outage-management-system/integration-topology.png",
       diagramAlt:
-        "Expanded topology from electrical grid and SCADA through eRespond (event intake), SAP (planned work orders), and GIS (spatial source) into an integration box (APIs and scheduled jobs), then OMS as canonical single source. Integration logic covers one outage id, lifecycle, ETR, and timing across operational, enterprise, and reporting systems. Downstream: SAP execution and billing, ADMS grid view, GIS tools for PEA Map, and Power BI dashboards. Asterisks mark contribution areas per the diagram legend.",
+        "Expanded topology from power grid and SCADA through eRespond (event intake), SAP (planned work orders), and GIS (spatial source) into an integration box (APIs and scheduled jobs), then OMS as canonical single source. Integration logic covers one outage id, lifecycle, ETR, and timing across operational, enterprise, and reporting systems. Downstream: SAP execution and billing, ADMS grid view, GIS tools for PEA Map, and Power BI dashboards. Asterisks mark contribution areas per the diagram legend.",
       diagramCompact: true,
       caption:
         "In production those paths are not a slide sequence\u2014they are one integration boundary I contributed to with PEA engineering and third-party implementation partners: eRespond\u2192OMS APIs, GIS\u2192OMS ingest, and SAP-facing read contracts that had to stay true under load while vendor roadmaps and internal releases moved at different speeds. The goal stayed simple: drift shows up in logs and queues before it becomes folklore in three different apps.",

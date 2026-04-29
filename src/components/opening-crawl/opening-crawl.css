@@ -65,7 +65,7 @@
 }
 
 .crawl-role-dot-last {
-  @apply hidden sm:inline sm:invisible min-[844px]:visible;
+  @apply hidden sm:inline sm:invisible min-[834px]:visible;
 }
 
 /* --- Opening crawl: column shell (3D) --- */
