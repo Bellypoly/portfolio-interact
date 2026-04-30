@@ -17,7 +17,7 @@
   background-image: linear-gradient(
     to bottom,
     #ffffff 0%,
-    #ffb399 80%,
+    #ffb399 90%,
     #fd8861 100%
   );
   background-repeat: no-repeat;
@@ -29,7 +29,7 @@
 }
 
 .mission-complete__content {
-  @apply relative mx-auto flex w-full max-w-3xl flex-col items-stretch pb-32 text-left sm:items-center sm:text-center md:pb-40;
+  @apply relative mx-auto flex w-full max-w-3xl flex-col items-stretch pb-20 text-left sm:items-center sm:text-center;
 }
 
 .mission-complete__eyebrow {

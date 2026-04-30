@@ -25,10 +25,7 @@ export default React.memo(function MissionGalleryGateSection({
         className="mission-gallery-pre-section__rule mission-gallery-pre-section__rule--below"
         aria-hidden="true"
       />
-      <p className="mission-gallery-pre-section__subtitle" aria-hidden="true">
-        // She opens her mission archive
-      </p>
-      <span className="sr-only">Mission Gallery — she opens her archive</span>
+      <span className="sr-only">Mission Gallery</span>
     </motion.div>
   );
 });

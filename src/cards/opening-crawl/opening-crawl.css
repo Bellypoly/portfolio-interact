@@ -109,7 +109,7 @@
 @supports (-moz-appearance: none) {
   .crawl-inner {
     @apply box-border max-w-full [perspective:none];
-    @apply w-[60%] md:w-[75%] lg:w-[55%];
+    @apply w-[85%] md:w-[75%] lg:w-[55%];
     @apply pl-[max(0.75rem,env(safe-area-inset-left,0px))];
     @apply pr-[max(0.75rem,env(safe-area-inset-right,0px))];
   }

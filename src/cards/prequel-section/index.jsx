@@ -11,7 +11,7 @@ import "./prequel-section.css";
 const PREQUEL_PARAGRAPHS = [
   "From Phuket to Bangkok, and across the Pacific to Texas, her journey spans diverse systems, cultures, and challenges.",
   "Along the way, one constant stands out: the brilliant people behind the work—collaborating to turn complex ideas into real-world solutions.",
-  "With more ahead, she moves forward—ready for the work that follows and what comes next.",
+  "With more ahead, she moves forward—ready for what comes next.",
 ];
 
 const TYPING_START_THRESHOLD = 0.15;

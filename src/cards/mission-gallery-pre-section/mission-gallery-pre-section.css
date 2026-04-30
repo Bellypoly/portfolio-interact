@@ -17,14 +17,6 @@
   @apply shadow-[0_0_8px_rgba(255,250,232,0.4)];
 }
 
-/* --- Subtitle (transmission tag under rules) --- */
-
-.mission-gallery-pre-section__subtitle {
-  @apply mt-10 text-center font-silkscreen uppercase tracking-[0.22em];
-  @apply text-[clamp(0.7rem,0.4vw+0.62rem,0.85rem)] text-[var(--pf-sky-pale)];
-  @apply [text-shadow:0_0_6px_rgba(218,238,248,0.35)];
-}
-
 /* --- Aurebesh glyph column (gradient stack) --- */
 
 .mission-gallery-pre-section__glyph {

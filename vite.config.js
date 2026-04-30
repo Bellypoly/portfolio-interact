@@ -19,7 +19,7 @@ function copyIndexTo404() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/portfolio-interact/',
+  base: '/',
   define: forceDevFalse ? { 'import.meta.env.DEV': 'false' } : {},
   plugins: [react(), copyIndexTo404()],
   build: {

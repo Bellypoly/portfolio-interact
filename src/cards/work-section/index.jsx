@@ -12,13 +12,13 @@ const SeniorFullStack = ({ showLiveDot }) => (
     title="Senior Full-Stack Developer"
     org="The Dallas Morning News / Hearst"
     where="Dallas, Texas"
-    description="Engineered data-driven newsroom platforms that connect reporting, analytics, and user experience for millions of readers on web and mobile."
+    description="Engineered data-driven newsroom platforms connecting reporting, analytics, and user experience for millions of readers across web and mobile."
     triggerLabel="Mission logs"
     bullets={[
       "ML-driven dynamic paywall: +22% conversion, +15% subscription starts; Arc XP integration, GA4, feature-flag rollout.",
-      "Single-page checkout: +14% digital subs in month one; +7% sustained after launch via behavioral iteration.",
-      "Deterministic reader state (anonymous, signed-in, lapsed) — removed paywall→checkout drop-offs from identity ambiguity.",
-      "Unified identity, payments, and personalization (BlueConic, Sailthru) on Arc XP — smoother path from acquisition to retention.",
+      "Single-page checkout: +14% digital subs in month one; +7% uplift through behavioral iteration.",
+      "Deterministic reader state (anonymous, signed-in, lapsed) — eliminated paywall-to-checkout drop-offs caused by identity ambiguity.",
+      "Unified identity, payments, and personalization (BlueConic, Sailthru) on Arc XP — a streamlined path from acquisition to retention.",
       "Real-time publishing stack (Node.js, React, GraphQL, Python); feature flags and kill switches for safe, zero-downtime releases.",
       "Automated regression suites and production monitoring → fewer incidents; mentored juniors through reviews and pairing.",
     ]}

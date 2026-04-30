@@ -1,8 +1,8 @@
 {
   "name": "Portfolio | Suwaphit Buabuthr",
   "short_name": "Portfolio",
-  "start_url": "/portfolio-interact/",
-  "scope": "/portfolio-interact/",
+  "start_url": "/",
+  "scope": "/",
   "display": "browser",
   "orientation": "any",
   "background_color": "#000000",
