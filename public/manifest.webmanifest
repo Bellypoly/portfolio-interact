@@ -1,10 +1,26 @@
 {
-  "name": "Portfolio | Suwaphit Buabuthr",
+  "name": "Suwaphit Buabuthr | Portfolio",
   "short_name": "Portfolio",
+  "description": "Full-Stack Developer — portfolio and mission gallery.",
+  "lang": "en",
   "start_url": "/",
   "scope": "/",
   "display": "browser",
   "orientation": "any",
-  "background_color": "#000000",
-  "theme_color": "#000000"
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "/images/preview.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/preview.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }

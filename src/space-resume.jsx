@@ -64,12 +64,12 @@ const WORK_SECTION_INDEX = 2;
 const EDUCATION_SECTION_INDEX = 4;
 const MISSION_GALLERY_GATE_SECTION_INDEX = 5;
 const PORTFOLIO_SECTION_INDEX = 6;
-/** How long scroll-spy defers to `jumpingToRef` after a marker jump (smooth scroll). */
+/** Window during which a marker click owns the active index, so scroll-spy doesn't fight smooth-scroll. */
 const MARKER_JUMP_SUPPRESS_MS = 1200;
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
 
-/** Same width bands as `opening-crawl` / Tailwind (sm/md/lg/xl/2xl). */
+/** Tailwind breakpoint label for the current window width (matches `opening-crawl` stops). */
 function viewportTailwindBand(width) {
   if (width < 640) return "xs";
   if (width < 768) return "sm";
@@ -86,7 +86,7 @@ function getSectionItemClass(id, index) {
   return "app-section-item--landing";
 }
 
-/** Parallax follows pointer without springs — avoids extra physics work each frame on iOS. */
+/** Linear pointer parallax (no spring) — cheaper per frame on iOS. */
 function useMouseParallax(axisX, axisY, range) {
   const x = useTransform(axisX, [-1, 1], [-range, range]);
   const y = useTransform(axisY, [-1, 1], [-range, range]);
@@ -128,7 +128,6 @@ export default function SpaceResume() {
     return () => reduce.removeEventListener("change", sync);
   }, []);
 
-  // --- Scroll tracking ---
   const { scrollYProgress } = useScroll();
   const sectionRefs = useRef(null);
   if (!sectionRefs.current) {
@@ -148,7 +147,7 @@ export default function SpaceResume() {
     target: sectionRefs.current[EDUCATION_SECTION_INDEX],
     offset: ["start end", "end start"],
   });
-  /** HUD travel line: 0→1 only while scrolling through education (top→top window) */
+  /** HUD travel line: 0→1 while education's top travels from viewport top to leaving the window. */
   const educationHudLineScroll = useScroll({
     target: sectionRefs.current[EDUCATION_SECTION_INDEX],
     offset: ["start start", "end start"],
@@ -173,7 +172,6 @@ export default function SpaceResume() {
     [0, 0.2, 1],
     ["50%", "30%", "30%"],
   );
-  // --- Sections data ---
   const SECTIONS = useMemo(
     () => [
       { id: "intro", title: " ", body: null },
@@ -209,7 +207,6 @@ export default function SpaceResume() {
     [eduTimelineFilter],
   );
 
-  // --- Navigation ---
   const jumpingToRef = useRef(null);
   const jumpTimeoutRef = useRef(null);
 
@@ -218,8 +215,7 @@ export default function SpaceResume() {
       if (jumpTimeoutRef.current) clearTimeout(jumpTimeoutRef.current);
       jumpingToRef.current = i;
       setActiveIndex(i);
-      // Index 0: document top (scrollY = 0). #intro’s DOM top is lower, so we do not
-      // scrollIntoView(intro) — that would misalign “progress zero” with the crawl.
+      // Index 0 jumps to document top (not #intro), so progress 0 lines up with the crawl start.
       if (i === 0) {
         scrollDocumentToTop();
         resetOpeningCrawlScroller();
@@ -298,7 +294,7 @@ export default function SpaceResume() {
 
   const sectionIds = useMemo(() => SECTIONS.map((s) => s.id), [SECTIONS]);
 
-  // --- Scroll handler (rAF-batched layout reads + setState only when values change) ---
+  // Scroll handler: rAF-batched layout reads, setState only when active index actually changes.
   useEffect(() => {
     function updateDevDebug() {
       if (!import.meta.env.DEV) return;
@@ -376,7 +372,6 @@ export default function SpaceResume() {
     };
   }, [SECTION_COUNT, sectionIds]);
 
-  // --- Window size + Stars ---
   const [windowSize, setWindowSize] = useState(() =>
     typeof window !== "undefined"
       ? { width: window.innerWidth, height: window.innerHeight }
@@ -412,7 +407,6 @@ export default function SpaceResume() {
 
   const crawlBreakpointLabel = viewportTailwindBand(windowSize.width);
 
-  // --- Mouse parallax ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   useEffect(() => {
@@ -431,7 +425,6 @@ export default function SpaceResume() {
   const [mouseMidX, mouseMidY] = useMouseParallax(mouseX, mouseY, 24);
   const [mouseNearX, mouseNearY] = useMouseParallax(mouseX, mouseY, 40);
 
-  // --- Scroll-driven effects ---
   const nebulaFromPrequel = useTransform(
     prequelScroll.scrollYProgress,
     [0.4, 0.99],

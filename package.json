@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "classcat": "^5.0.5",
-    "d3": "^7.8.5",
+    "d3-geo": "^3.1.0",
+    "d3-transition": "^3.0.1",
     "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

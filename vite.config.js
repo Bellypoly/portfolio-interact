@@ -3,10 +3,11 @@ import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Set VITE_FORCE_DEV_FALSE=1 to run dev server with import.meta.env.DEV === false
+// `VITE_FORCE_DEV_FALSE=1 npm run dev` runs the dev server with `import.meta.env.DEV === false`
+// so we can preview prod-only branches (`if (import.meta.env.DEV) ...` debug overlays etc.).
 const forceDevFalse = process.env.VITE_FORCE_DEV_FALSE === '1'
 
-/** GitHub Pages serves `404.html` for unknown paths; it must match the built SPA entry. */
+// GitHub Pages serves `404.html` for unknown paths; clone the SPA entry so deep links boot the app.
 function copyIndexTo404() {
   return {
     name: 'copy-index-to-404',
@@ -17,7 +18,6 @@ function copyIndexTo404() {
   }
 }
 
-// https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
   define: forceDevFalse ? { 'import.meta.env.DEV': 'false' } : {},
@@ -26,7 +26,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
+          // Long-lived vendor chunks: stable hashes between deploys → better browser caching.
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-motion': ['framer-motion'],
           'vendor-d3': ['d3-geo', 'd3-transition', 'topojson-client'],
         },
