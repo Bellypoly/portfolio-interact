@@ -38,6 +38,8 @@ const LINKS = [
 ];
 
 export default React.memo(function MissionCompleteSection() {
+  const base = import.meta.env.BASE_URL;
+
   return (
     <section className="mission-complete" aria-label="End of transmission">
       <div className="mission-complete__content">
@@ -101,15 +103,18 @@ export default React.memo(function MissionCompleteSection() {
         </span>
       </div>
       <div className="mission-complete__land" aria-hidden="true">
-        <img
-          className="mission-complete__land-img"
-          src={`${import.meta.env.BASE_URL}images/land.png`}
-          alt=""
-          width={1536}
-          height={233}
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source srcSet={`${base}images/land.webp`} type="image/webp" />
+          <img
+            className="mission-complete__land-img"
+            src={`${base}images/land.png`}
+            alt=""
+            width={1536}
+            height={233}
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </section>
   );

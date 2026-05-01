@@ -24,6 +24,10 @@
   background-size: 100% 100%;
 }
 
+.mission-complete__land picture {
+  @apply block w-full;
+}
+
 .mission-complete__land-img {
   @apply relative z-[1] block h-auto w-full max-w-none;
 }
