@@ -2,7 +2,7 @@
  * Education & achievements — year-based timeline, All/Education/Achievements filter,
  * Framer Motion on rows and columns. Styles: education-achievements-section.css
  */
-import React from "react";
+import React, { useMemo } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import cc from "classcat";
 import {
@@ -161,8 +161,17 @@ const TIMELINE_ROWS = buildTimelineRows(EDUCATION_ITEMS, ACHIEVEMENT_ITEMS);
 // --- Section title (single h2; responsive typography in CSS) ---
 
 function SectionTitle() {
+  const reduceMotion = useReducedMotion();
   return (
-    <h2 className="section-title edu-title">
+    <motion.h2
+      className="section-title edu-title"
+      initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={EDU_IN_VIEW}
+      transition={
+        reduceMotion ? { duration: 0 } : { duration: 0.38, ease: EASE }
+      }
+    >
       <span className="edu-title__lead">
         <span className="edu-title__education">{TITLE.education}</span>
         <span className="edu-title__amp" aria-hidden="true">
@@ -170,24 +179,46 @@ function SectionTitle() {
         </span>
       </span>
       <span className="edu-title__achievement">{TITLE.achievement}</span>
-    </h2>
+    </motion.h2>
   );
 }
 
 /** Material Design standard easing (Framer Motion) */
 const EASE = [0.4, 0, 0.2, 1];
 
+/** Scroll: animate when the education section is on screen (once per page load). */
+const EDU_IN_VIEW = { once: true, amount: 0.1, margin: "0px 0px -8% 0px" };
+
+/** Stagger between timeline rows (seconds). */
+const ROW_STAGGER_SEC = 0.07;
+
 function timelineColumnTransition(reduceMotion) {
   return reduceMotion ? { duration: 0 } : { duration: 0.28, ease: EASE };
+}
+
+function timelineColumnTransitionWithDelay(reduceMotion, delaySec) {
+  const base = timelineColumnTransition(reduceMotion);
+  if (reduceMotion || !delaySec) return base;
+  return { ...base, delay: delaySec };
 }
 
 function timelineRowTransition(reduceMotion) {
   return reduceMotion
     ? { duration: 0 }
     : {
-        opacity: { duration: 0.26, ease: EASE },
-        y: { duration: 0.26, ease: EASE },
+        opacity: { duration: 0.32, ease: EASE },
+        y: { duration: 0.32, ease: EASE },
       };
+}
+
+function timelineRowTransitionWithDelay(reduceMotion, delaySec) {
+  const base = timelineRowTransition(reduceMotion);
+  if (reduceMotion) return base;
+  if (!delaySec) return base;
+  return {
+    opacity: { ...base.opacity, delay: delaySec },
+    y: { ...base.y, delay: delaySec },
+  };
 }
 
 // --- All / Education / Achievements filter ---
@@ -219,10 +250,18 @@ function TimelineLegend({ value, onChange }) {
   );
 
   return (
-    <div
+    <motion.div
       className="edu-timeline__legend"
       role="group"
       aria-label="Filter timeline by category"
+      initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={EDU_IN_VIEW}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { duration: 0.34, ease: EASE, delay: 0.05 }
+      }
     >
       {btn(
         EDU_TIMELINE_FILTER.all,
@@ -239,7 +278,7 @@ function TimelineLegend({ value, onChange }) {
         TITLE.achievement,
         "edu-timeline__legend-btn--achievement",
       )}
-    </div>
+    </motion.div>
   );
 }
 

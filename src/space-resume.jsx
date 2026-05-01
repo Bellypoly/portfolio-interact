@@ -16,7 +16,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import "./space-resume.css";
-import OpeningCrawl from "./cards/opening-crawl";
+import OpeningCrawl from "./cards/opening-crawl-section/index.jsx";
 import LandingSectionContent from "./components/landing-section.jsx";
 import ProfileIcon from "./components/profile-icon";
 import Star from "./components/star";
