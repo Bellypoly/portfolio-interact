@@ -37,6 +37,8 @@ const LINKS = [
   },
 ];
 
+const HIDDEN_MANTRA_LINE = "โอม ศรี คเณศายะ นะมะฮา";
+
 export default React.memo(function MissionCompleteSection() {
   const base = import.meta.env.BASE_URL;
 
@@ -115,6 +117,18 @@ export default React.memo(function MissionCompleteSection() {
             decoding="async"
           />
         </picture>
+      </div>
+      <div
+        className="mission-complete__hidden-mantra"
+        hidden
+        aria-hidden="true"
+      >
+        {Array.from({ length: 9 }, (_, i) => (
+          <React.Fragment key={i}>
+            {HIDDEN_MANTRA_LINE}
+            {i < 8 ? "\n" : null}
+          </React.Fragment>
+        ))}
       </div>
     </section>
   );
