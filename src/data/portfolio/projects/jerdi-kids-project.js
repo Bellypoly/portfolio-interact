@@ -9,7 +9,7 @@ export const jerdiKidsProject = {
   portfolioGroup: "professional",
   portfolioYear: 2018,
   portfolioLabel: "Competition",
-  name: "JerDi — เจอดิ",
+  name: "JerDi-Kids — Child Tracking System",
   desc: "Architected, designed, and built — UI/UX for app and wristband, plus hands-on development; QR + BLE and receivers where you need coverage.",
   img: "images/portfolio/jerdi/thumbnail.png",
   imgWebp: "images/portfolio/jerdi/thumbnail.webp",
@@ -30,7 +30,7 @@ export const jerdiKidsProject = {
       "BLE / QR prototyping",
       "Community platform design",
     ],
-    context: "Young Technopreneur — Samart × NSTDA BIC (2017)",
+    context: "Young Technopreneur program — Samart × NSTDA BIC (2017)",
     techStack: [
       {
         label: "QR codes",
@@ -50,14 +50,17 @@ export const jerdiKidsProject = {
       },
     ],
     results: [
-      { value: "฿30,000", label: "Development grant (ทุนพัฒนาผลงาน)" },
+      {
+        value: "$900",
+        label: "Development grant (฿30,000 THB)",
+      },
       { value: "Consolation Prize", label: "Final round — 138 teams entered" },
     ],
     overviewTitle: "Overview",
     overview: [
-      "JerDi (เจอดิ) means \u201cencounter it\u201d in Thai — the name captures the core promise: anyone nearby can help a family find their missing person.",
+      "JerDi plays on Thai เจอ — colloquially \u201cfound\u201d or \u201cran into\u201d someone — the name captures the core promise: anyone nearby can help a family find their missing person.",
       "JerDi is a community-driven platform built on two complementary technologies: QR codes on wristbands so any bystander can identify and report a sighting with a phone camera — no app required for the scan — and BLE beacons on wristbands so a missing person can be sensed when they come within range of a receiver. Receivers mean any listening device you control: a caregiver phone with the app, a tablet mounted on a school bus, a gateway at a school gate or hospital ward entrance, or Bluetooth-enabled kiosks in a mall or transit hub. Where you place receivers defines where passive detection is possible; both paths feed the same real-time notification pipeline to family, call center, and authorities.",
-      "The project competed in the electronics & software industry track of Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี), a national startup program co-run by Samart Group and NSTDA (National Science and Technology Development Agency) BIC. From 138 teams, the JerDi-Kids entry reached the final 20 and received the ฿30,000 development grant (ทุนพัฒนาผลงาน).",
+      "The project competed in the electronics & software industry track of the Young Technopreneur program (โครงการเถ้าแก่น้อยเทคโนโลยี), a national startup initiative co-run by Samart Group and NSTDA (National Science and Technology Development Agency) BIC. From 138 teams, the JerDi-Kids entry reached the final 20 and received a US$900 development grant (฿30,000).",
       {
         text: "Competition materials included the full ",
         externalLink: {
@@ -91,8 +94,8 @@ export const jerdiKidsProject = {
     ],
     approachTitle: "The competition",
     approach: [
-      "Young Technopreneur (โครงการเถ้าแก่น้อยเทคโนโลยี) is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. The program runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
-      "The JerDi-Kids entry entered the electronics & software track, cleared the field of 138 teams to reach the final 20, and was awarded the ฿30,000 development grant — the funding tier for the highest-scoring finalists below the top-3 prize podium.",
+      "The Young Technopreneur program is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. It runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
+      "The JerDi-Kids entry entered the electronics & software track, cleared the field of 138 teams to reach the final 20, and was awarded the $900 development grant (฿30,000) — the funding tier for the highest-scoring finalists below the top-3 prize podium.",
     ],
     showcase: {
       title: "On stage at Samart Innovation Awards",
@@ -103,7 +106,7 @@ export const jerdiKidsProject = {
           imgWebp: "images/portfolio/jerdi/award-ceremony.webp",
           alt: "JerDi team receiving the ฿30,000 development grant cheque at Samart Innovation Awards",
           caption:
-            "Receiving the ฿30,000 ทุนพัฒนาผลงาน (development grant) at Samart Innovation Awards",
+            "Receiving the ฿30,000 development grant (~$900) at Samart Innovation Awards",
         },
         {
           img: "images/portfolio/jerdi/team.png",
