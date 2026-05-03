@@ -4,6 +4,7 @@ import {
   TYPING_WORD_INTERVAL,
   TYPING_INITIAL_DELAY,
 } from "../../hooks/use-typing-words";
+import ResumeLightboxLink from "../../components/resume-lightbox";
 import "./astronaut-id-card.css";
 
 // --- Constants ---
@@ -96,9 +97,13 @@ const TransmissionLinks = memo(function TransmissionLinks({
       <a className="transmission-link" href={linkedin} {...linkProps}>
         LinkedIn
       </a>
-      <a className="transmission-link" href={resume} {...linkProps}>
+      <ResumeLightboxLink
+        className="transmission-link"
+        pdfPath={resume}
+        anchorProps={linkProps}
+      >
         Resume
-      </a>
+      </ResumeLightboxLink>
     </>
   );
 });

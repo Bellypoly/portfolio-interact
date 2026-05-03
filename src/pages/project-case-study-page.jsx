@@ -1,4 +1,11 @@
-import React, { Suspense, lazy, useCallback, useLayoutEffect } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import {
   Link,
   Navigate,
@@ -6,7 +13,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { getPortfolioProjectBySlug } from "../cards/portfolio-section/portfolio-projects";
+import { loadPortfolioProjectBySlug } from "../data/portfolio/load-portfolio-project";
 import { SPACE_RESUME_FROM_MISSION } from "../utils/space-resume-navigation";
 import {
   CaseStudyPlaceholderBlock,
@@ -65,15 +72,7 @@ export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const project = slug ? getPortfolioProjectBySlug(slug) : null;
-
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug]);
-
-  if (!project?.caseStudy) {
-    return <Navigate to="/" replace />;
-  }
+  const [project, setProject] = useState(undefined);
 
   const resumeFromMission = Boolean(
     location.state?.[SPACE_RESUME_FROM_MISSION],
@@ -85,6 +84,56 @@ export default function ProjectCaseStudyPage() {
       navigate("/");
     }
   }, [navigate, resumeFromMission]);
+
+  useEffect(() => {
+    if (!slug) {
+      setProject(null);
+      return undefined;
+    }
+    let cancelled = false;
+    setProject(undefined);
+    loadPortfolioProjectBySlug(slug).then((p) => {
+      if (!cancelled) setProject(p);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  useLayoutEffect(() => {
+    if (project?.caseStudy) {
+      window.scrollTo(0, 0);
+    }
+  }, [slug, project]);
+
+  if (project === undefined) {
+    return (
+      <div
+        className={`project-case-study${slug ? ` project-case-study--${slug}` : ""}`}
+      >
+        <header className="project-case-study__header">
+          <div className="project-case-study__header-inner">
+            <button
+              type="button"
+              className="project-case-study__back"
+              onClick={goToMission}
+            >
+              <HoverRevealText className="project-case-study__hover-reveal">
+                ← Back to mission 🚀
+              </HoverRevealText>
+            </button>
+          </div>
+        </header>
+        <p className="project-case-study__loading" role="status" aria-live="polite">
+          Loading case study…
+        </p>
+      </div>
+    );
+  }
+
+  if (!project?.caseStudy) {
+    return <Navigate to="/" replace />;
+  }
 
   const { name, desc, img, imgWebp, alt, link, caseStudy: cs } = project;
   const baseUrl = import.meta.env.BASE_URL;

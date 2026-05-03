@@ -66,6 +66,12 @@
   @apply relative flex w-full max-w-[90ch] items-center justify-start px-5 md:px-8;
 }
 
+.project-case-study__loading {
+  @apply mx-auto max-w-[90ch] px-5 py-16 md:px-8;
+  font-family: var(--cs-font-body);
+  color: var(--pf-editorial-muted);
+}
+
 /* --- Skip link: off-screen until focus --- */
 .project-case-study__skip-link {
   position: absolute;

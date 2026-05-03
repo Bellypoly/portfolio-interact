@@ -1,5 +1,6 @@
 import React from "react";
 import cc from "classcat";
+import ResumeLightboxLink from "../../components/resume-lightbox";
 import "./mission-complete-section.css";
 
 const CONTACT = {
@@ -28,6 +29,7 @@ const LINKS = [
     href: CONTACT.resume,
     label: "Resume",
     external: true,
+    resumeLightbox: true,
   },
   {
     href: CONTACT.calendly,
@@ -60,35 +62,60 @@ export default React.memo(function MissionCompleteSection() {
           The comms channel stays open for the next mission
         </p>
         <div className="mission-complete__links">
-          {LINKS.map(({ href, label, primary, icon, external }) => (
-            <a
-              key={href}
-              className={cc([
+          {LINKS.map(
+            ({
+              href,
+              label,
+              primary,
+              icon,
+              external,
+              resumeLightbox,
+            }) => {
+              const linkClass = cc([
                 "mission-complete__link",
                 primary
                   ? "mission-complete__link--primary"
                   : "mission-complete__link--ghost",
-              ])}
-              href={href}
-              {...(external
+              ]);
+              const anchorExtras = external
                 ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              {icon ? (
-                <span
-                  className={cc([
-                    "material-symbols-rounded",
-                    "meta-icon",
-                    "mission-complete__link-icon",
-                  ])}
-                  aria-hidden="true"
-                >
-                  {icon}
-                </span>
-              ) : null}
-              {label}
-            </a>
-          ))}
+                : {};
+              const inner = (
+                <>
+                  {icon ? (
+                    <span
+                      className={cc([
+                        "material-symbols-rounded",
+                        "meta-icon",
+                        "mission-complete__link-icon",
+                      ])}
+                      aria-hidden="true"
+                    >
+                      {icon}
+                    </span>
+                  ) : null}
+                  {label}
+                </>
+              );
+              if (resumeLightbox) {
+                return (
+                  <ResumeLightboxLink
+                    key={href}
+                    className={linkClass}
+                    pdfPath={href}
+                    anchorProps={anchorExtras}
+                  >
+                    {inner}
+                  </ResumeLightboxLink>
+                );
+              }
+              return (
+                <a key={href} className={linkClass} href={href} {...anchorExtras}>
+                  {inner}
+                </a>
+              );
+            },
+          )}
         </div>
         <p className="mission-complete__hint">
           Astronaut ID stays docked at the bottom-right — tap anytime to revisit

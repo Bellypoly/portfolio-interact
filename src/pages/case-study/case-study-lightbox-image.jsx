@@ -1,5 +1,6 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useState, memo } from "react";
 import { createPortal } from "react-dom";
+import { useModalPortalLock } from "../../hooks/use-modal-portal-lock";
 
 /**
  * Wraps a case-study image in a button; opens a full-size overlay on click.
@@ -29,19 +30,7 @@ function CaseStudyLightboxImage({
   const [open, setOpen] = useState(false);
   const fullSrc = `${baseUrl}${img}`;
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+  useModalPortalLock(open, () => setOpen(false));
 
   const triggerClasses = [
     "project-case-study__lightbox-trigger",
