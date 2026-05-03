@@ -12,17 +12,22 @@ const SeniorFullStack = ({ showLiveDot }) => (
     title="Senior Full-Stack Developer"
     org="The Dallas Morning News / Hearst"
     where="Dallas, Texas"
-    description="Engineered data-driven newsroom platforms connecting reporting, analytics, and user experience for millions of readers across web and mobile."
+    description="Built and scaled a data-driven subscription and content platform powering acquisition, conversion, and engagement for millions of readers."
     triggerLabel="Mission logs"
     bullets={[
-      "ML-driven dynamic paywall: +22% conversion, +15% subscription starts; Arc XP integration, GA4, feature-flag rollout.",
-      "Single-page checkout: +14% digital subs in month one; +7% uplift through behavioral iteration.",
-      "Deterministic reader state (anonymous, signed-in, lapsed) — eliminated paywall-to-checkout drop-offs caused by identity ambiguity.",
-      "Unified identity, payments, and personalization (BlueConic, Sailthru) on Arc XP — a streamlined path from acquisition to retention.",
-      "Real-time publishing stack (Node.js, React, GraphQL, Python); feature flags and kill switches for safe, zero-downtime releases.",
-      "Automated regression suites and production monitoring → fewer incidents; mentored juniors through reviews and pairing.",
+      "AI-driven dynamic paywall: +22% conversion, +15% subscription starts via per-visit decisioning and controlled rollout.",
+
+      "Subscription checkout redesign: simplified multi-step flow into a single-page experience; +14% lift (month one), +7% sustained.",
+
+      "Article experience & monetization: reduced ad density 9.91% with no revenue loss; increased reading time (+4.73%) and engagement (+4.09%).",
+
+      "Engagement systems (commenting): +38% engagement; up to 85% higher interaction on enabled content.",
+
+      "Deterministic reader identity (anonymous → registered → subscriber): eliminated paywall-to-checkout drop-offs.",
+
+      "Performance & reliability: improved Core Web Vitals (LCP, CLS); migrated 55% off legacy architecture; enabled zero-downtime releases via feature flags.",
     ]}
-    portfolioAnchor="portfolio"
+    portfolioAnchor="portfolio-dmn"
   />
 );
 
@@ -46,12 +51,19 @@ const FullStackII = () => (
     title="Full Stack Developer II"
     org="PEA (Provincial Electricity Authority)"
     where="Bangkok, Thailand"
-    description="Implemented a nationwide Outage Management System integrating ArcGIS geospatial data with Oracle backends, improving grid reliability and outage response across Thailand's provincial electricity network."
+    description="Built and integrated a nationwide geospatial Outage Management System (OMS), transforming GIS network data into operational systems to improve grid reliability, real-time outage response, and customer-facing services across Thailand’s provincial electricity network."
     bullets={[
-      "Built ETL pipelines processing high-volume energy and geographic data from ArcGIS, Oracle, and field devices into operational dashboards used by grid operators for real-time outage response.",
-      "Automated REST/SOAP integration tests (C#, PHP/Laravel, Python, Selenium) for payment processing serving 20M+ customers — reduced regression risk across billing cycles.",
-      "Optimized PL/SQL stored procedures and Oracle batch scripts, cutting processing time and improving data accuracy across enterprise systems.",
-      "Built responsive web and mobile UIs for real-time energy consumption tracking, enabling millions of ratepayers to monitor and manage usage.",
+      "Geospatial data ingestion: designed APIs and data pipelines to ingest and transform GIS shapefiles into structured network models for outage tracking.",
+
+      "Spatial modeling: mapped GIS topology (feeders, transformers, service areas) to operational entities, enabling accurate outage localization and restoration workflows.",
+
+      "System integration: engineered data synchronization across GIS, OMS, and SAP ERP to maintain consistent outage IDs, lifecycle state, and estimated time to restoration (ETR).",
+
+      "Data pipelines: built pipelines using ArcGIS and Oracle to serve real-time dashboards for grid monitoring and operational decision-making.",
+
+      "Analytics layer: developed Power BI dashboards for outage tracking (ETR, planned outages), aligning spatial and operational data through modeling and DAX.",
+
+      "Customer-facing systems: enabled integration with PEA E-Service, allowing outage and service data to be surfaced to end users.",
     ]}
     portfolioAnchor="portfolio-pea"
   />
@@ -61,13 +73,19 @@ const SoftwareEng = () => (
   <WorkTimelineItem
     time="Jul 2014 – Jun 2016"
     title="Software Engineer"
-    org="THiNKNET Co., Ltd." //(JobThai/MapMagic)"
+    org="THiNKNET Co., Ltd." // (JobThai / MapMagic)"
     where="Bangkok, Thailand"
-    description="Integrated Elasticsearch into JobThai.com, one of Thailand's largest job platforms, measurably improving search relevance and query speed for millions of job seekers."
+    description="Built search and geospatial systems powering job discovery and location-based services for millions of users."
     bullets={[
-      "Designed a scalable geospatial database (~2M records) and built the MapMagic API on OpenStreetMap, powering location-based job search and enterprise mapping tools.",
-      "Developed interactive data visualizations and UI features with Laravel, D3.js, and modern JavaScript — improved responsiveness and user engagement across the platform.",
-      "Built resume-creation and employer management tools that streamlined hiring workflows and increased platform stickiness.",
+      "Integrated Elasticsearch into a high-traffic job search system, improving query performance and ranking relevance at scale.",
+
+      "Geospatial platform (MapMagic): designed APIs and data pipelines to process ~2M+ GIS records into structured location-based search and mapping services.",
+
+      "Built location-based job discovery features on OpenStreetMap, enabling geographic and proximity-based search.",
+
+      "Developed interactive geospatial visualizations using Laravel, D3.js, and modern JavaScript, improving responsiveness and engagement.",
+
+      "Built resume creation and employer tools, streamlining hiring workflows and increasing platform retention.",
     ]}
     portfolioAnchor="portfolio-jobthai"
   />

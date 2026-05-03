@@ -76,7 +76,11 @@ export default React.memo(function MissionCompleteSection() {
             >
               {icon ? (
                 <span
-                  className="mission-complete__link-icon"
+                  className={cc([
+                    "material-symbols-rounded",
+                    "meta-icon",
+                    "mission-complete__link-icon",
+                  ])}
                   aria-hidden="true"
                 >
                   {icon}

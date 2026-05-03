@@ -101,10 +101,14 @@
   @apply border-[var(--pf-teal-primary)] bg-[var(--pf-teal-primary)] text-white;
 }
 
-.mission-complete__link-icon {
+/* Ligature icons: font + defaults come from Google `.material-symbols-rounded`; tune size/fill here */
+.mission-complete__link-icon.material-symbols-rounded {
   @apply text-pf-lead;
-  font-family: "Material Symbols Rounded", ui-sans-serif, system-ui, sans-serif;
-  font-variation-settings: "FILL" 1;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 500,
+    "GRAD" 0,
+    "opsz" 24;
 }
 
 /* FAB merge cue — chevrons toward Astronaut ID */

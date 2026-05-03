@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import cc from "classcat";
 import HoverRevealText from "../hover-reveal-text";
 import LocationOrg from "../location-org";
+import { flashPortfolioAnchor } from "../../utils/flash-portfolio-anchor";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
 import "./education-card.css";
 
@@ -185,6 +186,7 @@ const AchievementCard = React.memo(function AchievementCard({
     const el = document.getElementById(portfolioAnchor);
     el?.scrollIntoView({ behavior: "smooth" });
     window.location.hash = portfolioAnchor;
+    window.setTimeout(() => flashPortfolioAnchor(portfolioAnchor), 380);
   };
 
   const renderMissionLogList = () => (

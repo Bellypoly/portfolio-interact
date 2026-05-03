@@ -52,7 +52,7 @@ const EducationAchievementsSection = lazy(
 );
 const PortfolioSection = lazy(() => import("./cards/portfolio-section"));
 const MissionGalleryGateSection = lazy(
-  () => import("./cards/mission-gallery-pre-section"),
+  () => import("./cards/portfolio-pre-section/index.jsx"),
 );
 const MissionCompleteSection = lazy(
   () => import("./cards/mission-complete-section"),

@@ -8,7 +8,7 @@ export const dynamicPaywallProject = {
   portfolioGroup: "professional",
   portfolioYear: 2025,
   portfolioLabel: "Product",
-  anchorId: "portfolio",
+  anchorId: "portfolio-dmn",
   name: "AI-Powered Dynamic Paywall",
   desc: "Sophi ML paywall on Arc XP—gate, meter, or let stories through per visit while GA4 and flags keep rollout safe.",
   img: "images/portfolio/dynamic-paywall/thumbnail.png",
