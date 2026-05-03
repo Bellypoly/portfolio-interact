@@ -43,6 +43,15 @@ import {
 import { consumeMissionScrollRestore } from "./utils/space-resume-navigation";
 import { usePreferSimpleMotion } from "./hooks/use-prefer-simple-motion";
 import { EDU_TIMELINE_FILTER } from "./constants/edu-timeline-filter.js";
+import {
+  SECTION_COUNT,
+  PREQUEL_SECTION_INDEX,
+  WORK_SECTION_INDEX,
+  EDUCATION_SECTION_INDEX,
+  MISSION_GALLERY_GATE_SECTION_INDEX,
+  PORTFOLIO_SECTION_INDEX,
+  MARKER_JUMP_SUPPRESS_MS,
+} from "./constants/space-resume-layout.js";
 
 const PrequelSection = lazy(() => import("./cards/prequel-section"));
 const RocketSection = lazy(() => import("./cards/rocket-section"));
@@ -57,15 +66,6 @@ const MissionGalleryGateSection = lazy(
 const MissionCompleteSection = lazy(
   () => import("./cards/mission-complete-section"),
 );
-
-const SECTION_COUNT = 7;
-const PREQUEL_SECTION_INDEX = 1;
-const WORK_SECTION_INDEX = 2;
-const EDUCATION_SECTION_INDEX = 4;
-const MISSION_GALLERY_GATE_SECTION_INDEX = 5;
-const PORTFOLIO_SECTION_INDEX = 6;
-/** Window during which a marker click owns the active index, so scroll-spy doesn't fight smooth-scroll. */
-const MARKER_JUMP_SUPPRESS_MS = 1200;
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
 
@@ -378,11 +378,21 @@ export default function SpaceResume() {
       : { width: 1920, height: 1080 },
   );
   useEffect(() => {
-    const handler = () =>
+    let raf = 0;
+    const flush = () => {
+      raf = 0;
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    handler();
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
+    };
+    const onResize = () => {
+      if (raf !== 0) return;
+      raf = window.requestAnimationFrame(flush);
+    };
+    flush();
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      if (raf !== 0) window.cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const starCount = preferSimpleMotion ? STAR_COUNT_SIMPLE : STAR_COUNT;
@@ -846,7 +856,11 @@ export default function SpaceResume() {
                         ? React.cloneElement(s.body, {
                             sectionProgress: prequelScroll.scrollYProgress,
                           })
-                        : s.body}
+                        : s.id === "work"
+                          ? React.cloneElement(s.body, {
+                              sectionProgress: workScroll.scrollYProgress,
+                            })
+                          : s.body}
                     </Suspense>
                   ) : null}
                 </LandingSectionContent>

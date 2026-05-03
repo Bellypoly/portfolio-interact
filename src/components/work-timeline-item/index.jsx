@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import HoverRevealText from "../hover-reveal-text";
-import { flashPortfolioAnchor } from "../../utils/flash-portfolio-anchor";
+import { scrollToPortfolioAnchor } from "../../utils/flash-portfolio-anchor";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
 import "./work-timeline-item.css";
 
@@ -102,13 +102,9 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
   };
 
   const handleRelatedClick = (e) => {
-    if (portfolioAnchor) {
-      e.preventDefault();
-      const el = document.getElementById(portfolioAnchor);
-      el?.scrollIntoView({ behavior: "smooth" });
-      window.location.hash = portfolioAnchor;
-      window.setTimeout(() => flashPortfolioAnchor(portfolioAnchor), 380);
-    }
+    if (!portfolioAnchor) return;
+    e.preventDefault();
+    scrollToPortfolioAnchor(portfolioAnchor);
   };
 
   const bulletProps = {

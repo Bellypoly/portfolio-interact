@@ -134,6 +134,14 @@
   @apply -top-8 left-full ml-6 mt-0 w-auto min-w-[45vw] max-w-md;
 }
 
+/* md+: viewport-centered panel (above sticky layers; below marker dock). */
+/* @media (min-width: 768px) {
+  .work-timeline-item__bullet-trigger-wrap .work-timeline-item__bullet-float {
+    @apply fixed left-1/2 top-1/2 z-[15000] max-h-screen min-w-[45vw] max-w-md m-5;
+    @apply -translate-y-1/2 overflow-x-hidden overflow-y-auto overscroll-contain;
+  }
+} */
+
 .work-timeline-item__bullet-list {
   @apply m-0 list-inside list-disc space-y-2 p-0 font-robotomono font-light text-pf-body leading-relaxed text-[var(--ink)] antialiased;
 }

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { motion, useTransform } from "framer-motion";
 import WorkTimelineItem from "../../components/work-timeline-item";
-import JourneyRoute from "../../components/journey-route";
 import "./work-section.css";
+
+const JourneyRoute = lazy(() => import("../../components/journey-route"));
 
 // --- Job entries ---
 const SeniorFullStack = ({ showLiveDot }) => (
@@ -143,7 +144,16 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
         </motion.div>
         <div className="work-section-col work-section-col--right">
           <div className="work-section-journey">
-            <JourneyRoute />
+            <Suspense
+              fallback={
+                <div
+                  className="work-section-journey__fallback"
+                  aria-hidden="true"
+                />
+              }
+            >
+              <JourneyRoute />
+            </Suspense>
           </div>
         </div>
       </div>

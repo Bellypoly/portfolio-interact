@@ -25,3 +25,11 @@ export function flashPortfolioAnchor(anchorId, attempt = 0) {
   card.classList.add(FLASH_CLASS);
   window.setTimeout(() => card.classList.remove(FLASH_CLASS), CLEAR_MS);
 }
+
+/** Smooth-scroll to `#anchorId`, set hash, then flash the gallery card (matches work/education links). */
+export function scrollToPortfolioAnchor(anchorId) {
+  const el = document.getElementById(anchorId);
+  el?.scrollIntoView({ behavior: "smooth" });
+  window.location.hash = anchorId;
+  window.setTimeout(() => flashPortfolioAnchor(anchorId), 380);
+}

@@ -28,6 +28,10 @@
   @apply overflow-hidden;
 }
 
+.work-section-journey__fallback {
+  @apply min-h-[200px] w-full max-w-full md:min-h-[240px];
+}
+
 .work-section {
   @apply space-y-2 text-pf-caption text-slate-100 md:text-pf-body;
 }
