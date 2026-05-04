@@ -1,6 +1,69 @@
 import React, { useState, memo } from "react";
 import { createPortal } from "react-dom";
 import { useModalPortalLock } from "../../hooks/use-modal-portal-lock";
+import "./case-study-lightbox-image.css";
+
+function CaseStudyLightboxModal({
+  baseUrl,
+  imgWebp,
+  fullSrc,
+  alt,
+  width,
+  height,
+  modalSizes,
+  onClose,
+}) {
+  const modalImgProps = {
+    src: fullSrc,
+    alt,
+    className: "cs-lightbox__img",
+    width,
+    height,
+    sizes: modalSizes,
+    decoding: "async",
+    fetchPriority: "high",
+  };
+
+  return (
+    <div
+      className="cs-lightbox__backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Enlarged image"
+      onClick={onClose}
+    >
+      <button
+        type="button"
+        className="cs-lightbox__close"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        aria-label="Close enlarged image"
+      >
+        <span
+          className="material-symbols-rounded cs-lightbox__icon--close"
+          aria-hidden="true"
+        >
+          close
+        </span>
+      </button>
+      <div
+        className="cs-lightbox__frame"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {imgWebp ? (
+          <picture>
+            <source srcSet={`${baseUrl}${imgWebp}`} type="image/webp" />
+            <img {...modalImgProps} />
+          </picture>
+        ) : (
+          <img {...modalImgProps} />
+        )}
+      </div>
+    </div>
+  );
+}
 
 /**
  * Wraps a case-study image in a button; opens a full-size overlay on click.
@@ -8,6 +71,9 @@ import { useModalPortalLock } from "../../hooks/use-modal-portal-lock";
  *
  * `project-case-study__lightbox-trigger` (+ `--featured`) are layout hooks for
  * `.project-case-study__featured-wrap` rules in project-case-study.css.
+ *
+ * Pass `width` / `height` / `sizes` (and optional `modalSizes`) when the asset
+ * is not ~16:9 so intrinsic hints match the file and limit layout shift.
  */
 function CaseStudyLightboxImage({
   baseUrl,
@@ -26,6 +92,15 @@ function CaseStudyLightboxImage({
   fillFeatured = false,
   /** Optional shorter label for the lightbox button (`View larger: …`). Modal still uses `alt`. */
   lightboxAriaLabel,
+  /**
+   * Intrinsic size hints for the asset (aspect ratio / decode). Override per image when
+   * the file is not ~16:9. Thumbnail `sizes` follows article width (`max-w-[90ch]`).
+   */
+  width = 1600,
+  height = 900,
+  sizes = "(max-width: 768px) 100vw, min(90ch, 92vw)",
+  /** `sizes` for the full-screen lightbox (wide); thumbnail uses `sizes` above. */
+  modalSizes = "min(1400px, 96vw)",
 }) {
   const [open, setOpen] = useState(false);
   const fullSrc = `${baseUrl}${img}`;
@@ -34,23 +109,21 @@ function CaseStudyLightboxImage({
 
   const triggerClasses = [
     "project-case-study__lightbox-trigger",
-    "relative m-0 block w-full cursor-pointer border-0 bg-transparent p-0 text-left font-[inherit] text-inherit",
-    "focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-800/45",
-    "[&_picture]:block",
+    "cs-lightbox__trigger",
     fillFeatured && "project-case-study__lightbox-trigger--featured h-full",
     triggerClassName,
   ]
     .filter(Boolean)
     .join(" ");
 
-  const modalImgClass =
-    "mx-auto block h-auto max-h-[92vh] w-auto max-w-full rounded object-contain shadow-[0_12px_48px_rgb(0_0_0/0.35)]";
-
   const thumbImgProps = {
     src: fullSrc,
     alt: "",
     role: "presentation",
     className: imgClassName,
+    width,
+    height,
+    sizes,
     loading,
     decoding,
     style: imgStyle,
@@ -69,55 +142,16 @@ function CaseStudyLightboxImage({
   const modal =
     open &&
     createPortal(
-      <div
-        className="fixed inset-0 z-[400] flex items-center justify-center bg-[rgb(28_25_23/0.88)] p-4 backdrop-blur-sm"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Enlarged image"
-        onClick={() => setOpen(false)}
-      >
-        <button
-          type="button"
-          className="fixed right-6 top-6 z-[401] m-0 flex size-9 cursor-pointer items-center justify-center rounded-full border-0 bg-[rgb(255_255_255/0.95)] p-0 text-stone-800 shadow-[0_2px_12px_rgb(0_0_0/0.2)] hover:bg-white"
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpen(false);
-          }}
-          aria-label="Close enlarged image"
-        >
-          <span
-            className="material-symbols-rounded text-pf-icon text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]"
-            aria-hidden="true"
-          >
-            close
-          </span>
-        </button>
-        <div
-          className="max-h-[92vh] max-w-[min(96vw,1400px)] overflow-auto"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {imgWebp ? (
-            <picture>
-              <source srcSet={`${baseUrl}${imgWebp}`} type="image/webp" />
-              <img
-                src={fullSrc}
-                alt={alt}
-                className={modalImgClass}
-                decoding="async"
-                fetchPriority="high"
-              />
-            </picture>
-          ) : (
-            <img
-              src={fullSrc}
-              alt={alt}
-              className={modalImgClass}
-              decoding="async"
-              fetchPriority="high"
-            />
-          )}
-        </div>
-      </div>,
+      <CaseStudyLightboxModal
+        baseUrl={baseUrl}
+        imgWebp={imgWebp}
+        fullSrc={fullSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        modalSizes={modalSizes}
+        onClose={() => setOpen(false)}
+      />,
       document.body,
     );
 
@@ -135,11 +169,8 @@ function CaseStudyLightboxImage({
         aria-label={triggerAria}
       >
         {thumbImg}
-        <span
-          className="pointer-events-none absolute bottom-2.5 right-2.5 z-[1] flex size-7 items-center justify-center rounded-full bg-[rgb(255_255_255/0.94)] shadow-[0_1px_4px_rgb(0_0_0/0.12)]"
-          aria-hidden="true"
-        >
-          <span className="material-symbols-rounded text-pf-body text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]">
+        <span className="cs-lightbox__open-badge" aria-hidden="true">
+          <span className="material-symbols-rounded cs-lightbox__icon--body">
             open_in_full
           </span>
         </span>

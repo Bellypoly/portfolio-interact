@@ -1,8 +1,22 @@
 /** Year labels (bottom → top in layout). */
-export const HUD_LABELS = ["2020", "2018", "2016", "2014", "2012", "2010"];
+export const HUD_LABELS = [
+  "2024",
+  "2022",
+  "2020",
+  "2018",
+  "2016",
+  "2014",
+  "2012",
+  "2010",
+];
 
-/** When each label’s tick turns black vs education scroll progress (see AtmosphereHud). */
-export const HUD_LABEL_THRESHOLDS = [0.34, 0.28, 0.21, 0.16, 0.07, 0.02];
+/**
+ * When each label’s color hits black vs education scroll progress (see AtmosphereHud).
+ * Length must match `HUD_LABELS` (same index order: first row → last row).
+ */
+export const HUD_LABEL_THRESHOLDS = [
+  0.41, 0.375, 0.34, 0.28, 0.21, 0.16, 0.07, 0.02,
+];
 
 export const HUD_LABEL_TRANSITION = 0.03;
 

@@ -3,10 +3,11 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import Star from "../star";
 import { usePreferSimpleMotion } from "../../hooks/use-prefer-simple-motion";
 import {
-  STAR_COUNT,
-  STAR_COUNT_SIMPLE,
   STAR_LAYER_DEFS,
+  STARFIELD_VIEWPORT_BUCKET_PX,
+  bucketViewportForStarfield,
   generateStarLayer,
+  resolveStarCount,
 } from "../../utils/space-starfield";
 import "./space-void-shell.css";
 
@@ -52,7 +53,18 @@ export default function SpaceVoidShell({
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const starCount = preferSimpleMotion ? STAR_COUNT_SIMPLE : STAR_COUNT;
+  const starWidthBucket = Math.ceil(
+    windowSize.width / STARFIELD_VIEWPORT_BUCKET_PX,
+  );
+  const starHeightBucket = Math.ceil(
+    windowSize.height / STARFIELD_VIEWPORT_BUCKET_PX,
+  );
+  const starViewport = useMemo(
+    () => bucketViewportForStarfield(windowSize.width, windowSize.height),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- deps are bucket indices, not raw px
+    [starWidthBucket, starHeightBucket],
+  );
+  const starCount = resolveStarCount(windowSize.width, preferSimpleMotion);
   const stars = useMemo(
     () =>
       generateStarLayer(
@@ -60,11 +72,16 @@ export default function SpaceVoidShell({
         1,
         MID.size,
         MID.baseOpacity,
-        windowSize.width,
-        windowSize.height,
+        starViewport.width,
+        starViewport.height,
         !preferSimpleMotion,
       ),
-    [windowSize.width, windowSize.height, starCount, preferSimpleMotion],
+    [
+      starViewport.width,
+      starViewport.height,
+      starCount,
+      preferSimpleMotion,
+    ],
   );
 
   const mouseX = useMotionValue(0);
@@ -101,7 +118,7 @@ export default function SpaceVoidShell({
           style={{ x: mx, y: my }}
         >
           <svg
-            viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+            viewBox={`0 0 ${starViewport.width} ${starViewport.height}`}
             className="space-void-shell__star-svg"
           >
             {!preferSimpleMotion ? (

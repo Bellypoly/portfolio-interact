@@ -34,7 +34,9 @@ export function useTypingWords(paragraphs, options = {}) {
   const paragraphsKey = paragraphs.join("\0");
   const { words, paraEnds } = useMemo(
     () => parseParagraphs(paragraphs),
-    [paragraphsKey, paragraphs],
+    // paragraphsKey is join("\0") of paragraphs — stable proxy for array contents.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [paragraphsKey],
   );
   const totalWords = words.length;
 

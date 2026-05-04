@@ -156,7 +156,7 @@ function CheckoutFlowPills({ purchaseModifier }) {
 /**
  * Side-by-side checkout version comparison (schematic mocks, not screenshots).
  *
- * Set `variant` from case study data (`portfolio-projects.js` → `beforeAfterVariant`):
+ * Set `variant` from case study data (project `caseStudy` → `beforeAfterVariant`):
  *
  * | `variant` | Left panel | Right panel | Where it’s used in the subscription story |
  * |-----------|------------|-------------|-------------------------------------------|

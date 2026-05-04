@@ -1,8 +1,35 @@
 import { seededRandom } from "./random";
 
-export const STAR_COUNT = 200;
-/** Fewer SVG nodes + no twinkle on touch / reduced-motion (Safari GPU). */
-export const STAR_COUNT_SIMPLE = 64;
+/**
+ * Coarse viewport buckets so resize does not rebuild all SVG stars on every 1px change.
+ * viewBox + star positions use the bucketed size (SVG scales to the real window).
+ */
+export const STARFIELD_VIEWPORT_BUCKET_PX = 240;
+
+export function bucketViewportForStarfield(width, height) {
+  const w = Math.max(
+    320,
+    Math.ceil(width / STARFIELD_VIEWPORT_BUCKET_PX) *
+      STARFIELD_VIEWPORT_BUCKET_PX,
+  );
+  const h = Math.max(
+    480,
+    Math.ceil(height / STARFIELD_VIEWPORT_BUCKET_PX) *
+      STARFIELD_VIEWPORT_BUCKET_PX,
+  );
+  return { width: w, height: h };
+}
+
+/** Reduced-motion / touch: fewer nodes, no twinkle. */
+export const STAR_COUNT_SIMPLE = 48;
+
+/** Full-motion counts scale with width (stars per layer × 3 layers in `space-resume`). */
+export function resolveStarCount(viewportWidth, preferSimpleMotion) {
+  if (preferSimpleMotion) return STAR_COUNT_SIMPLE;
+  if (viewportWidth < 640) return 72;
+  if (viewportWidth < 1024) return 96;
+  return 120;
+}
 
 export const STAR_LAYER_DEFS = [
   {

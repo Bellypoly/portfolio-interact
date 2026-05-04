@@ -47,7 +47,9 @@ export default React.memo(function MissionCompleteSection() {
   return (
     <section className="mission-complete" aria-label="End of transmission">
       <div className="mission-complete__content">
-        <p className="mission-complete__eyebrow">// END OF TRANSMISSION</p>
+        <p className="mission-complete__eyebrow">
+          {"// END OF TRANSMISSION"}
+        </p>
         <h2 className="mission-complete__title">
           <span className="mission-complete__title-mission">Mission</span>
           <span className="mission-complete__title-complete">

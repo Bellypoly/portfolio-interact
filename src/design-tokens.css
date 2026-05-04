@@ -30,6 +30,14 @@
   /* Mission gallery (rules near glyph) */
   --pf-sky-pale: #daeef8;
 
+  /* Full-viewport modal scrim (résumé lightbox, …) — matches former Tailwind bg + blur-sm */
+  --pf-modal-scrim-bg: rgb(28 25 23 / 0.9);
+  --pf-modal-scrim-blur: 4px;
+
+  /* Astronaut ID: Profile → About Me slide-over shell (defaults to shared scrim; override to diverge) */
+  --pf-modal-scrim-bg: rgb(28 25 23 / 0.5);
+  --pf-modal-scrim-blur: 4px;
+
   /* Case study: editorial */
   --pf-editorial-teal: #1c3131;
   --pf-editorial-teal-rgb: 28 49 49;

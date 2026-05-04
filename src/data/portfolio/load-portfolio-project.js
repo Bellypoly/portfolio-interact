@@ -1,8 +1,6 @@
 /**
- * Lazy-load one portfolio entry for `/mission/:slug` so the case-study route
- * does not bundle every project file up front.
- *
- * Keep in sync with `PORTFOLIO_PROJECTS` slugs in `portfolio-projects.js`.
+ * Dynamic import per slug for `/mission/:slug` (keeps case-study chunks out of the main bundle).
+ * Slug keys must match `MISSION_GALLERY_MANIFEST` in `mission-gallery-manifest.js`.
  */
 const SLUG_LOADERS = {
   "article-page-redesign": () =>

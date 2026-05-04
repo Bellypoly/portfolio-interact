@@ -301,7 +301,7 @@ export default React.memo(function JourneyRoute() {
           }
         }
 
-        const animation = async function* () {
+        const runJourneyAnimation = async () => {
           let r1,
             r2 = [0, 0, 0];
           for (let i = 0; i < JOURNEY_STOPS.length; i++) {
@@ -337,10 +337,8 @@ export default React.memo(function JourneyRoute() {
 
         (async () => {
           try {
-            let gen = animation();
             while (!cancelled) {
-              const result = await gen.next();
-              if (result.done) gen = animation();
+              await runJourneyAnimation();
             }
           } catch (e) {
             if (!cancelled) console.error("Journey route animation:", e);

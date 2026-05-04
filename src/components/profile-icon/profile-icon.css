@@ -1,16 +1,27 @@
-/* --- Profile icon: FAB + radio waves + about modal --- */
+/* =============================================================================
+   Profile FAB + About Me modal
+   Z-order: modal backdrop 10002 · FAB 10003 · modal close 31 · wave 21 · avatar 22 · label 23
+   ============================================================================= */
+
+/* --- Fixed launcher -------------------------------------------------------- */
 
 .profile-icon {
   @apply fixed bottom-[-20px] right-5 z-[10003] flex flex-col items-center justify-center overflow-visible;
 }
 
+/* --- Hit target: avatar + pulse ring share one diameter -------------------- */
+
 .profile-icon-stack {
-  @apply relative flex h-[72px] w-[72px] cursor-pointer items-center justify-center;
+  --profile-fab-size: 72px;
+
+  @apply relative flex cursor-pointer items-center justify-center;
+  width: var(--profile-fab-size);
+  height: var(--profile-fab-size);
 }
 
 .profile-icon-stack:hover .radio-signal-wave {
   @apply border-cyan-400 bg-cyan-400/40;
-  @apply [filter:brightness(1.8)_drop-shadow(0_0_12px_#5eead4)_drop-shadow(0_0_24px_rgba(94,234,212,0.6))];
+  @apply [filter:brightness(1.8)_drop-shadow(0_0_12px_#5eead4)_drop-shadow(0_0_24px_rgb(94_234_212/0.6))];
 }
 
 @keyframes radio-signal-wave-pulse {
@@ -25,28 +36,32 @@
 }
 
 .radio-signal-wave {
-  @apply absolute rounded-full w-[72px] h-[72px] pointer-events-none z-[21];
-  @apply border border-[rgba(94,234,212,0.85)];
-  @apply block left-1/2 top-1/2 -ml-9 -mt-9;
+  @apply pointer-events-none absolute left-1/2 top-1/2 z-[21] block rounded-full border border-cyan-400/85;
+  width: var(--profile-fab-size);
+  height: var(--profile-fab-size);
+  margin-left: calc(var(--profile-fab-size) / -2);
+  margin-top: calc(var(--profile-fab-size) / -2);
   box-shadow:
-    0 0 10px rgba(94, 234, 212, 0.4),
-    inset 0 0 8px rgba(94, 234, 212, 0.08);
+    0 0 10px rgb(94 234 212 / 0.4),
+    inset 0 0 8px rgb(94 234 212 / 0.08);
   @apply [transform:translateZ(0)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden];
   @apply will-change-[transform,opacity] animate-[radio-signal-wave-pulse_1.8s_ease-out_infinite];
 }
 
-/* --- Coarse / no-hover: lighter wave glow --- */
-
 @media (hover: none), (pointer: coarse) {
   .radio-signal-wave {
-    @apply shadow-[0_0_8px_rgba(94,234,212,0.35)];
+    @apply shadow-[0_0_8px_rgb(94_234_212/0.35)];
   }
 }
 
 .profile-icon-img {
-  @apply relative z-[22] h-[72px] w-[72px] rounded-full border-2 border-white object-cover;
-  @apply bg-[var(--pf-teal-ui)] shadow-[0_2px_8px_rgba(0,0,0,0.15)];
+  @apply relative z-[22] rounded-full border-2 border-white object-cover;
+  @apply bg-[var(--pf-teal-ui)] shadow-[0_2px_8px_rgb(0_0_0/0.15)];
+  width: var(--profile-fab-size);
+  height: var(--profile-fab-size);
 }
+
+/* --- Curved “ASTRONAUT ID” caption ----------------------------------------- */
 
 .astronaut-id-label {
   @apply pointer-events-none absolute left-1/2 top-[60%] z-[23] -translate-x-1/2 -translate-y-1/2;
@@ -56,20 +71,23 @@
   @apply [text-shadow:0_1px_2px_#0e2233];
 }
 
-/* --- About modal --- */
+/* --- About Me: scrim + close + body (lg: center card, scroll shell if tall) */
 
 .about-me-modal {
-  @apply fixed inset-0 z-[10002] flex flex-col;
+  @apply fixed inset-0 z-[10002] flex flex-col overflow-x-hidden;
+  @apply bg-[var(--pf-modal-scrim-bg)] backdrop-blur-[var(--pf-modal-scrim-blur)];
+  @apply lg:min-h-0 lg:overflow-x-hidden lg:overflow-y-auto;
 }
 
 .about-me-modal-close {
-  @apply absolute right-4 top-4 z-[31] flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-none bg-[rgba(0,0,0,0.4)] text-3xl text-white transition-colors;
+  @apply absolute right-4 top-4 z-[31] flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-0 bg-black/40 text-3xl text-white transition-colors;
 }
 
 .about-me-modal-close:hover {
-  @apply bg-[rgba(0,0,0,0.7)];
+  @apply bg-black/70;
 }
 
 .about-me-modal-content {
-  @apply min-h-screen flex-1 overflow-auto p-[3%];
+  @apply min-h-screen flex-1 overflow-x-hidden overflow-y-auto p-[3%];
+  @apply lg:mx-auto lg:my-auto lg:max-w-full lg:min-h-0 lg:w-full lg:flex-none lg:overflow-x-hidden lg:overflow-y-auto lg:p-[3%];
 }

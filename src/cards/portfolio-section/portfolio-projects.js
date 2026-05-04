@@ -1,44 +1,21 @@
 /**
- * Portfolio projects — one entry drives Mission Gallery cards and `/mission/:slug` case studies.
- * Optional `caseStudy.techStack`: `{ label, href }[]` (or legacy `string[]`) — Stack row in meta; links open in a new tab.
+ * Mission Gallery: sort order + Education & Achievements timeline filter.
  *
- * Mission Gallery order: `getMissionGalleryProjects()` uses `PROFESSIONAL_MISSION_GALLERY_ORDER` for
- * professional entries (fallback: `portfolioYear` newest first, then slug). Research uses
- * `portfolioYear` + slug only.
+ * Data: `src/data/portfolio/mission-gallery-manifest.js` (gallery fields only). Case studies load on
+ * `/mission/:slug` via `src/data/portfolio/load-portfolio-project.js`. Archived `squeeze-it` is
+ * commented at the end of the manifest file.
  *
- * `portfolioLabel` — short Mission Gallery context tag (fixed vocabulary): Product, Competition,
- * Thesis, Paper, Academic, Marketplace, Platform, Civic tech, Public sector.
+ * Sort: non-research tiles use `PROFESSIONAL_MISSION_GALLERY_ORDER`, then year desc, then slug.
+ * Research tiles use year desc, then slug only.
  *
- * Each project data object lives under `src/data/portfolio/projects/` and is re-exported from that barrel.
- * Adding a project: create `src/data/portfolio/projects/<slug>-project.js`, re-export it from
- * `src/data/portfolio/projects/index.js`,
- * then add it to `PORTFOLIO_PROJECTS` below (order here is not authoritative—see gallery sort).
+ * `portfolioLabel` is the small gallery tag; stick to this set: Product, Competition, Thesis,
+ * Paper, Academic, Marketplace, Platform, Civic tech, Public sector.
  */
 
-import {
-  articlePageRedesignProject,
-  dynamicPaywallProject,
-  electricityBillBreakdownProject,
-  federatedLearningEnergyProject,
-  industrialLogisticsEvaluationProject,
-  jerdiKidsProject,
-  jobthaiProject,
-  localElectionsHubProject,
-  mapMagicProject,
-  outageManagementSystemProject,
-  parliamentWatchOcrProject,
-  peaEServiceProject,
-  photoCompetitionMyHometownProject,
-  rdfdProject,
-  subscriptionCheckoutActivationProject,
-  vote62EctReport69Project,
-} from "../../data/portfolio/projects/index.js";
+import { MISSION_GALLERY_MANIFEST } from "../../data/portfolio/mission-gallery-manifest.js";
 import { EDU_TIMELINE_FILTER } from "../../constants/edu-timeline-filter.js";
 
-/**
- * Ties Mission Gallery tiles to the Education & Achievements legend.
- * Omitted slugs = professional / work work only; shown when filter is All.
- */
+/** Slug -> education | achievement. Slugs not listed are work-only tiles (visible when timeline filter is All). */
 const MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG = {
   "federated-learning-energy": EDU_TIMELINE_FILTER.education,
   rdfd: EDU_TIMELINE_FILTER.education,
@@ -49,17 +26,6 @@ const MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG = {
   "photo-competition-my-hometown": EDU_TIMELINE_FILTER.achievement,
 };
 
-export function getPortfolioProjectBySlug(slug) {
-  return PORTFOLIO_PROJECTS.find((p) => p.slug === slug) ?? null;
-}
-
-function compareMissionGalleryOrder(a, b) {
-  const y = (b.portfolioYear ?? 0) - (a.portfolioYear ?? 0);
-  if (y !== 0) return y;
-  return (a.slug ?? "").localeCompare(b.slug ?? "");
-}
-
-/** Slug order for Mission Gallery — professional group only (overrides year + slug). */
 const PROFESSIONAL_MISSION_GALLERY_ORDER = [
   "dynamic-paywall",
   "subscription-checkout-activation",
@@ -76,9 +42,19 @@ const PROFESSIONAL_MISSION_GALLERY_ORDER = [
   "photo-competition-my-hometown",
 ];
 
+const PROFESSIONAL_ORDER_INDEX = new Map(
+  PROFESSIONAL_MISSION_GALLERY_ORDER.map((slug, i) => [slug, i]),
+);
+
+function compareMissionGalleryOrder(a, b) {
+  const y = (b.portfolioYear ?? 0) - (a.portfolioYear ?? 0);
+  if (y !== 0) return y;
+  return (a.slug ?? "").localeCompare(b.slug ?? "");
+}
+
 function compareProfessionalMissionGallery(a, b) {
-  const ia = PROFESSIONAL_MISSION_GALLERY_ORDER.indexOf(a.slug ?? "");
-  const ib = PROFESSIONAL_MISSION_GALLERY_ORDER.indexOf(b.slug ?? "");
+  const ia = PROFESSIONAL_ORDER_INDEX.get(a.slug ?? "") ?? -1;
+  const ib = PROFESSIONAL_ORDER_INDEX.get(b.slug ?? "") ?? -1;
   const aKnown = ia !== -1;
   const bKnown = ib !== -1;
   if (aKnown && bKnown) return ia - ib;
@@ -86,109 +62,52 @@ function compareProfessionalMissionGallery(a, b) {
   return compareMissionGalleryOrder(a, b);
 }
 
-/** Ordered list for Mission Gallery (group 1: work + competitions, group 2: research). */
 function buildMissionGalleryProjectsOrdered() {
-  const professional = PORTFOLIO_PROJECTS.filter(
+  const professional = MISSION_GALLERY_MANIFEST.filter(
     (p) => p.portfolioGroup !== "research",
   );
-  const research = PORTFOLIO_PROJECTS.filter(
+  const research = MISSION_GALLERY_MANIFEST.filter(
     (p) => p.portfolioGroup === "research",
   );
   return [
-    ...professional.sort(compareProfessionalMissionGallery),
-    ...research.sort(compareMissionGalleryOrder),
+    ...[...professional].sort(compareProfessionalMissionGallery),
+    ...[...research].sort(compareMissionGalleryOrder),
   ];
 }
 
-/**
- * @param {string} [timelineFilter] Same as `.edu-timeline__legend` (`edu-timeline-filter.js`).
- */
+/** Built once: manifest is static for the lifetime of the app shell. */
+const MISSION_GALLERY_ORDERED_ALL = buildMissionGalleryProjectsOrdered();
+
+const MISSION_GALLERY_ORDERED_EDUCATION = MISSION_GALLERY_ORDERED_ALL.filter(
+  (p) =>
+    MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] ===
+    EDU_TIMELINE_FILTER.education,
+);
+
+const MISSION_GALLERY_ORDERED_ACHIEVEMENT = MISSION_GALLERY_ORDERED_ALL.filter(
+  (p) =>
+    MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] ===
+    EDU_TIMELINE_FILTER.achievement,
+);
+
+/** @param {string} [timelineFilter] Values from `EDU_TIMELINE_FILTER` / edu timeline legend. */
 export function getMissionGalleryProjects(
   timelineFilter = EDU_TIMELINE_FILTER.all,
 ) {
-  const ordered = buildMissionGalleryProjectsOrdered();
   if (
     timelineFilter == null ||
     timelineFilter === EDU_TIMELINE_FILTER.all
   ) {
-    return ordered;
+    return MISSION_GALLERY_ORDERED_ALL;
   }
-  return ordered.filter((p) => {
-    const tag = MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""];
-    return tag === timelineFilter;
-  });
+  if (timelineFilter === EDU_TIMELINE_FILTER.education) {
+    return MISSION_GALLERY_ORDERED_EDUCATION;
+  }
+  if (timelineFilter === EDU_TIMELINE_FILTER.achievement) {
+    return MISSION_GALLERY_ORDERED_ACHIEVEMENT;
+  }
+  return MISSION_GALLERY_ORDERED_ALL.filter(
+    (p) =>
+      MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] === timelineFilter,
+  );
 }
-
-export const PORTFOLIO_PROJECTS = [
-  dynamicPaywallProject,
-  jerdiKidsProject,
-  photoCompetitionMyHometownProject,
-  federatedLearningEnergyProject,
-  localElectionsHubProject,
-  subscriptionCheckoutActivationProject,
-  articlePageRedesignProject,
-  jobthaiProject,
-  mapMagicProject,
-  industrialLogisticsEvaluationProject,
-  // {
-  //   slug: "squeeze-it",
-  //   portfolioGroup: "research",
-  //   portfolioYear: 2014,
-  //   portfolioLabel: "Academic",
-  //   name: "Squeeze It",
-  //   desc: "Heuristic-search AI for a marble puzzle—D3 board you can read, agent whose reasoning stays visible.",
-  //   img: "images/portfolio/squeeze-it.jpg",
-  //   alt: "Squeeze It",
-  //   link: "https://github.com/Bellypoly/AI-project1",
-  //   caseStudy: {
-  //     eyebrow: "AI · Visualization",
-  //     task: "Ship a marble puzzle people can parse move-by-move, and an AI opponent steered by legible heuristics—not an opaque win/loss score.",
-  //     disciplines: ["Heuristic search", "D3.js", "Game UX"],
-  //     context: "Academic AI project",
-  //     techStack: [
-  //       {
-  //         label: "JavaScript",
-  //         href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-  //       },
-  //       { label: "D3.js", href: "https://d3js.org/" },
-  //       {
-  //         label: "Heuristic search",
-  //         href: "https://en.wikipedia.org/wiki/Heuristic_search",
-  //       },
-  //     ],
-  //     overview: [
-  //       "Even a compact game board fails if motion is ambiguous: readers should see the last move, the next options, and why the bot leaned one way. I treated clarity as the product—not chrome around a solver.",
-  //       "D3.js carried transitions and stable geometry so the puzzle felt like software someone would demo, not a Matlab plot with buttons.",
-  //     ],
-  //     strategyTitle: "What I did",
-  //     strategyIntro:
-  //       "My role: build the full-stack academic project—D3.js game UI plus a heuristic search agent with legible reasoning. I designed for two audiences: players who want a tight loop, and reviewers who need to see why the AI moved.",
-  //     pillars: [
-  //       {
-  //         title: "Explainable play",
-  //         body: "I surfaced heuristic cues that steer search—players can disagree, but they’re never mystified.",
-  //       },
-  //       {
-  //         title: "Performance where it matters",
-  //         body: "I tuned search depth against frame time so the UI stayed responsive.",
-  //       },
-  //       {
-  //         title: "Joyful feedback",
-  //         body: "I used motion and timing (color, transitions) to celebrate good moves without noise.",
-  //       },
-  //     ],
-  //     approachTitle: "How I shipped it",
-  //     approach: [
-  //       "I implemented the heuristic search core with tunable weights and a replay timeline for interesting branches.",
-  //       "I built D3-driven board updates with layout that stayed stable across viewport changes.",
-  //     ],
-  //     results: null,
-  //   },
-  // },
-  rdfdProject,
-  parliamentWatchOcrProject,
-  vote62EctReport69Project,
-  electricityBillBreakdownProject,
-  peaEServiceProject,
-  outageManagementSystemProject,
-];

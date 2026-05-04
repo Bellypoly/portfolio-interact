@@ -11,7 +11,7 @@
 :root {
   --frameA: #d3d6d1;
   --frameB: #7d8782;
-  --glassA: rgba(18, 78, 88, 0.88);
+  --glassA: rgba(18, 78, 88, 0.95);
   --glassB: rgba(7, 40, 48, 0.92);
   --ink: rgba(235, 255, 255, 0.92);
   --muted: rgba(235, 255, 255, 0.72);
@@ -294,12 +294,7 @@
 
 .bio-divider {
   @apply my-3 h-px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--line),
-    transparent
-  );
+  background: linear-gradient(to right, transparent, var(--line), transparent);
 }
 .bio-divider--desktop {
   @apply hidden sm:block;

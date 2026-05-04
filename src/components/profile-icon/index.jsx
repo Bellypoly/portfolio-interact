@@ -36,6 +36,10 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
               src={`${import.meta.env.BASE_URL}images/profile-pic-2.png`}
               alt="Profile"
               className="profile-icon-img"
+              width={256}
+              height={256}
+              sizes="72px"
+              decoding="async"
             />
           </picture>
           <svg

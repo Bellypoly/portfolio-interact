@@ -6,6 +6,14 @@ import {
 } from "../../utils/space-resume-navigation";
 import "./project-card.css";
 
+/** 1:1 tiles; matches `aspect-square` + `object-cover`. Grid: 1 / 2 / 3 / 4 cols (`portfolio-section.css`). */
+const CARD_IMG_ATTRS = {
+  width: 800,
+  height: 800,
+  sizes:
+    "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1535px) 33vw, 25vw",
+};
+
 const ProjectCard = React.memo(function ProjectCard({
   name,
   desc,
@@ -46,6 +54,7 @@ const ProjectCard = React.memo(function ProjectCard({
         alt={alt || name}
         className={imgClass}
         style={posStyle}
+        {...CARD_IMG_ATTRS}
         loading="lazy"
         decoding="async"
       />
@@ -56,6 +65,7 @@ const ProjectCard = React.memo(function ProjectCard({
       alt={alt || name}
       className={imgClass}
       style={posStyle}
+      {...CARD_IMG_ATTRS}
       loading="lazy"
       decoding="async"
     />

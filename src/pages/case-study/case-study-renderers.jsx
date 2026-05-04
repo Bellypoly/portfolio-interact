@@ -237,13 +237,14 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
                   {row.map((cell, ci) =>
                     ci === 0 ? (
                       <th
+                        key={ci}
                         scope="row"
                         className="project-case-study__reference-table-rowhead"
                       >
                         {cell}
                       </th>
                     ) : (
-                      <td>{cell}</td>
+                      <td key={ci}>{cell}</td>
                     ),
                   )}
                 </tr>

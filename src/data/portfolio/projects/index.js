@@ -1,6 +1,6 @@
 /**
- * Barrel for per-project portfolio entries. Keeps `portfolio-projects.js` thin:
- * the manifest only imports from here and decides order / grouping.
+ * Re-exports full project objects (`caseStudy` included). Gallery cards use `../mission-gallery-manifest.js`;
+ * `/mission/:slug` loads modules here through `../load-portfolio-project.js`.
  */
 
 export { dynamicPaywallProject } from "./dynamic-paywall-project.js";

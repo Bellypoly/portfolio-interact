@@ -86,7 +86,8 @@ export const subscriptionCheckoutActivationProject = {
     ],
     relatedProject: {
       slug: "dynamic-paywall",
-      label: "Dig into Sophi — the paywall that fills the top of this funnel →",
+      label:
+        "Dig into the AI-powered dynamic paywall — it sits at the top of this funnel →",
     },
     overviewSystemDesign: {
       sectionTitle: "The pipeline",
@@ -108,7 +109,7 @@ export const subscriptionCheckoutActivationProject = {
       caption:
         "One deterministic path from paywall to retention — not a loose set of pages, but a system.",
       diagramAlt:
-        "Flow from Sophi paywall through single-page checkout, Arc XP identity, success, 3-step onboarding, to engagement",
+        "Flow from the dynamic paywall through single-page checkout, Arc XP identity, success, 3-step onboarding, to engagement",
     },
     problemSection: {
       title: "Version 1: 3 pages, 3 chances to leave",

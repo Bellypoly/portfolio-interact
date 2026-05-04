@@ -6,6 +6,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /*
+   * Clip horizontal overflow at the root without stealing the vertical scroll axis
+   * from `document.documentElement`. Framer Motion `useScroll()` defaults to
+   * `document.documentElement` as the scroll container; `overflow-x: hidden` on
+   * *both* html and body can make the real scroll happen on `body` while
+   * `html.scrollTop` stays 0 — freezing crawl + section scroll progress.
+   */
+  html {
+    @apply overflow-x-hidden overflow-y-auto;
+  }
+}
+
 /* --- Global: hover-reveal text --- */
 /* Slides the track up; second line reveals under the first (shared pattern for cards/timeline). */
 

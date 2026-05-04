@@ -24,10 +24,11 @@ import ShootingStar from "./components/shooting-star";
 import { MarkerChipGroup } from "./components/marker-chip";
 import AtmosphereHud from "./components/atmosphere-hud";
 import {
-  STAR_COUNT,
-  STAR_COUNT_SIMPLE,
   STAR_LAYER_DEFS,
+  STARFIELD_VIEWPORT_BUCKET_PX,
+  bucketViewportForStarfield,
   generateStarLayer,
+  resolveStarCount,
 } from "./utils/space-starfield";
 import {
   formatDurationMs,
@@ -370,7 +371,7 @@ export default function SpaceResume() {
       window.removeEventListener("resize", scheduleScrollSpy);
       window.removeEventListener("scrollend", onScrollEnd);
     };
-  }, [SECTION_COUNT, sectionIds]);
+  }, [sectionIds]);
 
   const [windowSize, setWindowSize] = useState(() =>
     typeof window !== "undefined"
@@ -395,7 +396,19 @@ export default function SpaceResume() {
     };
   }, []);
 
-  const starCount = preferSimpleMotion ? STAR_COUNT_SIMPLE : STAR_COUNT;
+  const starWidthBucket = Math.ceil(
+    windowSize.width / STARFIELD_VIEWPORT_BUCKET_PX,
+  );
+  const starHeightBucket = Math.ceil(
+    windowSize.height / STARFIELD_VIEWPORT_BUCKET_PX,
+  );
+  const starViewport = useMemo(
+    () => bucketViewportForStarfield(windowSize.width, windowSize.height),
+    // Recompute only when crossing a bucket boundary (see `space-starfield.js`).
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- deps are bucket indices, not raw px
+    [starWidthBucket, starHeightBucket],
+  );
+  const starCount = resolveStarCount(windowSize.width, preferSimpleMotion);
   const starsByLayer = useMemo(
     () =>
       Object.fromEntries(
@@ -406,13 +419,18 @@ export default function SpaceResume() {
             i,
             def.size,
             def.baseOpacity,
-            windowSize.width,
-            windowSize.height,
+            starViewport.width,
+            starViewport.height,
             !preferSimpleMotion,
           ),
         ]),
       ),
-    [windowSize.width, windowSize.height, starCount, preferSimpleMotion],
+    [
+      starViewport.width,
+      starViewport.height,
+      starCount,
+      preferSimpleMotion,
+    ],
   );
 
   const crawlBreakpointLabel = viewportTailwindBand(windowSize.width);
@@ -696,7 +714,7 @@ export default function SpaceResume() {
               style={{ x: mx, y: my }}
             >
               <motion.svg
-                viewBox={`0 0 ${windowSize.width} ${windowSize.height}`}
+                viewBox={`0 0 ${starViewport.width} ${starViewport.height}`}
                 style={{ y: scrollY }}
               >
                 {!preferSimpleMotion ? (
