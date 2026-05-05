@@ -346,6 +346,7 @@ export default React.memo(function JourneyRoute() {
               await transition()
                 .duration(TRANSITION_DURATION)
                 .tween("render", () => (t) => {
+                  if (cancelled) return;
                   projection.rotate(iv(t));
                   render(country, ip(t), i);
                 })

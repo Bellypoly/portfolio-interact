@@ -32,7 +32,9 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
   const [show, setShow] = useState(false);
   const [showPrequelFade, setShowPrequelFade] = useState(false);
   const measureRef = useRef(null);
-  const [paraMinHeights, setParaMinHeights] = useState([null, null, null]);
+  const [paraMinHeights, setParaMinHeights] = useState(() =>
+    Array.from({ length: PREQUEL_PARAGRAPHS.length }, () => null),
+  );
 
   const syncParaMinHeights = useCallback(() => {
     const next = readParaHeights(measureRef.current);

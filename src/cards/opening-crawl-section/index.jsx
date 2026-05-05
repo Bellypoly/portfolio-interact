@@ -48,21 +48,25 @@ const CRAWL_NAME_FONT_BY_BAND = {
   "2xl": { input: [0, 1], output: ["5rem", "5rem"] },
 };
 
+function breakpointForWidth(width) {
+  if (width < 640) return "xs";
+  if (width < 768) return "sm";
+  if (width < 1024) return "md";
+  if (width < 1280) return "lg";
+  if (width < 1536) return "xl";
+  return "2xl";
+}
+
 // --- useBreakpointStops ---
 function useBreakpointStops() {
   const [breakpoint, setBreakpoint] = useState("lg");
   useEffect(() => {
     function handleResize() {
-      const width = window.innerWidth;
-      if (width < 640) setBreakpoint("xs");
-      else if (width < 768) setBreakpoint("sm");
-      else if (width < 1024) setBreakpoint("md");
-      else if (width < 1280) setBreakpoint("lg");
-      else if (width < 1536) setBreakpoint("xl");
-      else setBreakpoint("2xl");
+      const next = breakpointForWidth(window.innerWidth);
+      setBreakpoint((prev) => (prev === next ? prev : next));
     }
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
