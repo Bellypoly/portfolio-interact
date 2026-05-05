@@ -1,11 +1,9 @@
-/* --- Mission gallery pre-section: full-bleed column (viewport-centered, like edu timeline) --- */
+/* Mission gallery pre-section */
 
 .mission-gallery-pre-section {
   @apply relative flex min-h-[60vh] w-screen max-w-[100vw] flex-col items-center justify-center overflow-x-clip pb-8;
-  @apply mx-[calc(50%-50vw)];
+  @apply mx-[calc(50%_-_50vw)];
 }
-
-/* --- Center-axis rules (above / below glyph) --- */
 
 .mission-gallery-pre-section__rule {
   @apply h-12 w-px shrink-0;
@@ -16,8 +14,6 @@
   @apply bg-[linear-gradient(180deg,var(--pf-sky-pale)_0%,var(--pf-sky-pale)_80%,#fff_100%)];
   @apply shadow-[0_0_8px_rgba(255,250,232,0.4)];
 }
-
-/* --- Aurebesh glyph column (gradient stack) --- */
 
 .mission-gallery-pre-section__glyph {
   @apply m-0 flex shrink-0 flex-col items-center font-aurebesh text-pf-caption leading-[1.1em];

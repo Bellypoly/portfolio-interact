@@ -1,11 +1,11 @@
-/* --- Journey route: layout --- */
+/* Journey route */
 
 .journey-route {
-  @apply flex min-w-0 w-full max-w-full flex-col items-center justify-center gap-2 pb-8;
+  @apply flex w-full min-w-0 max-w-full flex-col items-center justify-center gap-2 pb-8;
 }
 
 .journey-route-globe {
-  @apply min-h-[200px] min-w-0 w-full max-w-[min(100%,100vw-2rem,24rem)] overflow-hidden text-pf-body;
+  @apply min-h-[200px] w-full min-w-0 max-w-[min(100%,100vw-2rem,24rem)] overflow-hidden text-pf-body;
 }
 
 @screen md {
@@ -13,8 +13,6 @@
     @apply max-w-[min(100%,26rem)];
   }
 }
-
-/* --- Journey route: location label --- */
 
 .journey-route-location {
   @apply flex min-h-[3.5rem] flex-col justify-center gap-0.5 text-center text-pf-body tracking-wider;

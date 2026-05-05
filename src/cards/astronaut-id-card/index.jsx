@@ -5,6 +5,7 @@ import {
   TYPING_INITIAL_DELAY,
 } from "../../hooks/use-typing-words";
 import ResumeLightboxLink from "../../components/resume-lightbox";
+import { seededRandom } from "../../utils/random";
 import "./astronaut-id-card.css";
 
 // --- Constants ---
@@ -166,17 +167,17 @@ export default function AstronautCard({
   const starDots = useMemo(() => {
     const { w, h } = HUD_DIMS;
     return Array.from({ length: STAR_DOT_COUNT }, (_, i) => {
-      const size = 1 + Math.random() * 3;
+      const size = 1 + seededRandom(i + 11) * 3;
       return (
         <span
           key={i}
           className="star-dot"
           style={{
-            top: `${Math.random() * h}px`,
-            left: `${Math.random() * w}px`,
+            top: `${seededRandom(i + 23) * h}px`,
+            left: `${seededRandom(i + 37) * w}px`,
             width: size,
             height: size,
-            opacity: 0.7 + Math.random() * 0.3,
+            opacity: 0.7 + seededRandom(i + 51) * 0.3,
           }}
           aria-hidden="true"
         />

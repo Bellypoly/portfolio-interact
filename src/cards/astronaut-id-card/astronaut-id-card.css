@@ -434,7 +434,7 @@
 @keyframes astronaut-id-portrait-icon-hint {
   0%,
   100% {
-    box-shadow: 0 0 0 6px rgb(var(--cyan) / 0.4);
+    box-shadow: 0 0 0 8px rgb(var(--cyan) / 0.4);
     transform: scale(1);
   }
   50% {

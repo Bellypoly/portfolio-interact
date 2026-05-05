@@ -104,7 +104,7 @@ export const MISSION_GALLERY_MANIFEST = [
     imgWebp: "images/portfolio/jobthai/thumbnail.webp",
     alt: "JobThai Resume — flat illustration of a job seeker at a laptop and a recruiter with clipboard, with JobThai branding",
     link: "https://www.jobthai.com/jobsearch",
-    anchorId: "portfolio-jobthai",
+    anchorId: "portfolio-thinknet",
   },
   {
     slug: "map-magic",

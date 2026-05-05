@@ -1,4 +1,4 @@
-/* --- Rocket illustration (picture + sparkle layer) --- */
+/* Rocket illustration */
 
 .rocket {
   @apply relative flex h-full w-full items-center justify-center;

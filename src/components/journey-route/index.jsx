@@ -98,6 +98,7 @@ class Versor {
 
 const WORLD_ATLAS_URL =
   "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+let worldAtlasPromise;
 
 const GLOBE_TILT = 20;
 const TRANSITION_DURATION = 1800;
@@ -192,6 +193,21 @@ function findCountryForStop(countries, stop) {
   );
 }
 
+function loadWorldAtlas() {
+  worldAtlasPromise ??= fetch(WORLD_ATLAS_URL)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`World atlas request failed: ${res.status}`);
+      }
+      return res.json();
+    })
+    .catch((err) => {
+      worldAtlasPromise = undefined;
+      throw err;
+    });
+  return worldAtlasPromise;
+}
+
 export default React.memo(function JourneyRoute() {
   const containerRef = useRef(null);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -203,14 +219,20 @@ export default React.memo(function JourneyRoute() {
 
     const updateSize = () => {
       const w = container.clientWidth || Math.min(window.innerWidth - 32, 280);
-      setContainerSize({ width: w, height: w > 0 ? 200 : 0 });
+      const next = { width: w, height: w > 0 ? 200 : 0 };
+      setContainerSize((prev) =>
+        prev.width === next.width && prev.height === next.height ? prev : next,
+      );
     };
 
     updateSize();
-    requestAnimationFrame(updateSize);
+    const raf = requestAnimationFrame(updateSize);
     const ro = new ResizeObserver(updateSize);
     ro.observe(container);
-    return () => ro.disconnect();
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -230,7 +252,7 @@ export default React.memo(function JourneyRoute() {
     canvas.style.height = "auto";
     canvas.style.aspectRatio = `${width} / ${height}`;
     canvas.style.display = "block";
-    container.innerHTML = "";
+    container.replaceChildren();
     container.appendChild(canvas);
 
     const context = canvas.getContext("2d");
@@ -238,8 +260,7 @@ export default React.memo(function JourneyRoute() {
 
     let cancelled = false;
 
-    fetch(WORLD_ATLAS_URL)
-      .then((res) => res.json())
+    loadWorldAtlas()
       .then((world) => {
         if (cancelled) return;
 

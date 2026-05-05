@@ -1,24 +1,42 @@
-/* --- Atmosphere HUD (rocket section left rail) --- */
+/* Atmosphere HUD rail */
 
 .atmosphere-hud {
-  @apply relative flex h-[90vh] flex-col justify-between pt-[10vh];
-  @apply [contain:layout_style];
+  @apply relative flex h-[90vh] min-h-0 flex-col pt-[10vh] [contain:layout_style];
+}
+
+/* Compact mode keeps years evenly spaced beside the rocket. */
+.atmosphere-hud--year-compact {
+  @apply justify-between;
 }
 
 .atmosphere-hud__item {
-  @apply relative z-[2] flex items-center gap-2 font-robotomono text-pf-note font-light uppercase tracking-[0.2em];
+  @apply relative z-[2] flex w-full min-w-0 shrink-0 items-center gap-2;
+  @apply font-robotomono text-pf-note font-light uppercase tracking-[0.2em];
 }
 
-/* Line color follows parent currentColor (single motion target). */
+/* Gap ticks inherit the row color. */
+.atmosphere-hud__between {
+  @apply flex min-h-0 w-full max-w-full flex-1 flex-col items-start justify-center py-px opacity-40 last:hidden;
+}
 
+.atmosphere-hud__between-line {
+  @apply block h-px w-3 shrink-0 bg-current;
+}
+
+/* Row ticks inherit the row color. */
 .atmosphere-hud__line {
   @apply block h-px w-6 min-w-[1.25rem] shrink-0 bg-current;
 }
 
-.atmosphere-hud__scroll-line {
-  @apply pointer-events-none absolute left-0 z-[4] mt-[-0.5px] block h-px w-3 min-w-[0.5rem] bg-black opacity-0;
-  @apply shadow-[0_0_6px_rgba(0,0,0,0.55),0_0_14px_rgba(0,0,0,0.35),0_0_22px_rgba(0,0,0,0.18)];
-  @apply [will-change:top,opacity];
+.atmosphere-hud__scroll-marker {
+  @apply pointer-events-none absolute left-0 z-[4] block -translate-y-1/2 [will-change:top,opacity];
+}
+
+.atmosphere-hud__scroll-marker__triangle {
+  @apply block h-0 w-0 border-y-[6px] border-y-transparent border-r-[11px] border-r-black;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 12px rgba(0, 0, 0, 0.35))
+    drop-shadow(0 0 20px rgba(0, 0, 0, 0.2));
 }
 
 .atmosphere-hud__label {

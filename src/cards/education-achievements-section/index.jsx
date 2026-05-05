@@ -1,7 +1,3 @@
-/**
- * Education & achievements — year-based timeline, All/Education/Achievements filter,
- * Framer Motion on rows and columns. Styles: education-achievements-section.css
- */
 import React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import cc from "classcat";
@@ -15,18 +11,15 @@ import {
 } from "../../constants/edu-timeline-filter.js";
 import "./education-achievements-section.css";
 
-/** Display strings for the stacked title — match legend labels (`EDU_TIMELINE_FILTER_LABEL`). */
 const TITLE = {
   education: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.education],
   achievement: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.achievement],
 };
 
-/** In-app case study URL under the current Vite `base` (Mission Gallery). */
 function missionGalleryHref(slug) {
   return `${import.meta.env.BASE_URL}mission/${slug}`;
 }
 
-/** Wraps [YYYY] in bullet HTML for the timeline year highlight */
 function withYearSpan(bullets) {
   return (
     bullets?.map((b) =>
@@ -56,7 +49,7 @@ const EDUCATION_ITEMS = [
   },
   {
     anchor: "edu-kmutt",
-    sortYear: 2018,
+    sortYear: 2017,
     collapsible: true,
     title: "M.S. in Technopreneurship (Field Robotics)",
     time: "2015 - 2018",
@@ -78,7 +71,7 @@ const EDUCATION_ITEMS = [
     where: "Bangkok, Thailand",
   },
   {
-    anchor: "edu-kmutt",
+    anchor: "edu-kmutt-beng",
     sortYear: 2014,
     collapsible: true,
     title: "B.Eng. in Computer Engineering",
@@ -119,7 +112,7 @@ const ACHIEVEMENT_ITEMS = [
     badges: ["Scholarship"],
   },
   {
-    sortYear: 2017,
+    sortYear: 2018,
     title:
       "Consolation Prize — Young Technopreneur Innovative Business Plan Development Competition 2018",
     portfolioAnchor: "portfolio-jerdi",
@@ -129,7 +122,7 @@ const ACHIEVEMENT_ITEMS = [
     badges: ["Award"],
   },
   {
-    sortYear: 2014,
+    sortYear: 2015,
     title:
       "Top 20 Teams — Young Technopreneur Innovative Business Plan Development Competition 2014",
     time: "2014",
@@ -139,7 +132,6 @@ const ACHIEVEMENT_ITEMS = [
   },
 ];
 
-/** One row per year (education and/or achievement), sorted newest → oldest */
 function buildTimelineRows(educationItems, achievementItems) {
   const byYear = new Map();
   const put = (item, key) => {
@@ -147,7 +139,11 @@ function buildTimelineRows(educationItems, achievementItems) {
       sortYear: item.sortYear,
       educationItems: [],
       achievementItems: [],
+      timelineAchievementFirstOnMobile: false,
     };
+    if (item.timelineAchievementFirstOnMobile) {
+      row.timelineAchievementFirstOnMobile = true;
+    }
     row[key].push(item);
     byYear.set(item.sortYear, row);
   };
@@ -157,8 +153,6 @@ function buildTimelineRows(educationItems, achievementItems) {
 }
 
 const TIMELINE_ROWS = buildTimelineRows(EDUCATION_ITEMS, ACHIEVEMENT_ITEMS);
-
-// --- Section title (single h2; responsive typography in CSS) ---
 
 function SectionTitle() {
   return (
@@ -174,23 +168,23 @@ function SectionTitle() {
   );
 }
 
-/** Material Design standard easing (Framer Motion) */
-const EASE = [0.4, 0, 0.2, 1];
+const EASE_PANEL = [0.22, 1, 0.36, 1];
 
 function timelineColumnTransition(reduceMotion) {
-  return reduceMotion ? { duration: 0 } : { duration: 0.28, ease: EASE };
+  return reduceMotion
+    ? { duration: 0 }
+    : { type: "tween", duration: 0.38, ease: EASE_PANEL };
 }
 
 function timelineRowTransition(reduceMotion) {
   return reduceMotion
     ? { duration: 0 }
     : {
-        opacity: { duration: 0.26, ease: EASE },
-        y: { duration: 0.26, ease: EASE },
+        layout: { type: "tween", duration: 0.42, ease: EASE_PANEL },
+        opacity: { type: "tween", duration: 0.34, ease: EASE_PANEL },
+        y: { type: "tween", duration: 0.34, ease: EASE_PANEL },
       };
 }
-
-// --- All / Education / Achievements filter ---
 
 function TimelineLegend({ value, onChange }) {
   const reduceMotion = useReducedMotion();
@@ -222,8 +216,11 @@ function TimelineLegend({ value, onChange }) {
     <div
       className="edu-timeline__legend"
       role="group"
-      aria-label="Filter timeline by category"
+      aria-labelledby="edu-timeline-legend-prefix"
     >
+      <span id="edu-timeline-legend-prefix" className="edu-timeline__legend-prefix">
+        {"filter : "}
+      </span>
       {btn(
         EDU_TIMELINE_FILTER.all,
         EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.all],
@@ -242,8 +239,6 @@ function TimelineLegend({ value, onChange }) {
     </div>
   );
 }
-
-// --- Section: title, legend, timeline rows ---
 
 export default React.memo(function EducationAchievementsSection({
   timelineFilter = EDU_TIMELINE_FILTER.all,
@@ -284,27 +279,28 @@ export default React.memo(function EducationAchievementsSection({
 
                 return (
                   <motion.div
+                    layout
                     key={row.sortYear}
                     id={educationItems[0]?.anchor}
                     className={cc([
                       "edu-timeline__row",
                       educationOnlyRow && "edu-timeline__row--education-only",
+                      row.timelineAchievementFirstOnMobile &&
+                        "edu-timeline__row--achievement-first-mobile",
                     ])}
-                    initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
+                    exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
                     transition={tRow}
                   >
-                    <AnimatePresence initial={false} mode="sync">
+                    <AnimatePresence initial={false} mode="wait">
                       {showEducationCol ? (
                         <motion.div
                           key={`edu-${row.sortYear}`}
                           className="edu-timeline__education"
                           initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={
-                            reduceMotion ? undefined : { opacity: 0, y: -6 }
-                          }
+                          exit={reduceMotion ? undefined : { opacity: 0 }}
                           transition={tCol}
                         >
                           <div className="edu-timeline__content">
@@ -340,16 +336,14 @@ export default React.memo(function EducationAchievementsSection({
                     {showDot ? (
                       <div className="edu-timeline__dot" aria-hidden="true" />
                     ) : null}
-                    <AnimatePresence initial={false} mode="sync">
+                    <AnimatePresence initial={false} mode="wait">
                       {showAchievementCol ? (
                         <motion.div
                           key={`ach-${row.sortYear}`}
                           className="edu-timeline__achievement-col"
                           initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={
-                            reduceMotion ? undefined : { opacity: 0, y: -6 }
-                          }
+                          exit={reduceMotion ? undefined : { opacity: 0 }}
                           transition={tCol}
                         >
                           <div className="edu-timeline__content">

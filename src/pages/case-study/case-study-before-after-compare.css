@@ -1,35 +1,28 @@
-/* --- Case study: article before/after compare (stacks with version compare diagram) --- */
+/* Case study before/after compare */
 
 .project-case-study__ba--article-compare {
-  max-width: 78rem;
-  margin-left: auto;
-  margin-right: auto;
+  @apply mx-auto max-w-[78rem];
 }
 
 .project-case-study__ba-compare-row + .project-case-study__ba-compare-row {
-  margin-top: 2.25rem;
+  @apply mt-9;
 }
 
 @media (min-width: 768px) {
   .project-case-study__ba-compare-row + .project-case-study__ba-compare-row {
-    margin-top: 3rem;
+    @apply mt-12;
   }
 }
 
 .project-case-study__ba-row-title {
-  margin: 0 0 1rem;
-  text-align: center;
-  font-size: var(--cs-text-body-sm, 0.9375rem);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--ba-teal, var(--pf-editorial-muted, #5e6d69));
+  @apply m-0 mb-4 text-center text-[length:var(--cs-text-body-sm,0.9375rem)] font-semibold uppercase tracking-[0.02em];
+  @apply text-[color:var(--ba-teal,var(--pf-editorial-muted,#5e6d69))];
 }
 
 .project-case-study__ba-shot .project-case-study__lightbox-trigger {
-  width: 100%;
+  @apply w-full;
 }
 
 .project-case-study__ba-shot .project-case-study__figure-img {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  @apply shadow-[0_2px_12px_rgba(0,0,0,0.08)];
 }

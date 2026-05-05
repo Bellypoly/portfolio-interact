@@ -1,9 +1,6 @@
-/* --- Education & achievements section --- */
-/* Palette: design-tokens.css (--pf-*). */
-
-/* --- Root + local CSS variables --- */
+/* Education and achievements timeline */
 .edu-section {
-  @apply relative z-[1] flex flex-col gap-8 w-full min-w-0;
+  @apply relative z-[1] flex w-full min-w-0 flex-col gap-8;
   --edu-title-amp: clamp(2.35rem, 4.25vw + 1.2rem, 3.1rem);
   --edu-title-mobile: clamp(2.2rem, 4.5vw + 1.25rem, 1.875rem);
   --edu-shadow-education:
@@ -30,20 +27,18 @@
   --edu-timeline-stroke: var(--pf-brown-warm);
 }
 
-/* --- Title (h2): stacked lowercase < md; centered uppercase md+ --- */
+/* Title */
 .edu-title {
-  @apply flex flex-col items-center gap-1 w-full mb-4 text-center italic md:block md:mx-auto md:w-full md:min-w-0 md:max-w-5xl md:px-4;
-  line-height: 1.05;
-  text-transform: lowercase;
+  @apply mb-4 flex w-full flex-col items-center gap-1 text-center italic lowercase leading-[1.05];
+  @apply md:mx-auto md:block md:w-full md:min-w-0 md:max-w-5xl md:px-4;
 }
 
 @media (min-width: 768px) {
   .edu-title {
-    text-transform: uppercase;
+    @apply uppercase;
   }
 }
 
-/* Lead line: flex row < md; inline nowrap md+ (keeps pair together). */
 .edu-title__lead {
   @apply inline-flex items-center justify-center gap-2 font-silkscreen;
   font-size: var(--edu-title-mobile);
@@ -51,20 +46,17 @@
 
 @media (min-width: 768px) {
   .edu-title__lead {
-    display: inline;
-    white-space: nowrap;
+    @apply inline whitespace-nowrap;
   }
 }
 
 .edu-title__education {
-  @apply font-silkscreen tracking-[0.04em];
-  color: var(--pf-teal-accent);
+  @apply font-silkscreen tracking-[0.04em] text-[color:var(--pf-teal-accent)];
   text-shadow: var(--edu-shadow-education);
 }
 
 .edu-title__achievement {
-  @apply font-silkscreen w-full tracking-[0.04em];
-  color: var(--pf-gold);
+  @apply w-full font-silkscreen tracking-[0.04em] text-[color:var(--pf-gold)];
   text-shadow: var(--edu-shadow-achievement);
   font-size: var(--edu-title-mobile);
 }
@@ -80,21 +72,16 @@
   }
 }
 
-/* md–1249px: achievements line on its own row. */
+/* Mid-width screens need the second title line to wrap cleanly. */
 @media (min-width: 768px) and (max-width: 1249px) {
   .edu-title__achievement {
-    display: block;
-    margin-top: 0.12em;
+    @apply mt-[0.12em] block;
   }
 }
 
 .edu-title__amp {
-  @apply font-silkscreen;
-  color: rgb(var(--pf-neutral-stone-rgb));
+  @apply px-[0.1em] font-silkscreen text-[length:inherit] leading-none text-[color:rgb(var(--pf-neutral-stone-rgb))];
   text-shadow: var(--edu-shadow-amp);
-  line-height: 1;
-  padding-inline: 0.1em;
-  font-size: inherit;
 }
 
 @media (min-width: 768px) {
@@ -103,20 +90,30 @@
   }
 }
 
-/* --- Very narrow phones: smaller achievement line --- */
+/* Very narrow phones */
 @media (max-width: 375px) {
   .edu-title__achievement {
     font-size: clamp(1.8rem, 5vw + 0.35rem, 1.85rem);
   }
 }
 
-/* --- Filter legend (notched buttons; drop-shadow for glow; clip-path kills box-shadow) --- */
+/* Filter legend */
 .edu-timeline__legend {
-  @apply flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-2 md:mb-4 px-2 md:mx-auto md:w-full md:max-w-5xl md:px-4 overflow-visible;
+  @apply mb-2 flex flex-wrap items-center justify-center gap-3 overflow-visible px-2;
+  @apply md:mx-auto md:mb-4 md:w-full md:max-w-5xl md:gap-4 md:px-4;
+}
+
+.edu-timeline__legend-prefix {
+  @apply shrink-0 pr-1 font-silkscreen font-normal not-italic uppercase tracking-[0.12em];
+  @apply text-[length:clamp(0.65rem,_1.35vw_+_0.48rem,_0.875rem)] text-[color:var(--pf-brown-muted)];
+  text-shadow:
+    0 0 6px rgb(var(--pf-teal-accent-rgb) / 0.25),
+    0 1px 0 rgb(var(--pf-teal-accent-rgb) / 0.12);
 }
 
 .edu-timeline__legend-btn {
-  @apply cursor-pointer font-silkscreen not-italic font-normal uppercase tracking-[0.04em] text-pf-caption sm:text-pf-body px-5 py-2.5 rounded-sm border backdrop-blur-[8px];
+  @apply cursor-pointer rounded-sm border px-5 py-2.5 font-silkscreen text-pf-caption font-normal not-italic uppercase tracking-[0.04em];
+  @apply backdrop-blur-[8px] sm:text-pf-body;
   text-shadow: none;
   transition:
     background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -134,7 +131,7 @@
   );
 }
 
-/* Legend: All filter */
+/* All filter */
 .edu-timeline__legend-btn--all {
   @apply border;
   border-color: rgb(var(--pf-neutral-stone-rgb) / 0.55);
@@ -173,7 +170,7 @@
     drop-shadow(0 0 22px rgb(var(--pf-neutral-stone-rgb) / 0.6));
 }
 
-/* Legend: Education */
+/* Education filter */
 .edu-timeline__legend-btn--education {
   @apply border;
   border-color: rgb(var(--pf-teal-primary-rgb) / 0.45);
@@ -209,7 +206,7 @@
     drop-shadow(0 0 24px rgb(var(--pf-teal-accent-rgb) / 0.85));
 }
 
-/* Legend: Achievements */
+/* Achievement filter */
 .edu-timeline__legend-btn--achievement {
   @apply border;
   border-color: rgb(var(--pf-gold-ink-rgb) / 0.45);
@@ -245,43 +242,32 @@
     drop-shadow(0 0 24px rgb(var(--pf-gold-rgb) / 0.82));
 }
 
-/* --- Timeline: full-bleed width (md spine at 50vw) --- */
+/* Timeline shell */
 .edu-timeline {
-  @apply relative flex flex-col gap-8 mb-16;
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  overflow-x: clip;
+  @apply relative mb-16 ml-[calc(50%_-_50vw)] mr-[calc(50%_-_50vw)] flex w-screen max-w-[100vw] flex-col gap-8 overflow-x-clip;
 }
 
 .edu-timeline__inner {
-  @apply flex flex-col gap-8 border-l-2 border-[var(--edu-timeline-stroke)] pl-4 w-full max-w-5xl mx-auto md:border-l-0 md:pl-0 md:max-w-none md:mx-0 md:w-full;
+  @apply mx-auto flex w-full max-w-5xl flex-col gap-8 border-l-2 border-[var(--edu-timeline-stroke)] pl-4;
+  @apply md:mx-0 md:w-full md:max-w-none md:border-l-0 md:pl-0;
 }
 
 .edu-timeline__body {
   @apply relative z-[1] flex flex-col gap-8;
 }
 
-/* md+: vertical spine at viewport center; dots on same axis. */
+/* Center spine on medium screens and above. */
 @screen md {
   .edu-timeline::before {
     content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    margin-left: -0.5px;
-    background-color: var(--edu-timeline-stroke);
-    pointer-events: none;
-    z-index: 0;
+    @apply pointer-events-none absolute inset-y-0 left-1/2 z-0 -ml-[0.5px] w-px bg-[var(--edu-timeline-stroke)];
   }
 }
 
-/* --- Timeline row grid --- */
+/* Timeline rows */
 .edu-timeline__row {
-  @apply relative grid gap-y-4 md:gap-y-0 grid-cols-[auto_1fr] grid-rows-[auto_auto];
+  @apply relative grid grid-cols-[auto_1fr] grid-rows-[auto_auto] gap-y-4;
+  @apply md:gap-y-0;
 }
 
 .edu-timeline__row--education-only {
@@ -297,18 +283,28 @@
   }
 }
 
-/* --- Lanes: education | dot | achievement --- */
-.edu-timeline__education {
-  @apply relative min-w-0 col-start-2 row-start-1 md:col-start-1 md:row-start-1 overflow-visible md:pl-8;
+/* Optional mobile order override. */
+.edu-timeline__row--achievement-first-mobile .edu-timeline__achievement-col {
+  @apply row-start-1 md:row-start-1;
+}
+.edu-timeline__row--achievement-first-mobile .edu-timeline__education {
+  @apply row-start-2 md:row-start-1;
 }
 
-/* --- Placeholder education cell (achievement-only rows) --- */
+/* Timeline lanes */
+.edu-timeline__education {
+  @apply relative col-start-2 row-start-1 min-w-0 overflow-visible;
+  @apply md:col-start-1 md:row-start-1 md:pl-8;
+}
+
+/* Placeholder cell for achievement-only rows */
 .edu-timeline__education--placeholder {
   @apply min-h-0 min-w-0 pointer-events-none;
 }
 
 .edu-timeline__achievement-col {
-  @apply relative min-w-0 col-start-2 row-start-2 md:col-start-3 md:row-start-1 md:pr-8;
+  @apply relative col-start-2 row-start-2 min-w-0;
+  @apply md:col-start-3 md:row-start-1 md:pr-8;
 }
 
 .edu-timeline__education .edu-timeline__content {
@@ -316,7 +312,7 @@
 }
 
 .edu-timeline__achievement-col .edu-timeline__content {
-  @apply pl-2 md:pl-8 text-left;
+  @apply pl-2 text-left md:pl-8;
 }
 
 .edu-timeline__content {
@@ -328,8 +324,8 @@
 }
 
 .edu-timeline__dot {
-  @apply w-5 h-5 rounded-full flex-shrink-0 z-10 -ml-7 md:ml-0 col-start-1 row-start-1 row-span-2 md:row-span-1 md:col-start-2 md:row-start-1 md:justify-self-center;
-  background-color: var(--pf-brown-muted);
+  @apply col-start-1 row-start-1 row-span-2 -ml-7 h-5 w-5 flex-shrink-0 rounded-full bg-[var(--pf-brown-muted)] z-10;
+  @apply md:col-start-2 md:row-start-1 md:row-span-1 md:ml-0 md:justify-self-center;
 }
 
 .edu-timeline__row--education-only .edu-timeline__dot {
@@ -344,15 +340,15 @@
   @apply pl-0;
 }
 
-/* --- Timeline card titles (popover detail in education-card.css) --- */
+/* Card titles */
 .edu-timeline__education .timeline-title {
-  @apply font-roboto italic font-bold uppercase tracking-[0.06em] text-pf-card-title m-0 p-0;
-  color: var(--pf-teal-primary);
+  @apply m-0 p-0 font-roboto text-pf-card-title font-bold italic uppercase tracking-[0.06em];
+  @apply text-[color:var(--pf-teal-primary)];
   text-shadow: 0.5px 0.5px 0 cyan;
 }
 .edu-achievement-card__title {
-  @apply max-w-[min(100%,25rem)] font-roboto italic font-bold uppercase tracking-[0.06em] text-pf-card-title m-0 p-0;
-  color: var(--pf-gold-dark);
+  @apply m-0 max-w-[min(100%,25rem)] p-0 font-roboto text-pf-card-title font-bold italic uppercase tracking-[0.06em];
+  @apply text-[color:var(--pf-gold-dark)];
   text-shadow: 0.5px 0.5px 0 var(--pf-gold);
 }
 
@@ -370,9 +366,9 @@
   @apply italic;
 }
 
-/* --- Mission log float (lane alignment; base in education-card.css) --- */
+/* Mission log alignment */
 .edu-timeline__education .education-card__mission-log-wrap {
-  @apply flex justify-start md:justify-end overflow-visible;
+  @apply flex justify-start overflow-visible md:justify-end;
 }
 .edu-timeline__achievement-col .education-card__mission-log-wrap {
   @apply flex justify-start overflow-visible;
@@ -384,7 +380,8 @@
   color: var(--pf-teal-primary);
 }
 .edu-timeline__education .education-card__mission-log-float {
-  @apply font-roboto text-pf-body text-slate-700 md:left-auto md:right-0 md:top-full md:w-full;
+  @apply font-roboto text-pf-body text-slate-700;
+  @apply md:left-auto md:right-0 md:top-full md:w-full;
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.16),
     0 4px 14px rgba(0, 0, 0, 0.06),
@@ -399,7 +396,8 @@
     linear-gradient(180deg, #ffffff 0%, #f6f7f8 55%, #f0f1f3 100%);
 }
 .edu-timeline__achievement-col .education-card__mission-log-float {
-  @apply font-roboto text-pf-body text-slate-700 md:left-0 md:right-auto md:top-full md:w-full;
+  @apply font-roboto text-pf-body text-slate-700;
+  @apply md:left-0 md:right-auto md:top-full md:w-full;
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.16),
     0 4px 14px rgba(0, 0, 0, 0.06),
@@ -414,7 +412,7 @@
     linear-gradient(180deg, #ffffff 0%, #f6f7f8 55%, #f0f1f3 100%);
 }
 
-/* --- Achievement cards --- */
+/* Achievement cards */
 .edu-achievement-card {
   @apply flex flex-col gap-2 text-left;
 }
@@ -427,9 +425,9 @@
   @apply flex flex-wrap gap-2;
 }
 
-/* --- Achievement badges: pill fill + inset highlight --- */
+/* Achievement badges */
 .edu-achievement-card__badges .timeline-badge {
-  @apply inline-flex items-center text-pf-note font-semibold px-2.5 py-0.5 rounded-full border;
+  @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-pf-note font-semibold;
   background-color: var(--pf-badge-bg);
   color: var(--pf-badge-text);
   border-color: var(--pf-badge-border);
@@ -442,11 +440,11 @@
 
 .edu-achievement-card__portfolio-link {
   @apply inline-flex items-center gap-1 font-roboto text-pf-body font-medium uppercase tracking-wider no-underline;
-  color: var(--pf-teal-primary);
+  @apply text-[color:var(--pf-teal-primary)];
 }
 
 .edu-achievement-card__portfolio-link:hover {
-  color: var(--pf-editorial-rust);
+  @apply text-[color:var(--pf-editorial-rust)];
 }
 
 .edu-achievement-card__portfolio-arrow {

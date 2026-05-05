@@ -1,7 +1,7 @@
-/* --- Work section: grid, title, journey --- */
+/* Work section */
 
 .work-section-wrapper {
-  @apply min-w-0 w-full;
+  @apply w-full min-w-0;
 }
 
 .work-section-title-row {
@@ -9,7 +9,7 @@
 }
 
 .work-section-cols {
-  @apply grid min-w-0 w-full grid-cols-1 md:grid-cols-2 md:items-start;
+  @apply grid w-full min-w-0 grid-cols-1 md:grid-cols-2 md:items-start;
 }
 
 .work-section-col--left {
@@ -17,11 +17,13 @@
 }
 
 .work-section-col--right {
-  @apply flex min-h-[200px] min-w-0 items-start justify-center md:sticky md:top-0 md:self-start md:justify-start md:pl-8;
+  @apply flex min-h-[200px] min-w-0 items-start justify-center;
+  @apply md:sticky md:top-0 md:self-start md:justify-start md:pl-8;
 }
 
 .work-section-journey {
-  @apply mx-auto mt-8 flex min-w-0 w-full max-w-full items-center justify-center overflow-hidden px-2 sm:px-0 md:mt-12 md:max-w-lg;
+  @apply mx-auto mt-8 flex w-full min-w-0 max-w-full items-center justify-center overflow-hidden px-2;
+  @apply sm:px-0 md:mt-12 md:max-w-lg;
 }
 
 .work-section-journey .journey-route-globe {

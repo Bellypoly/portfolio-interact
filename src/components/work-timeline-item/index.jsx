@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HoverRevealText from "../hover-reveal-text";
 import { scrollToPortfolioAnchor } from "../../utils/flash-portfolio-anchor";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
@@ -87,8 +87,16 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
     setIsHovering(true);
   };
   const handleHoverLeave = () => {
+    if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
     hideTimeoutRef.current = setTimeout(() => setIsHovering(false), 150);
   };
+
+  useEffect(
+    () => () => {
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+    },
+    [],
+  );
 
   const handleBlur = (wrapRef) => () => {
     requestAnimationFrame(() => {

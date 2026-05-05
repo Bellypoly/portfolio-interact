@@ -1,4 +1,4 @@
-/* --- Rocket section: atmosphere, aurebesh field, capsule --- */
+/* Rocket section */
 
 .rocket-section {
   @apply flex items-center justify-center overflow-visible;
@@ -10,7 +10,7 @@
 }
 
 .rocket-section-atmosphere__svg {
-  @apply absolute bottom-0 left-1/2 h-full max-w-[100vw] w-[100vw] -translate-x-1/2 overflow-visible;
+  @apply absolute bottom-0 left-1/2 h-full w-[100vw] max-w-[100vw] -translate-x-1/2 overflow-visible;
 }
 
 .rocket-section-bg {
@@ -36,12 +36,11 @@
   @apply relative z-10 flex min-h-[80vh] w-full items-center justify-center;
 }
 
-/* --- Rocket capsule: content-box padding so drop-shadow has room outside 14/16rem --- */
+/* Capsule padding leaves room for the rocket shadow. */
 .rocket-section-content {
   @apply relative box-content h-56 w-56 overflow-visible p-[clamp(0.75rem,3.5vmin,2.25rem)] md:h-64 md:w-64 md:p-[clamp(1rem,4vmin,2.75rem)];
 }
 
-/* --- Rocket image: soft gold halo --- */
 .rocket-section-content
   .rocket
   .rocket-picture:not(.rocket-picture--sparkle)

@@ -42,15 +42,31 @@ export default function SpaceVoidShell({
   );
 
   useEffect(() => {
-    function onResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
+    let raf = 0;
+    function flushResize() {
+      raf = 0;
+      setWindowSize((prev) => {
+        const next = {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+        return prev.width === next.width && prev.height === next.height
+          ? prev
+          : next;
       });
     }
-    onResize();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+
+    function onResize() {
+      if (raf !== 0) return;
+      raf = window.requestAnimationFrame(flushResize);
+    }
+
+    flushResize();
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      if (raf !== 0) window.cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const starWidthBucket = Math.ceil(
@@ -61,7 +77,8 @@ export default function SpaceVoidShell({
   );
   const starViewport = useMemo(
     () => bucketViewportForStarfield(windowSize.width, windowSize.height),
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- deps are bucket indices, not raw px
+    // Rebuild stars only when the bucket changes, not on every pixel.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [starWidthBucket, starHeightBucket],
   );
   const starCount = resolveStarCount(windowSize.width, preferSimpleMotion);
@@ -94,7 +111,7 @@ export default function SpaceVoidShell({
       mouseX.set(x);
       mouseY.set(y);
     }
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMouseMove);
   }, [mouseX, mouseY, preferSimpleMotion]);
 

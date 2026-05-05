@@ -88,7 +88,7 @@ const SoftwareEng = () => (
 
       "Built resume creation and employer tools, streamlining hiring workflows and increasing platform retention.",
     ]}
-    portfolioAnchor="portfolio-jobthai"
+    portfolioAnchor="portfolio-thinknet"
   />
 );
 

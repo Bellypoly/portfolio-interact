@@ -14,7 +14,7 @@ export const jobthaiProject = {
   imgWebp: "images/portfolio/jobthai/thumbnail.webp",
   alt: "JobThai Resume — flat illustration of a job seeker at a laptop and a recruiter with clipboard, with JobThai branding",
   link: "https://www.jobthai.com/jobsearch",
-  anchorId: "portfolio-jobthai",
+  anchorId: "portfolio-thinknet",
   caseStudy: {
     eyebrow: "Product · Marketplace",
     featuredImg: "images/portfolio/jobthai/featured-image.png",

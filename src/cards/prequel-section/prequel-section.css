@@ -1,4 +1,4 @@
-/* --- Prequel section --- */
+/* Prequel section */
 
 .prequel-section {
   @apply flex min-h-[100vh] w-full flex-col items-center justify-center px-6 py-12 text-center md:py-16;
@@ -50,8 +50,14 @@
 }
 
 .prequel-section__body {
-  @apply flex w-full max-w-xl flex-col gap-4 text-left;
+  @apply relative flex w-full max-w-xl flex-col gap-4 text-left;
   @apply font-robotomono text-pf-caption font-light leading-relaxed text-slate-200 md:text-pf-body;
+}
+
+/* Full copy for ResizeObserver; same width/typography as visible paras. */
+.prequel-section__body-measure {
+  @apply pointer-events-none absolute left-0 top-0 z-[-1] flex w-full flex-col gap-4;
+  visibility: hidden;
 }
 
 .prequel-section__body-para {

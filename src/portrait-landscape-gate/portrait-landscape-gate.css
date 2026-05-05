@@ -1,4 +1,4 @@
-/* --- Portrait / landscape gate: copy and chrome (void from SpaceVoidShell) --- */
+/* Portrait landscape gate */
 
 .portrait-landscape-gate {
   @apply pointer-events-auto;

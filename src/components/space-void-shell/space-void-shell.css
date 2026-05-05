@@ -1,4 +1,4 @@
-/* --- Space void shell: shared backdrop (404 + portrait gate; void + ambient + stars) --- */
+/* Space void shell */
 
 .space-void-shell {
   --space-void-cyan: 34 211 238;
@@ -22,8 +22,7 @@
 }
 
 .space-void-shell__ambient {
-  @apply pointer-events-none absolute;
-  inset: -25%;
+  @apply pointer-events-none absolute inset-[-25%];
   background: radial-gradient(
     circle at 50% 38%,
     rgb(var(--space-void-cyan) / 0.14) 0%,

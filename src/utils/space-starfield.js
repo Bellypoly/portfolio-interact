@@ -73,10 +73,10 @@ export function generateStarLayer(
   enableTwinkle,
 ) {
   return Array.from({ length: count }, (_, i) => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
+    x: seededRandom(i + layerIndex * 2000) * w,
+    y: seededRandom(i + 17 + layerIndex * 2000) * h,
     size,
-    o: baseOpacity + Math.random() * 0.3,
+    o: baseOpacity + seededRandom(i + 31 + layerIndex * 2000) * 0.3,
     twinkle: enableTwinkle ? makeTwinkle(i, layerIndex) : null,
   }));
 }

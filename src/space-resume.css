@@ -1,5 +1,4 @@
-/* --- Space resume: app shell --- */
-/* Stack: main → nebula → starfield → app-section. Rocket/education wrapper (bottom to top): education backdrop, #rocket (+ atmosphere), HUD strip, starfield, #education. */
+/* Space resume shell */
 
 .app-main {
   @apply relative min-h-screen w-full bg-black text-white;
@@ -30,10 +29,9 @@
     );
 }
 
-/* Starfield height: 100vh fallback; 100dvh when supported (mobile browser chrome). */
-
 .app-starfield {
-  @apply pointer-events-none relative sticky top-0 z-[5] h-screen overflow-hidden bg-transparent supports-[height:100dvh]:h-[100dvh];
+  @apply pointer-events-none sticky top-0 z-[5] h-screen overflow-hidden bg-transparent;
+  @apply supports-[height:100dvh]:h-[100dvh];
 }
 
 .app-shooting-stars {
@@ -61,7 +59,8 @@
 }
 
 .app-debug-overlay {
-  @apply fixed bottom-4 left-4 z-[20000] rounded border border-cyan-500/50 bg-black/80 p-2 font-mono text-pf-note text-cyan-300;
+  @apply fixed bottom-4 left-4 z-[20000] rounded border border-cyan-500/50 bg-black/80 p-2;
+  @apply font-mono text-pf-note text-cyan-300;
 }
 
 .section-title {
@@ -77,7 +76,8 @@
 }
 
 .app-section-item--intro {
-  @apply relative z-10 flex min-h-[550vh] w-full flex-col justify-end overflow-hidden md:min-h-[300vh] lg:min-h-[250vh] xl:min-h-[290vh];
+  @apply relative z-10 flex min-h-[550vh] w-full flex-col justify-end overflow-hidden;
+  @apply md:min-h-[300vh] lg:min-h-[250vh] xl:min-h-[290vh];
 }
 
 .app-section-item--rocket {
@@ -89,7 +89,8 @@
 }
 
 .app-section-item--prequel {
-  @apply relative z-10 flex min-h-min w-full items-center justify-center px-4 sm:px-6 md:px-8;
+  @apply relative z-10 flex min-h-min w-full items-center justify-center px-4;
+  @apply sm:px-6 md:px-8;
 }
 
 .app-section-item--prequel > *,
@@ -97,14 +98,13 @@
   @apply min-w-0 w-full max-w-4xl;
 }
 
-/* --- Mission gallery: full content width --- */
-
 #portfolio.app-section-item--landing > * {
   @apply max-w-none;
 }
 
 .app-section-item--landing {
-  @apply relative z-10 flex min-h-min w-full items-start justify-center px-4 sm:px-6 md:px-8;
+  @apply relative z-10 flex min-h-min w-full items-start justify-center px-4;
+  @apply sm:px-6 md:px-8;
 }
 
 .app-section-loading {
@@ -125,11 +125,9 @@
   @apply relative w-full;
 }
 
-/* Bleed 1px up: Chrome/Firefox mobile often show a subpixel hairline between
-   #pre-gallery (dark stack) and this white block; Safari/Edge usually composite flush. */
+/* Overlap slightly to hide mobile subpixel seams. */
 .portfolio-wrapper__bg {
-  @apply pointer-events-none absolute inset-x-0 bottom-0 z-[2] min-h-screen bg-white;
-  top: -1px;
+  @apply pointer-events-none absolute inset-x-0 bottom-0 top-[-1px] z-[2] min-h-screen bg-white;
 }
 
 #portfolio.app-section-item--landing {
@@ -141,13 +139,12 @@
 }
 
 .rocket-education-wrapper__education-bg {
-  @apply pointer-events-none absolute inset-x-0 bottom-0 z-[2] min-h-screen bg-[linear-gradient(180deg,#397a96_3%,#c9d9dc_28%,#f9e7e7_45%,#fff6d4_60%,#ffffff_100%)];
-  top: 100vh;
+  @apply pointer-events-none absolute inset-x-0 bottom-0 top-[100vh] z-[2] min-h-screen;
+  @apply bg-[linear-gradient(180deg,#397a96_3%,#c9d9dc_28%,#f9e7e7_45%,#fff6d4_60%,#ffffff_100%)];
 }
 
 .rocket-education-wrapper {
   @apply relative w-full;
-  /* Matches .rocket-education-wrapper__hud width (rocket inset in landscape). */
   --rocket-hud-strip: min(6rem, 20vw);
 }
 
@@ -166,7 +163,8 @@
 }
 
 .rocket-education-wrapper__hud {
-  @apply pointer-events-none absolute left-0 top-0 z-[4] hidden h-full w-[var(--rocket-hud-strip)] flex-col justify-between px-4 md:flex;
+  @apply pointer-events-none absolute left-0 top-0 z-[4] hidden h-full w-[var(--rocket-hud-strip)] flex-col justify-between px-4;
+  @apply md:flex;
 }
 
 .rocket-education-wrapper__hud .atmosphere-hud {

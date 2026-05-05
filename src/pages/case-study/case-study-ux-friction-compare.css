@@ -1,29 +1,22 @@
-/* --- Case study: UX friction compare (panels mirror BA; list reset in project-case-study.css) --- */
+/* Case study UX friction compare */
 
 .project-case-study__ux-compare {
   @apply m-0 mt-8;
 }
 
 .project-case-study__ux-compare-panels {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
+  @apply grid grid-cols-1 gap-4;
 }
 
 @media (min-width: 768px) {
   .project-case-study__ux-compare-panels {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.75rem;
+    @apply grid-cols-2 gap-7;
   }
 }
 
 .project-case-study__ux-compare-panel {
+  @apply min-h-0 rounded-[var(--ba-radius)] border-[1.5px] border-[var(--ba-border)] p-7 shadow-[var(--ba-shadow)];
   background: rgba(255, 255, 255, 0.44);
-  border: 1.5px solid var(--ba-border);
-  border-radius: var(--ba-radius);
-  padding: 1.75rem;
-  box-shadow: var(--ba-shadow);
-  min-height: 0;
 }
 
 .project-case-study__ux-compare-panel--before {
@@ -43,25 +36,18 @@
 }
 
 .project-case-study__ux-compare-title {
-  margin: 0 0 0.65rem;
-  font-size: var(--cs-text-subhead);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--ba-teal);
+  @apply m-0 mb-[0.65rem] text-[length:var(--cs-text-subhead)] font-bold leading-[1.2] tracking-[-0.02em];
+  @apply text-[color:var(--ba-teal)];
 }
 
 .project-case-study__ux-compare-list {
-  padding-left: 1.2rem;
-  font-size: var(--cs-text-ui);
-  line-height: var(--cs-lh-ui);
-  color: var(--ba-muted);
+  @apply pl-[1.2rem] text-[length:var(--cs-text-ui)] leading-[var(--cs-lh-ui)] text-[color:var(--ba-muted)];
 }
 
 .project-case-study__ux-compare-list > li + li {
-  margin-top: 0.45rem;
+  @apply mt-[0.45rem];
 }
 
 .project-case-study__ux-compare-list li::marker {
-  color: var(--ba-teal);
+  @apply text-[color:var(--ba-teal)];
 }

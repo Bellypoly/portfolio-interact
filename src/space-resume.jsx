@@ -70,7 +70,7 @@ const MissionCompleteSection = lazy(
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;
 
-/** Tailwind breakpoint label for the current window width (matches `opening-crawl` stops). */
+// Shared breakpoint label for debug UI and crawl tuning.
 function viewportTailwindBand(width) {
   if (width < 640) return "xs";
   if (width < 768) return "sm";
@@ -87,7 +87,7 @@ function getSectionItemClass(id, index) {
   return "app-section-item--landing";
 }
 
-/** Linear pointer parallax (no spring) — cheaper per frame on iOS. */
+// Pointer parallax without springs keeps mouse movement cheap.
 function useMouseParallax(axisX, axisY, range) {
   const x = useTransform(axisX, [-1, 1], [-range, range]);
   const y = useTransform(axisY, [-1, 1], [-range, range]);
@@ -148,7 +148,7 @@ export default function SpaceResume() {
     target: sectionRefs.current[EDUCATION_SECTION_INDEX],
     offset: ["start end", "end start"],
   });
-  /** HUD travel line: 0→1 while education's top travels from viewport top to leaving the window. */
+  // Progress for the HUD marker while education moves through the viewport.
   const educationHudLineScroll = useScroll({
     target: sectionRefs.current[EDUCATION_SECTION_INDEX],
     offset: ["start start", "end start"],
@@ -216,7 +216,7 @@ export default function SpaceResume() {
       if (jumpTimeoutRef.current) clearTimeout(jumpTimeoutRef.current);
       jumpingToRef.current = i;
       setActiveIndex(i);
-      // Index 0 jumps to document top (not #intro), so progress 0 lines up with the crawl start.
+      // The intro marker returns to document top, not just the intro element.
       if (i === 0) {
         scrollDocumentToTop();
         resetOpeningCrawlScroller();
@@ -240,17 +240,33 @@ export default function SpaceResume() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("up");
-  /** Mirrors `scrollDirection` for scroll handler comparisons without stale closures. */
   const scrollDirectionRef = useRef("up");
   const lastScrollYRef = useRef(0);
   const scrollSpyRafRef = useRef(0);
   const [debugScroll, setDebugScroll] = useState(0);
   const [debugCrawlProgress, setDebugCrawlProgress] = useState(0);
   const [debugScrollYProgress, setDebugScrollYProgress] = useState(0);
-  /** DEV: which section contains the scroll-spy probe line */
   const [scrollSpyDebug, setScrollSpyDebug] = useState(null);
   const [debugScrollSpyPanelOpen, setDebugScrollSpyPanelOpen] = useState(true);
   const [debugDwellPanelOpen, setDebugDwellPanelOpen] = useState(true);
+  const [educationSectionInView, setEducationSectionInView] = useState(false);
+
+  // Show HUD extras only while the education section is visible.
+  useEffect(() => {
+    const el = sectionRefs.current[EDUCATION_SECTION_INDEX]?.current;
+    if (!el) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setEducationSectionInView(Boolean(entry?.isIntersecting)),
+      { root: null, rootMargin: "0px", threshold: 0 },
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     if (import.meta.env.DEV) setDebugScrollYProgress(v);
   });
@@ -258,7 +274,6 @@ export default function SpaceResume() {
     if (import.meta.env.DEV) setDebugCrawlProgress(v);
   });
 
-  /** Cumulative time each section was the active scroll-spy target (ms). */
   const sectionDwellMsRef = useRef(
     Array.from({ length: SECTION_COUNT }, () => 0),
   );
@@ -266,7 +281,6 @@ export default function SpaceResume() {
     typeof performance !== "undefined" ? performance.now() : 0,
   );
   const lastActiveForDwellRef = useRef(0);
-  /** Last wall-clock time (Date.now) each section became active */
   const sectionLastEnteredAtRef = useRef(
     Array.from({ length: SECTION_COUNT }, () => null),
   );
@@ -285,7 +299,6 @@ export default function SpaceResume() {
     sectionLastEnteredAtRef.current[activeIndex] = Date.now();
   }, [activeIndex]);
 
-  /** DEV: re-render dwell readout while a section is active */
   const [timingTick, setTimingTick] = useState(0);
   useEffect(() => {
     if (!import.meta.env.DEV) return undefined;
@@ -295,7 +308,7 @@ export default function SpaceResume() {
 
   const sectionIds = useMemo(() => SECTIONS.map((s) => s.id), [SECTIONS]);
 
-  // Scroll handler: rAF-batched layout reads, setState only when active index actually changes.
+  // RAF-batched scroll spy for active section state.
   useEffect(() => {
     function updateDevDebug() {
       if (!import.meta.env.DEV) return;
@@ -359,7 +372,7 @@ export default function SpaceResume() {
     }
 
     window.addEventListener("scroll", scheduleScrollSpy, { passive: true });
-    window.addEventListener("resize", scheduleScrollSpy);
+    window.addEventListener("resize", scheduleScrollSpy, { passive: true });
     window.addEventListener("scrollend", onScrollEnd);
     flushScrollSpy();
     return () => {
@@ -382,7 +395,12 @@ export default function SpaceResume() {
     let raf = 0;
     const flush = () => {
       raf = 0;
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+      setWindowSize((prev) => {
+        const next = { width: window.innerWidth, height: window.innerHeight };
+        return prev.width === next.width && prev.height === next.height
+          ? prev
+          : next;
+      });
     };
     const onResize = () => {
       if (raf !== 0) return;
@@ -404,8 +422,8 @@ export default function SpaceResume() {
   );
   const starViewport = useMemo(
     () => bucketViewportForStarfield(windowSize.width, windowSize.height),
-    // Recompute only when crossing a bucket boundary (see `space-starfield.js`).
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- deps are bucket indices, not raw px
+    // Rebuild stars only when the bucket changes, not on every pixel.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [starWidthBucket, starHeightBucket],
   );
   const starCount = resolveStarCount(windowSize.width, preferSimpleMotion);
@@ -425,12 +443,7 @@ export default function SpaceResume() {
           ),
         ]),
       ),
-    [
-      starViewport.width,
-      starViewport.height,
-      starCount,
-      preferSimpleMotion,
-    ],
+    [starViewport.width, starViewport.height, starCount, preferSimpleMotion],
   );
 
   const crawlBreakpointLabel = viewportTailwindBand(windowSize.width);
@@ -445,7 +458,7 @@ export default function SpaceResume() {
       mouseX.set(x);
       mouseY.set(y);
     }
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMouseMove);
   }, [mouseX, mouseY, preferSimpleMotion]);
 
@@ -780,7 +793,7 @@ export default function SpaceResume() {
                       educationLineProgress={
                         educationHudLineScroll.scrollYProgress
                       }
-                      showScrollLine={activeIndex === EDUCATION_SECTION_INDEX}
+                      showEducationHudDecor={educationSectionInView}
                     />
                   </div>
                   <div

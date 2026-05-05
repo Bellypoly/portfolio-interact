@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
 import { motion, useTransform, useMotionValueEvent } from "framer-motion";
 import {
   useTypingWords,
@@ -17,9 +17,51 @@ const PREQUEL_PARAGRAPHS = [
 const TYPING_START_THRESHOLD = 0.15;
 const PREQUEL_FADE_THRESHOLD = 0.2;
 
+function readParaHeights(measureEl) {
+  if (!measureEl) return null;
+  const nodes = measureEl.querySelectorAll("[data-prequel-measure-para]");
+  if (nodes.length !== PREQUEL_PARAGRAPHS.length) return null;
+  return Array.from(nodes, (el) => `${el.offsetHeight}px`);
+}
+
+function sameHeights(a, b) {
+  return a.length === b.length && a.every((v, i) => v === b[i]);
+}
+
 export default React.memo(function PrequelSection({ sectionProgress }) {
   const [show, setShow] = useState(false);
   const [showPrequelFade, setShowPrequelFade] = useState(false);
+  const measureRef = useRef(null);
+  const [paraMinHeights, setParaMinHeights] = useState([null, null, null]);
+
+  const syncParaMinHeights = useCallback(() => {
+    const next = readParaHeights(measureRef.current);
+    if (next) {
+      setParaMinHeights((prev) => (sameHeights(prev, next) ? prev : next));
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    let alive = true;
+    const run = () => {
+      if (alive) syncParaMinHeights();
+    };
+    run();
+    const el = measureRef.current;
+    if (!el) {
+      return () => {
+        alive = false;
+      };
+    }
+    const ro = new ResizeObserver(run);
+    ro.observe(el);
+    document.fonts?.ready?.then(run);
+    return () => {
+      alive = false;
+      ro.disconnect();
+    };
+  }, [syncParaMinHeights]);
+
   const { words, paraEnds, visibleWordCount } = useTypingWords(
     PREQUEL_PARAGRAPHS,
     {
@@ -65,6 +107,21 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
         </span>
       </h2>
       <div className="prequel-section__body">
+        <div
+          ref={measureRef}
+          className="prequel-section__body-measure"
+          aria-hidden="true"
+        >
+          {PREQUEL_PARAGRAPHS.map((paragraph, i) => (
+            <p
+              key={i}
+              className="prequel-section__body-para"
+              data-prequel-measure-para
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
         {paraEnds.map((end, i) => {
           const start = i === 0 ? 0 : paraEnds[i - 1];
           const visibleEnd = Math.min(visibleWordCount, end);
@@ -76,9 +133,21 @@ export default React.memo(function PrequelSection({ sectionProgress }) {
           const hasContent =
             visibleEnd > start || (visibleWordCount === 0 && i === 0);
 
-          if (!hasContent) return null;
+          const minH = paraMinHeights[i];
+          const paraStyle = minH ? { minHeight: minH } : undefined;
+
+          if (!hasContent && i > 0) {
+            return (
+              <p
+                key={i}
+                className="prequel-section__body-para"
+                style={paraStyle}
+                aria-hidden="true"
+              />
+            );
+          }
           return (
-            <p key={i} className="prequel-section__body-para">
+            <p key={i} className="prequel-section__body-para" style={paraStyle}>
               {text}
               {isCursorPara && (
                 <>
