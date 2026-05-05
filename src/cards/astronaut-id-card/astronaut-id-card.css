@@ -1,4 +1,6 @@
-/* --- Astronaut ID card: modal HUD + portrait + meta + bio --- */
+/* =============================================================================
+   Astronaut ID card — modal HUD, portrait, meta, bio, screws
+   ============================================================================= */
 
 @tailwind utilities;
 @layer utilities {
@@ -7,7 +9,9 @@
   }
 }
 
-/* --- Variables --- */
+/* -----------------------------------------------------------------------------
+   Theme tokens
+   ----------------------------------------------------------------------------- */
 :root {
   --frameA: #d3d6d1;
   --frameB: #7d8782;
@@ -18,13 +22,20 @@
   --line: rgba(255, 215, 140, 0.26);
   --amber: #ffb55a;
   --amber2: #ffd08d;
-  --cyan-glow: rgba(34, 211, 238, 0.6);
-  --cyan-glow-strong: rgba(34, 211, 238, 0.8);
+  /* cyan-400 channels — use rgb(var(--cyan) / α) anywhere you need a custom alpha */
+  --cyan: 34 211 238;
+  --cyan-glow: rgb(var(--cyan) / 0.6);
+  --cyan-glow-strong: rgb(var(--cyan) / 0.8);
   --skill-chip-bg: rgba(210, 245, 255, 0.9);
   --skill-chip-fg: rgba(8, 26, 32, 0.92);
+  /* Portrait corner icon — shared shadow inks (tweak here, not per-layer) */
+  --portrait-icon-shadow-core: rgba(0, 14, 22, 0.75);
+  --portrait-icon-shadow-halo: rgba(4, 32, 40, 0.58);
 }
 
-/* --- Card --- */
+/* -----------------------------------------------------------------------------
+   Card shell
+   ----------------------------------------------------------------------------- */
 .card {
   @apply w-full max-w-[1120px] mx-auto rounded-[34px] relative p-[22px] overflow-x-hidden overflow-y-auto;
   @apply transition-transform duration-500 ease-in-out [will-change:transform,opacity];
@@ -61,7 +72,9 @@
     linear-gradient(180deg, #0f3b46, #082c34 70%, #072229);
 }
 
-/* --- Header --- */
+/* -----------------------------------------------------------------------------
+   Header (stars + badge)
+   ----------------------------------------------------------------------------- */
 .top {
   @apply relative z-[2] flex flex-col items-start justify-between lg:items-center;
 }
@@ -73,7 +86,6 @@
 .badge {
   @apply flex items-center gap-2 w-full z-[2];
 }
-
 .badge-rocket__Img {
   @apply h-[50px] min-h-[50px] w-auto min-w-[40px] object-contain block;
 }
@@ -87,12 +99,16 @@
     0 0 2px #b75c28;
 }
 
-/* --- Layout --- */
+/* -----------------------------------------------------------------------------
+   Layout grid
+   ----------------------------------------------------------------------------- */
 .hud-grid {
   @apply relative z-[2] grid grid-cols-1 gap-4 p-2 min-[861px]:grid-cols-[320px_1fr];
 }
 
-/* --- Panels --- */
+/* -----------------------------------------------------------------------------
+   Glass panels (shared chrome)
+   ----------------------------------------------------------------------------- */
 .panel {
   @apply rounded-[22px] relative overflow-hidden [contain:layout];
   box-shadow:
@@ -125,18 +141,16 @@
     transparent 60%
   );
 }
+
 .portrait-panel {
   @apply p-4 flex flex-col items-stretch gap-0;
 }
-@media (min-width: 490px) and (max-width: 860px) {
-  .portrait-panel {
-    @apply flex-row items-center;
-  }
-}
 
-/* --- Portrait --- */
+/* -----------------------------------------------------------------------------
+   Portrait — interactive flip target
+   ----------------------------------------------------------------------------- */
 .portrait {
-  @apply relative mx-auto flex items-center justify-center rounded-[18px] aspect-square overflow-hidden border border-[rgba(255,255,255,0.1)];
+  @apply relative mx-auto flex cursor-pointer items-center justify-center rounded-[18px] border border-[rgba(255,255,255,0.1)] aspect-square overflow-hidden outline-none transition-[box-shadow,transform,border-color] duration-200 ease-out;
   @apply order-1;
   background:
     radial-gradient(
@@ -146,84 +160,106 @@
     ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.28));
 }
-@media (min-width: 490px) and (max-width: 860px) {
-  .portrait {
-    @apply order-2 flex-none;
-  }
+.portrait:hover {
+  @apply border-cyan-400/35;
+  box-shadow:
+    0 0 0 1px rgb(var(--cyan) / 0.35),
+    0 0 24px rgb(var(--cyan) / 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
+.portrait:active {
+  @apply scale-[0.99];
+}
+.portrait:focus-visible {
+  @apply border-cyan-400/55;
+  box-shadow:
+    0 0 0 2px rgb(var(--cyan) / 0.65),
+    0 0 28px rgb(var(--cyan) / 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
 .portrait__img {
-  @apply w-full h-full pointer-events-none rounded-inherit overflow-hidden block;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  @apply block h-full w-full rounded-inherit overflow-hidden;
+  /* Idle: control affordance (touch has no :hover) */
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cyan) / 0.35),
+    0 0 0 2px rgba(0, 0, 0, 0.12),
+    0 0 14px rgb(var(--cyan) / 0.14),
+    0 0 28px rgb(var(--cyan) / 0.06);
 }
-@media (min-width: 490px) and (max-width: 860px) {
-  .portrait__img {
-    @apply max-w-[160px] mx-auto block;
-  }
+.portrait:hover .portrait__img,
+.portrait:focus-visible .portrait__img {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cyan) / 0.55),
+    0 0 0 2px rgb(var(--cyan) / 0.35),
+    0 0 22px rgb(var(--cyan) / 0.22),
+    0 0 40px rgb(var(--cyan) / 0.1);
 }
+
+.portrait__img img {
+  @apply block h-full w-full object-cover transition-[filter] duration-200 ease-out;
+  filter: saturate(1.06) brightness(1.03);
+}
+.portrait:hover .portrait__img img,
+.portrait:focus-visible .portrait__img img {
+  filter: saturate(1.12) brightness(1.06);
+}
+
 .portrait-scan {
-  @apply absolute top-[-30%] left-[-10%] w-[120%] h-[26%] -rotate-[12deg] opacity-[0.85];
+  @apply pointer-events-none absolute top-[-30%] left-[-10%] h-[26%] w-[120%] -rotate-[12deg] opacity-[0.85];
   background: linear-gradient(
     90deg,
     transparent,
     rgba(159, 246, 255, 0.18),
     transparent
   );
-  animation: scan 3.4s ease-in-out infinite;
+  animation: astronaut-id-scan 3.4s ease-in-out infinite;
 }
-@keyframes scan {
-  0% {
-    transform: translateY(0) rotate(-12deg);
-    opacity: 0;
-  }
-  25% {
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(260%) rotate(-12deg);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(520%) rotate(-12deg);
-    opacity: 0;
-  }
-}
+
 .portrait-text {
-  @apply absolute bottom-[10px] left-[10px] right-[4px] flex items-center justify-start gap-2 text-[var(--muted)] font-mono text-[12px] tracking-[0.14em];
+  @apply pointer-events-none absolute bottom-[10px] left-[10px] right-[4px] flex items-center justify-start gap-2 font-mono text-[12px] tracking-[0.14em] text-[var(--muted)];
 }
+
 .portrait-icon {
-  @apply absolute right-0 cursor-pointer text-[25px];
+  @apply pointer-events-auto absolute right-0 flex items-center justify-center rounded-full border border-cyan-300/45 bg-cyan-950/45 text-[22px] text-cyan-50 backdrop-blur-[2px] transition-[color,background-color,border-color,box-shadow,transform,font-variation-settings] duration-200 ease-out;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 500,
+    "GRAD" 0,
+    "opsz" 24;
+  animation: astronaut-id-portrait-icon-hint 2.6s ease-in-out infinite;
 }
+.portrait:hover .portrait-icon,
+.portrait:focus-visible .portrait-icon {
+  animation: none;
+  @apply border-cyan-200/60 bg-cyan-950/65 text-white;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 500,
+    "GRAD" 0,
+    "opsz" 24;
+  transform: scale(1);
+}
+
 .callsign {
   @apply text-black text-[0.9rem] bg-[rgba(255,180,90,1)];
 }
 
-/* --- Meta --- */
+/* -----------------------------------------------------------------------------
+   Meta column (name, role, transmission, etc.)
+   ----------------------------------------------------------------------------- */
 .meta {
   @apply flex flex-col gap-1 order-2 mt-2 mr-0;
-}
-@media (min-width: 490px) and (max-width: 860px) {
-  .meta {
-    @apply order-1 flex-1 mt-0 mr-2;
-  }
 }
 .meta-row {
   @apply font-silkscreen text-[16px] grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-1 sm:gap-3 p-2.5 rounded-[14px] bg-[rgba(0,0,0,0.18)] border border-[rgba(255,255,255,0.08)] text-[var(--ink)] break-words;
   font-weight: 400;
   text-shadow:
     0 0 8px var(--cyan-glow),
-    0 0 16px rgba(34, 211, 238, 0.4);
+    0 0 16px rgb(var(--cyan) / 0.4);
 }
 .meta-row .k {
   @apply text-cyan-400;
-}
-@media (min-width: 768px) {
-  .k--contact {
-    @apply bg-cyan-400 px-2;
-    color: darkslategrey !important;
-    box-shadow:
-      0 0 8px var(--cyan-glow-strong),
-      0 0 16px rgba(34, 211, 238, 0.5);
-  }
 }
 .meta-row .v {
   @apply text-left sm:text-right uppercase flex flex-col min-w-0 break-words;
@@ -263,7 +299,19 @@
   @apply hidden sm:inline;
 }
 
-/* --- Bio --- */
+@media (min-width: 768px) {
+  .k--contact {
+    @apply bg-cyan-400 px-2;
+    color: darkslategrey !important;
+    box-shadow:
+      0 0 8px var(--cyan-glow-strong),
+      0 0 16px rgb(var(--cyan) / 0.5);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Bio panel + skill chips
+   ----------------------------------------------------------------------------- */
 .panel-bio {
   @apply p-4 flex flex-col;
 }
@@ -279,17 +327,7 @@
 .skill-chip {
   @apply font-robotomono text-pf-note md:text-pf-caption sm:p-2 p-1 rounded-full font-light leading-snug;
   @apply bg-[var(--skill-chip-bg)] text-[var(--skill-chip-fg)];
-  animation: skill-chip-in 0.3s ease-out forwards;
-}
-@keyframes skill-chip-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  animation: astronaut-id-skill-chip-in 0.3s ease-out forwards;
 }
 
 .bio-divider {
@@ -300,7 +338,9 @@
   @apply hidden sm:block;
 }
 
-/* --- Screws --- */
+/* -----------------------------------------------------------------------------
+   Corner screws
+   ----------------------------------------------------------------------------- */
 .screw {
   @apply absolute w-[14px] h-[14px] rounded-full z-[3];
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
@@ -337,4 +377,78 @@
 }
 .screw.s8 {
   @apply top-1/2 -translate-y-1/2 right-0;
+}
+
+/* -----------------------------------------------------------------------------
+   Breakpoints
+   ----------------------------------------------------------------------------- */
+
+/* Tablet-narrow: portrait + meta swap to row */
+@media (min-width: 490px) and (max-width: 860px) {
+  .portrait-panel {
+    @apply flex-row items-center;
+  }
+  .portrait {
+    @apply order-2 flex-none;
+  }
+  .portrait__img {
+    @apply max-w-[160px] mx-auto block;
+  }
+  .meta {
+    @apply order-1 flex-1 mt-0 mr-2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-icon {
+    animation: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Keyframes (prefixed to avoid clashing with globals)
+   ----------------------------------------------------------------------------- */
+@keyframes astronaut-id-scan {
+  0% {
+    transform: translateY(0) rotate(-12deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(260%) rotate(-12deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(520%) rotate(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes astronaut-id-portrait-icon-hint {
+  0%,
+  100% {
+    box-shadow: 0 0 0 6px rgb(var(--cyan) / 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgb(var(--cyan) / 0.62),
+      0 8px 48px rgba(0, 14, 22, 0.82),
+      0 0 80px rgb(var(--cyan) / 0.3),
+      0 0 128px rgba(4, 32, 40, 0.68);
+    transform: scale(1.06);
+  }
+}
+
+@keyframes astronaut-id-skill-chip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

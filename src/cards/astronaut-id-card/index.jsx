@@ -142,23 +142,17 @@ export default function AstronautCard({
 }) {
   const [flipped, setFlipped] = useState(false);
   const [show, setShow] = useState(false);
-  const [fillHover, setFillHover] = useState(false);
 
   const handlePortraitClick = useCallback(() => setFlipped((v) => !v), []);
 
-  const portraitIconProps = useMemo(
-    () => ({
-      className: "material-symbols-rounded portrait-icon",
-      onClick: (e) => {
-        e.stopPropagation();
+  const onPortraitKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
         handlePortraitClick();
-      },
-      "aria-label": "Toggle portrait",
-      onMouseEnter: () => setFillHover(true),
-      onMouseLeave: () => setFillHover(false),
-      style: { fontVariationSettings: `'FILL' ${fillHover ? 0 : 1}` },
-    }),
-    [fillHover, handlePortraitClick],
+      }
+    },
+    [handlePortraitClick],
   );
 
   useEffect(() => {
@@ -218,12 +212,16 @@ export default function AstronautCard({
 
       <div className="hud-grid">
         <aside className="panel portrait-panel">
-          <div className="portrait" aria-label="Profile frame">
-            <picture
-              className="portrait__img"
-              aria-hidden="true"
-              onClick={handlePortraitClick}
-            >
+          <div
+            className="portrait"
+            role="button"
+            tabIndex={0}
+            aria-pressed={flipped}
+            aria-label="Profile portrait — activate to flip image"
+            onClick={handlePortraitClick}
+            onKeyDown={onPortraitKeyDown}
+          >
+            <picture className="portrait__img" aria-hidden="true">
               <source
                 srcSet={`${BASE}images/${profileSrc}.webp`}
                 type="image/webp"
@@ -237,7 +235,10 @@ export default function AstronautCard({
             <div className="portrait-scan" />
             <div className="portrait-text">
               <span className="callsign">CALLSIGN:{callsign}</span>
-              <span {...portraitIconProps}>
+              <span
+                className="material-symbols-rounded portrait-icon"
+                aria-hidden="true"
+              >
                 {flipped ? "identity_platform" : "sentiment_excited"}
               </span>
             </div>
