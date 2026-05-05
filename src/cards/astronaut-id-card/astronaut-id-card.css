@@ -205,6 +205,11 @@
   filter: saturate(1.12) brightness(1.06);
 }
 
+/* profile-pic (corgi shot): bias crop toward top so the face sits a bit higher */
+.portrait__img--profile-pic img {
+  object-position: center 80%;
+}
+
 .portrait-scan {
   @apply pointer-events-none absolute top-[-30%] left-[-10%] h-[26%] w-[120%] -rotate-[12deg] opacity-[0.85];
   background: linear-gradient(

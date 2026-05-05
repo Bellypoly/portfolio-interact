@@ -221,7 +221,10 @@ export default function AstronautCard({
             onClick={handlePortraitClick}
             onKeyDown={onPortraitKeyDown}
           >
-            <picture className="portrait__img" aria-hidden="true">
+            <picture
+              className={`portrait__img${flipped ? " portrait__img--profile-pic" : ""}`}
+              aria-hidden="true"
+            >
               <source
                 srcSet={`${BASE}images/${profileSrc}.webp`}
                 type="image/webp"
