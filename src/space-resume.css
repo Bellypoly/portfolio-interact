@@ -125,8 +125,11 @@
   @apply relative w-full;
 }
 
+/* Bleed 1px up: Chrome/Firefox mobile often show a subpixel hairline between
+   #pre-gallery (dark stack) and this white block; Safari/Edge usually composite flush. */
 .portfolio-wrapper__bg {
-  @apply pointer-events-none absolute inset-x-0 top-0 bottom-0 z-[2] min-h-screen bg-white;
+  @apply pointer-events-none absolute inset-x-0 bottom-0 z-[2] min-h-screen bg-white;
+  top: -1px;
 }
 
 #portfolio.app-section-item--landing {

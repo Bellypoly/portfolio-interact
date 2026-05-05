@@ -1,10 +1,11 @@
-import React, { useState, memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import cc from "classcat";
 import { useModalPortalLock } from "../../hooks/use-modal-portal-lock";
 import "./resume-lightbox.css";
 
 const BASE = import.meta.env.BASE_URL ?? "/";
+const DESKTOP_LIGHTBOX_QUERY = "(min-width: 1024px)";
 
 function assetUrl(relativePath) {
   const path = relativePath.replace(/^\.\//, "").replace(/^\/+/, "");
@@ -12,9 +13,42 @@ function assetUrl(relativePath) {
   return `${root}${path}`;
 }
 
+function externalLinkProps(props) {
+  return {
+    ...props,
+    target: "_blank",
+    rel: props.rel ?? "noopener noreferrer",
+  };
+}
+
+function modalTriggerProps(props) {
+  const { target, rel, ...rest } = props;
+  void target;
+  void rel;
+  return rest;
+}
+
+/** Tailwind `lg`: true for laptop/desktop; false for phones, tablets, iPad portrait, etc. */
+function useResumeDesktopLightbox() {
+  const [desktop, setDesktop] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia(DESKTOP_LIGHTBOX_QUERY).matches
+      : false,
+  );
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const mq = window.matchMedia(DESKTOP_LIGHTBOX_QUERY);
+    const sync = () => setDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  return desktop;
+}
+
 /**
- * Résumé link → centered modal with PDF in `<iframe>` (native viewer).
- * Scroll lock / Escape: `useModalPortalLock` (shared with case-study lightbox).
+ * Résumé link: non-desktop opens the PDF in a new tab (no modal, no iframe).
+ * Desktop (≥1024px): centered modal with native PDF iframe.
  */
 const ResumeLightboxLink = memo(function ResumeLightboxLink({
   pdfPath = "resume-suwaphit.pdf",
@@ -24,10 +58,19 @@ const ResumeLightboxLink = memo(function ResumeLightboxLink({
 }) {
   const [open, setOpen] = useState(false);
   const pdfHref = assetUrl(pdfPath);
+  const desktopLightbox = useResumeDesktopLightbox();
+  const linkProps = desktopLightbox
+    ? modalTriggerProps(anchorProps)
+    : externalLinkProps(anchorProps);
 
-  useModalPortalLock(open, () => setOpen(false));
+  useEffect(() => {
+    if (!desktopLightbox) setOpen(false);
+  }, [desktopLightbox]);
+
+  useModalPortalLock(desktopLightbox && open, () => setOpen(false));
 
   const modal =
+    desktopLightbox &&
     open &&
     createPortal(
       <div
@@ -87,8 +130,9 @@ const ResumeLightboxLink = memo(function ResumeLightboxLink({
       <a
         href={pdfHref}
         className={cc([className])}
-        {...anchorProps}
+        {...linkProps}
         onClick={(e) => {
+          if (!desktopLightbox) return;
           if (
             e.metaKey ||
             e.ctrlKey ||

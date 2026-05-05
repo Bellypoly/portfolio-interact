@@ -36,30 +36,24 @@ import {
 import HoverRevealText from "../components/hover-reveal-text";
 import "./project-case-study.css";
 
-const CaseStudyCheckoutSection = lazy(() =>
-  import("./case-study/case-study-sections").then((m) => ({
-    default: m.CaseStudyCheckoutSection,
-  })),
+function lazyCaseStudySection(exportName) {
+  return lazy(() =>
+    import("./case-study/case-study-sections").then((m) => ({
+      default: m[exportName],
+    })),
+  );
+}
+
+const CaseStudyCheckoutSection = lazyCaseStudySection(
+  "CaseStudyCheckoutSection",
 );
-const CaseStudyClaritySection = lazy(() =>
-  import("./case-study/case-study-sections").then((m) => ({
-    default: m.CaseStudyClaritySection,
-  })),
+const CaseStudyClaritySection = lazyCaseStudySection("CaseStudyClaritySection");
+const CaseStudyOnboardingSection = lazyCaseStudySection(
+  "CaseStudyOnboardingSection",
 );
-const CaseStudyOnboardingSection = lazy(() =>
-  import("./case-study/case-study-sections").then((m) => ({
-    default: m.CaseStudyOnboardingSection,
-  })),
-);
-const CaseStudyShowcaseSection = lazy(() =>
-  import("./case-study/case-study-sections").then((m) => ({
-    default: m.CaseStudyShowcaseSection,
-  })),
-);
-const CaseStudyReferenceSection = lazy(() =>
-  import("./case-study/case-study-sections").then((m) => ({
-    default: m.CaseStudyReferenceSection,
-  })),
+const CaseStudyShowcaseSection = lazyCaseStudySection("CaseStudyShowcaseSection");
+const CaseStudyReferenceSection = lazyCaseStudySection(
+  "CaseStudyReferenceSection",
 );
 const CaseStudyFlourishEmbed = lazy(
   () => import("./case-study/case-study-flourish-embed"),
@@ -92,9 +86,14 @@ export default function ProjectCaseStudyPage() {
     }
     let cancelled = false;
     setProject(undefined);
-    loadPortfolioProjectBySlug(slug).then((p) => {
-      if (!cancelled) setProject(p);
-    });
+    loadPortfolioProjectBySlug(slug).then(
+      (p) => {
+        if (!cancelled) setProject(p);
+      },
+      () => {
+        if (!cancelled) setProject(null);
+      },
+    );
     return () => {
       cancelled = true;
     };

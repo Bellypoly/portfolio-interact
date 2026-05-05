@@ -216,9 +216,9 @@ export const subscriptionCheckoutActivationProject = {
           "↓",
           "Account exists?",
           "   → No  → Create identity inline → Continue",
-          "   → Yes → Active subscription?",
+          "  → Yes → Active subscription?",
           "           → Yes → Exit checkout → Status screen",
-          "           → No  → Auth → Resume with cart intact",
+          "            → No  → Auth → Resume with cart intact",
         ],
         caption:
           "One async lookup, 3 deterministic branches. No guessing, no dead ends, no lost state.",

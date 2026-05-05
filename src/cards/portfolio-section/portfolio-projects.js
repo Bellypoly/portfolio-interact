@@ -78,6 +78,23 @@ function buildMissionGalleryProjectsOrdered() {
 /** Built once: manifest is static for the lifetime of the app shell. */
 const MISSION_GALLERY_ORDERED_ALL = buildMissionGalleryProjectsOrdered();
 
+if (import.meta.env.DEV) {
+  import("../../data/portfolio/load-portfolio-project.js").then(
+    ({ hasPortfolioProjectSlug }) => {
+      const missingRouteSlugs = MISSION_GALLERY_ORDERED_ALL.filter(
+        (p) => p.slug && !hasPortfolioProjectSlug(p.slug),
+      ).map((p) => p.slug);
+
+      if (missingRouteSlugs.length > 0) {
+        console.warn(
+          "Mission Gallery entries without case-study route loaders:",
+          missingRouteSlugs,
+        );
+      }
+    },
+  );
+}
+
 const MISSION_GALLERY_ORDERED_EDUCATION = MISSION_GALLERY_ORDERED_ALL.filter(
   (p) =>
     MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] ===

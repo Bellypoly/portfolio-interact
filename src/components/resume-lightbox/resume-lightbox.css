@@ -1,4 +1,4 @@
-/* --- Résumé lightbox: PDF in iframe only (panel centered in viewport) --- */
+/* --- Résumé lightbox: modal + iframe on desktop (≥lg); other viewports use new tab --- */
 
 .resume-lightbox__backdrop {
   @apply fixed inset-0 z-[50000] box-border flex items-center justify-center px-3 sm:px-5 bg-[var(--pf-modal-scrim-bg)] backdrop-blur-[var(--pf-modal-scrim-blur)];
