@@ -6,7 +6,7 @@
 
 .portrait-landscape-gate__content {
   @apply flex min-h-full flex-col items-center justify-center gap-3 p-6 text-center;
-  @apply font-sans text-pf-body leading-[1.45] text-[#e2f8ff];
+  @apply font-sans text-site-body leading-[1.45] text-[#e2f8ff];
   @apply [text-shadow:0_0_28px_rgb(34_211_238/0.18)];
 }
 

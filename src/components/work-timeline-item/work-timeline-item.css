@@ -21,18 +21,18 @@
 }
 
 .work-timeline-item__label {
-  @apply font-robotomono text-pf-caption uppercase leading-none tracking-wider text-slate-400;
+  @apply font-robotomono text-site-caption uppercase leading-none tracking-wider text-slate-400;
 }
 
 .work-timeline-item .hover-reveal-text,
 .work-timeline-item .hover-reveal-text__line {
-  @apply text-pf-body leading-none;
+  @apply text-site-body leading-none;
 }
 
 /* --- Work timeline item: title + meta + body --- */
 
 .work-timeline-item__title {
-  @apply inline-flex items-start gap-2 font-orbitron text-pf-job-title font-bold uppercase italic tracking-[0.12em] text-slate-100;
+  @apply inline-flex items-start gap-2 font-orbitron text-site-job-title font-bold uppercase italic tracking-[0.12em] text-slate-100;
 }
 
 .work-timeline-item__live-dot {
@@ -54,7 +54,7 @@
 }
 
 .work-timeline-item__meta {
-  @apply font-quicksand text-pf-body font-medium text-slate-400;
+  @apply font-quicksand text-site-body font-medium text-slate-400;
 }
 
 .work-timeline-item__meta-where {
@@ -62,19 +62,19 @@
 }
 
 .work-timeline-item__description {
-  @apply text-justify font-roboto text-pf-lead font-normal leading-relaxed text-slate-300;
+  @apply text-justify font-roboto text-site-lead font-normal leading-relaxed text-slate-300;
 }
 
 /* --- Portfolio link + bullet trigger (cyan; hover rust like case study) --- */
 
 .work-timeline-item__portfolio-link,
 .work-timeline-item__bullet-trigger {
-  @apply cursor-pointer font-roboto text-pf-body font-medium uppercase tracking-wider text-cyan-400 transition-colors duration-150;
+  @apply cursor-pointer font-roboto text-site-body font-medium uppercase tracking-wider text-cyan-400 transition-colors duration-150;
 }
 
 .work-timeline-item__portfolio-link:hover,
 .work-timeline-item__bullet-trigger:hover {
-  @apply text-[var(--pf-editorial-rust)];
+  @apply text-[var(--site-editorial-rust)];
 }
 
 .work-timeline-item__portfolio-link-block {
@@ -143,7 +143,7 @@
 } */
 
 .work-timeline-item__bullet-list {
-  @apply m-0 list-inside list-disc space-y-2 p-0 font-robotomono font-light text-pf-body leading-relaxed text-[var(--ink)] antialiased;
+  @apply m-0 list-inside list-disc space-y-2 p-0 font-robotomono font-light text-site-body leading-relaxed text-[var(--ink)] antialiased;
 }
 
 .work-timeline-item__bullet {

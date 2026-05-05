@@ -11,7 +11,7 @@
 }
 
 .not-found-page__code {
-  @apply font-robotomono text-pf-note uppercase tracking-[0.35em] text-cyan-300/90;
+  @apply font-robotomono text-site-note uppercase tracking-[0.35em] text-cyan-300/90;
 }
 
 .not-found-page__title {
@@ -21,22 +21,22 @@
 }
 
 .not-found-page__lead {
-  @apply font-quicksand text-pf-body leading-relaxed text-white/90 sm:text-pf-lead;
+  @apply font-quicksand text-site-body leading-relaxed text-white/90 sm:text-site-lead;
 }
 
 .not-found-page__sub {
-  @apply mt-3 font-quicksand text-pf-caption leading-relaxed text-white/55 sm:text-pf-body;
+  @apply mt-3 font-quicksand text-site-caption leading-relaxed text-white/55 sm:text-site-body;
 }
 
 .not-found-page__path {
-  @apply break-all font-robotomono text-pf-note text-white/40;
+  @apply break-all font-robotomono text-site-note text-white/40;
 }
 
 .not-found-page__btn {
   @apply mt-9 inline-flex items-center justify-center gap-2 rounded-full px-7 py-3;
   @apply font-quicksand font-semibold no-underline transition-[transform,box-shadow] duration-200 ease-out;
   @apply text-[#001018];
-  @apply bg-[linear-gradient(135deg,var(--pf-teal-cyan)_0%,#5eead4_45%,var(--pf-teal-ui)_100%)];
+  @apply bg-[linear-gradient(135deg,var(--site-teal-cyan)_0%,#5eead4_45%,var(--site-teal-ui)_100%)];
   @apply shadow-[0_4px_20px_rgb(34_211_238/0.35),inset_0_1px_0_rgba(255,255,255,0.35)];
 }
 

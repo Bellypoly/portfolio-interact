@@ -37,11 +37,11 @@
 }
 
 .mission-complete__eyebrow {
-  @apply mb-3 w-full text-left font-silkscreen text-pf-caption uppercase tracking-[0.32em] text-[var(--pf-teal-primary)] sm:text-center [text-shadow:0_0_10px_rgba(34,211,238,0.35)];
+  @apply mb-3 w-full text-left font-silkscreen text-site-caption uppercase tracking-[0.32em] text-[var(--site-teal-primary)] sm:text-center [text-shadow:0_0_10px_rgba(34,211,238,0.35)];
 }
 
 .mission-complete__title {
-  @apply mb-6 mt-0 flex max-w-full flex-col items-start gap-0 self-start text-left font-silkscreen text-[clamp(2.5rem,5vw+1.25rem,3.75rem)] font-bold uppercase italic leading-[1.02] tracking-[0.04em] text-[var(--pf-teal-accent)] sm:items-center sm:self-center sm:text-center;
+  @apply mb-6 mt-0 flex max-w-full flex-col items-start gap-0 self-start text-left font-silkscreen text-[clamp(2.5rem,5vw+1.25rem,3.75rem)] font-bold uppercase italic leading-[1.02] tracking-[0.04em] text-[var(--site-teal-accent)] sm:items-center sm:self-center sm:text-center;
 }
 
 .mission-complete__title-mission {
@@ -53,7 +53,7 @@
 }
 
 .mission-complete__title-cursor {
-  @apply ml-[0.06em] inline-block shrink-0 origin-left align-baseline font-robotomono text-[0.82em] font-normal not-italic normal-case leading-none text-[var(--pf-teal-primary)] [text-shadow:none];
+  @apply ml-[0.06em] inline-block shrink-0 origin-left align-baseline font-robotomono text-[0.82em] font-normal not-italic normal-case leading-none text-[var(--site-teal-primary)] [text-shadow:none];
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -69,7 +69,7 @@
 }
 
 .mission-complete__lede {
-  @apply mb-9 w-full max-w-[52ch] self-start text-left font-robotomono text-[clamp(0.9rem,0.4vw+0.8rem,1.05rem)] leading-relaxed text-[var(--pf-editorial-teal)] sm:mx-auto sm:self-center sm:text-center;
+  @apply mb-9 w-full max-w-[52ch] self-start text-left font-robotomono text-[clamp(0.9rem,0.4vw+0.8rem,1.05rem)] leading-relaxed text-[var(--site-editorial-teal)] sm:mx-auto sm:self-center sm:text-center;
 }
 
 .mission-complete__links {
@@ -77,16 +77,16 @@
 }
 
 .mission-complete__hint {
-  @apply mx-auto w-full max-w-[45ch] self-center text-center font-robotomono text-pf-caption text-[var(--pf-editorial-muted)];
+  @apply mx-auto w-full max-w-[45ch] self-center text-center font-robotomono text-site-caption text-[var(--site-editorial-muted)];
 }
 
 /* Pill links — shared idle chrome split across ghost vs primary modifiers */
 .mission-complete__link {
-  @apply inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-2.5 font-silkscreen text-[clamp(0.75rem,0.3vw+0.7rem,0.9rem)] uppercase tracking-[0.16em] no-underline shadow-[0_4px_14px_rgb(var(--pf-teal-accent-rgb)/0.22)] backdrop-blur [backdrop-filter:blur(6px)] [-webkit-backdrop-filter:blur(6px)] hover:border-[var(--pf-teal-primary)] hover:bg-[var(--pf-teal-primary)] hover:text-white hover:shadow-[0_6px_20px_rgb(var(--pf-teal-accent-rgb)/0.5)] focus-visible:border-[var(--pf-teal-primary)] focus-visible:bg-[var(--pf-teal-primary)] focus-visible:text-white focus-visible:shadow-[0_6px_20px_rgb(var(--pf-teal-accent-rgb)/0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-transparent sm:w-auto;
+  @apply inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-2.5 font-silkscreen text-[clamp(0.75rem,0.3vw+0.7rem,0.9rem)] uppercase tracking-[0.16em] no-underline shadow-[0_4px_14px_rgb(var(--site-teal-accent-rgb)/0.22)] backdrop-blur [backdrop-filter:blur(6px)] [-webkit-backdrop-filter:blur(6px)] hover:border-[var(--site-teal-primary)] hover:bg-[var(--site-teal-primary)] hover:text-white hover:shadow-[0_6px_20px_rgb(var(--site-teal-accent-rgb)/0.5)] focus-visible:border-[var(--site-teal-primary)] focus-visible:bg-[var(--site-teal-primary)] focus-visible:text-white focus-visible:shadow-[0_6px_20px_rgb(var(--site-teal-accent-rgb)/0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-transparent sm:w-auto;
 }
 
 .mission-complete__link--ghost:focus-visible {
-  @apply outline-[var(--pf-teal-accent)];
+  @apply outline-[var(--site-teal-accent)];
 }
 
 .mission-complete__link--primary:focus-visible {
@@ -94,16 +94,16 @@
 }
 
 .mission-complete__link--ghost {
-  @apply border-[rgb(var(--pf-teal-primary-rgb)/0.45)] bg-white/70 text-[var(--pf-teal-primary)];
+  @apply border-[rgb(var(--site-teal-primary-rgb)/0.45)] bg-white/70 text-[var(--site-teal-primary)];
 }
 
 .mission-complete__link--primary {
-  @apply border-[var(--pf-teal-primary)] bg-[var(--pf-teal-primary)] text-white;
+  @apply border-[var(--site-teal-primary)] bg-[var(--site-teal-primary)] text-white;
 }
 
 /* Ligature icons: font + defaults come from Google `.material-symbols-rounded`; tune size/fill here */
 .mission-complete__link-icon.material-symbols-rounded {
-  @apply text-pf-lead;
+  @apply text-site-lead;
   font-variation-settings:
     "FILL" 1,
     "wght" 500,
@@ -121,7 +121,7 @@
 }
 
 .mission-complete__fab-chevron {
-  @apply -ml-[0.52em] inline-block leading-none text-[5rem] text-[var(--pf-teal-mid)] first:ml-0;
+  @apply -ml-[0.52em] inline-block leading-none text-[5rem] text-[var(--site-teal-mid)] first:ml-0;
   font-family: "Material Symbols Rounded", ui-sans-serif, system-ui, sans-serif;
   font-variation-settings:
     "FILL" 0,
@@ -140,42 +140,42 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mission-complete__fab-chevron {
-    @apply text-[var(--pf-teal-mid)] opacity-[0.55];
+    @apply text-[var(--site-teal-mid)] opacity-[0.55];
   }
 }
 
 @keyframes mission-complete-merge-sign {
   0% {
     opacity: 0.2;
-    color: var(--pf-teal-mid);
+    color: var(--site-teal-mid);
   }
 
   12% {
     opacity: 0.42;
     color: color-mix(
       in srgb,
-      var(--pf-teal-mid) 70%,
-      var(--pf-teal-primary) 30%
+      var(--site-teal-mid) 70%,
+      var(--site-teal-primary) 30%
     );
   }
 
   28% {
     opacity: 1;
-    color: var(--pf-teal-primary);
+    color: var(--site-teal-primary);
   }
 
   44% {
     opacity: 0.55;
     color: color-mix(
       in srgb,
-      var(--pf-teal-mid) 45%,
-      var(--pf-teal-primary) 55%
+      var(--site-teal-mid) 45%,
+      var(--site-teal-primary) 55%
     );
   }
 
   58%,
   100% {
     opacity: 0.2;
-    color: var(--pf-teal-mid);
+    color: var(--site-teal-mid);
   }
 }

@@ -1,4 +1,4 @@
-/* Case-study figure lightbox: trigger, zoom badge, portal modal (uses --pf-modal-scrim-*). */
+/* Case-study figure lightbox: trigger, zoom badge, portal modal (uses --site-modal-scrim-*). */
 
 /* --- Trigger (keeps `project-case-study__lightbox-trigger` for featured-wrap rules in project-case-study.css) --- */
 
@@ -17,7 +17,7 @@
 }
 
 .cs-lightbox__icon--body {
-  @apply text-pf-body text-stone-800;
+  @apply text-site-body text-stone-800;
   @apply [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24];
 }
 
@@ -25,7 +25,7 @@
 
 .cs-lightbox__backdrop {
   @apply fixed inset-0 z-[400] flex items-center justify-center p-4;
-  @apply bg-[var(--pf-modal-scrim-bg)] backdrop-blur-[var(--pf-modal-scrim-blur)];
+  @apply bg-[var(--site-modal-scrim-bg)] backdrop-blur-[var(--site-modal-scrim-blur)];
 }
 
 .cs-lightbox__close {
@@ -34,7 +34,7 @@
 }
 
 .cs-lightbox__icon--close {
-  @apply text-pf-icon text-stone-800;
+  @apply text-site-icon text-stone-800;
   @apply [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24];
 }
 

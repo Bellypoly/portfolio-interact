@@ -12,7 +12,7 @@
 
 .project-card:focus-visible {
   @apply outline-none ring-2 ring-offset-2 ring-offset-white;
-  --tw-ring-color: var(--pf-teal-accent);
+  --tw-ring-color: var(--site-teal-accent);
 }
 
 .project-card__media {
@@ -53,16 +53,16 @@
 }
 
 .project-card__badge {
-  @apply max-w-[11rem] shrink-0 truncate rounded border border-white/20 bg-black/55 px-2 py-0.5 font-silkscreen text-pf-micro font-normal uppercase tracking-[0.12em] backdrop-blur-sm;
+  @apply max-w-[11rem] shrink-0 truncate rounded border border-white/20 bg-black/55 px-2 py-0.5 font-silkscreen text-site-micro font-normal uppercase tracking-[0.12em] backdrop-blur-sm;
   @apply shadow-[0_1px_2px_rgb(0_0_0/0.35)];
 }
 
 .project-card__badge--context {
-  @apply text-[var(--pf-teal-cyan)];
+  @apply text-[var(--site-teal-cyan)];
 }
 
 .project-card__badge--research {
-  @apply border-[rgb(var(--pf-gold-rgb)/0.45)] text-[color-mix(in_srgb,var(--pf-gold)_45%,#fde047_55%)];
+  @apply border-[rgb(var(--site-gold-rgb)/0.45)] text-[color-mix(in_srgb,var(--site-gold)_45%,#fde047_55%)];
 }
 
 .project-card__scrim {
@@ -81,7 +81,7 @@
 
 .project-card:hover .project-card__title,
 .project-card:focus-visible .project-card__title {
-  @apply text-[var(--pf-teal-cyan)];
+  @apply text-[var(--site-teal-cyan)];
 }
 
 /* --- Subtitle: same hover-reveal motion as index.css (parent is the card link) --- */
@@ -104,7 +104,7 @@
 }
 
 .project-card__subtitle-reveal__line {
-  @apply block max-h-none min-h-[2.75rem] max-w-full shrink-0 overflow-hidden font-robotomono text-pf-body font-normal leading-snug text-white/90 transition-colors duration-150;
+  @apply block max-h-none min-h-[2.75rem] max-w-full shrink-0 overflow-hidden font-robotomono text-site-body font-normal leading-snug text-white/90 transition-colors duration-150;
   @apply [-webkit-box-orient:vertical] [-webkit-line-clamp:2] [display:-webkit-box];
 }
 
@@ -114,5 +114,5 @@
 
 .project-card:hover .project-card__subtitle-reveal__line:last-child,
 .project-card:focus-visible .project-card__subtitle-reveal__line:last-child {
-  @apply text-[var(--pf-teal-cyan)];
+  @apply text-[var(--site-teal-cyan)];
 }

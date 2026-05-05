@@ -5,7 +5,7 @@
 }
 
 .journey-route-globe {
-  @apply min-h-[200px] w-full min-w-0 max-w-[min(100%,100vw-2rem,24rem)] overflow-hidden text-pf-body;
+  @apply min-h-[200px] w-full min-w-0 max-w-[min(100%,100vw-2rem,24rem)] overflow-hidden text-site-body;
 }
 
 @screen md {
@@ -15,7 +15,7 @@
 }
 
 .journey-route-location {
-  @apply flex min-h-[3.5rem] flex-col justify-center gap-0.5 text-center text-pf-body tracking-wider;
+  @apply flex min-h-[3.5rem] flex-col justify-center gap-0.5 text-center text-site-body tracking-wider;
 }
 
 a.journey-route-location {
@@ -31,5 +31,5 @@ a.journey-route-location:hover {
 }
 
 .journey-route-location__location {
-  @apply font-silkscreen text-pf-lead uppercase text-yellow-300;
+  @apply font-silkscreen text-site-lead uppercase text-yellow-300;
 }

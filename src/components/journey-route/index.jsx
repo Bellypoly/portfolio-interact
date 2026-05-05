@@ -276,7 +276,7 @@ export default React.memo(function JourneyRoute() {
           { type: "Sphere" },
         );
         const path = geoPath(projection, context);
-        const tealCyan = readRootCssVar("--pf-teal-cyan", "#22d3ee");
+        const tealCyan = readRootCssVar("--site-teal-cyan", "#22d3ee");
 
         function render(country, cityCoords, currentIndex) {
           context.clearRect(0, 0, width, height);

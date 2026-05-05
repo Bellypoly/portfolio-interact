@@ -20,7 +20,7 @@ const ResumePdfModal = memo(function ResumePdfModal({ pdfHref, onClose }) {
         aria-label="Close résumé"
       >
         <span
-          className="material-symbols-rounded text-pf-icon text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]"
+          className="material-symbols-rounded text-site-icon text-stone-800 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]"
           aria-hidden="true"
         >
           close

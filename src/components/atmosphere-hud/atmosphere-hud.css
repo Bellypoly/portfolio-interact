@@ -11,7 +11,7 @@
 
 .atmosphere-hud__item {
   @apply relative z-[2] flex w-full min-w-0 shrink-0 items-center gap-2;
-  @apply font-robotomono text-pf-note font-light uppercase tracking-[0.2em];
+  @apply font-robotomono text-site-note font-light uppercase tracking-[0.2em];
 }
 
 /* Gap ticks inherit the row color. */

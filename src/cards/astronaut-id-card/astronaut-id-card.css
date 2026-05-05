@@ -10,33 +10,14 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Theme tokens
-   ----------------------------------------------------------------------------- */
-:root {
-  --frameA: #d3d6d1;
-  --frameB: #7d8782;
-  --glassA: rgba(18, 78, 88, 0.95);
-  --glassB: rgba(7, 40, 48, 0.92);
-  --ink: rgba(235, 255, 255, 0.92);
-  --muted: rgba(235, 255, 255, 0.72);
-  --line: rgba(255, 215, 140, 0.26);
-  --amber: #ffb55a;
-  --amber2: #ffd08d;
-  /* cyan-400 channels — use rgb(var(--cyan) / α) anywhere you need a custom alpha */
-  --cyan: 34 211 238;
-  --cyan-glow: rgb(var(--cyan) / 0.6);
-  --cyan-glow-strong: rgb(var(--cyan) / 0.8);
-  --skill-chip-bg: rgba(210, 245, 255, 0.9);
-  --skill-chip-fg: rgba(8, 26, 32, 0.92);
-  /* Portrait corner icon — shared shadow inks (tweak here, not per-layer) */
-  --portrait-icon-shadow-core: rgba(0, 14, 22, 0.75);
-  --portrait-icon-shadow-halo: rgba(4, 32, 40, 0.58);
-}
-
-/* -----------------------------------------------------------------------------
-   Card shell
+   Card shell — frame + frosted text are HUD-only; colors/glows use design-tokens (--site-*).
    ----------------------------------------------------------------------------- */
 .card {
+  --frameA: #d3d6d1;
+  --frameB: #7d8782;
+  --ink: rgb(235 255 255 / 0.92);
+  --muted: rgb(235 255 255 / 0.72);
+
   @apply w-full max-w-[1120px] mx-auto rounded-[34px] relative p-[22px] overflow-x-hidden overflow-y-auto;
   @apply transition-transform duration-500 ease-in-out [will-change:transform,opacity];
   box-shadow:
@@ -80,7 +61,11 @@
 }
 .top .star-dot {
   @apply absolute rounded-full z-0 pointer-events-none;
-  background-color: var(--amber2);
+  background-color: color-mix(
+    in srgb,
+    var(--site-accent-yellow) 55%,
+    var(--site-gold) 45%
+  );
 }
 
 .badge {
@@ -120,7 +105,11 @@
       rgba(255, 255, 255, 0.08),
       transparent 55%
     ),
-    linear-gradient(180deg, var(--glassA), var(--glassB));
+    linear-gradient(
+      180deg,
+      rgb(from var(--site-teal-ui) r g b / 0.95),
+      rgb(from var(--site-teal-primary) r g b / 0.92)
+    );
 }
 .panel::before {
   content: "";
@@ -163,8 +152,8 @@
 .portrait:hover {
   @apply border-cyan-400/35;
   box-shadow:
-    0 0 0 1px rgb(var(--cyan) / 0.35),
-    0 0 24px rgb(var(--cyan) / 0.22),
+    0 0 0 1px rgb(from var(--site-teal-cyan) r g b / 0.35),
+    0 0 24px rgb(from var(--site-teal-cyan) r g b / 0.22),
     inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 .portrait:active {
@@ -173,8 +162,8 @@
 .portrait:focus-visible {
   @apply border-cyan-400/55;
   box-shadow:
-    0 0 0 2px rgb(var(--cyan) / 0.65),
-    0 0 28px rgb(var(--cyan) / 0.35),
+    0 0 0 2px rgb(from var(--site-teal-cyan) r g b / 0.65),
+    0 0 28px rgb(from var(--site-teal-cyan) r g b / 0.35),
     inset 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
 
@@ -182,18 +171,18 @@
   @apply block h-full w-full rounded-inherit overflow-hidden;
   /* Idle: control affordance (touch has no :hover) */
   box-shadow:
-    inset 0 0 0 1px rgb(var(--cyan) / 0.35),
+    inset 0 0 0 1px rgb(from var(--site-teal-cyan) r g b / 0.35),
     0 0 0 2px rgba(0, 0, 0, 0.12),
-    0 0 14px rgb(var(--cyan) / 0.14),
-    0 0 28px rgb(var(--cyan) / 0.06);
+    0 0 14px rgb(from var(--site-teal-cyan) r g b / 0.14),
+    0 0 28px rgb(from var(--site-teal-cyan) r g b / 0.06);
 }
 .portrait:hover .portrait__img,
 .portrait:focus-visible .portrait__img {
   box-shadow:
-    inset 0 0 0 1px rgb(var(--cyan) / 0.55),
-    0 0 0 2px rgb(var(--cyan) / 0.35),
-    0 0 22px rgb(var(--cyan) / 0.22),
-    0 0 40px rgb(var(--cyan) / 0.1);
+    inset 0 0 0 1px rgb(from var(--site-teal-cyan) r g b / 0.55),
+    0 0 0 2px rgb(from var(--site-teal-cyan) r g b / 0.35),
+    0 0 22px rgb(from var(--site-teal-cyan) r g b / 0.22),
+    0 0 40px rgb(from var(--site-teal-cyan) r g b / 0.1);
 }
 
 .portrait__img img {
@@ -260,8 +249,8 @@
   @apply font-silkscreen text-[16px] grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-1 sm:gap-3 p-2.5 rounded-[14px] bg-[rgba(0,0,0,0.18)] border border-[rgba(255,255,255,0.08)] text-[var(--ink)] break-words;
   font-weight: 400;
   text-shadow:
-    0 0 8px var(--cyan-glow),
-    0 0 16px rgb(var(--cyan) / 0.4);
+    0 0 8px rgb(from var(--site-teal-cyan) r g b / 0.6),
+    0 0 16px rgb(from var(--site-teal-cyan) r g b / 0.4);
 }
 .meta-row .k {
   @apply text-cyan-400;
@@ -309,8 +298,8 @@
     @apply bg-cyan-400 px-2;
     color: darkslategrey !important;
     box-shadow:
-      0 0 8px var(--cyan-glow-strong),
-      0 0 16px rgb(var(--cyan) / 0.5);
+      0 0 8px rgb(from var(--site-teal-cyan) r g b / 0.8),
+      0 0 16px rgb(from var(--site-teal-cyan) r g b / 0.5);
   }
 }
 
@@ -330,14 +319,19 @@
   @apply flex flex-wrap gap-2 m-2;
 }
 .skill-chip {
-  @apply font-robotomono text-pf-note md:text-pf-caption sm:p-2 p-1 rounded-full font-light leading-snug;
-  @apply bg-[var(--skill-chip-bg)] text-[var(--skill-chip-fg)];
+  @apply font-robotomono text-site-note md:text-site-caption sm:p-2 p-1 rounded-full font-light leading-snug;
+  @apply bg-[color-mix(in_srgb,var(--site-sky-pale)_88%,white)] text-[var(--site-teal-ink-800)];
   animation: astronaut-id-skill-chip-in 0.3s ease-out forwards;
 }
 
 .bio-divider {
   @apply my-3 h-px;
-  background: linear-gradient(to right, transparent, var(--line), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(from var(--site-gold) r g b / 0.26),
+    transparent
+  );
 }
 .bio-divider--desktop {
   @apply hidden sm:block;
@@ -434,15 +428,15 @@
 @keyframes astronaut-id-portrait-icon-hint {
   0%,
   100% {
-    box-shadow: 0 0 0 8px rgb(var(--cyan) / 0.4);
+    box-shadow: 0 0 0 8px rgb(from var(--site-teal-cyan) r g b / 0.4);
     transform: scale(1);
   }
   50% {
     box-shadow:
-      0 0 0 1px rgb(var(--cyan) / 0.62),
-      0 8px 48px rgba(0, 14, 22, 0.82),
-      0 0 80px rgb(var(--cyan) / 0.3),
-      0 0 128px rgba(4, 32, 40, 0.68);
+      0 0 0 1px rgb(from var(--site-teal-cyan) r g b / 0.62),
+      0 8px 48px rgb(from var(--site-teal-ink-900) r g b / 0.82),
+      0 0 80px rgb(from var(--site-teal-cyan) r g b / 0.3),
+      0 0 128px rgb(from var(--site-teal-ink-800) r g b / 0.68);
     transform: scale(1.06);
   }
 }

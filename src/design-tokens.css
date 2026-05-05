@@ -1,91 +1,91 @@
-/* --- Design tokens: portfolio palette (--pf-*) --- */
-/* Consume as var(--pf-*). Optional: read from JS via getComputedStyle(document.documentElement). */
+/* --- Design tokens: portfolio palette (--site-*) --- */
+/* Consume as var(--site-*). Optional: read from JS via getComputedStyle(document.documentElement). */
 
 :root {
   /* Site: teal */
-  --pf-teal-primary: #004d5b;
-  --pf-teal-primary-hover: #006d82;
-  --pf-teal-mid: #0a5f73;
-  --pf-teal-ink-800: #001a20;
-  --pf-teal-ink-900: #000f14;
-  --pf-teal-ui: #17677a;
-  --pf-teal-accent: #6bbfe4;
-  --pf-teal-cyan: #22d3ee;
-  /* Work section headline gradient (pairs with --pf-teal-cyan) */
-  --pf-accent-yellow: #fde047;
+  --site-teal-primary: #004d5b;
+  --site-teal-primary-hover: #006d82;
+  --site-teal-mid: #0a5f73;
+  --site-teal-ink-800: #001a20;
+  --site-teal-ink-900: #000f14;
+  --site-teal-ui: #17677a;
+  --site-teal-accent: #6bbfe4;
+  --site-teal-cyan: #22d3ee;
+  /* Work section headline gradient (pairs with --site-teal-cyan) */
+  --site-accent-yellow: #fde047;
 
   /* Site: brown / gold */
-  --pf-brown-warm: #4d4946;
-  --pf-brown-muted: #504b48;
-  --pf-gold: #d6aa3d;
-  --pf-gold-dark: #967323;
-  --pf-gold-ink: #7a5208;
-  --pf-badge-bg: #7c5f1c;
-  --pf-badge-border: #4a2d14;
-  --pf-badge-text: #fffef7;
+  --site-brown-warm: #4d4946;
+  --site-brown-muted: #504b48;
+  --site-gold: #d6aa3d;
+  --site-gold-dark: #967323;
+  --site-gold-ink: #7a5208;
+  --site-badge-bg: #7c5f1c;
+  --site-badge-border: #4a2d14;
+  --site-badge-text: #fffef7;
   /* Achievement legend: idle vs stronger (hover/active share one deep brown) */
-  --pf-achievement-ink-muted: #5c3d0a;
-  --pf-achievement-ink-hover: #2a1800;
+  --site-achievement-ink-muted: #5c3d0a;
+  --site-achievement-ink-hover: #2a1800;
 
   /* Mission gallery (rules near glyph) */
-  --pf-sky-pale: #daeef8;
+  --site-sky-pale: #daeef8;
 
   /* Full-viewport modal scrim (résumé lightbox, …) — matches former Tailwind bg + blur-sm */
-  --pf-modal-scrim-bg: rgb(28 25 23 / 0.9);
-  --pf-modal-scrim-blur: 4px;
+  --site-modal-scrim-bg: rgb(28 25 23 / 0.9);
+  --site-modal-scrim-blur: 4px;
 
   /* Astronaut ID: Profile → About Me slide-over shell (defaults to shared scrim; override to diverge) */
-  --pf-modal-scrim-bg: rgb(28 25 23 / 0.5);
-  --pf-modal-scrim-blur: 4px;
+  --site-modal-scrim-bg: rgb(28 25 23 / 0.5);
+  --site-modal-scrim-blur: 4px;
 
   /* Case study: editorial */
-  --pf-editorial-teal: #1c3131;
-  --pf-editorial-teal-rgb: 28 49 49;
-  --pf-editorial-teal-muted: #1a2e2e;
-  --pf-editorial-teal-highlight: #1e3434;
-  --pf-editorial-teal-soft: #dfe9e6;
-  --pf-editorial-sand: #ece5dc;
-  --pf-editorial-border: #c9d8d4;
-  --pf-editorial-muted: #5e6d69;
-  --pf-editorial-rust: #9a5a3a;
-  --pf-editorial-good: #2b6b5a;
-  --pf-editorial-page-bg: #f7f5f2;
-  --pf-editorial-panel-bg: #fffcf9;
-  --pf-editorial-diagram-fg: #c8dcd0;
+  --site-editorial-teal: #1c3131;
+  --site-editorial-teal-rgb: 28 49 49;
+  --site-editorial-teal-muted: #1a2e2e;
+  --site-editorial-teal-highlight: #1e3434;
+  --site-editorial-teal-soft: #dfe9e6;
+  --site-editorial-sand: #ece5dc;
+  --site-editorial-border: #c9d8d4;
+  --site-editorial-muted: #5e6d69;
+  --site-editorial-rust: #9a5a3a;
+  --site-editorial-good: #2b6b5a;
+  --site-editorial-page-bg: #f7f5f2;
+  --site-editorial-panel-bg: #fffcf9;
+  --site-editorial-diagram-fg: #c8dcd0;
 
   /* RGB tuples for alpha() */
-  --pf-teal-primary-rgb: 0 77 91;
-  --pf-teal-accent-rgb: 107 191 228;
-  --pf-teal-glow-rgb: 45 95 120;
-  --pf-gold-rgb: 214 170 61;
-  --pf-gold-ink-rgb: 122 82 8;
-  --pf-gold-glow-rgb: 150 115 35;
-  --pf-gold-shadow-rgb: 120 90 35;
-  --pf-gold-shadow-dark-rgb: 90 70 25;
-  --pf-neutral-stone-rgb: 166 162 158;
-  --pf-brown-glow-rgb: 101 96 92;
+  --site-teal-primary-rgb: 0 77 91;
+  --site-teal-accent-rgb: 107 191 228;
+  --site-teal-glow-rgb: 45 95 120;
+  --site-gold-rgb: 214 170 61;
+  --site-gold-ink-rgb: 122 82 8;
+  --site-gold-glow-rgb: 150 115 35;
+  --site-gold-shadow-rgb: 120 90 35;
+  --site-gold-shadow-dark-rgb: 90 70 25;
+  --site-neutral-stone-rgb: 166 162 158;
+  --site-brown-glow-rgb: 101 96 92;
   /* Education legend: neutral "All" filter */
-  --pf-neutral-text: #6e6965;
-  --pf-neutral-text-hover: #45413e;
-  --pf-neutral-text-active: #3a3633;
+  --site-neutral-text: #6e6965;
+  --site-neutral-text-hover: #45413e;
+  --site-neutral-text-active: #3a3633;
 
-  /* Type scale — Tailwind `text-pf-*` (tailwind.config.js) or var(--pf-font-*). Hero / crawl may keep local clamps. */
-  --pf-font-micro: 0.625rem;
-  --pf-font-note: 0.75rem;
-  --pf-font-caption: 0.875rem;
-  --pf-font-body: 1rem;
-  --pf-font-lead: 1.125rem;
+  /* Type scale — Tailwind `text-site-*` (tailwind.config.js) or var(--site-font-*). Hero / crawl may keep local clamps. */
+  --site-font-micro: 0.625rem;
+  --site-font-note: 0.75rem;
+  --site-font-caption: 0.875rem;
+  --site-font-body: 1rem;
+  --site-font-lead: 1.125rem;
   /* Material / UI glyphs (fixed size; not tied to job-title breakpoint). */
-  --pf-font-icon: 1.25rem;
-  --pf-font-card-title: 1rem;
-  --pf-font-job-title: 1.25rem;
-  --pf-font-section: 1.5rem;
+  --site-font-icon: 1.25rem;
+  --site-font-card-title: 1rem;
+  --site-font-job-title: 1.25rem;
+  --site-font-section: 1.5rem;
 }
 
 @media (min-width: 768px) {
   :root {
-    --pf-font-card-title: 1.125rem;
-    --pf-font-job-title: 1.5rem;
-    --pf-font-section: 1.875rem;
+    --site-font-card-title: 1.125rem;
+    --site-font-job-title: 1.5rem;
+    --site-font-section: 1.875rem;
   }
 }

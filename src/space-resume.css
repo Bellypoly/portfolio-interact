@@ -60,11 +60,11 @@
 
 .app-debug-overlay {
   @apply fixed bottom-4 left-4 z-[20000] rounded border border-cyan-500/50 bg-black/80 p-2;
-  @apply font-mono text-pf-note text-cyan-300;
+  @apply font-mono text-site-note text-cyan-300;
 }
 
 .section-title {
-  @apply mt-8 font-roboto text-pf-section font-bold text-cyan-400;
+  @apply mt-8 font-roboto text-site-section font-bold text-cyan-400;
 }
 
 .app-section {

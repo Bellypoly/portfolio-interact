@@ -56,7 +56,7 @@
 
 .profile-icon-img {
   @apply relative z-[22] rounded-full border-2 border-white object-cover;
-  @apply bg-[var(--pf-teal-ui)] shadow-[0_2px_8px_rgb(0_0_0/0.15)];
+  @apply bg-[var(--site-teal-ui)] shadow-[0_2px_8px_rgb(0_0_0/0.15)];
   width: var(--profile-fab-size);
   height: var(--profile-fab-size);
 }
@@ -75,7 +75,7 @@
 
 .about-me-modal {
   @apply fixed inset-0 z-[10002] flex flex-col overflow-x-hidden;
-  @apply bg-[var(--pf-modal-scrim-bg)] backdrop-blur-[var(--pf-modal-scrim-blur)];
+  @apply bg-[var(--site-modal-scrim-bg)] backdrop-blur-[var(--site-modal-scrim-blur)];
   @apply lg:min-h-0 lg:overflow-x-hidden lg:overflow-y-auto;
 }
 

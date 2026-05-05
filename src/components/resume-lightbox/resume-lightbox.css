@@ -2,7 +2,7 @@
 
 .resume-lightbox__backdrop {
   @apply fixed inset-0 z-[50000] box-border flex items-center justify-center px-3;
-  @apply bg-[var(--pf-modal-scrim-bg)] backdrop-blur-[var(--pf-modal-scrim-blur)] sm:px-5;
+  @apply bg-[var(--site-modal-scrim-bg)] backdrop-blur-[var(--site-modal-scrim-blur)] sm:px-5;
 }
 
 .resume-lightbox__close {

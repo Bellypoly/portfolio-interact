@@ -7,14 +7,14 @@
 /* Title chrome aligned with .edu-title__education (Silkscreen, shadow stack). */
 
 .portfolio-section__title {
-  @apply col-span-full mb-3 mt-0 text-center font-silkscreen text-[clamp(3.35rem,6.5vw+1.5rem,4.5rem)] font-bold uppercase italic leading-[1.06] tracking-[0.04em] text-[var(--pf-teal-accent)] md:mb-4;
+  @apply col-span-full mb-3 mt-0 text-center font-silkscreen text-[clamp(3.35rem,6.5vw+1.5rem,4.5rem)] font-bold uppercase italic leading-[1.06] tracking-[0.04em] text-[var(--site-teal-accent)] md:mb-4;
   @apply [text-shadow:1px_1px_0_rgba(45,95,120,0.85),2px_2px_0_rgba(45,95,120,0.8),3px_3px_0_rgba(45,95,120,0.75),4px_4px_0_rgba(45,95,120,0.7),5px_5px_0_rgba(45,95,120,0.65),6px_6px_0_rgba(45,95,120,0.6)];
 }
 
 /* Caption: visible without hover (touch + keyboard). */
 
 .portfolio-section__caption {
-  @apply col-span-full mb-12 mt-0 text-center font-silkscreen text-pf-caption uppercase tracking-[0.22em] text-[var(--pf-teal-mid)] md:mb-14;
+  @apply col-span-full mb-12 mt-0 text-center font-silkscreen text-site-caption uppercase tracking-[0.22em] text-[var(--site-teal-mid)] md:mb-14;
 }
 
 /* Shared filter: current value (legend colors) + optional reset (All chip) */
@@ -27,7 +27,7 @@
 }
 
 .portfolio-section__filter-current-label {
-  @apply shrink-0 font-silkscreen text-pf-caption uppercase tracking-[0.2em] text-[var(--pf-teal-mid)];
+  @apply shrink-0 font-silkscreen text-site-caption uppercase tracking-[0.2em] text-[var(--site-teal-mid)];
 }
 
 .portfolio-section__filter-current-label::after {
@@ -36,30 +36,30 @@
 }
 
 .portfolio-section__filter-current-value {
-  @apply min-w-0 font-silkscreen text-pf-body font-bold uppercase tracking-[0.12em];
+  @apply min-w-0 font-silkscreen text-site-body font-bold uppercase tracking-[0.12em];
 }
 
 .portfolio-section__filter-current-value--all {
-  color: var(--pf-neutral-text);
+  color: var(--site-neutral-text);
   @apply [text-shadow:1px_1px_0_rgba(120,110,95,0.35)];
 }
 
 .portfolio-section__filter-current-value--education {
-  color: var(--pf-teal-accent);
+  color: var(--site-teal-accent);
   @apply [text-shadow:1px_1px_0_rgba(45,95,120,0.5),2px_2px_0_rgba(45,95,120,0.35)];
 }
 
 .portfolio-section__filter-current-value--achievement {
-  color: var(--pf-gold);
+  color: var(--site-gold);
   @apply [text-shadow:1px_1px_0_rgba(140,95,40,0.45),2px_2px_0_rgba(140,95,40,0.28)];
 }
 
 /* Filtered gallery (Education & Achievements legend) — no matching tiles */
 .portfolio-section__filter-empty {
-  @apply col-span-full mx-auto mb-10 max-w-md text-center font-roboto text-pf-body leading-relaxed text-[var(--pf-teal-mid)];
+  @apply col-span-full mx-auto mb-10 max-w-md text-center font-roboto text-site-body leading-relaxed text-[var(--site-teal-mid)];
 }
 .portfolio-section__filter-empty-amp {
-  @apply font-semibold text-[var(--pf-teal-accent)];
+  @apply font-semibold text-[var(--site-teal-accent)];
 }
 
 /* Deployed-missions flash: class toggled on `.project-card` only (see `flash-portfolio-anchor.js`). */
@@ -75,8 +75,8 @@
   20%,
   38% {
     box-shadow:
-      0 0 0 8px rgb(var(--pf-teal-accent-rgb) / 1),
-      0 0 56px rgb(var(--pf-teal-accent-rgb) / 1);
+      0 0 0 8px rgb(var(--site-teal-accent-rgb) / 1),
+      0 0 56px rgb(var(--site-teal-accent-rgb) / 1);
     filter: brightness(1.12);
   }
 }

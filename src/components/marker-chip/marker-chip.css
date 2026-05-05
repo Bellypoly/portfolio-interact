@@ -8,7 +8,7 @@
   /* Dock slide duration; retract direction differs by breakpoint. */
   --marker-dock-slide-duration: 0.32s;
 
-  @apply z-[20000] mb-2 flex flex-col justify-start text-pf-caption text-cyan-300;
+  @apply z-[20000] mb-2 flex flex-col justify-start text-site-caption text-cyan-300;
   transform: translate3d(0, 0, 0);
   opacity: 1;
   transition:
@@ -73,7 +73,7 @@
 
 /* --- Chip links (default cyan theme) --- */
 .marker-chip-btn {
-  @apply min-w-fit border-none bg-transparent px-0 py-1 text-left font-silkscreen text-pf-body outline-none transition-colors md:px-2 md:text-pf-lead;
+  @apply min-w-fit border-none bg-transparent px-0 py-1 text-left font-silkscreen text-site-body outline-none transition-colors md:px-2 md:text-site-lead;
 }
 .marker-chip-btn.active {
   @apply text-cyan-400 marker-glow hover:text-cyan-200;
@@ -83,7 +83,7 @@
 }
 
 .marker-chip-btn.inactive:hover {
-  color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
 }
 
 .marker-chip-btn:focus-visible {
@@ -122,7 +122,7 @@
 
 .marker-chip-group.marker-chip-group--light-section
   .marker-chip-btn.active:hover {
-  color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
 }
 
 .marker-chip-group.marker-chip-group--light-section .marker-chip-btn.inactive {
@@ -131,7 +131,7 @@
 
 .marker-chip-group.marker-chip-group--light-section
   .marker-chip-btn.inactive:hover {
-  color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
 }
 
 .marker-chip-group.marker-chip-group--light-section .marker-glow {

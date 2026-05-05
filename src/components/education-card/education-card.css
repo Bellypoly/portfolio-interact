@@ -27,7 +27,7 @@
 
 /* --- Shared timeline primitives --- */
 .timeline-time {
-  @apply inline-block text-pf-caption leading-none font-robotomono text-slate-500 uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded;
+  @apply inline-block text-site-caption leading-none font-robotomono text-slate-500 uppercase tracking-wider bg-[#F0FFFF] px-2 py-0.5 rounded;
 }
 .timeline-header {
   @apply flex flex-col gap-2 mb-3;
@@ -36,13 +36,13 @@
   @apply flex flex-wrap gap-2;
 }
 .timeline-title {
-  @apply max-w-[min(100%,16rem)] font-roboto italic font-bold uppercase tracking-[0.12em] text-slate-100 text-pf-card-title m-0 p-0;
+  @apply max-w-[min(100%,16rem)] font-roboto italic font-bold uppercase tracking-[0.12em] text-slate-100 text-site-card-title m-0 p-0;
 }
 .timeline-badge {
-  @apply inline-block bg-cyan-100 text-cyan-800 text-pf-note font-semibold px-2 py-0.5 rounded-full;
+  @apply inline-block bg-cyan-100 text-cyan-800 text-site-note font-semibold px-2 py-0.5 rounded-full;
 }
 .timeline-location {
-  @apply flex flex-col gap-0.5 text-pf-body font-quicksand font-medium text-slate-400;
+  @apply flex flex-col gap-0.5 text-site-body font-quicksand font-medium text-slate-400;
 }
 
 /* --- Mission log (button + float) --- */
@@ -50,7 +50,7 @@
   @apply relative block w-full mt-2 overflow-visible;
 }
 .education-card__mission-log-btn {
-  @apply inline-flex cursor-pointer items-center gap-1 font-roboto text-pf-body font-medium uppercase tracking-wider transition-colors;
+  @apply inline-flex cursor-pointer items-center gap-1 font-roboto text-site-body font-medium uppercase tracking-wider transition-colors;
 }
 .education-card__mission-log-float {
   /* Self-contained so achievement cards (no .education-card ancestor) still cap width. */
@@ -66,7 +66,7 @@
 }
 /* --- Mission log popover: bullet list (light panel, .timeline-bullet-list--in-float) --- */
 .education-card__mission-log-float .timeline-bullet-list--in-float {
-  @apply m-0 list-none space-y-4 p-0 text-left font-roboto text-pf-body leading-snug text-slate-700;
+  @apply m-0 list-none space-y-4 p-0 text-left font-roboto text-site-body leading-snug text-slate-700;
 }
 .education-card__mission-log-float
   .timeline-bullet-list--in-float
@@ -81,10 +81,10 @@
 .education-card__mission-log-float
   .timeline-bullet-list--in-float
   .timeline-bullet-btn__summary {
-  @apply min-w-0 flex-1 break-words text-pf-body leading-snug text-slate-800;
+  @apply min-w-0 flex-1 break-words text-site-body leading-snug text-slate-800;
 }
 .education-card__mission-log-float .timeline-bullet-toggle {
-  @apply rounded-full bg-black/[0.04] px-2 py-0.5 text-pf-caption font-bold uppercase tabular-nums tracking-wide text-slate-500;
+  @apply rounded-full bg-black/[0.04] px-2 py-0.5 text-site-caption font-bold uppercase tabular-nums tracking-wide text-slate-500;
 }
 .education-card__mission-log-float
   .timeline-bullet-btn-detail:hover
@@ -92,35 +92,35 @@
   @apply text-slate-900 bg-black/20;
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand {
-  @apply mx-3 mt-2 max-w-prose border-l-2 border-slate-400 pl-4 text-pf-body leading-relaxed text-cyan-800;
+  @apply mx-3 mt-2 max-w-prose border-l-2 border-slate-400 pl-4 text-site-body leading-relaxed text-cyan-800;
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand a {
   @apply font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
-  color: var(--pf-teal-primary);
+  color: var(--site-teal-primary);
 }
 .education-card__mission-log-float .timeline-bullet-detail__expand a:hover {
   @apply bg-yellow-300;
-  color: var(--pf-teal-primary-hover);
+  color: var(--site-teal-primary-hover);
 }
 .education-card__mission-log-float .timeline-bullet-btn__summary-html a {
   @apply font-semibold underline-offset-2 bg-yellow-200 rounded-full px-1.5;
-  color: var(--pf-teal-primary);
+  color: var(--site-teal-primary);
 }
 .education-card__mission-log-float .timeline-bullet-btn__summary-html a:hover {
   @apply bg-yellow-300;
-  color: var(--pf-teal-primary-hover);
+  color: var(--site-teal-primary-hover);
 }
 .education-card__mission-log-float .timeline-bullet-year {
-  @apply inline-block rounded bg-[#F0FFFF] px-2 py-0.5 font-robotomono text-pf-caption italic uppercase leading-none tracking-wider;
-  color: var(--pf-brown-muted);
+  @apply inline-block rounded bg-[#F0FFFF] px-2 py-0.5 font-robotomono text-site-caption italic uppercase leading-none tracking-wider;
+  color: var(--site-brown-muted);
 }
 .education-card__mission-log-float
   .timeline-bullet-list--in-float
   .timeline-badge {
-  @apply bg-slate-400 text-pf-caption text-white;
+  @apply bg-slate-400 text-site-caption text-white;
 }
 .education-card__mission-log-float .material-symbols-rounded {
-  @apply text-pf-body;
+  @apply text-site-body;
 }
 
 .timeline-location__where {
@@ -129,22 +129,22 @@
 
 /* --- Bullet list (collapsible card) --- */
 .education-card--collapsible .timeline-bullet-list {
-  @apply my-0 flex min-w-0 w-full max-w-full list-none flex-col items-start space-y-2 pl-0 font-roboto text-pf-body leading-relaxed text-slate-300 md:items-end;
+  @apply my-0 flex min-w-0 w-full max-w-full list-none flex-col items-start space-y-2 pl-0 font-roboto text-site-body leading-relaxed text-slate-300 md:items-end;
 }
 .timeline-bullet-item {
   @apply min-w-0 w-full max-w-full text-left flex flex-col items-start md:items-end justify-center gap-1;
 }
 .timeline-bullet-btn-detail {
-  @apply flex w-full min-w-0 cursor-pointer flex-row flex-nowrap items-center gap-2 text-left text-pf-body text-slate-300 md:flex-row-reverse;
+  @apply flex w-full min-w-0 cursor-pointer flex-row flex-nowrap items-center gap-2 text-left text-site-body text-slate-300 md:flex-row-reverse;
 }
 .timeline-bullet-btn__summary {
   @apply flex-1 min-w-0 break-words;
 }
 .education-card .material-symbols-rounded {
-  @apply text-pf-icon;
+  @apply text-site-icon;
 }
 .timeline-bullet-toggle {
-  @apply flex-shrink-0 inline-flex items-center justify-center rounded-full bg-slate-600/25 px-2 py-0.5 text-pf-note font-bold tabular-nums uppercase tracking-wider text-slate-500;
+  @apply flex-shrink-0 inline-flex items-center justify-center rounded-full bg-slate-600/25 px-2 py-0.5 text-site-note font-bold tabular-nums uppercase tracking-wider text-slate-500;
   @apply transition-[background-color,color] duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
 .timeline-bullet-btn-detail:hover .timeline-bullet-toggle {
@@ -152,7 +152,7 @@
 }
 /* --- Inline bullet expand (dark card; mission log closed) --- */
 .timeline-bullet-detail__expand {
-  @apply mt-1 ml-2 min-w-0 max-w-full break-words border-l-2 border-cyan-100 pl-2 text-pf-caption leading-snug opacity-90;
+  @apply mt-1 ml-2 min-w-0 max-w-full break-words border-l-2 border-cyan-100 pl-2 text-site-caption leading-snug opacity-90;
 }
 .timeline-bullet-detail__expand a {
   @apply text-cyan-200 hover:underline;

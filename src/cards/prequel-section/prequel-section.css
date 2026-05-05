@@ -6,7 +6,7 @@
 
 .prequel-section__label {
   @apply mb-6 w-full max-w-xl text-left;
-  @apply font-robotomono text-pf-note uppercase tracking-[0.25em] text-slate-400 md:text-pf-caption;
+  @apply font-robotomono text-site-note uppercase tracking-[0.25em] text-slate-400 md:text-site-caption;
 }
 
 .prequel-section__title {
@@ -51,7 +51,7 @@
 
 .prequel-section__body {
   @apply relative flex w-full max-w-xl flex-col gap-4 text-left;
-  @apply font-robotomono text-pf-caption font-light leading-relaxed text-slate-200 md:text-pf-body;
+  @apply font-robotomono text-site-caption font-light leading-relaxed text-slate-200 md:text-site-body;
 }
 
 /* Full copy for ResizeObserver; same width/typography as visible paras. */

@@ -1,16 +1,16 @@
 /* --- Case study page: layout, prose, wide media, BA/UX tokens --- */
 
 .project-case-study {
-  --cs-page-bg: var(--pf-editorial-page-bg);
-  --cs-panel-bg: var(--pf-editorial-panel-bg);
+  --cs-page-bg: var(--site-editorial-page-bg);
+  --cs-panel-bg: var(--site-editorial-panel-bg);
   --cs-header-bg: rgb(251 250 248 / 0.95);
   --cs-embed-min-h: 700px;
-  --cs-diagram-fg: var(--pf-editorial-diagram-fg);
+  --cs-diagram-fg: var(--site-editorial-diagram-fg);
   --cs-diagram-bg: linear-gradient(
     135deg,
-    var(--pf-editorial-teal-muted) 0%,
-    var(--pf-editorial-teal-highlight) 40%,
-    var(--pf-editorial-teal-muted) 100%
+    var(--site-editorial-teal-muted) 0%,
+    var(--site-editorial-teal-highlight) 40%,
+    var(--site-editorial-teal-muted) 100%
   );
 
   --cs-font-body: "Roboto Condensed", ui-sans-serif, system-ui, sans-serif;
@@ -40,14 +40,14 @@
   --cs-tracking-label: 0.1em;
 
   /* Before/after + UX compare panels */
-  --ba-teal: var(--pf-editorial-teal);
-  --ba-teal-soft: var(--pf-editorial-teal-soft);
-  --ba-sand: var(--pf-editorial-sand);
-  --ba-border: var(--pf-editorial-border);
-  --ba-muted: var(--pf-editorial-muted);
-  --ba-bad: var(--pf-editorial-rust);
-  --ba-good: var(--pf-editorial-good);
-  --ba-shadow: 0 10px 30px rgb(var(--pf-editorial-teal-rgb) / 0.08);
+  --ba-teal: var(--site-editorial-teal);
+  --ba-teal-soft: var(--site-editorial-teal-soft);
+  --ba-sand: var(--site-editorial-sand);
+  --ba-border: var(--site-editorial-border);
+  --ba-muted: var(--site-editorial-muted);
+  --ba-bad: var(--site-editorial-rust);
+  --ba-good: var(--site-editorial-good);
+  --ba-shadow: 0 10px 30px rgb(var(--site-editorial-teal-rgb) / 0.08);
   --ba-radius: 18px;
 
   @apply min-h-screen antialiased text-stone-800;
@@ -69,7 +69,7 @@
 .project-case-study__loading {
   @apply mx-auto max-w-[90ch] px-5 py-16 md:px-8;
   font-family: var(--cs-font-body);
-  color: var(--pf-editorial-muted);
+  color: var(--site-editorial-muted);
 }
 
 /* --- Skip link: off-screen until focus --- */
@@ -105,7 +105,7 @@
   box-shadow: 0 2px 14px rgb(0 0 0 / 0.22);
 }
 .project-case-study__skip-link:focus-visible {
-  outline: 2px solid var(--pf-editorial-teal);
+  outline: 2px solid var(--site-editorial-teal);
   outline-offset: 2px;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .project-case-study__back:hover {
-  color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
 }
 
 .project-case-study .project-case-study__hover-reveal {
@@ -309,7 +309,7 @@
 }
 
 .project-case-study__reference-table {
-  @apply w-full min-w-[12rem] border-collapse text-left text-pf-caption text-stone-900;
+  @apply w-full min-w-[12rem] border-collapse text-left text-site-caption text-stone-900;
 }
 
 .project-case-study__reference-table th,
@@ -343,7 +343,7 @@
 }
 
 .project-case-study__reference-table--transpose thead th {
-  @apply text-pf-body font-semibold text-stone-800;
+  @apply text-site-body font-semibold text-stone-800;
   font-size: 1.0625em;
 }
 
@@ -400,8 +400,8 @@
 }
 
 .project-case-study__stack-link:hover {
-  color: var(--pf-editorial-rust);
-  text-decoration-color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
+  text-decoration-color: var(--site-editorial-rust);
 }
 
 .project-case-study__p {
@@ -595,7 +595,7 @@
 }
 
 .project-case-study__early-impact-group-title {
-  @apply m-0 mb-3 text-pf-body font-semibold tracking-tight text-stone-900;
+  @apply m-0 mb-3 text-site-body font-semibold tracking-tight text-stone-900;
   font-size: var(--cs-text-ui);
   line-height: var(--cs-lh-ui);
 }
@@ -706,8 +706,8 @@
 }
 
 .project-case-study__cta:hover {
-  color: var(--pf-editorial-rust);
-  text-decoration-color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
+  text-decoration-color: var(--site-editorial-rust);
 }
 
 .project-case-study__problem-group {
@@ -865,8 +865,8 @@
 }
 
 .project-case-study__related-link:hover {
-  color: var(--pf-editorial-rust);
-  border-bottom-color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
+  border-bottom-color: var(--site-editorial-rust);
 }
 
 .project-case-study__inline-link {
@@ -874,6 +874,6 @@
 }
 
 .project-case-study__inline-link:hover {
-  color: var(--pf-editorial-rust);
-  text-decoration-color: var(--pf-editorial-rust);
+  color: var(--site-editorial-rust);
+  text-decoration-color: var(--site-editorial-rust);
 }
