@@ -175,6 +175,11 @@ export default function SpaceResume() {
     [0, 0.03, 0.08, 0.12],
     [1, 1, 0.2, 0],
   );
+  const crawlMobileScrollHintY = useTransform(
+    crawlProgress,
+    [0, 0.03, 0.08, 0.12],
+    [0, 0, 20, 40],
+  );
   const { onMobileScrollToBegin, mobileHintInteractive } =
     useMobileScrollBeginHint(crawlProgress);
   const crawlHeaderTop = useTransform(
@@ -781,6 +786,7 @@ export default function SpaceResume() {
               className="crawl-scroll-begin"
               style={{
                 opacity: crawlMobileScrollHintOpacity,
+                y: crawlMobileScrollHintY,
                 pointerEvents: mobileHintInteractive ? "auto" : "none",
               }}
             >

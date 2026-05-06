@@ -76,9 +76,9 @@
 .crawl-scroll-begin {
   @apply relative z-[1] flex w-full flex-col items-center justify-center gap-2;
   @apply pointer-events-auto md:hidden;
-  @apply rounded-t-xl bg-stone-900/55;
-  @apply px-4 pt-1;
-  @apply pb-[max(0.35rem,env(safe-area-inset-bottom,0px))];
+  @apply rounded-t-xl;
+  @apply px-4 pt-20 pb-[1.5rem];
+  background: linear-gradient(to top, #000000, transparent);
 }
 
 .crawl-scroll-begin__btn {
