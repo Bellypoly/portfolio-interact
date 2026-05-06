@@ -263,24 +263,6 @@ export default function SpaceResume() {
   const [scrollSpyDebug, setScrollSpyDebug] = useState(null);
   const [debugScrollSpyPanelOpen, setDebugScrollSpyPanelOpen] = useState(true);
   const [debugDwellPanelOpen, setDebugDwellPanelOpen] = useState(true);
-  const [educationSectionInView, setEducationSectionInView] = useState(false);
-
-  // Show HUD extras only while the education section is visible.
-  useEffect(() => {
-    const el = sectionRefs.current[EDUCATION_SECTION_INDEX]?.current;
-    if (!el) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setEducationSectionInView(Boolean(entry?.isIntersecting)),
-      { root: null, rootMargin: "0px", threshold: 0 },
-    );
-    observer.observe(el);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     if (import.meta.env.DEV) setDebugScrollYProgress(v);
   });
@@ -831,7 +813,9 @@ export default function SpaceResume() {
                       educationLineProgress={
                         educationHudLineScroll.scrollYProgress
                       }
-                      showEducationHudDecor={educationSectionInView}
+                      showEducationHudDecor={
+                        activeIndex === EDUCATION_SECTION_INDEX
+                      }
                     />
                   </div>
                   <div
