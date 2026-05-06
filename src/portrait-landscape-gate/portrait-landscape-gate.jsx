@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SpaceVoidShell from "../components/space-void-shell/space-void-shell.jsx";
 import { registerPortraitOrientationLock } from "./register-portrait-orientation-lock.js";
 import { usePortraitLandscapeVisible } from "./use-portrait-landscape-visible.js";
@@ -9,13 +10,17 @@ import "./portrait-landscape-gate.css";
  * Orientation lock is registered once on mount (see `registerPortraitOrientationLock.js`).
  */
 export default function PortraitLandscapeGate() {
+  const location = useLocation();
+  const isMissionPage = location.pathname.startsWith('/mission/');
   const { visible } = usePortraitLandscapeVisible();
 
   useEffect(() => {
-    registerPortraitOrientationLock();
-  }, []);
+    if (!isMissionPage) {
+      registerPortraitOrientationLock();
+    }
+  }, [isMissionPage]);
 
-  if (!visible) return null;
+  if (!visible || isMissionPage) return null;
 
   return (
     <SpaceVoidShell
