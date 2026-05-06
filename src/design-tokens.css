@@ -89,3 +89,15 @@
     --site-font-section: 1.875rem;
   }
 }
+
+/*
+ * Default cyan/teal label glow (marker rail `.marker-glow`, crawl CTA button).
+ * Built only from `--site-teal-cyan` + `--site-teal-accent` via color-mix.
+ * Light-section markers override in marker-chip.css.
+ */
+.marker-glow,
+.crawl-scroll-begin__btn {
+  text-shadow:
+    0 0 15px color-mix(in srgb, var(--site-teal-cyan) 60%, transparent),
+    0 0 12px color-mix(in srgb, var(--site-teal-accent) 55%, transparent);
+}

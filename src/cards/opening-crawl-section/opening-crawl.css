@@ -11,7 +11,7 @@
 }
 
 .crawl-header-content {
-  @apply mx-auto uppercase;
+  @apply mx-auto;
   @apply px-4 sm:px-6 md:px-8;
   @apply max-w-[min(100vw,40rem)] sm:max-w-[min(90vw,60rem)] min-[1440px]:max-w-[min(90vw,100rem)];
 }
@@ -22,18 +22,21 @@
 }
 
 .crawl-welcome {
+  @apply uppercase;
   @apply text-base sm:text-sm md:text-base lg:text-lg xl:text-xl;
   @apply mb-2 sm:mb-3;
   @apply tracking-[0.25em] sm:tracking-[0.35em];
 }
 
 .crawl-of {
+  @apply uppercase;
   @apply text-base sm:text-base md:text-lg lg:text-xl xl:text-2xl;
   @apply mb-3 sm:mb-4;
   @apply tracking-[0.15em] sm:tracking-[0.25em];
 }
 
 .crawl-name {
+  @apply uppercase;
   @apply font-stacknotch font-extrabold leading-none;
   @apply mb-4 sm:mb-6;
   @apply tracking-[0.25em] sm:tracking-[0.35em];
@@ -48,6 +51,7 @@
 }
 
 .crawl-role {
+  @apply uppercase;
   @apply font-robotomono font-bold text-center;
   @apply text-xs sm:text-sm md:text-sm lg:text-base xl:text-base;
   @apply mb-6 sm:mb-8 md:mb-10;
@@ -66,6 +70,81 @@
 
 .crawl-role-dot-last {
   @apply hidden sm:inline sm:invisible min-[834px]:visible;
+}
+
+/* --- Mobile CTA in `.app-bottom-blur`: match `.marker-chip-btn` + teal glow (design-tokens `.marker-glow` stack). --- */
+.crawl-scroll-begin {
+  @apply relative z-[1] flex w-full flex-col items-center justify-center gap-2;
+  @apply pointer-events-auto md:hidden;
+  @apply rounded-t-xl bg-stone-900/55;
+  @apply px-4 pt-1;
+  @apply pb-[max(0.35rem,env(safe-area-inset-bottom,0px))];
+}
+
+.crawl-scroll-begin__btn {
+  @apply flex min-w-fit cursor-pointer flex-col items-center gap-2 border-none bg-transparent px-0 py-1 text-center outline-none transition-colors;
+  @apply font-silkscreen text-site-body text-cyan-400 hover:text-cyan-200;
+  @apply md:text-site-lead;
+}
+
+.crawl-scroll-begin__btn:focus-visible {
+  @apply rounded-sm outline outline-2 outline-offset-2 outline-cyan-400;
+}
+
+.crawl-scroll-begin__chevron {
+  @apply inline-flex items-center justify-center text-[2.35rem] leading-none text-inherit;
+  animation: crawl-scroll-begin-chevron-bounce 1s ease-in-out infinite;
+  will-change: transform;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 300,
+    "GRAD" 0,
+    "opsz" 40;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crawl-scroll-begin__chevron {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+@keyframes crawl-scroll-begin-chevron-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.38rem);
+  }
+}
+
+.crawl-scroll-begin__label {
+  @apply relative max-w-[20rem] rounded-md px-3 py-1;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(
+        90deg,
+        rgb(0 0 0 / 0) 0%,
+        rgb(0 0 0 / 0.82) 14%,
+        rgb(0 0 0 / 0.82) 86%,
+        rgb(0 0 0 / 0) 100%
+      )
+      padding-box,
+    linear-gradient(
+        90deg,
+        rgb(34 211 238 / 0) 0%,
+        rgb(34 211 238 / 0.42) 22%,
+        rgb(34 211 238 / 0.42) 78%,
+        rgb(34 211 238 / 0) 100%
+      )
+      border-box;
+  background-clip: padding-box, border-box;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 18px rgb(34 211 238 / 0.06),
+    0 0 28px rgb(0 0 0 / 0.35);
 }
 
 /* --- Opening crawl: column shell (3D) --- */

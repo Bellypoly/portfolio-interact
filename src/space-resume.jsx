@@ -17,6 +17,7 @@ import {
 } from "framer-motion";
 import "./space-resume.css";
 import OpeningCrawl from "./cards/opening-crawl-section/index.jsx";
+import { useMobileScrollBeginHint } from "./cards/opening-crawl-section/use-opening-crawl.js";
 import LandingSectionContent from "./components/landing-section.jsx";
 import ProfileIcon from "./components/profile-icon";
 import Star from "./components/star";
@@ -168,6 +169,14 @@ export default function SpaceResume() {
     ["130vh", "90vh", "-150vh"],
   );
   const crawlOpacity = useTransform(crawlProgress, [0, 0.63, 0.68], [1, 1, 0]);
+  // Mobile CTA in `.app-bottom-blur`: visible before the crawl body is engaged.
+  const crawlMobileScrollHintOpacity = useTransform(
+    crawlProgress,
+    [0, 0.03, 0.08, 0.12],
+    [1, 1, 0.2, 0],
+  );
+  const { onMobileScrollToBegin, mobileHintInteractive } =
+    useMobileScrollBeginHint(crawlProgress);
   const crawlHeaderTop = useTransform(
     crawlProgress,
     [0, 0.2, 1],
@@ -705,11 +714,6 @@ export default function SpaceResume() {
           aria-hidden="true"
         />
         <motion.div
-          className="app-bottom-blur"
-          style={{ opacity: bottomBlurOpacity }}
-          aria-hidden="true"
-        />
-        <motion.div
           className="app-starfield"
           style={{ "--star-fill": starFill }}
         >
@@ -768,6 +772,34 @@ export default function SpaceResume() {
               </motion.svg>
             </motion.div>
           ))}
+          <motion.div
+            className="app-bottom-blur"
+            style={{ opacity: bottomBlurOpacity }}
+          >
+            <div className="app-bottom-blur__fill" aria-hidden />
+            <motion.div
+              className="crawl-scroll-begin"
+              style={{
+                opacity: crawlMobileScrollHintOpacity,
+                pointerEvents: mobileHintInteractive ? "auto" : "none",
+              }}
+            >
+              <button
+                type="button"
+                className="crawl-scroll-begin__btn"
+                tabIndex={mobileHintInteractive ? 0 : -1}
+                onClick={onMobileScrollToBegin}
+                aria-label="Scroll to begin journey"
+              >
+                <span className="crawl-scroll-begin__label">
+                  Scroll to Begin Journey
+                </span>
+                <span className="material-symbols-rounded crawl-scroll-begin__chevron">
+                  keyboard_arrow_down
+                </span>
+              </button>
+            </motion.div>
+          </motion.div>
           <OpeningCrawl
             opacityMV={crawlOpacity}
             headerTopMV={crawlHeaderTop}

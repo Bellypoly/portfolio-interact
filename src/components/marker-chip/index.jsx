@@ -93,6 +93,7 @@ export const MarkerChipGroup = React.memo(function MarkerChipGroup({
         { "marker-chip-group--light-section": isLightSection },
         { "marker-chip-group--mission-gallery": missionGalleryStyle },
         { "marker-chip-group--dock-retracted": !dockVisible },
+        activeIndex === INTRO_MARKER_INDEX && "marker-chip-group--intro-mobile",
       ])}
     >
       {visibleRows.map(({ section, index }) => (

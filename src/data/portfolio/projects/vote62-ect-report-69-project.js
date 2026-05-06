@@ -173,7 +173,7 @@ export const vote62EctReport69Project = {
         "Official ECT return PDFs for the ส.ส. 69 count—fixed-layout scans, grouped by constituency (เขตเลือกตั้ง) in the same folder layout the commission uses when it bundles releases.",
       paragraphs: [
         {
-          text: "Google Drive copy (รายงานผลการนับคะแนน สส.69): ",
+          text: "Google Drive copy (รายงานผลการนับคะแนน สส.69): (~2,902 pdf files)",
           externalLink: {
             href: "https://drive.google.com/drive/folders/1MApGQ8YpAG1hVMOWqfKdfag3KLWYYWY5?usp=drive_link",
             label: "Raw PDFs by constituency",

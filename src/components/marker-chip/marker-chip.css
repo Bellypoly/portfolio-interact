@@ -1,10 +1,13 @@
 /* --- Marker chip: section navigation dock --- */
 /* Visibility follows scroll direction (useMarkerDockVisible). < md: bottom-left island; md+: top-right strip. Retracted: slides up on mobile, down on md+. */
 
+/* Intro on small screens: rail hidden — “Scroll to begin” lives in `.app-bottom-blur` (space-resume). */
+.marker-chip-group.marker-chip-group--intro-mobile {
+  @apply max-md:hidden;
+}
+
 /* --- Shell (fixed group) --- */
 .marker-chip-group {
-  --marker-glow-cyan:
-    0 0 15px rgb(0 255 255 / 0.6), 0 0 12px rgb(0 255 255 / 0.6);
   /* Dock slide duration; retract direction differs by breakpoint. */
   --marker-dock-slide-duration: 0.32s;
 
@@ -94,10 +97,6 @@
   @apply outline-teal-800;
 }
 
-.marker-glow {
-  text-shadow: var(--marker-glow-cyan);
-}
-
 .marker-chip-spacer {
   @apply ml-3;
 }
@@ -147,7 +146,11 @@
   0%,
   100% {
     opacity: 1;
-    text-shadow: var(--marker-glow-cyan), var(--marker-glow-cyan);
+    text-shadow:
+      0 0 15px color-mix(in srgb, var(--site-teal-cyan) 60%, transparent),
+      0 0 12px color-mix(in srgb, var(--site-teal-accent) 55%, transparent),
+      0 0 15px color-mix(in srgb, var(--site-teal-cyan) 60%, transparent),
+      0 0 12px color-mix(in srgb, var(--site-teal-accent) 55%, transparent);
   }
   50% {
     opacity: 0;

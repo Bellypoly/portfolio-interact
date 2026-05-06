@@ -67,7 +67,7 @@ function CaseStudyLightboxModal({
 
 /**
  * Wraps a case-study image in a button; opens a full-size overlay on click.
- * Uses Material Symbols Rounded `open_in_full` (see index.html font link).
+ * Uses Material Symbols Rounded `open_in_full` (see index.html Material subset links).
  *
  * `project-case-study__lightbox-trigger` (+ `--featured`) are layout hooks for
  * `.project-case-study__featured-wrap` rules in project-case-study.css.

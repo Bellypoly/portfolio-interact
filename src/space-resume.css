@@ -175,8 +175,14 @@
   @apply fixed top-0 z-[10000] flex w-full flex-row items-end gap-4;
 }
 
+/* Bottom stack: gradient fill + mobile crawl CTA (`.crawl-scroll-begin`). z above crawl layers so the button stays clickable. */
 .app-bottom-blur {
-  @apply pointer-events-none fixed inset-x-0 bottom-0 z-[10000] h-32 bg-[linear-gradient(to_top,#000000,transparent)];
+  @apply pointer-events-none fixed inset-x-0 bottom-0 z-[6002] flex h-32 w-full flex-col items-center justify-end;
+}
+
+.app-bottom-blur__fill {
+  @apply pointer-events-none absolute inset-0 z-0;
+  background: linear-gradient(to top, #000000, transparent);
 }
 
 .shooting-star {
