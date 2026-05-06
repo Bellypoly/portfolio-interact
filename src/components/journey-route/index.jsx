@@ -121,7 +121,7 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [100.4942, 13.651],
-    company: "Studied at KMUTT",
+    company: "Studied at KMUTT (B.Eng.)",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "edu-kmutt-beng",
@@ -142,7 +142,7 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [100.4942, 13.651],
-    company: "Studied at KMUTT",
+    company: "Studied at KMUTT (M.Sc.)",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "edu-kmutt",
@@ -177,14 +177,14 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [-122.2041, 47.8601],
-    company: "Lives in",
+    company: "Now in",
     location: "Mill Creek, Washington",
     country: "United States of America",
     anchor: null,
   },
   {
     coords: [98.3923, 7.8804],
-    company: "",
+    company: "Made in",
     location: "Phuket, Thailand",
     country: "Thailand",
     anchor: null,
