@@ -124,7 +124,7 @@ const JOURNEY_STOPS = [
     company: "Studied at KMUTT",
     location: "Bangkok, Thailand",
     country: "Thailand",
-    anchor: "edu-kmutt",
+    anchor: "edu-kmutt-beng",
   },
   {
     coords: [100.5231, 13.8591],
@@ -139,6 +139,13 @@ const JOURNEY_STOPS = [
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "work-thinknet",
+  },
+  {
+    coords: [100.4942, 13.651],
+    company: "Studied at KMUTT",
+    location: "Bangkok, Thailand",
+    country: "Thailand",
+    anchor: "edu-kmutt",
   },
   {
     coords: [100.5018, 13.7563],
