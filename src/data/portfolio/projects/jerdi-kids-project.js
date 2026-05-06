@@ -1,19 +1,11 @@
 /**
  * JerDi — Kids (Samart × NSTDA BIC competition) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const jerdiKidsProject = {
-  slug: "jerdi-kids",
-  anchorId: "portfolio-jerdi",
-  portfolioGroup: "professional",
-  portfolioYear: 2018,
-  portfolioLabel: "Competition",
-  name: "JerDi-Kids — Child Tracking System",
-  desc: "Architected, designed, and built — UI/UX for app and wristband, plus hands-on development; QR + BLE and receivers where you need coverage.",
-  img: "images/portfolio/jerdi/thumbnail.png",
-  imgWebp: "images/portfolio/jerdi/thumbnail.webp",
-  alt: "JerDi — JERDi wordmark, robotic hand holding QR wristband, phone app wireframes and human outline on teal tech background",
+  ...getMissionGalleryManifestRow("jerdi-kids"),
   caseStudy: {
     eyebrow: "System design · UI/UX · Development · QR & BLE · Social impact",
     featuredImg: "images/portfolio/jerdi/featured-image.png",

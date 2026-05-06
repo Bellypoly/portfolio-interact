@@ -1,19 +1,11 @@
 /**
  * Federated Learning energy (NOMA) — thesis portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const federatedLearningEnergyProject = {
-  slug: "federated-learning-energy",
-  portfolioGroup: "research",
-  portfolioYear: 2020,
-  portfolioLabel: "Thesis",
-  name: "On Simulating Energy Consumption of Federated Learning Systems",
-  desc: "MATLAB simulation study: federated learning energy use under NOMA — compute vs radio, sweepable regimes, reproducible figures.",
-  img: "images/portfolio/federated-learning-energy/thumbnail.png",
-  imgWebp: "images/portfolio/federated-learning-energy/thumbnail.webp",
-  alt: "Federated learning poster — rocket, satellite, and rover linked to a central cloud with ΔW updates; tagline: local training, no raw data sharing",
-  link: "https://github.com/Bellypoly/On_simulating_energy_consumption_of_federated_learning_systems",
+  ...getMissionGalleryManifestRow("federated-learning-energy"),
   caseStudy: {
     eyebrow: "Research · Systems · Wireless",
     featuredImg:

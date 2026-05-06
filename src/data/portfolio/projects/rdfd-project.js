@@ -1,19 +1,11 @@
 /**
  * RDFD — Discovering Fake Drivers — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const rdfdProject = {
-  slug: "rdfd",
-  portfolioGroup: "research",
-  portfolioYear: 2020,
-  portfolioLabel: "Thesis",
-  name: "RDFD — Discovering Fake Drivers",
-  desc: "ML proof-of-concept: inferring shared or spoofed driver accounts from how people actually drive over time—not a single login check.",
-  img: "images/portfolio/rdfd/thumbnail.jpg",
-  imgWebp: "images/portfolio/rdfd/thumbnail.webp",
-  alt: "Illustration — driver at the wheel with temporal data charts and magnifying glass over trend lines",
-  link: "https://github.com/Bellypoly/Discovering-Fake-Drivers-Based-on-Temporal-Driving-Behaviors",
+  ...getMissionGalleryManifestRow("rdfd"),
   caseStudy: {
     eyebrow: "Research · Machine learning",
     featuredImg: "images/portfolio/rdfd/featured-image.jpg",

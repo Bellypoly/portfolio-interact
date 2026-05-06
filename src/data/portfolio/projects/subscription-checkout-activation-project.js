@@ -1,20 +1,11 @@
 /**
  * End-to-end subscription conversion system (DMN) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const subscriptionCheckoutActivationProject = {
-  slug: "subscription-checkout-activation",
-  anchorId: "portfolio-subscription-checkout",
-  portfolioGroup: "professional",
-  portfolioYear: 2025,
-  portfolioLabel: "Product",
-  name: "End-to-End Subscription Conversion System",
-  desc: "Rebuilt a three-page checkout leak into one React surface—then used Clarity evidence to refine the flow and onboard new subscribers.",
-  img: "images/portfolio/subscription-checkout/thumbnail.png",
-  imgWebp: "images/portfolio/subscription-checkout/thumbnail.webp",
-  cardImagePosition: "center 10%",
-  alt: "End-to-end subscription conversion: checkout, identity, onboarding — case study",
+  ...getMissionGalleryManifestRow("subscription-checkout-activation"),
   caseStudy: {
     eyebrow: "Product · Subscriptions · Platform",
     featuredImg: "images/portfolio/subscription-checkout/featured-image.png",

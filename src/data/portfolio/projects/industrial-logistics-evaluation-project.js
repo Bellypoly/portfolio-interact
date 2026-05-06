@@ -1,20 +1,11 @@
 /**
  * Industrial Logistic Performance Evaluation (IEOM 2016) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const industrialLogisticsEvaluationProject = {
-  slug: "industrial-logistics-evaluation",
-  portfolioGroup: "research",
-  portfolioYear: 2016,
-  portfolioLabel: "Paper",
-  anchorId: "portfolio-logistics",
-  name: "Industrial Logistic Performance Evaluation",
-  desc: "IEOM 2016 — logistics performance at a Thai printing & packaging firm via the World Bank LPI: tie national scores to the warehouse and loading dock, benchmark peers, propose improvements.",
-  img: "images/portfolio/industrial-logistics-evaluation/thumbnail.jpg",
-  imgWebp: "images/portfolio/industrial-logistics-evaluation/thumbnail.webp",
-  alt: "Diagram — supply chain service delivery: policy inputs (customs, infrastructure, service quality) and performance outcomes (timeliness, international shipments, tracking)",
-  link: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
+  ...getMissionGalleryManifestRow("industrial-logistics-evaluation"),
   caseStudy: {
     eyebrow: "Research · Logistics · IEOM 2016",
     featuredImg:

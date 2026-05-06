@@ -1,6 +1,6 @@
 /**
- * Re-exports full project objects (`caseStudy` included). Gallery cards use `../mission-gallery-manifest.js`;
- * `/mission/:slug` loads modules here through `../load-portfolio-project.js`.
+ * Re-exports full project objects (`caseStudy` included). Gallery fields come from `../mission-gallery-manifest.js`
+ * via `getMissionGalleryManifestRow` inside each `*-project.js`; `/mission/:slug` loads through `../load-portfolio-project.js`.
  */
 
 export { dynamicPaywallProject } from "./dynamic-paywall-project.js";

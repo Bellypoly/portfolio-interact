@@ -1,19 +1,11 @@
 /**
  * Local Elections Hub (DMN, 2022 rebuild) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const localElectionsHubProject = {
-  slug: "local-elections-hub",
-  portfolioGroup: "professional",
-  portfolioYear: 2022,
-  portfolioLabel: "Product",
-  name: "Local Elections Hub",
-  desc: "Elections hub rebuilt for Arc XP—typed race data, county anchors, lightweight viz, and mobile-first grids for live returns.",
-  img: "images/portfolio/local-elections-hub/thumbnail.png",
-  imgWebp: "images/portfolio/local-elections-hub/thumbnail.webp",
-  cardImagePosition: "center top",
-  alt: "Illustration — hand placing a marked ballot into a ballot box on a patterned background",
+  ...getMissionGalleryManifestRow("local-elections-hub"),
   caseStudy: {
     eyebrow: "Product · Data UI · Newsroom",
     featuredImg: "images/portfolio/local-elections-hub/featured-image.png",

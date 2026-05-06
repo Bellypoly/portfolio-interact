@@ -1,20 +1,11 @@
 /**
  * VOTE62 — ECT Report 69 OCR/ETL pipeline — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const vote62EctReport69Project = {
-  slug: "vote62-ect-report-69",
-  portfolioGroup: "professional",
-  portfolioYear: 2026,
-  portfolioLabel: "Civic tech",
-  name: "VOTE62 — ECT Report 69: OCR, ETL & open election data",
-  desc: "VOTE62 — 400 Thai constituencies rebuilt from ECT tally PDFs into validated tables so civic tech and newsrooms run on structure, not hand-typed cells.",
-  img: "images/portfolio/vote62-ect-report-69/thumbnail.png",
-  imgWebp: "images/portfolio/vote62-ect-report-69/thumbnail.webp",
-  cardImagePosition: "center center",
-  alt: "VOTE62 Mission Gallery thumbnail: stylized tally tables and constituency-style election graphics",
-  link: "https://rocketmedialab.co/database-vote62-report-69-1/",
+  ...getMissionGalleryManifestRow("vote62-ect-report-69"),
   caseStudy: {
     eyebrow: "Civic Tech · OCR · ETL · Data Engineering · Data Storytelling",
     featuredImg: "images/portfolio/vote62-ect-report-69/featured-image.png",

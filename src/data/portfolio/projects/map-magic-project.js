@@ -1,19 +1,11 @@
 /**
  * MapMagic / THiNKNET Maps — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const mapMagicProject = {
-  slug: "map-magic",
-  portfolioGroup: "professional",
-  portfolioYear: 2018,
-  portfolioLabel: "Platform",
-  name: "MapMagic",
-  desc: "Thailand map infrastructure I helped build—REST map APIs, custom tiles and POI, field Android capture, and routing that survives real Bangkok traffic, not demo coordinates.",
-  img: "images/portfolio/map-magic/thumbnail.png",
-  imgWebp: "images/portfolio/map-magic/thumbnail.webp",
-  alt: "Isometric mapping toolkit on orange — laptop, phone with city pins, world-map screen, 360 street-view car, connected nodes and logo on tiered blocks",
-  link: "https://maps.thinknet.co.th/th",
+  ...getMissionGalleryManifestRow("map-magic"),
   caseStudy: {
     eyebrow: "Platform · Geospatial",
     featuredImg: "images/portfolio/map-magic/featured-image.png",

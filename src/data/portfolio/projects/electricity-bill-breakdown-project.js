@@ -1,19 +1,11 @@
 /**
  * Where Does Your Electricity Bill Go? (JustPow) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const electricityBillBreakdownProject = {
-  slug: "electricity-bill-breakdown",
-  portfolioGroup: "professional",
-  portfolioYear: 2024,
-  portfolioLabel: "Civic tech",
-  name: "Where Does Your Electricity Bill Go?",
-  desc: "Civic explainer for Thai electricity bills—progressive flow from one honest question (“what am I paying for?”) to tariffs, Ft, and fairness.",
-  img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
-  imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
-  alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
-  link: "https://electricity-bill-breakdown.justpow.co/",
+  ...getMissionGalleryManifestRow("electricity-bill-breakdown"),
   caseStudy: {
     eyebrow: "Civic Tech · Flow Design · Energy Literacy",
     featuredImg:

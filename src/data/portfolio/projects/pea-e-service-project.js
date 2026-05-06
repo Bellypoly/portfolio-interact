@@ -1,20 +1,11 @@
 /**
  * PEA E-Service (Thailand public-sector portal) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const peaEServiceProject = {
-  slug: "pea-e-service",
-  portfolioGroup: "professional",
-  portfolioYear: 2019,
-  portfolioLabel: "Public sector",
-  name: "PEA E\u2011Service",
-  desc: "Thai utilities already had the data. The hard part was the story people saw. With PWA (Provincial Waterworks Authority of Thailand) I helped wire PEA (Provincial Electricity Authority) and water into one authenticated portal—plus registry, land, highway, Ministry of Energy (including solar with PEA), and GIS layers kept in sync with case data—so the product read as one journey. I also worked on PPIM (Power Producer Information Management System) so producer programs had their own lane.",
-  img: "images/portfolio/pea-e-service/thumbnail.png",
-  imgWebp: "images/portfolio/pea-e-service/thumbnail.webp",
-  alt: "PEA E\u2011Service — electricity and water portal mockups on tablet and phone, purple branding",
-  link: "https://eservice.pea.co.th/",
-  anchorId: "portfolio-pea",
+  ...getMissionGalleryManifestRow("pea-e-service"),
   caseStudy: {
     eyebrow: "Public sector · Engineering & user experience (UX)",
     featuredImg: "images/portfolio/pea-e-service/featured-image.png",

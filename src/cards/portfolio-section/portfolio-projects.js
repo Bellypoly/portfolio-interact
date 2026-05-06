@@ -1,8 +1,8 @@
 /**
  * Mission Gallery: sort order + Education & Achievements timeline filter.
  *
- * Data: `src/data/portfolio/mission-gallery-manifest.js` (gallery fields only). Case studies load on
- * `/mission/:slug` via `src/data/portfolio/load-portfolio-project.js`. Archived `squeeze-it` is
+ * Data: `src/data/portfolio/mission-gallery-manifest.js` (canonical gallery fields; case studies spread the same row).
+ * Case study bodies load on `/mission/:slug` via `src/data/portfolio/load-portfolio-project.js`. Archived `squeeze-it` is
  * commented at the end of the manifest file.
  *
  * Sort: non-research tiles use `PROFESSIONAL_MISSION_GALLERY_ORDER`, then year desc, then slug.

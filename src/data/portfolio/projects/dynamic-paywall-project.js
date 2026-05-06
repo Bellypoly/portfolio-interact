@@ -1,21 +1,11 @@
 /**
  * Dynamic Paywall (Sophi on Arc XP) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const dynamicPaywallProject = {
-  slug: "dynamic-paywall",
-  portfolioGroup: "professional",
-  portfolioYear: 2025,
-  portfolioLabel: "Product",
-  anchorId: "portfolio-dmn",
-  name: "AI-Powered Dynamic Paywall",
-  desc: "Sophi ML paywall on Arc XP—gate, meter, or let stories through per visit while GA4 and flags keep rollout safe.",
-  img: "images/portfolio/dynamic-paywall/thumbnail.png",
-  imgWebp: "images/portfolio/dynamic-paywall/thumbnail.webp",
-  /* Mission Gallery: full image width, top-aligned; bottom clipped to square */
-  cardImageFit: "top-clip",
-  alt: "Dallas Morning News site with paywall modal and analytics chart — AI-powered dynamic paywall",
+  ...getMissionGalleryManifestRow("dynamic-paywall"),
   caseStudy: {
     eyebrow: "Product · Monetization · AI",
     // Case-study featured strip (gallery uses img/imgWebp thumbnails above)

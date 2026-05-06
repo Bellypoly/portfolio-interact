@@ -1,19 +1,11 @@
 /**
  * Texas Tech "My Hometown" juried photography exhibit — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const photoCompetitionMyHometownProject = {
-  slug: "photo-competition-my-hometown",
-  portfolioGroup: "professional",
-  portfolioYear: 2020,
-  portfolioLabel: "Competition",
-  name: "My Hometown at Texas Tech — international student photo exhibit",
-  desc: "Two prints in Texas Tech's virtual My Hometown exhibit (Sept.–Oct. 2020): I placed 2nd runner-up for Amphawa at night and received a consolation prize for the sunken temple.",
-  link: "https://www.depts.ttu.edu/international/intlopr/exhibits/my-hometown/",
-  img: "images/portfolio/photo-competition-my-hometown/thumbnail.png",
-  imgWebp: "images/portfolio/photo-competition-my-hometown/thumbnail.webp",
-  alt: "Portfolio entry: Amphawa Floating Market at dusk in Samutsongkhram, and the sunken temple pavilion in Kanchanaburi, Thailand",
+  ...getMissionGalleryManifestRow("photo-competition-my-hometown"),
   caseStudy: {
     eyebrow: "Photography · Cultural Documentation · Competition Entry",
     featuredImg:

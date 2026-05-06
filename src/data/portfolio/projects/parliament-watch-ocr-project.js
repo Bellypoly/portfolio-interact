@@ -1,20 +1,11 @@
 /**
  * Parliament Watch — Thai voting record OCR (WeVis) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const parliamentWatchOcrProject = {
-  slug: "parliament-watch-ocr",
-  portfolioGroup: "professional",
-  portfolioYear: 2024,
-  portfolioLabel: "Civic tech",
-  name: "Parliament Watch — Thai Voting Record OCR",
-  desc: "Parliament Watch OCR—from scanned House voting PDFs (Thai script & numerals, handwriting, messy tables) to rows WeVis could chart.",
-  cardImagePosition: "center 71%",
-  img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
-  imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
-  alt: "WeVis Election 69 — party unity voting chart for Thailand\u2019s 26th House of Representatives (2566\u20132568)",
-  link: "https://wevis.info/partyunityvisual/",
+  ...getMissionGalleryManifestRow("parliament-watch-ocr"),
   caseStudy: {
     eyebrow: "Civic Tech · OCR · Open Data",
     featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",

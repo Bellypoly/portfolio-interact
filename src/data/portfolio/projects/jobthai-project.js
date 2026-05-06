@@ -1,20 +1,11 @@
 /**
  * JobThai (THiNKNET) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const jobthaiProject = {
-  slug: "jobthai",
-  portfolioGroup: "professional",
-  portfolioYear: 2019,
-  portfolioLabel: "Marketplace",
-  name: "JobThai",
-  desc: "Thailand\u2019s national job board—Elasticsearch search, resume flows, and map-grounded filters (e.g. BTS/MRT corridors, industrial estates / นิคมอุตสาหกรรม) so listings match real commutes.",
-  img: "images/portfolio/jobthai/thumbnail.png",
-  imgWebp: "images/portfolio/jobthai/thumbnail.webp",
-  alt: "JobThai Resume — flat illustration of a job seeker at a laptop and a recruiter with clipboard, with JobThai branding",
-  link: "https://www.jobthai.com/jobsearch",
-  anchorId: "portfolio-thinknet",
+  ...getMissionGalleryManifestRow("jobthai"),
   caseStudy: {
     eyebrow: "Product · Marketplace",
     featuredImg: "images/portfolio/jobthai/featured-image.png",

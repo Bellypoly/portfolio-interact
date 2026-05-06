@@ -1,6 +1,6 @@
 /**
- * Mission Gallery card data only (thumbnails, copy, group/year/label). No `caseStudy` here—that
- * lives in `projects/<slug>-project.js` and loads through `load-portfolio-project.js` on `/mission/:slug`.
+ * Mission Gallery + shared card fields for `/mission/:slug` case studies. No `caseStudy` here—that
+ * lives in `projects/<slug>-project.js` (each file spreads `getMissionGalleryManifestRow(slug)` then adds `caseStudy`).
  *
  * New mission: row in this file, then slug in `load-portfolio-project.js`, then `projects/<slug>-project.js`
  * (export from `projects/index.js` only if something else imports the barrel).
@@ -210,8 +210,8 @@ export const MISSION_GALLERY_MANIFEST = [
 ];
 
 /*
- * Archived `squeeze-it` (not in MISSION_GALLERY_MANIFEST). To ship: gallery row above + slug in
- * `load-portfolio-project.js` + `projects/squeeze-it-project.js` with full `caseStudy`.
+ * Archived `squeeze-it` is intentionally excluded from `MISSION_GALLERY_MANIFEST`.
+ * To ship it: add a live gallery row, loader entry, and `projects/squeeze-it-project.js`.
  *
  * {
  *   slug: "squeeze-it",
@@ -220,7 +220,7 @@ export const MISSION_GALLERY_MANIFEST = [
  *   portfolioLabel: "Academic",
  *   name: "Squeeze It",
  *   desc: "Heuristic-search AI for a marble puzzle—D3 board you can read, agent whose reasoning stays visible.",
- *   img: "images/portfolio/squeeze-it.jpg",
+ *   img: "<add-live-asset-path>",
  *   alt: "Squeeze It",
  *   link: "https://github.com/Bellypoly/AI-project1",
  *   caseStudy: {
@@ -269,3 +269,22 @@ export const MISSION_GALLERY_MANIFEST = [
  *   },
  * },
  */
+
+/** Slug -> row (same object references as entries in `MISSION_GALLERY_MANIFEST`). */
+export const MISSION_GALLERY_MANIFEST_BY_SLUG = new Map(
+  MISSION_GALLERY_MANIFEST.map((row) => [row.slug, row]),
+);
+
+/**
+ * Gallery fields for case-study modules; single source of truth is `MISSION_GALLERY_MANIFEST`.
+ * @param {string} slug
+ */
+export function getMissionGalleryManifestRow(slug) {
+  const row = MISSION_GALLERY_MANIFEST_BY_SLUG.get(slug);
+  if (!row) {
+    throw new Error(
+      `Missing MISSION_GALLERY_MANIFEST row for slug "${slug}". Add the row first, or ship a stand-alone project without this helper.`,
+    );
+  }
+  return row;
+}

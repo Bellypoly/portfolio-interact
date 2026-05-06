@@ -1,20 +1,11 @@
 /**
  * PEA outage management / OMS integration — portfolio entry + full case study.
- * Extracted from portfolioProjects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const outageManagementSystemProject = {
-  slug: "outage-management-system",
-  portfolioGroup: "professional",
-  portfolioYear: 2019,
-  portfolioLabel: "Public sector",
-  name: "Outage Management & Reliability Platform",
-  desc: "At Thailand\u2019s Provincial Electricity Authority (PEA), when maps, outage records, and work systems disagree on the same fault, control rooms and branches fall back to phone calls and spreadsheets. I owned the integration boundary so one outage identity held across the Outage Management System, GIS (geographic information system), SAP ERP, and reporting: APIs from eRespond (PEA\u2019s operator-facing outage intake\u2014faults, planned work, ETR (estimated time of restoration)) into OMS, scheduled GIS shapefiles into OMS, read contracts for every downstream consumer, and warehouse-backed Power BI aligned to the outage lifecycle crews and reliability already depended on. SAP, GIS, SCADA, and ADMS each had PEA platform owners and third-party integrators; I coordinated handoffs across those teams while staying accountable for the seams\u2014APIs, GIS jobs, warehouse joins, and reporting alignment.",
-  img: "images/portfolio/outage-management-system/thumbnail.png",
-  imgWebp: "images/portfolio/outage-management-system/thumbnail.webp",
-  alt: "Portfolio thumbnail: soft neumorphic hub diagram\u2014central outage data store with a power bolt, linked to grid tower, mobile alert, maps, live monitoring, and bar-chart reporting icons",
-  anchorId: "portfolio-outage-ms",
-  link: "https://app.powerbi.com/view?r=eyJrIjoiNjEyOWI4NGItYzA2YS00ZDY2LWE3OGMtZWU4MTBjYTZhNDY4IiwidCI6ImEyMzM5ZjZkLWJmNGEtNDRkYi04OGVjLWNiOGYyN2RhNGFiYiIsImMiOjEwfQ%3D%3D",
+  ...getMissionGalleryManifestRow("outage-management-system"),
   caseStudy: {
     eyebrow: "Public sector · OMS · Multi-system integration",
     featuredImg:

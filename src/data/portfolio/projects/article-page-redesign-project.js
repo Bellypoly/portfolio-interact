@@ -1,19 +1,11 @@
 /**
  * Article experience & engagement optimization (DMN) — portfolio entry + case study.
- * Extracted from portfolio-projects.js for maintainability.
  */
 
+import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
+
 export const articlePageRedesignProject = {
-  slug: "article-page-redesign",
-  portfolioGroup: "professional",
-  portfolioYear: 2025,
-  portfolioLabel: "Product",
-  name: "Article Experience & Engagement Optimization",
-  desc: "Article stack after AMP—single-column story, lazy GAM, Viafoura, paywall-aware branches, GA4 · Datadog · BlueConic instrumentation.",
-  img: "images/portfolio/article-redesign/thumbnail.png",
-  imgWebp: "images/portfolio/article-redesign/thumbnail.webp",
-  cardImagePosition: "center 100%",
-  alt: "Dallas Morning News article page — single-column reading layout",
+  ...getMissionGalleryManifestRow("article-page-redesign"),
   caseStudy: {
     eyebrow: "Product · Reader Experience · Monetization · Performance",
     featuredImg: "images/portfolio/article-redesign/featured-image.png",

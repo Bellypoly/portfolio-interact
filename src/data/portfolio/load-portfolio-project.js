@@ -1,6 +1,6 @@
 /**
  * Dynamic import per slug for `/mission/:slug` (keeps case-study chunks out of the main bundle).
- * Slug keys must match `MISSION_GALLERY_MANIFEST` in `mission-gallery-manifest.js`.
+ * Slug keys must match `MISSION_GALLERY_MANIFEST` / `getMissionGalleryManifestRow` in `mission-gallery-manifest.js`.
  */
 const SLUG_LOADERS = {
   "article-page-redesign": () =>
