@@ -58,7 +58,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
               whileTap={reduceMotion ? undefined : { scale: 0.96 }}
               transition={spring}
             >
-              Click here to Reset filter
+              Reset filter
             </motion.button>
           ) : null}
         </div>
