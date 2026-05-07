@@ -18,7 +18,6 @@ export const articlePageRedesignProject = {
       label: "The Dallas Morning News",
     },
     task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
-    taskBodyType: true,
     disciplines: [
       "Article frontend & Arc XP PageBuilder",
       "Ads & monetization (GAM)",

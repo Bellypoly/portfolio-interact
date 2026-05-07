@@ -192,13 +192,7 @@ export default function ProjectCaseStudyPage() {
 
         {cs.task ? (
           <CaseStudySection title="Task" sectionId={`${slug}-task`}>
-            <p
-              className={
-                cs.taskBodyType
-                  ? "project-case-study__p mt-7 text-stone-800"
-                  : "project-case-study__lead"
-              }
-            >
+            <p className="project-case-study__p mt-7 text-stone-800">
               {cs.task}
             </p>
             <CaseStudyMetaDl

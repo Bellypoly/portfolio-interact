@@ -257,19 +257,6 @@
   scroll-margin-top: 4.75rem; /* sticky page header */
 }
 
-.project-case-study__lead {
-  @apply mt-7 max-w-none font-normal text-stone-900;
-  font-size: var(--cs-text-lead);
-  line-height: 1.7;
-}
-
-@media (min-width: 768px) {
-  .project-case-study__lead {
-    font-size: var(--cs-text-lead-md);
-    line-height: 1.65;
-  }
-}
-
 .project-case-study__meta {
   @apply border border-stone-300/80 p-5 md:p-6;
   background-color: var(--cs-panel-bg);
