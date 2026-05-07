@@ -7,7 +7,7 @@ import { getMissionGalleryManifestRow } from "../mission-gallery-manifest.js";
 export const parliamentWatchOcrProject = {
   ...getMissionGalleryManifestRow("parliament-watch-ocr"),
   caseStudy: {
-    eyebrow: "Civic Tech · OCR · Open Data",
+    eyebrow: "Civic Tech · OCR · Open Government Records",
     featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
     featuredImgWebp:
       "images/portfolio/parliament-watch-ocr/featured-image.webp",
@@ -32,8 +32,8 @@ export const parliamentWatchOcrProject = {
         href: "https://parliamentwatch.wevis.info",
       },
       {
-        label: "Open Data (CC BY-NC 4.0)",
-        href: "https://creativecommons.org/licenses/by-nc/4.0/",
+        label: "Open Data",
+        href: "",
       },
     ],
     overviewTitle: "Overview",
