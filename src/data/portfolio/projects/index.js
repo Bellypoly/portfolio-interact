@@ -13,7 +13,7 @@ export { jobthaiProject } from "./jobthai-project.js";
 export { mapMagicProject } from "./map-magic-project.js";
 export { industrialLogisticsEvaluationProject } from "./industrial-logistics-evaluation-project.js";
 export { rdfdProject } from "./rdfd-project.js";
-export { parliamentWatchOcrProject } from "./parliament-watch-ocr-project.js";
+export { parliamentWatchOcrProject } from "./parliament-watch-ocr/index.js";
 export { vote62EctReport69Project } from "./vote62-ect-report-69-project.js";
 export { electricityBillBreakdownProject } from "./electricity-bill-breakdown-project.js";
 export { peaEServiceProject } from "./pea-e-service-project.js";

@@ -2,60 +2,58 @@
  * Dynamic import per slug for `/mission/:slug` (keeps case-study chunks out of the main bundle).
  * Slug keys must match `MISSION_GALLERY_MANIFEST` / `getMissionGalleryManifestRow` in `mission-gallery-manifest.js`.
  */
-import { getProjectVersionOverride } from "./mission-gallery-version-config.js";
-
 const SLUG_LOADERS = {
   "article-page-redesign": () =>
-    import("./projects/article-page-redesign-project.js").then(
+    import("./projects/article-page-redesign/index.js").then(
       (m) => m.articlePageRedesignProject,
     ),
   "dynamic-paywall": () =>
-    import("./projects/dynamic-paywall-project.js").then(
+    import("./projects/dynamic-paywall/index.js").then(
       (m) => m.dynamicPaywallProject,
     ),
   "electricity-bill-breakdown": () =>
-    import("./projects/electricity-bill-breakdown-project.js").then(
+    import("./projects/electricity-bill-breakdown/index.js").then(
       (m) => m.electricityBillBreakdownProject,
     ),
   "federated-learning-energy": () =>
-    import("./projects/federated-learning-energy-project.js").then(
+    import("./projects/federated-learning-energy/index.js").then(
       (m) => m.federatedLearningEnergyProject,
     ),
   "industrial-logistics-evaluation": () =>
-    import("./projects/industrial-logistics-evaluation-project.js").then(
+    import("./projects/industrial-logistics-evaluation/index.js").then(
       (m) => m.industrialLogisticsEvaluationProject,
     ),
   "jerdi-kids": () =>
-    import("./projects/jerdi-kids-project.js").then((m) => m.jerdiKidsProject),
+    import("./projects/jerdi-kids/index.js").then((m) => m.jerdiKidsProject),
   jobthai: () =>
-    import("./projects/jobthai-project.js").then((m) => m.jobthaiProject),
+    import("./projects/jobthai/index.js").then((m) => m.jobthaiProject),
   "local-elections-hub": () =>
-    import("./projects/local-elections-hub-project.js").then(
+    import("./projects/local-elections-hub/index.js").then(
       (m) => m.localElectionsHubProject,
     ),
   "map-magic": () =>
-    import("./projects/map-magic-project.js").then((m) => m.mapMagicProject),
+    import("./projects/map-magic/index.js").then((m) => m.mapMagicProject),
   "outage-management-system": () =>
-    import("./projects/outage-management-system-project.js").then(
+    import("./projects/outage-management-system/index.js").then(
       (m) => m.outageManagementSystemProject,
     ),
   "parliament-watch-ocr": () =>
-    import("./projects/parliament-watch-ocr-project.js").then(
+    import("./projects/parliament-watch-ocr/index.js").then(
       (m) => m.parliamentWatchOcrProject,
     ),
   "pea-e-service": () =>
-    import("./projects/pea-e-service-project.js").then((m) => m.peaEServiceProject),
+    import("./projects/pea-e-service/index.js").then((m) => m.peaEServiceProject),
   "photo-competition-my-hometown": () =>
-    import("./projects/photo-competition-my-hometown-project.js").then(
+    import("./projects/photo-competition-my-hometown/index.js").then(
       (m) => m.photoCompetitionMyHometownProject,
     ),
-  rdfd: () => import("./projects/rdfd-project.js").then((m) => m.rdfdProject),
+  rdfd: () => import("./projects/rdfd/index.js").then((m) => m.rdfdProject),
   "subscription-checkout-activation": () =>
-    import("./projects/subscription-checkout-activation-project.js").then(
+    import("./projects/subscription-checkout-activation/index.js").then(
       (m) => m.subscriptionCheckoutActivationProject,
     ),
   "vote62-ect-report-69": () =>
-    import("./projects/vote62-ect-report-69-project.js").then(
+    import("./projects/vote62-ect-report-69/index.js").then(
       (m) => m.vote62EctReport69Project,
     ),
 };
@@ -66,23 +64,6 @@ function isPlainObject(value) {
   return value != null && typeof value === "object" && !Array.isArray(value);
 }
 
-/**
- * Recursive merge for version overrides.
- * - Plain objects merge deeply.
- * - Arrays and primitives replace whole values.
- */
-function mergeProjectOverride(base, override) {
-  if (!isPlainObject(override)) return base;
-  const out = { ...base };
-  for (const [key, value] of Object.entries(override)) {
-    if (isPlainObject(value) && isPlainObject(out[key])) {
-      out[key] = mergeProjectOverride(out[key], value);
-      continue;
-    }
-    out[key] = value;
-  }
-  return out;
-}
 
 /** @param {string | undefined} slug */
 export function hasPortfolioProjectSlug(slug) {
@@ -97,9 +78,5 @@ export function loadPortfolioProjectBySlug(slug) {
   if (slug == null || slug === "") return Promise.resolve(null);
   const loader = SLUG_LOADERS[slug];
   if (!loader) return Promise.resolve(null);
-  return loader().then((project) => {
-    const override = getProjectVersionOverride(slug);
-    if (!override) return project;
-    return mergeProjectOverride(project, override);
-  });
+  return loader();
 }
