@@ -9,9 +9,6 @@
 const DEFAULT_SITE_VERSION = "swe";
 const VALID_SITE_VERSIONS = new Set(["swe", "data-reporter"]);
 
-const envSiteVersion = import.meta.env.VITE_SITE_VERSION;
-const envLegacyMissionVersion = import.meta.env.VITE_MISSION_GALLERY_VERSION;
-
 /**
  * @param {unknown} value
  * @returns {string}
@@ -20,17 +17,33 @@ function normalizeVersion(value) {
   return typeof value === "string" ? value.trim().toLowerCase() : "";
 }
 
-const normalizedEnvSiteVersion = normalizeVersion(envSiteVersion);
-const normalizedLegacyVersion = normalizeVersion(envLegacyMissionVersion);
+/**
+ * Resolve the effective site version from env-style values.
+ * Extracted for unit tests and to keep module-level work trivial.
+ *
+ * @param {{ VITE_SITE_VERSION?: unknown, VITE_MISSION_GALLERY_VERSION?: unknown }} env
+ * @returns {string}
+ */
+export function resolveActiveSiteVersion(env) {
+  const normalizedEnvSiteVersion = normalizeVersion(env?.VITE_SITE_VERSION);
+  const normalizedLegacyVersion = normalizeVersion(
+    env?.VITE_MISSION_GALLERY_VERSION,
+  );
 
-const resolvedVersion =
-  normalizedEnvSiteVersion !== ""
-    ? VALID_SITE_VERSIONS.has(normalizedEnvSiteVersion)
+  if (normalizedEnvSiteVersion !== "") {
+    return VALID_SITE_VERSIONS.has(normalizedEnvSiteVersion)
       ? normalizedEnvSiteVersion
-      : DEFAULT_SITE_VERSION
-    : normalizedLegacyVersion !== "" &&
-        VALID_SITE_VERSIONS.has(normalizedLegacyVersion)
-      ? normalizedLegacyVersion
       : DEFAULT_SITE_VERSION;
+  }
 
-export const ACTIVE_SITE_VERSION = resolvedVersion;
+  if (
+    normalizedLegacyVersion !== "" &&
+    VALID_SITE_VERSIONS.has(normalizedLegacyVersion)
+  ) {
+    return normalizedLegacyVersion;
+  }
+
+  return DEFAULT_SITE_VERSION;
+}
+
+export const ACTIVE_SITE_VERSION = resolveActiveSiteVersion(import.meta.env);

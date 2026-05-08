@@ -1,4 +1,4 @@
-import { DEFAULT_HIDDEN_MARKER_IDS } from "./constants";
+import { DEFAULT_HIDDEN_MARKER_IDS } from "./constants.js";
 
 /**
  * @param {{ id: string }[]} sections

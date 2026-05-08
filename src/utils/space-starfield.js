@@ -1,4 +1,4 @@
-import { seededRandom } from "./random";
+import { seededRandom } from "./random.js";
 
 /**
  * Coarse viewport buckets so resize does not rebuild all SVG stars on every 1px change.

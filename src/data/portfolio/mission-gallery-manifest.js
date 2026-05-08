@@ -236,7 +236,7 @@ const MISSION_GALLERY_ROW_BY_SLUG = new Map(
  *
  * Rule: first 4-6 cards must establish identity fast.
  */
-const MISSION_GALLERY_ORDER_BY_VERSION = Object.freeze({
+const MISSION_GALLERY_ORDER = Object.freeze({
   swe: Object.freeze([
     // TIER 1: Product/newsroom platform execution.
     "dynamic-paywall",
@@ -289,10 +289,10 @@ const MISSION_GALLERY_ORDER_BY_VERSION = Object.freeze({
  * @returns {Array<object>}
  */
 function buildMissionGalleryManifestForVersion(version) {
-  const slugsInOrder = MISSION_GALLERY_ORDER_BY_VERSION[version];
-  const fallbackOrder = MISSION_GALLERY_ORDER_BY_VERSION.swe;
+  const slugsInOrder = MISSION_GALLERY_ORDER[version];
+  const fallbackOrder = MISSION_GALLERY_ORDER.swe;
   if (!slugsInOrder) {
-    if (import.meta.env.DEV) {
+    if (import.meta?.env?.DEV) {
       console.warn(
         `Unknown mission gallery version "${version}". Falling back to "swe".`,
       );
@@ -304,7 +304,7 @@ function buildMissionGalleryManifestForVersion(version) {
   const rows = slugsInOrder.map((slug) =>
     MISSION_GALLERY_ROW_BY_SLUG.get(slug),
   );
-  if (import.meta.env.DEV) {
+  if (import.meta?.env?.DEV) {
     const missing = slugsInOrder.filter((slug, i) => !rows[i]);
     if (missing.length > 0) {
       console.warn(

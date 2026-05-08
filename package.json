@@ -10,6 +10,7 @@
     "dev": "vite",
     "dev:prod": "cross-env VITE_FORCE_DEV_FALSE=1 vite",
     "build": "vite build",
+    "test": "node --test \"src/**/*.test.js\"",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
