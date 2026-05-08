@@ -35,16 +35,17 @@ export function flashPortfolioAnchor(anchorIdOrIds, attempt = 0) {
   for (const id of ids) {
     const wrap = document.getElementById(id);
     const card = wrap?.querySelector(".project-card") ?? null;
-    if (!wrap || !card) {
-      if (attempt < MAX_ATTEMPTS) {
-        window.setTimeout(
-          () => flashPortfolioAnchor(anchorIdOrIds, attempt + 1),
-          RETRY_MS,
-        );
-      }
-      return;
+    if (card) cards.push(card);
+  }
+
+  if (cards.length === 0) {
+    if (attempt < MAX_ATTEMPTS) {
+      window.setTimeout(
+        () => flashPortfolioAnchor(anchorIdOrIds, attempt + 1),
+        RETRY_MS,
+      );
     }
-    cards.push(card);
+    return;
   }
 
   for (const card of cards) {

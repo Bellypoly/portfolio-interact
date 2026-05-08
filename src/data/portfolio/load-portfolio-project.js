@@ -2,6 +2,8 @@
  * Dynamic import per slug for `/mission/:slug` (keeps case-study chunks out of the main bundle).
  * Slug keys must match `MISSION_GALLERY_MANIFEST` / `getMissionGalleryManifestRow` in `mission-gallery-manifest.js`.
  */
+import { getProjectVersionOverride } from "./mission-gallery-version-config.js";
+
 const SLUG_LOADERS = {
   "article-page-redesign": () =>
     import("./projects/article-page-redesign-project.js").then(
@@ -60,6 +62,23 @@ const SLUG_LOADERS = {
 
 export const PORTFOLIO_PROJECT_SLUGS = Object.freeze(Object.keys(SLUG_LOADERS));
 
+function isPlainObject(value) {
+  return value != null && typeof value === "object" && !Array.isArray(value);
+}
+
+function mergeProjectOverride(base, override) {
+  if (!isPlainObject(override)) return base;
+  const out = { ...base };
+  for (const [key, value] of Object.entries(override)) {
+    if (isPlainObject(value) && isPlainObject(out[key])) {
+      out[key] = mergeProjectOverride(out[key], value);
+      continue;
+    }
+    out[key] = value;
+  }
+  return out;
+}
+
 /** @param {string | undefined} slug */
 export function hasPortfolioProjectSlug(slug) {
   return Boolean(slug && SLUG_LOADERS[slug]);
@@ -72,5 +91,10 @@ export function hasPortfolioProjectSlug(slug) {
 export function loadPortfolioProjectBySlug(slug) {
   if (slug == null || slug === "") return Promise.resolve(null);
   const loader = SLUG_LOADERS[slug];
-  return loader ? loader() : Promise.resolve(null);
+  if (!loader) return Promise.resolve(null);
+  return loader().then((project) => {
+    const override = getProjectVersionOverride(slug);
+    if (!override) return project;
+    return mergeProjectOverride(project, override);
+  });
 }

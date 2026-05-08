@@ -32,6 +32,7 @@ const SeniorFullStack = ({ showLiveDot }) => (
       "portfolio-paywall",
       "portfolio-article-redesign",
       "portfolio-subscription",
+      "portfolio-local-elections-hub",
     ]}
   />
 );

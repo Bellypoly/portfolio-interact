@@ -2,7 +2,7 @@
  * Mission Gallery + shared card fields for `/mission/:slug` case studies. No `caseStudy` here—that
  * lives in `projects/<slug>-project.js` (each file spreads `getMissionGalleryManifestRow(slug)` then adds `caseStudy`).
  *
- * Array order = Mission Gallery display order (see `buildMissionGalleryProjectsOrdered` in `portfolio-projects.js`).
+ * Display order comes from the active Mission Gallery version (`ACTIVE_MISSION_GALLERY_VERSION`).
  *
  * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel → anchorId? →
  * name → desc → cardImageFit? → cardImagePosition? → img → imgWebp → alt → link?
@@ -11,7 +11,9 @@
  * (export from `projects/index.js` only if something else imports the barrel).
  */
 
-export const MISSION_GALLERY_MANIFEST = [
+import { ACTIVE_MISSION_GALLERY_VERSION } from "./mission-gallery-version-config.js";
+
+const MISSION_GALLERY_ROWS = [
   {
     slug: "vote62-ect-report-69",
     portfolioGroup: "professional",
@@ -222,6 +224,101 @@ export const MISSION_GALLERY_MANIFEST = [
     link: "https://www.depts.ttu.edu/international/intlopr/exhibits/my-hometown/",
   },
 ];
+
+const MISSION_GALLERY_ROW_BY_SLUG = new Map(
+  MISSION_GALLERY_ROWS.map((row) => [row.slug, row]),
+);
+
+/**
+ * Data-reporter order is curated, not chronological:
+ * public-interest -> computational journalism -> civic data infra ->
+ * newsroom engineering -> broader platform depth.
+ *
+ * Rule: first 4-6 cards must establish identity fast.
+ */
+const MISSION_GALLERY_ORDER_BY_VERSION = Object.freeze({
+  swe: Object.freeze([
+    // TIER 1: Product/newsroom platform execution.
+    "dynamic-paywall",
+    "subscription-checkout-activation",
+    "article-page-redesign",
+    "local-elections-hub",
+    "outage-management-system",
+    "pea-e-service",
+    "jobthai",
+    "map-magic",
+    // TIER 2: Civic/public-interest data impact.
+    "vote62-ect-report-69",
+    "parliament-watch-ocr",
+    "electricity-bill-breakdown",
+    // TIER 3: Research/technical depth.
+    "federated-learning-energy",
+    "industrial-logistics-evaluation",
+    "rdfd",
+    // TIER 4: Personal/creative signal.
+    "jerdi-kids",
+    "photo-competition-my-hometown",
+  ]),
+  "data-reporter": Object.freeze([
+    // TIER 1: Identity-defining civic/public-interest data work.
+    "vote62-ect-report-69",
+    "parliament-watch-ocr",
+    "electricity-bill-breakdown",
+    "local-elections-hub",
+    "outage-management-system",
+    // TIER 2: Newsroom/product engineering and audience systems.
+    "dynamic-paywall",
+    "article-page-redesign",
+    "subscription-checkout-activation",
+
+    // TIER 3: Technical platform depth (GIS, infra, analytics, ML).
+    "map-magic",
+    "jobthai",
+    "pea-e-service",
+    "industrial-logistics-evaluation",
+    "federated-learning-energy",
+    "rdfd",
+    // TIER 4: Personal/creative signal.
+    "jerdi-kids",
+    "photo-competition-my-hometown",
+  ]),
+});
+
+/**
+ * @param {string} version
+ * @returns {Array<object>}
+ */
+function buildMissionGalleryManifestForVersion(version) {
+  const slugsInOrder = MISSION_GALLERY_ORDER_BY_VERSION[version];
+  const fallbackOrder = MISSION_GALLERY_ORDER_BY_VERSION.swe;
+  if (!slugsInOrder) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        `Unknown mission gallery version "${version}". Falling back to "swe".`,
+      );
+    }
+    return fallbackOrder
+      .map((slug) => MISSION_GALLERY_ROW_BY_SLUG.get(slug))
+      .filter(Boolean);
+  }
+  const rows = slugsInOrder.map((slug) =>
+    MISSION_GALLERY_ROW_BY_SLUG.get(slug),
+  );
+  if (import.meta.env.DEV) {
+    const missing = slugsInOrder.filter((slug, i) => !rows[i]);
+    if (missing.length > 0) {
+      console.warn(
+        `Mission Gallery version "${version}" has unknown slugs:`,
+        missing,
+      );
+    }
+  }
+  return rows.filter(Boolean);
+}
+
+export const MISSION_GALLERY_MANIFEST = buildMissionGalleryManifestForVersion(
+  ACTIVE_MISSION_GALLERY_VERSION,
+);
 
 /*
  * Archived `squeeze-it` is intentionally excluded from `MISSION_GALLERY_MANIFEST`.
