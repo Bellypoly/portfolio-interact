@@ -28,7 +28,11 @@ const SeniorFullStack = ({ showLiveDot }) => (
 
       "Performance & reliability: improved Core Web Vitals (LCP, CLS); migrated 55% off legacy architecture; enabled zero-downtime releases via feature flags.",
     ]}
-    portfolioAnchor="portfolio-dmn"
+    portfolioAnchor={[
+      "portfolio-paywall",
+      "portfolio-article-redesign",
+      "portfolio-subscription",
+    ]}
   />
 );
 
@@ -66,7 +70,7 @@ const FullStackII = () => (
 
       "Customer-facing systems: enabled integration with PEA E-Service, allowing outage and service data to be surfaced to end users.",
     ]}
-    portfolioAnchor="portfolio-pea"
+    portfolioAnchor={["portfolio-outage-ms", "portfolio-pea-eservice"]}
   />
 );
 
@@ -88,7 +92,7 @@ const SoftwareEng = () => (
 
       "Built resume creation and employer tools, streamlining hiring workflows and increasing platform retention.",
     ]}
-    portfolioAnchor="portfolio-thinknet"
+    portfolioAnchor={["portfolio-map-magic", "portfolio-thinknet"]}
   />
 );
 

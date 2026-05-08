@@ -79,5 +79,10 @@ export const parliamentWatchOcrProject = {
       "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
     ],
     results: null,
+    relatedProject: {
+      slug: "vote62-ect-report-69",
+      label:
+        "Related civic work — VOTE62: ECT Report 69 OCR, validation & open election data →",
+    },
   },
 };

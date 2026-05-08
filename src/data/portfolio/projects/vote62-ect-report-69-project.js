@@ -174,5 +174,10 @@ export const vote62EctReport69Project = {
         },
       ],
     },
+    relatedProject: {
+      slug: "parliament-watch-ocr",
+      label:
+        "Related civic work — Parliament Watch: Thai House voting PDFs to structured open records →",
+    },
   },
 };

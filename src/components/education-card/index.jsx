@@ -3,7 +3,10 @@ import cc from "classcat";
 import HoverRevealText from "../hover-reveal-text";
 import LocationOrg from "../location-org";
 import { useDismissOnDocumentClick } from "../../hooks/use-dismiss-on-document-click";
-import { scrollToPortfolioAnchor } from "../../utils/flash-portfolio-anchor";
+import {
+  firstPortfolioHashFragment,
+  scrollToPortfolioAnchor,
+} from "../../utils/flash-portfolio-anchor";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
 import "./education-card.css";
 
@@ -208,13 +211,15 @@ const AchievementCard = React.memo(function AchievementCard({
     setOpenMissionLogIndex((prev) => (prev === idx ? null : idx));
   }, []);
 
+  const portfolioHash = firstPortfolioHashFragment(portfolioAnchor);
+
   const handlePortfolioClick = useCallback(
     (e) => {
-      if (!portfolioAnchor) return;
+      if (!portfolioHash) return;
       e.preventDefault();
       scrollToPortfolioAnchor(portfolioAnchor);
     },
-    [portfolioAnchor],
+    [portfolioAnchor, portfolioHash],
   );
 
   return (
@@ -251,10 +256,10 @@ const AchievementCard = React.memo(function AchievementCard({
           />
         </MissionLogFloatTrigger>
       ) : null}
-      {portfolioAnchor ? (
+      {portfolioHash ? (
         <div className="edu-achievement-card__portfolio-link-block">
           <a
-            href={`#${portfolioAnchor}`}
+            href={`#${portfolioHash}`}
             className="edu-achievement-card__portfolio-link education-card__mission-log-btn"
             onClick={handlePortfolioClick}
           >

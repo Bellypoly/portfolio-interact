@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import HoverRevealText from "../hover-reveal-text";
-import { scrollToPortfolioAnchor } from "../../utils/flash-portfolio-anchor";
+import {
+  firstPortfolioHashFragment,
+  scrollToPortfolioAnchor,
+} from "../../utils/flash-portfolio-anchor";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
 import "./work-timeline-item.css";
 
@@ -71,6 +74,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
   description,
   bullets = [],
   triggerLabel = "Mission logs",
+  /** One gallery `#id`, or several — each id must be unique in the document. */
   portfolioAnchor,
   showLiveDot = false,
 }) {
@@ -109,8 +113,10 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
     });
   };
 
+  const portfolioHash = firstPortfolioHashFragment(portfolioAnchor);
+
   const handleRelatedClick = (e) => {
-    if (!portfolioAnchor) return;
+    if (!portfolioHash) return;
     e.preventDefault();
     scrollToPortfolioAnchor(portfolioAnchor);
   };
@@ -171,10 +177,10 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
               className="work-timeline-item__bullet-trigger-wrap--mobile"
             />
           )}
-          {portfolioAnchor && (
+          {portfolioHash ? (
             <div className="work-timeline-item__portfolio-link-block">
               <a
-                href={`#${portfolioAnchor}`}
+                href={`#${portfolioHash}`}
                 className="work-timeline-item__portfolio-link"
                 onClick={handleRelatedClick}
               >
@@ -184,7 +190,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
                 <span className="work-timeline-item__arrow">↓</span>
               </a>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

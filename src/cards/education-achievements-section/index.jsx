@@ -86,7 +86,7 @@ const ACHIEVEMENT_ITEMS = [
   {
     sortYear: 2024,
     title: "3rd Place (Global) — Best Idea to Grow Advertising Sales",
-    portfolioAnchor: "portfolio-subscription-checkout",
+    portfolioAnchor: ["portfolio-paywall", "portfolio-subscription"],
     time: "2024",
     org: "INMA Global Media Awards 2024 (International News Media Association)",
     where: "The Dallas Morning News",
@@ -218,7 +218,10 @@ function TimelineLegend({ value, onChange }) {
       role="group"
       aria-labelledby="edu-timeline-legend-prefix"
     >
-      <span id="edu-timeline-legend-prefix" className="edu-timeline__legend-prefix">
+      <span
+        id="edu-timeline-legend-prefix"
+        className="edu-timeline__legend-prefix"
+      >
         {"filter : "}
       </span>
       {btn(
