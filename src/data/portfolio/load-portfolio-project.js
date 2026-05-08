@@ -66,6 +66,11 @@ function isPlainObject(value) {
   return value != null && typeof value === "object" && !Array.isArray(value);
 }
 
+/**
+ * Recursive merge for version overrides.
+ * - Plain objects merge deeply.
+ * - Arrays and primitives replace whole values.
+ */
 function mergeProjectOverride(base, override) {
   if (!isPlainObject(override)) return base;
   const out = { ...base };

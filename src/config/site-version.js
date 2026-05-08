@@ -5,9 +5,17 @@
  * 1) `VITE_SITE_VERSION` (new canonical env var)
  * 2) `VITE_MISSION_GALLERY_VERSION` (legacy fallback, kept for compatibility)
  * 3) `DEFAULT_SITE_VERSION`
+ *
+ * Legacy aliases are supported:
+ * - `0` -> `swe`
+ * - `1` -> `data-reporter`
  */
 const DEFAULT_SITE_VERSION = "swe";
 const VALID_SITE_VERSIONS = new Set(["swe", "data-reporter"]);
+const LEGACY_SITE_VERSION_ALIASES = Object.freeze({
+  0: "swe",
+  1: "data-reporter",
+});
 
 /**
  * @param {unknown} value
@@ -18,6 +26,15 @@ function normalizeVersion(value) {
 }
 
 /**
+ * Convert legacy short codes to canonical site versions.
+ * @param {string} version
+ * @returns {string}
+ */
+function canonicalizeVersion(version) {
+  return LEGACY_SITE_VERSION_ALIASES[version] ?? version;
+}
+
+/**
  * Resolve the effective site version from env-style values.
  * Extracted for unit tests and to keep module-level work trivial.
  *
@@ -25,22 +42,21 @@ function normalizeVersion(value) {
  * @returns {string}
  */
 export function resolveActiveSiteVersion(env) {
-  const normalizedEnvSiteVersion = normalizeVersion(env?.VITE_SITE_VERSION);
-  const normalizedLegacyVersion = normalizeVersion(
-    env?.VITE_MISSION_GALLERY_VERSION,
+  const siteVersion = canonicalizeVersion(
+    normalizeVersion(env?.VITE_SITE_VERSION),
+  );
+  const legacyVersion = canonicalizeVersion(
+    normalizeVersion(env?.VITE_MISSION_GALLERY_VERSION),
   );
 
-  if (normalizedEnvSiteVersion !== "") {
-    return VALID_SITE_VERSIONS.has(normalizedEnvSiteVersion)
-      ? normalizedEnvSiteVersion
+  if (siteVersion !== "") {
+    return VALID_SITE_VERSIONS.has(siteVersion)
+      ? siteVersion
       : DEFAULT_SITE_VERSION;
   }
 
-  if (
-    normalizedLegacyVersion !== "" &&
-    VALID_SITE_VERSIONS.has(normalizedLegacyVersion)
-  ) {
-    return normalizedLegacyVersion;
+  if (legacyVersion !== "" && VALID_SITE_VERSIONS.has(legacyVersion)) {
+    return legacyVersion;
   }
 
   return DEFAULT_SITE_VERSION;

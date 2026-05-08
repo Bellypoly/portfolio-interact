@@ -13,10 +13,44 @@ test("normalizes case and surrounding spaces", () => {
   assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "  SWE  " }), "swe");
 });
 
+test("supports legacy short aliases in canonical env var", () => {
+  assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "0" }), "swe");
+  assert.equal(
+    resolveActiveSiteVersion({ VITE_SITE_VERSION: "1" }),
+    "data-reporter",
+  );
+  assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "a" }), "swe");
+  assert.equal(
+    resolveActiveSiteVersion({ VITE_SITE_VERSION: "b" }),
+    "data-reporter",
+  );
+});
+
 test("falls back to legacy mission variable when site version is missing", () => {
   assert.equal(
     resolveActiveSiteVersion({
       VITE_MISSION_GALLERY_VERSION: "data-reporter",
+    }),
+    "data-reporter",
+  );
+});
+
+test("supports legacy short aliases in legacy env var", () => {
+  assert.equal(
+    resolveActiveSiteVersion({
+      VITE_MISSION_GALLERY_VERSION: "0",
+    }),
+    "swe",
+  );
+  assert.equal(
+    resolveActiveSiteVersion({
+      VITE_MISSION_GALLERY_VERSION: "1",
+    }),
+    "data-reporter",
+  );
+  assert.equal(
+    resolveActiveSiteVersion({
+      VITE_MISSION_GALLERY_VERSION: "b",
     }),
     "data-reporter",
   );

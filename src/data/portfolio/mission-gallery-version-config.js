@@ -18,7 +18,10 @@ export const ACTIVE_MISSION_GALLERY_VERSION = ACTIVE_SITE_VERSION;
  *
  * Shape:
  * {
- *   a: {
+ *   swe: {
+ *     "slug-name": { ... }
+ *   },
+ *   "data-reporter": {
  *     "slug-name": {
  *       // Any top-level project field
  *       // Optional nested `caseStudy` object
@@ -27,8 +30,8 @@ export const ACTIVE_MISSION_GALLERY_VERSION = ACTIVE_SITE_VERSION;
  * }
  */
 const PROJECT_OVERRIDES_BY_VERSION = Object.freeze({
-  a: Object.freeze({}),
-  b: Object.freeze({}),
+  swe: Object.freeze({}),
+  "data-reporter": Object.freeze({}),
 });
 
 /**

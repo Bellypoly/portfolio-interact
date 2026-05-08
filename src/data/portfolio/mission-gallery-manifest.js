@@ -268,8 +268,8 @@ const MISSION_GALLERY_ORDER = Object.freeze({
     "outage-management-system",
     // TIER 2: Newsroom/product engineering and audience systems.
     "dynamic-paywall",
-    "article-page-redesign",
     "subscription-checkout-activation",
+    "article-page-redesign",
 
     // TIER 3: Technical platform depth (GIS, infra, analytics, ML).
     "map-magic",
