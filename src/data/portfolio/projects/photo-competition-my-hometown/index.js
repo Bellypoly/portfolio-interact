@@ -1,0 +1,63 @@
+/**
+ * Texas Tech "My Hometown" juried photography exhibit — portfolio entry + case study.
+ */
+
+import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js";
+import { photoCompetitionMyHometownCaseStudyVariant } from "./variants.js";
+
+const basePhotoCompetitionMyHometownCaseStudy = {
+  eyebrow: "Photography · Cultural Documentation · Competition Entry",
+  featuredImg:
+    "images/portfolio/photo-competition-my-hometown/amphawa-floating-market.png",
+  featuredImgWebp:
+    "images/portfolio/photo-competition-my-hometown/amphawa-floating-market.webp",
+  featuredImageAlt:
+    "Amphawa Floating Market — boats on canal with vendors, palm trees, and traditional Thai architecture in golden hour light.",
+  featuredImageCompact: true,
+  task: "Document cultural heritage through photography: capture the essence of Amphawa Floating Market and submit to Texas Tech's 'My Hometown' juried photography exhibit.",
+  disciplines: [
+    "Photography",
+    "Cultural documentation",
+    "Visual storytelling",
+  ],
+  context: "Texas Tech University · 'My Hometown' Photography Competition",
+  techStack: [
+    {
+      label: "Digital photography",
+      href: "https://en.wikipedia.org/wiki/Digital_photography",
+    },
+    {
+      label: "Adobe Lightroom",
+      href: "https://www.adobe.com/products/photoshop-lightroom.html",
+    },
+  ],
+  overview: [
+    "Captured the vibrant culture of Amphawa Floating Market through photography, documenting traditional Thai market life, architecture, and community interactions.",
+  ],
+  strategyTitle: "What I did",
+  pillars: [
+    {
+      title: "Cultural documentation",
+      body: "Photographed traditional market scenes, vendors, and architecture to preserve cultural heritage.",
+    },
+    {
+      title: "Visual storytelling",
+      body: "Composed images to tell stories of daily life and community in Amphawa.",
+    },
+  ],
+  approachTitle: "How I approached it",
+  approach: [
+    "Visited the market during golden hour, used natural light, and edited photos to highlight cultural elements.",
+  ],
+  results: [
+    {
+      value: "Juried",
+      label: "Accepted into Texas Tech exhibit",
+    },
+  ],
+};
+
+export const photoCompetitionMyHometownProject = {
+  ...getMissionGalleryManifestRow("photo-competition-my-hometown"),
+  caseStudy: { ...basePhotoCompetitionMyHometownCaseStudy, ...photoCompetitionMyHometownCaseStudyVariant },
+};
