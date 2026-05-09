@@ -6,7 +6,7 @@
  * 2) `VITE_MISSION_GALLERY_VERSION` (legacy fallback, kept for compatibility)
  * 3) `DEFAULT_SITE_VERSION`
  *
- * Legacy aliases are supported:
+ * Optional numeric shorthand for `.env` (letters like `a`/`b` are not supported):
  * - `0` -> `swe`
  * - `1` -> `data-reporter`
  */
@@ -26,7 +26,7 @@ function normalizeVersion(value) {
 }
 
 /**
- * Convert legacy short codes to canonical site versions.
+ * Map `0` / `1` shorthand to canonical site versions; otherwise return as-is.
  * @param {string} version
  * @returns {string}
  */

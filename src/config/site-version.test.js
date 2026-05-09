@@ -10,18 +10,16 @@ test("returns canonical site version when valid", () => {
 });
 
 test("normalizes case and surrounding spaces", () => {
-  assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "  SWE  " }), "swe");
+  assert.equal(
+    resolveActiveSiteVersion({ VITE_SITE_VERSION: "  SWE  " }),
+    "swe",
+  );
 });
 
-test("supports legacy short aliases in canonical env var", () => {
+test("supports numeric shorthand in canonical env var", () => {
   assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "0" }), "swe");
   assert.equal(
     resolveActiveSiteVersion({ VITE_SITE_VERSION: "1" }),
-    "data-reporter",
-  );
-  assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "a" }), "swe");
-  assert.equal(
-    resolveActiveSiteVersion({ VITE_SITE_VERSION: "b" }),
     "data-reporter",
   );
 });
@@ -35,7 +33,7 @@ test("falls back to legacy mission variable when site version is missing", () =>
   );
 });
 
-test("supports legacy short aliases in legacy env var", () => {
+test("supports numeric shorthand in legacy env var", () => {
   assert.equal(
     resolveActiveSiteVersion({
       VITE_MISSION_GALLERY_VERSION: "0",
@@ -48,11 +46,14 @@ test("supports legacy short aliases in legacy env var", () => {
     }),
     "data-reporter",
   );
+});
+
+test("letter shorthand a/b is not supported (falls back to default)", () => {
+  assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "a" }), "swe");
+  assert.equal(resolveActiveSiteVersion({ VITE_SITE_VERSION: "b" }), "swe");
   assert.equal(
-    resolveActiveSiteVersion({
-      VITE_MISSION_GALLERY_VERSION: "b",
-    }),
-    "data-reporter",
+    resolveActiveSiteVersion({ VITE_MISSION_GALLERY_VERSION: "b" }),
+    "swe",
   );
 });
 
@@ -75,4 +76,3 @@ test("uses default when both values are empty", () => {
     "swe",
   );
 });
-

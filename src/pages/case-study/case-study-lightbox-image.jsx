@@ -21,7 +21,7 @@ function CaseStudyLightboxModal({
     height,
     sizes: modalSizes,
     decoding: "async",
-    fetchPriority: "high",
+    fetchpriority: "high",
   };
 
   return (
@@ -127,7 +127,7 @@ function CaseStudyLightboxImage({
     loading,
     decoding,
     style: imgStyle,
-    ...(fetchPriority ? { fetchPriority } : {}),
+    ...(fetchPriority ? { fetchpriority: fetchPriority } : {}),
   };
 
   const thumbImg = imgWebp ? (

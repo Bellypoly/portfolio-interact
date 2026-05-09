@@ -1,14 +1,14 @@
 /**
  * Mission Gallery + shared card fields for `/mission/:slug` case studies. No `caseStudy` here—that
- * lives in `projects/<slug>-project.js` (each file spreads `getMissionGalleryManifestRow(slug)` then adds `caseStudy`).
+ * lives in `projects/<slug>/index.js` (each module spreads `getMissionGalleryManifestRow(slug)` then adds `caseStudy`).
  *
  * Display order comes from the active Mission Gallery version (`ACTIVE_MISSION_GALLERY_VERSION`).
  *
  * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel → anchorId? →
  * name → desc → cardImageFit? → cardImagePosition? → img → imgWebp → alt → link?
  *
- * New mission: row in this file, then slug in `load-portfolio-project.js`, then `projects/<slug>-project.js`
- * (export from `projects/index.js` only if something else imports the barrel).
+ * New mission: row in this file, then slug in `load-portfolio-project.js`, then `projects/<slug>/index.js`
+ * (optional `projects/<slug>/variants.js` for site-version case-study overlays).
  */
 
 import { ACTIVE_MISSION_GALLERY_VERSION } from "./mission-gallery-version-config.js";
