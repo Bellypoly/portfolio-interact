@@ -1,7 +1,12 @@
 import React from "react";
+import CaseStudyCaptionedFigure from "./case-study-captioned-figure";
 import CaseStudyFigures from "./case-study-figures";
-import CaseStudyLightboxImage from "./case-study-lightbox-image";
 import CaseStudySection from "./case-study-section";
+import {
+  CaseStudySectionBulletList,
+  CaseStudySectionLead,
+  CaseStudySectionStatRows,
+} from "./case-study-section-blocks";
 import CaseStudyUxFrictionCompare from "./case-study-ux-friction-compare";
 import CaseStudyVersionCompareDiagram from "./case-study-version-compare-diagram";
 
@@ -12,42 +17,18 @@ export function CaseStudyCheckoutSection({ cs, slug, baseUrl }) {
       title={cs.checkoutSection.title}
       sectionId={`${slug}-checkout`}
     >
-      {cs.checkoutSection.lead ? (
-        <p className="project-case-study__p">{cs.checkoutSection.lead}</p>
-      ) : null}
-      {cs.checkoutSection.sectionResults?.length ? (
-        <ul className="project-case-study__results mt-6" role="list">
-          {cs.checkoutSection.sectionResults.map((row) => (
-            <li key={row.label} className="project-case-study__result">
-              <span className="project-case-study__result-value">{row.value}</span>
-              <span className="project-case-study__result-label">{row.label}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      {cs.checkoutSection.bullets?.length ? (
-        <ul className="project-case-study__bullet-list">
-          {cs.checkoutSection.bullets.map((b, i) => (
-            <li key={i} className="project-case-study__bullet-item">
-              {b}
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <CaseStudySectionLead lead={cs.checkoutSection.lead} />
+      <CaseStudySectionStatRows rows={cs.checkoutSection.sectionResults} />
+      <CaseStudySectionBulletList items={cs.checkoutSection.bullets} />
       {cs.checkoutSection.flowDiagram ? (
-        <figure className="project-case-study__figure project-case-study__figure--full project-case-study__no-shadow mt-8">
-          <CaseStudyLightboxImage
-            baseUrl={baseUrl}
-            img={cs.checkoutSection.flowDiagram.img}
-            imgWebp={cs.checkoutSection.flowDiagram.imgWebp}
-            alt={cs.checkoutSection.flowDiagram.alt}
-          />
-          {cs.checkoutSection.flowDiagram.caption ? (
-            <figcaption className="project-case-study__caption">
-              {cs.checkoutSection.flowDiagram.caption}
-            </figcaption>
-          ) : null}
-        </figure>
+        <CaseStudyCaptionedFigure
+          baseUrl={baseUrl}
+          img={cs.checkoutSection.flowDiagram.img}
+          imgWebp={cs.checkoutSection.flowDiagram.imgWebp}
+          alt={cs.checkoutSection.flowDiagram.alt}
+          caption={cs.checkoutSection.flowDiagram.caption}
+          className="project-case-study__figure project-case-study__figure--full project-case-study__no-shadow mt-8"
+        />
       ) : null}
       {cs.checkoutSection.figures?.length ? (
         <CaseStudyFigures
@@ -70,19 +51,8 @@ export function CaseStudyClaritySection({
   if (!cs.claritySection) return null;
   return (
     <CaseStudySection title={cs.claritySection.title} sectionId={`${slug}-clarity`}>
-      {cs.claritySection.lead ? (
-        <p className="project-case-study__p">{cs.claritySection.lead}</p>
-      ) : null}
-      {cs.claritySection.sectionResults?.length ? (
-        <ul className="project-case-study__results mt-6" role="list">
-          {cs.claritySection.sectionResults.map((row) => (
-            <li key={row.label} className="project-case-study__result">
-              <span className="project-case-study__result-value">{row.value}</span>
-              <span className="project-case-study__result-label">{row.label}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <CaseStudySectionLead lead={cs.claritySection.lead} />
+      <CaseStudySectionStatRows rows={cs.claritySection.sectionResults} />
       {cs.claritySection.figures?.length ? (
         <CaseStudyFigures
           embedded
@@ -92,15 +62,7 @@ export function CaseStudyClaritySection({
           columns={cs.claritySection.figureColumns ?? 1}
         />
       ) : null}
-      {cs.claritySection.bullets?.length ? (
-        <ul className="project-case-study__bullet-list">
-          {cs.claritySection.bullets.map((b, i) => (
-            <li key={i} className="project-case-study__bullet-item">
-              {b}
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <CaseStudySectionBulletList items={cs.claritySection.bullets} />
       {cs.claritySection.frictionCompare ? (
         <CaseStudyUxFrictionCompare
           before={cs.claritySection.frictionCompare.before}
@@ -160,18 +122,8 @@ export function CaseStudyOnboardingSection({ cs, slug, baseUrl }) {
       title={cs.onboardingSection.title}
       sectionId={`${slug}-onboarding`}
     >
-      {cs.onboardingSection.lead ? (
-        <p className="project-case-study__p">{cs.onboardingSection.lead}</p>
-      ) : null}
-      {cs.onboardingSection.stepBullets?.length ? (
-        <ul className="project-case-study__bullet-list">
-          {cs.onboardingSection.stepBullets.map((b, i) => (
-            <li key={i} className="project-case-study__bullet-item">
-              {b}
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <CaseStudySectionLead lead={cs.onboardingSection.lead} />
+      <CaseStudySectionBulletList items={cs.onboardingSection.stepBullets} />
       {cs.onboardingSection.figures?.length ? (
         <CaseStudyFigures
           embedded
@@ -198,19 +150,18 @@ export function CaseStudyShowcaseSection({
       className="project-case-study__no-shadow"
     >
       {cs.showcase.desktop ? (
-        <figure className="project-case-study__figure project-case-study__figure--full mt-4">
-          <CaseStudyLightboxImage
-            baseUrl={baseUrl}
-            img={cs.showcase.desktop.img}
-            imgWebp={cs.showcase.desktop.imgWebp}
-            alt={cs.showcase.desktop.alt}
-          />
-          {cs.showcase.desktop.caption ? (
-            <figcaption className="project-case-study__caption">
-              {renderReferenceFigureCaption(cs.showcase.desktop.caption)}
-            </figcaption>
-          ) : null}
-        </figure>
+        <CaseStudyCaptionedFigure
+          baseUrl={baseUrl}
+          img={cs.showcase.desktop.img}
+          imgWebp={cs.showcase.desktop.imgWebp}
+          alt={cs.showcase.desktop.alt}
+          caption={
+            cs.showcase.desktop.caption
+              ? renderReferenceFigureCaption(cs.showcase.desktop.caption)
+              : null
+          }
+          className="project-case-study__figure project-case-study__figure--full mt-4"
+        />
       ) : null}
       {cs.showcase.mobile?.length ? (
         cs.showcase.figureGridColumns === 3 ? (
@@ -220,21 +171,21 @@ export function CaseStudyShowcaseSection({
             <div className="project-case-study__wide-inner">
               <div className="project-case-study__figure-grid project-case-study__figure-grid--3 !mt-0">
                 {cs.showcase.mobile.map((m) => (
-                  <figure key={m.img} className="project-case-study__figure">
-                    <CaseStudyLightboxImage
-                      baseUrl={baseUrl}
-                      img={m.img}
-                      imgWebp={m.imgWebp}
-                      alt={m.alt}
-                    />
-                    {m.caption ? (
-                      <figcaption className="project-case-study__caption">
-                        {typeof m.caption === "string"
+                  <CaseStudyCaptionedFigure
+                    key={m.img}
+                    baseUrl={baseUrl}
+                    img={m.img}
+                    imgWebp={m.imgWebp}
+                    alt={m.alt}
+                    caption={
+                      m.caption
+                        ? typeof m.caption === "string"
                           ? m.caption
-                          : renderReferenceFigureCaption(m.caption)}
-                      </figcaption>
-                    ) : null}
-                  </figure>
+                          : renderReferenceFigureCaption(m.caption)
+                        : null
+                    }
+                    className="project-case-study__figure"
+                  />
                 ))}
               </div>
             </div>
@@ -248,21 +199,21 @@ export function CaseStudyShowcaseSection({
             }${cs.showcase.desktop ? " mt-8" : " mt-4 md:mt-6"}`}
           >
             {cs.showcase.mobile.map((m) => (
-              <figure key={m.img} className="project-case-study__figure">
-                <CaseStudyLightboxImage
-                  baseUrl={baseUrl}
-                  img={m.img}
-                  imgWebp={m.imgWebp}
-                  alt={m.alt}
-                />
-                {m.caption ? (
-                  <figcaption className="project-case-study__caption">
-                    {typeof m.caption === "string"
+              <CaseStudyCaptionedFigure
+                key={m.img}
+                baseUrl={baseUrl}
+                img={m.img}
+                imgWebp={m.imgWebp}
+                alt={m.alt}
+                caption={
+                  m.caption
+                    ? typeof m.caption === "string"
                       ? m.caption
-                      : renderReferenceFigureCaption(m.caption)}
-                  </figcaption>
-                ) : null}
-              </figure>
+                      : renderReferenceFigureCaption(m.caption)
+                    : null
+                }
+                className="project-case-study__figure"
+              />
             ))}
           </div>
         )
@@ -294,23 +245,20 @@ export function CaseStudyReferenceSection({
         <p className="project-case-study__p">{cs.referenceSection.intro}</p>
       ) : null}
       {cs.referenceSection.figure?.img || cs.referenceSection.figure?.caption ? (
-        <figure
+        <CaseStudyCaptionedFigure
+          baseUrl={baseUrl}
+          img={cs.referenceSection.figure.img}
+          imgWebp={cs.referenceSection.figure.imgWebp}
+          alt={cs.referenceSection.figure.alt ?? ""}
+          caption={
+            cs.referenceSection.figure.caption
+              ? renderReferenceFigureCaption(
+                  cs.referenceSection.figure.caption,
+                )
+              : null
+          }
           className={`project-case-study__figure project-case-study__figure--full${cs.referenceSection.figure.img ? " mt-4 md:mt-6" : " mt-4"}`}
-        >
-          {cs.referenceSection.figure.img ? (
-            <CaseStudyLightboxImage
-              baseUrl={baseUrl}
-              img={cs.referenceSection.figure.img}
-              imgWebp={cs.referenceSection.figure.imgWebp}
-              alt={cs.referenceSection.figure.alt ?? ""}
-            />
-          ) : null}
-          {cs.referenceSection.figure.caption ? (
-            <figcaption className="project-case-study__caption">
-              {renderReferenceFigureCaption(cs.referenceSection.figure.caption)}
-            </figcaption>
-          ) : null}
-        </figure>
+        />
       ) : null}
       {(cs.referenceSection.paragraphs ?? []).map((paragraph, i) =>
         renderParagraph(paragraph, `reference-${i}`, baseUrl),

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { isPhoneViewportForPortraitLock } from "../phone-viewport-for-portrait-lock.js";
+import { isPhoneViewportForPortraitLock } from "../../phone-viewport-for-portrait-lock.js";
 
 const SHOW_DEBOUNCE_MS = 480;
 

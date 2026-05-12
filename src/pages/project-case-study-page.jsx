@@ -15,25 +15,30 @@ import {
 } from "react-router-dom";
 import { loadPortfolioProjectBySlug } from "../data/portfolio/load-portfolio-project";
 import { SPACE_RESUME_FROM_MISSION } from "../utils/space-resume-navigation";
+import HoverRevealText from "../components/hover-reveal-text";
+import CaseStudyPlaceholderBlock from "./case-study/case-study-placeholder-block";
+import CaseStudyFeaturedImage from "./case-study/case-study-featured-image";
+import CaseStudyMetaDl from "./case-study/case-study-meta-dl";
+import CaseStudyAsciiDiagram from "./case-study/case-study-ascii-diagram";
+import CaseStudyFigures from "./case-study/case-study-figures";
+import CaseStudyImpactChart from "./case-study/case-study-impact-chart";
+import CaseStudyProblemSection from "./case-study/case-study-problem-section";
+import { CaseStudyDashBulletList } from "./case-study/case-study-dash-bullet-list";
+import CaseStudySection from "./case-study/case-study-section";
+import CaseStudySystemDesign from "./case-study/case-study-system-design";
 import {
-  CaseStudyPlaceholderBlock,
-  CaseStudyFeaturedImage,
-  CaseStudyMetaDl,
-  CaseStudyAsciiDiagram,
-  CaseStudyFigures,
-  CaseStudyImpactChart,
-  CaseStudyProblemSection,
-  CaseStudySection,
-  CaseStudySystemDesign,
   CaseStudyEarlyImpactSection,
   CaseStudyStrategySection,
+} from "./case-study/case-study-core-sections";
+import {
+  CaseStudyResultsList,
   CaseStudyImpactBlock,
   renderApproachBlock,
   renderCaseStudyMediaBlock,
   renderCaseStudyParagraph,
   renderReferenceFigureCaption,
-} from "./case-study";
-import HoverRevealText from "../components/hover-reveal-text";
+} from "./case-study/case-study-renderers";
+import { renderCaseStudyInlineRich } from "./case-study/case-study-inline-rich";
 import "./project-case-study.css";
 
 function lazyCaseStudySection(exportName) {
@@ -51,16 +56,13 @@ const CaseStudyClaritySection = lazyCaseStudySection("CaseStudyClaritySection");
 const CaseStudyOnboardingSection = lazyCaseStudySection(
   "CaseStudyOnboardingSection",
 );
-const CaseStudyShowcaseSection = lazyCaseStudySection("CaseStudyShowcaseSection");
+const CaseStudyShowcaseSection = lazyCaseStudySection(
+  "CaseStudyShowcaseSection",
+);
 const CaseStudyReferenceSection = lazyCaseStudySection(
   "CaseStudyReferenceSection",
 );
-const CaseStudyFlourishEmbed = lazy(
-  () => import("./case-study/case-study-flourish-embed"),
-);
-const CaseStudyIframeEmbed = lazy(
-  () => import("./case-study/case-study-iframe-embed"),
-);
+const CaseStudyEmbed = lazy(() => import("./case-study/case-study-embed"));
 
 export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
@@ -123,7 +125,11 @@ export default function ProjectCaseStudyPage() {
             </button>
           </div>
         </header>
-        <p className="project-case-study__loading" role="status" aria-live="polite">
+        <p
+          className="project-case-study__loading"
+          role="status"
+          aria-live="polite"
+        >
           Loading case study…
         </p>
       </div>
@@ -146,9 +152,218 @@ export default function ProjectCaseStudyPage() {
     !cs.checkoutSection?.sectionResults,
   );
 
+  const splitPublicDatasetSection = Boolean(
+    typeof cs.publicDatasetSectionTitle === "string" &&
+    cs.publicDatasetSectionTitle.trim() !== "" &&
+    showDeferredImpact,
+  );
+
+  const publicDatasetEmbedsSheet = Boolean(cs.publicDatasetIframeEmbed?.src);
+
+  const publicDatasetSectionEl = splitPublicDatasetSection ? (
+    <CaseStudySection
+      title={cs.publicDatasetSectionTitle.trim()}
+      sectionId={`${slug}-public-dataset`}
+    >
+      {typeof cs.publicDatasetSectionIntro === "string" &&
+      cs.publicDatasetSectionIntro.trim() !== "" ? (
+        <p className="project-case-study__p project-case-study__p--bridge">
+          {renderCaseStudyInlineRich(cs.publicDatasetSectionIntro)}
+        </p>
+      ) : null}
+      {publicDatasetEmbedsSheet ? (
+        <div className="project-case-study__section--embed">
+          {cs.publicDatasetIframeEmbed.caption ? (
+            <p className="project-case-study__p mx-auto max-w-none">
+              {cs.publicDatasetIframeEmbed.caption}
+            </p>
+          ) : null}
+          <div
+            className={`project-case-study__embed-wrap${cs.publicDatasetSectionIntro?.trim() ? " mt-6 md:mt-7" : " mt-6 md:mt-8"}`}
+          >
+            <iframe
+              src={cs.publicDatasetIframeEmbed.src}
+              className="project-case-study__embed"
+              style={
+                cs.publicDatasetIframeEmbed.minHeight
+                  ? { minHeight: cs.publicDatasetIframeEmbed.minHeight }
+                  : undefined
+              }
+              title={
+                cs.publicDatasetIframeEmbed.title ?? "Embedded spreadsheet"
+              }
+              frameBorder="0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      ) : null}
+      {(cs.publicDatasetSectionBlocks ?? []).map((block, i) =>
+        renderCaseStudyParagraph(block, `public-dataset-block-${i}`, baseUrl),
+      )}
+      {!publicDatasetEmbedsSheet && cs.results?.length ? (
+        <CaseStudyResultsList
+          rows={cs.results}
+          className="project-case-study__results mt-6 md:mt-8"
+        />
+      ) : null}
+    </CaseStudySection>
+  ) : null;
+
+  const deferredImpactEl = showDeferredImpact ? (
+    <CaseStudySection
+      title={cs.deferredImpactTitle || "Impact"}
+      sectionId={`${slug}-impact-later`}
+    >
+      {cs.deferredImpactLead?.map((p, i) =>
+        renderCaseStudyParagraph(p, `def-lead-${i}`, baseUrl),
+      )}
+      {!splitPublicDatasetSection ? (
+        <CaseStudyResultsList
+          rows={cs.results}
+          className={`project-case-study__results${cs.deferredImpactLead?.length ? " mt-6 md:mt-8" : ""}`}
+        />
+      ) : publicDatasetEmbedsSheet ? (
+        <CaseStudyResultsList
+          rows={cs.results}
+          className={`project-case-study__results${cs.deferredImpactLead?.length ? " mt-6 md:mt-8" : ""}`}
+        />
+      ) : null}
+      {cs.impactChart ? (
+        <CaseStudyImpactChart
+          chart={cs.impactChart}
+          className={
+            splitPublicDatasetSection &&
+            (cs.deferredImpactLead?.length || publicDatasetEmbedsSheet)
+              ? "mt-6 md:mt-8"
+              : ""
+          }
+        />
+      ) : null}
+    </CaseStudySection>
+  ) : null;
+
+  const approachSectionEl = (
+    <CaseStudySection title={cs.approachTitle} sectionId={`${slug}-approach`}>
+      {cs.approachIntro ? (
+        <p className="project-case-study__p project-case-study__p--bridge">
+          {renderCaseStudyInlineRich(cs.approachIntro)}
+        </p>
+      ) : null}
+      {cs.approachRich?.length
+        ? cs.approachRich.map((item, i) =>
+            renderApproachBlock(item, baseUrl, `approach-${i}`),
+          )
+        : (cs.approach ?? []).map((paragraph, i) =>
+            renderCaseStudyParagraph(paragraph, `approach-${i}`, baseUrl),
+          )}
+    </CaseStudySection>
+  );
+
+  const approachSecondaryEmbedsSheet = Boolean(cs.approachSecondaryIframeEmbed?.src);
+
+  const approachSecondaryEl = cs.approachSecondaryTitle ? (
+    <CaseStudySection
+      title={cs.approachSecondaryTitle}
+      sectionId={`${slug}-approach-secondary`}
+    >
+      {typeof cs.approachSecondaryIntro === "string" &&
+      cs.approachSecondaryIntro.trim() !== "" ? (
+        <p className="project-case-study__p project-case-study__p--bridge">
+          {renderCaseStudyInlineRich(cs.approachSecondaryIntro)}
+        </p>
+      ) : null}
+      {(cs.approachSecondary ?? []).map((paragraph, i) =>
+        renderCaseStudyParagraph(paragraph, `approach-sec-${i}`, baseUrl),
+      )}
+      {approachSecondaryEmbedsSheet ? (
+        <div className="project-case-study__section--embed">
+          {cs.approachSecondaryIframeEmbed.caption ? (
+            <p className="project-case-study__p mx-auto max-w-none">
+              {cs.approachSecondaryIframeEmbed.caption}
+            </p>
+          ) : null}
+          <div
+            className={`project-case-study__embed-wrap${cs.approachSecondaryIntro?.trim() || (cs.approachSecondary ?? []).length ? " mt-6 md:mt-7" : " mt-6 md:mt-8"}`}
+          >
+            <iframe
+              src={cs.approachSecondaryIframeEmbed.src}
+              className="project-case-study__embed"
+              style={
+                cs.approachSecondaryIframeEmbed.minHeight
+                  ? { minHeight: cs.approachSecondaryIframeEmbed.minHeight }
+                  : undefined
+              }
+              title={
+                cs.approachSecondaryIframeEmbed.title ?? "Embedded spreadsheet"
+              }
+              frameBorder="0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      ) : null}
+    </CaseStudySection>
+  ) : null;
+
+  const useParliamentAfterApproachOrder =
+    cs.afterApproachCluster === "parliament";
+
+  const ambiguitySectionEl = cs.ambiguitySection ? (
+    <CaseStudySection
+      title={cs.ambiguitySection.title}
+      sectionId={`${slug}-ambiguity`}
+    >
+      {cs.ambiguitySection.body ? (
+        Array.isArray(cs.ambiguitySection.body) ? (
+          cs.ambiguitySection.body.map((block, i) =>
+            typeof block === "string" ? (
+              <p key={i} className="project-case-study__p">
+                {renderCaseStudyInlineRich(block)}
+              </p>
+            ) : (
+              renderCaseStudyParagraph(block, `ambiguity-body-${i}`, baseUrl)
+            ),
+          )
+        ) : typeof cs.ambiguitySection.body === "string" ? (
+          <p className="project-case-study__p">
+            {renderCaseStudyInlineRich(cs.ambiguitySection.body)}
+          </p>
+        ) : (
+          renderCaseStudyParagraph(
+            cs.ambiguitySection.body,
+            "ambiguity-body",
+            baseUrl,
+          )
+        )
+      ) : null}
+      {cs.ambiguitySection.figureBlock?.img
+        ? renderCaseStudyParagraph(
+            { figureBlock: cs.ambiguitySection.figureBlock },
+            "ambiguity-figure",
+            baseUrl,
+          )
+        : null}
+    </CaseStudySection>
+  ) : null;
+
+  const referenceSectionEl = (
+    <CaseStudyReferenceSection
+      cs={cs}
+      slug={slug}
+      baseUrl={baseUrl}
+      renderParagraph={renderCaseStudyParagraph}
+      renderReferenceFigureCaption={renderReferenceFigureCaption}
+    />
+  );
+
   return (
     <div
-      className={`project-case-study${slug ? ` project-case-study--${slug}` : ""}`}
+      className={`project-case-study${slug ? ` project-case-study--${slug}` : ""}${link ? " project-case-study--sticky-cta" : ""}`}
     >
       <header className="project-case-study__header">
         <div className="project-case-study__header-inner">
@@ -222,6 +437,14 @@ export default function ProjectCaseStudyPage() {
           />
         ) : null}
 
+        {cs.liftProblemSectionAboveOverview && cs.problemSection ? (
+          <CaseStudyProblemSection
+            section={cs.problemSection}
+            baseUrl={baseUrl}
+            sectionId={`${slug}-problem`}
+          />
+        ) : null}
+
         <CaseStudySection
           title={cs.overviewTitle || "Overview"}
           sectionId={`${slug}-overview`}
@@ -231,18 +454,20 @@ export default function ProjectCaseStudyPage() {
           )}
         </CaseStudySection>
 
-        {cs.overviewSystemDesign ? (
+        {cs.overviewSystemDesign && !cs.strategyPartSplit ? (
           <CaseStudySystemDesign
             systemDesign={cs.overviewSystemDesign}
             baseUrl={baseUrl}
           />
         ) : null}
 
-        <CaseStudyProblemSection
-          section={cs.problemSection}
-          baseUrl={baseUrl}
-          sectionId={`${slug}-problem`}
-        />
+        {!cs.liftProblemSectionAboveOverview && cs.problemSection ? (
+          <CaseStudyProblemSection
+            section={cs.problemSection}
+            baseUrl={baseUrl}
+            sectionId={`${slug}-problem`}
+          />
+        ) : null}
 
         <CaseStudyStrategySection
           cs={cs}
@@ -270,13 +495,10 @@ export default function ProjectCaseStudyPage() {
               <p className="project-case-study__p">{cs.identitySection.lead}</p>
             ) : null}
             {cs.identitySection.bullets?.length ? (
-              <ul className="project-case-study__bullet-list">
-                {cs.identitySection.bullets.map((b, i) => (
-                  <li key={i} className="project-case-study__bullet-item">
-                    {b}
-                  </li>
-                ))}
-              </ul>
+              <CaseStudyDashBulletList
+                items={cs.identitySection.bullets}
+                renderBullet={(b) => b}
+              />
             ) : null}
             <CaseStudyAsciiDiagram
               lines={cs.identitySection.flowDiagram?.lines}
@@ -309,48 +531,28 @@ export default function ProjectCaseStudyPage() {
           baseUrl={baseUrl}
         />
 
-        {showDeferredImpact ? (
-          <CaseStudySection
-            title={cs.deferredImpactTitle || "Impact"}
-            sectionId={`${slug}-impact-later`}
-          >
-            <ul className="project-case-study__results" role="list">
-              {cs.results.map((row) => (
-                <li key={row.label} className="project-case-study__result">
-                  <span className="project-case-study__result-value">
-                    {row.value}
-                  </span>
-                  <span className="project-case-study__result-label">
-                    {row.label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            {cs.impactChart ? (
-              <CaseStudyImpactChart chart={cs.impactChart} />
-            ) : null}
-          </CaseStudySection>
-        ) : null}
+        {useParliamentAfterApproachOrder ? (
+          <>
+            {approachSectionEl}
+            {ambiguitySectionEl}
+            {approachSecondaryEl}
+            {publicDatasetSectionEl}
+            {deferredImpactEl}
+            <Suspense fallback={null}>{referenceSectionEl}</Suspense>
+          </>
+        ) : cs.invertDeferredImpactAndApproach ? (
+          <>
+            {approachSectionEl}
+            {deferredImpactEl}
+          </>
+        ) : (
+          <>
+            {deferredImpactEl}
+            {approachSectionEl}
+          </>
+        )}
 
-        <CaseStudySection
-          title={cs.approachTitle}
-          sectionId={`${slug}-approach`}
-        >
-          {cs.approachIntro ? (
-            <p className="project-case-study__p project-case-study__p--bridge">
-              {cs.approachIntro}
-            </p>
-          ) : null}
-          {cs.approachRich?.length
-            ? cs.approachRich.map((item, i) =>
-                renderApproachBlock(item, baseUrl, `approach-${i}`),
-              )
-            : (cs.approach ?? []).map((paragraph, i) => (
-                <p key={i} className="project-case-study__p">
-                  {paragraph}
-                </p>
-              ))}
-        </CaseStudySection>
+        {!useParliamentAfterApproachOrder ? approachSecondaryEl : null}
 
         {cs.followUpSystemDesign ? (
           <CaseStudySystemDesign
@@ -359,25 +561,7 @@ export default function ProjectCaseStudyPage() {
           />
         ) : null}
 
-        {cs.ambiguitySection ? (
-          <CaseStudySection
-            title={cs.ambiguitySection.title}
-            sectionId={`${slug}-ambiguity`}
-          >
-            {cs.ambiguitySection.body ? (
-              <p className="project-case-study__p">
-                {cs.ambiguitySection.body}
-              </p>
-            ) : null}
-            {cs.ambiguitySection.figureBlock?.img
-              ? renderCaseStudyParagraph(
-                  { figureBlock: cs.ambiguitySection.figureBlock },
-                  "ambiguity-figure",
-                  baseUrl,
-                )
-              : null}
-          </CaseStudySection>
-        ) : null}
+        {!useParliamentAfterApproachOrder ? ambiguitySectionEl : null}
 
         {((cs.mediaBlock?.type === "image" && cs.mediaBlock?.src) ||
           (cs.mediaBlock?.type === "ascii" && cs.mediaBlock?.lines?.length)) &&
@@ -390,12 +574,19 @@ export default function ProjectCaseStudyPage() {
             className={
               slug === "map-magic"
                 ? "map-magic-gallery"
-                : "project-case-study__section--breakout"
+                : slug === "vote62-ect-report-69"
+                  ? undefined
+                  : "project-case-study__section--breakout"
             }
           >
             <CaseStudyFigures
               embedded
               baseUrl={baseUrl}
+              mediaBleedClassName={
+                slug === "vote62-ect-report-69"
+                  ? "project-case-study__section--embed"
+                  : undefined
+              }
               columns={cs.galleryBlock.figureColumns ?? 2}
               figures={cs.galleryBlock.images.map((item, i) => {
                 if (typeof item === "string") {
@@ -423,22 +614,30 @@ export default function ProjectCaseStudyPage() {
         ) : null}
 
         <Suspense fallback={null}>
-          <CaseStudyFlourishEmbed
+          <CaseStudyEmbed
             flourishEmbed={cs.flourishEmbed}
             flourishCaption={cs.flourishCaption}
+            iframeEmbed={cs.iframeEmbed}
           />
         </Suspense>
 
-        <Suspense fallback={null}>
-          <CaseStudyIframeEmbed iframeEmbed={cs.iframeEmbed} />
-        </Suspense>
-
-        {cs.businessOutcome ? (
+        {cs.businessOutcome || cs.businessOutcomeBullets?.length ? (
           <CaseStudySection
-            title="Business outcome"
+            title={cs.businessOutcomeSectionTitle ?? "Business outcome"}
             sectionId={`${slug}-outcome`}
           >
-            <p className="project-case-study__p">{cs.businessOutcome}</p>
+            {cs.businessOutcome ? (
+              <p className="project-case-study__p">
+                {renderCaseStudyInlineRich(cs.businessOutcome)}
+              </p>
+            ) : null}
+            {cs.businessOutcomeBullets?.length ? (
+              <CaseStudyDashBulletList
+                items={cs.businessOutcomeBullets}
+                className="mt-4 md:mt-5"
+                renderBullet={(b) => renderCaseStudyInlineRich(b)}
+              />
+            ) : null}
           </CaseStudySection>
         ) : null}
 
@@ -447,7 +646,23 @@ export default function ProjectCaseStudyPage() {
             title={cs.futureBlock.title ?? "Next steps"}
             sectionId={`${slug}-next`}
           >
-            <p className="project-case-study__p">{cs.futureBlock.body}</p>
+            {Array.isArray(cs.futureBlock.body) ? (
+              cs.futureBlock.body.map((paragraph, i) =>
+                renderCaseStudyParagraph(
+                  paragraph,
+                  `${slug}-future-block-${i}`,
+                  baseUrl,
+                ),
+              )
+            ) : typeof cs.futureBlock.body === "string" ? (
+              <p className="project-case-study__p">{cs.futureBlock.body}</p>
+            ) : (
+              renderCaseStudyParagraph(
+                cs.futureBlock.body,
+                `${slug}-future-block`,
+                baseUrl,
+              )
+            )}
           </CaseStudySection>
         ) : null}
 
@@ -462,15 +677,9 @@ export default function ProjectCaseStudyPage() {
           />
         </Suspense>
 
-        <Suspense fallback={null}>
-          <CaseStudyReferenceSection
-            cs={cs}
-            slug={slug}
-            baseUrl={baseUrl}
-            renderParagraph={renderCaseStudyParagraph}
-            renderReferenceFigureCaption={renderReferenceFigureCaption}
-          />
-        </Suspense>
+        {!useParliamentAfterApproachOrder ? (
+          <Suspense fallback={null}>{referenceSectionEl}</Suspense>
+        ) : null}
 
         {cs.relatedProject ? (
           <aside className="project-case-study__related">
@@ -489,18 +698,27 @@ export default function ProjectCaseStudyPage() {
           <p className="project-case-study__tagline">
             {cs.footerTagline ?? desc}
           </p>
-          {link ? (
+        </footer>
+      </article>
+
+      {link ? (
+        <div
+          className="project-case-study__cta-bar"
+          role="navigation"
+          aria-label="External project link"
+        >
+          <div className="project-case-study__header-inner">
             <a
               href={link}
-              className="project-case-study__cta"
+              className="project-case-study__cta project-case-study__cta--bar"
               target="_blank"
               rel="noopener noreferrer"
             >
               Open project link →
             </a>
-          ) : null}
-        </footer>
-      </article>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

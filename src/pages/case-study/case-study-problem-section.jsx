@@ -3,29 +3,9 @@ import CaseStudySection from "./case-study-section";
 import CaseStudySystemDesign from "./case-study-system-design";
 import CaseStudyFigures from "./case-study-figures";
 import CaseStudyBeforeAfterCompare from "./case-study-before-after-compare";
-
-/** `figureCaption`: plain string or `{ text, externalLink?, after? }` (same shape as reference figure captions). */
-function renderProblemFigureCaption(caption) {
-  if (caption == null) return null;
-  if (typeof caption === "string") return caption;
-  if (caption.externalLink) {
-    return (
-      <>
-        {caption.text}
-        <a
-          href={caption.externalLink.href}
-          className="project-case-study__inline-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {caption.externalLink.label}
-        </a>
-        {caption.after}
-      </>
-    );
-  }
-  return caption.text ?? null;
-}
+import { CaseStudyDashBulletList } from "./case-study-dash-bullet-list";
+import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
+import { renderReferenceFigureCaption } from "./case-study-renderers";
 
 export default function CaseStudyProblemSection({
   section,
@@ -50,20 +30,20 @@ export default function CaseStudyProblemSection({
       <CaseStudySection title={title} sectionId={sectionId}>
         {paragraphs?.map((p, i) => (
           <p key={i} className="project-case-study__p">
-            {p}
+            {typeof p === "string" ? renderCaseStudyInlineRich(p) : p}
           </p>
         ))}
         {listGroups?.map((g) => (
           <div key={g.title} className="project-case-study__problem-group">
             <h3 className="project-case-study__h3">{g.title}</h3>
-            <ul className="project-case-study__bullet-list project-case-study__bullet-list--tight">
-              {g.items.map((item, i) =>
+            <CaseStudyDashBulletList
+              items={g.items}
+              tight
+              renderBullet={(item) =>
                 typeof item === "string" ? (
-                  <li key={i} className="project-case-study__bullet-item">
-                    {item}
-                  </li>
+                  item
                 ) : (
-                  <li key={i} className="project-case-study__bullet-item">
+                  <>
                     {item.text}
                     {item.anchor ? (
                       <a
@@ -74,16 +54,16 @@ export default function CaseStudyProblemSection({
                       </a>
                     ) : null}
                     {item.after}
-                  </li>
-                ),
-              )}
-            </ul>
+                  </>
+                )
+              }
+            />
           </div>
         ))}
         {(beforeAfterCompare?.rows?.length || figures?.length) &&
         figureCaption ? (
           <p className="project-case-study__p project-case-study__p--figure-intro">
-            {renderProblemFigureCaption(figureCaption)}
+            {renderReferenceFigureCaption(figureCaption)}
           </p>
         ) : null}
         {beforeAfterCompare?.rows?.length ? (

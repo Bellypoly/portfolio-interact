@@ -35,11 +35,11 @@ const MISSION_GALLERY_ROWS = [
     portfolioLabel: "Civic tech",
     anchorId: "portfolio-parliament-watch",
     name: "Parliament Watch — Thai Voting Record OCR",
-    desc: "Parliament Watch OCR—from scanned House voting PDFs (Thai script & numerals, handwriting, messy tables) to rows WeVis could chart.",
+    desc: "Parliament Watch OCR—from parliamentary voting PDFs with Thai script & numerals and semi-structured formatting to structured datasets for public-interest analysis.",
     cardImagePosition: "center 71%",
     img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
     imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
-    alt: "WeVis Election 69 — party unity voting chart for Thailand\u2019s 26th House of Representatives (2566\u20132568)",
+    alt: "Election 69 — party unity voting chart for Thailand\u2019s 26th House of Representatives (2566\u20132568)",
     link: "https://wevis.info/partyunityvisual/",
   },
   {

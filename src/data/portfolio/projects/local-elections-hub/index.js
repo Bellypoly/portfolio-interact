@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { localElectionsHubCaseStudyVariant } from "./variants.js";
 
 const baseLocalElectionsHubCaseStudy = {
+  /* Header / intro */
   eyebrow: "Product · Data UI · Newsroom",
   featuredImg: "images/portfolio/local-elections-hub/featured-image.png",
   featuredImgWebp: "images/portfolio/local-elections-hub/featured-image.webp",
@@ -47,10 +48,34 @@ const baseLocalElectionsHubCaseStudy = {
       href: "https://developer.mozilla.org/en-US/docs/Glossary/Semantics",
     },
   ],
+  /* Impact */
+  results: [
+    {
+      value: "Readable",
+      label:
+        "Denser results stayed scannable on mobile after hierarchy and metadata work",
+    },
+    {
+      value: "Faster",
+      label: "County and race jumps without full reloads during peak traffic",
+    },
+    {
+      value: "Reusable",
+      label:
+        "Component system reused across races instead of one-off election pages",
+    },
+    {
+      value: "Ready",
+      label:
+        "Layout and semantics suited to high-visibility, high-stakes publishing windows",
+    },
+  ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "Election night is deadline journalism: readers refresh, editors watch the same tables, and a fragmented hub burns trust fast. After AMP and alongside broader Arc XP work, I rebuilt the hub as one coherent, data-driven system—counties, races, and candidates mapped to reusable components instead of a bespoke page per contest.",
   ],
+  /* Data to UI */
   overviewSystemDesign: {
     sectionTitle: "Data to UI",
     intro:
@@ -69,6 +94,7 @@ const baseLocalElectionsHubCaseStudy = {
     diagramAlt:
       "Flow from election data through normalization to component registry and responsive render with anchor navigation",
   },
+  /* Problem */
   problemSection: {
     title: "Problem",
     paragraphs: [
@@ -118,6 +144,7 @@ const baseLocalElectionsHubCaseStudy = {
         "Different races and timestamps on purpose: the comparison is across cycles after the new data model and UI system shipped.",
     },
   },
+  /* What I built */
   strategyTitle: "What I built",
   strategyBullets: null,
   pillars: [
@@ -146,34 +173,16 @@ const baseLocalElectionsHubCaseStudy = {
       body: "Moved to a flexible six-column grid for better density control on small screens; enforced heading order and semantic tables/regions for screen readers and SEO on high-interest pages.",
     },
   ],
+  /* How I shipped it */
   approachTitle: "How I shipped it",
   approach: [
     "Election night is the worst time to discover layout thrash or unbounded lists. I biased toward stable shells (reserved row height where possible), bounded “view more” paths, and client navigation so the server wasn’t replaying full pages for every county hop.",
     "The hard part wasn’t a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns.",
   ],
-  results: [
-    {
-      value: "Readable",
-      label:
-        "Denser results stayed scannable on mobile after hierarchy and metadata work",
-    },
-    {
-      value: "Faster",
-      label: "County and race jumps without full reloads during peak traffic",
-    },
-    {
-      value: "Reusable",
-      label:
-        "Component system reused across races instead of one-off election pages",
-    },
-    {
-      value: "Ready",
-      label:
-        "Layout and semantics suited to high-visibility, high-stakes publishing windows",
-    },
-  ],
+  /* Business outcome */
   businessOutcome:
     "The hub became a reusable elections surface — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
+  /* Final related surface */
   relatedProject: {
     slug: "article-page-redesign",
     label:

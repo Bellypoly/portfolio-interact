@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { outageManagementSystemCaseStudyVariant } from "./variants.js";
 
 const baseOutageManagementSystemCaseStudy = {
+  /* Header / intro */
   eyebrow: "Public sector · OMS · Multi-system integration",
   featuredImg:
     "images/portfolio/outage-management-system/featured-oms-hub.png",
@@ -54,12 +55,29 @@ const baseOutageManagementSystemCaseStudy = {
       href: "https://en.wikipedia.org/wiki/SCADA",
     },
   ],
+  /* Impact */
+  results: [
+    {
+      value: "Integrated",
+      label: "OMS with eRespond, GIS, SAP, and ADMS",
+    },
+    {
+      value: "Reliable",
+      label: "Outage tracking and ETR reporting",
+    },
+    {
+      value: "Scalable",
+      label: "Handled monsoon season outages",
+    },
+  ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "PEA\u2019s outage management is a distributed system: customer calls land in eRespond, grid telemetry feeds SCADA, GIS holds the network model, OMS orchestrates restoration, ADMS optimizes the grid, and SAP handles billing and work orders. The challenge is keeping one outage\u2019s data coherent across all those systems\u2014especially when storms spike volume or vendor schedules slip.",
     "My role was integration: APIs between eRespond and OMS, scheduled GIS shapefile ingestion, warehouse fields for reporting, and alignment so outage ids, ETRs, and status codes stayed consistent. I did not own SCADA acquisition or deep SAP core work; I owned the pipes between systems so data flowed reliably.",
     "This was PEA\u2019s first OMS deployment, so the work included vendor coordination, data migration, and training\u2014not just code. The result was a system that could handle Thailand\u2019s monsoon season outages without losing track of individual incidents.",
   ],
+  /* What I did */
   strategyTitle: "What I did",
   strategyIntro:
     "Integration work is invisible until it breaks. I focused on contracts that held up under load, data flows that stayed clean, and monitoring that caught issues before they became outages.",
@@ -77,24 +95,11 @@ const baseOutageManagementSystemCaseStudy = {
       body: "Worked with OMS vendor (Schneider Electric) and PEA teams on data migration, testing, and training. Managed cutovers so new integrations went live without disrupting existing operations.",
     },
   ],
+  /* How I shipped it */
   approachTitle: "How I shipped it",
   approach: [
     "Started with data mapping and API design, then built ETL pipelines and monitoring. Tested integrations under simulated load before production cutovers.",
     "Documented all contracts and processes so future changes could be made without rediscovering the system.",
-  ],
-  results: [
-    {
-      value: "Integrated",
-      label: "OMS with eRespond, GIS, SAP, and ADMS",
-    },
-    {
-      value: "Reliable",
-      label: "Outage tracking and ETR reporting",
-    },
-    {
-      value: "Scalable",
-      label: "Handled monsoon season outages",
-    },
   ],
 };
 

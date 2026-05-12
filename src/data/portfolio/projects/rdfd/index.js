@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { rdfdCaseStudyVariant } from "./variants.js";
 
 const baseRdfdCaseStudy = {
+  /* Header / intro */
   eyebrow: "Research · Machine learning",
   featuredImg: "images/portfolio/rdfd/featured-image.jpg",
   featuredImgWebp: "images/portfolio/rdfd/featured-image.webp",
@@ -33,9 +34,18 @@ const baseRdfdCaseStudy = {
       href: "https://matplotlib.org/",
     },
   ],
+  /* Impact */
+  results: [
+    {
+      value: "Effective",
+      label: "Detection of fake drivers",
+    },
+  ],
+  /* Overview */
   overview: [
     "Developed ML models to detect fake driver accounts in ride-sharing platforms by analyzing GPS traces, trip patterns, and behavioral anomalies.",
   ],
+  /* What I did */
   strategyTitle: "What I did",
   pillars: [
     {
@@ -47,15 +57,10 @@ const baseRdfdCaseStudy = {
       body: "Built and trained ML models for anomaly detection and classification.",
     },
   ],
+  /* How I approached it */
   approachTitle: "How I approached it",
   approach: [
     "Collected and preprocessed data, engineered features, trained models, and evaluated performance.",
-  ],
-  results: [
-    {
-      value: "Effective",
-      label: "Detection of fake drivers",
-    },
   ],
 };
 

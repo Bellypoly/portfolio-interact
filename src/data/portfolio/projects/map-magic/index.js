@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { mapMagicCaseStudyVariant } from "./variants.js";
 
 const baseMapMagicCaseStudy = {
+  /* Header / intro */
   eyebrow: "Platform · Geospatial",
   featuredImg: "images/portfolio/map-magic/featured-image.png",
   featuredImgWebp: "images/portfolio/map-magic/featured-image.webp",
@@ -43,6 +44,7 @@ const baseMapMagicCaseStudy = {
       href: "https://en.wikipedia.org/wiki/Tiled_web_map",
     },
   ],
+  /* Overview */
   overview: [
     "At THiNKNET the product line was MapMagic; today most people meet it as THiNKNET Maps in the browser. We started from OpenStreetMap because it gave us a credible geography to argue with—but Thailand is not a tutorial bbox. Heat, traffic, patchy mobile signal, and Thai addressing habits will embarrass lazy tiles, lazy POIs, and lazy routing faster than any QA script. The work was never “skin OSM”; it was building the proprietary layer—tiles, POI depth, capture tooling, and a router that understood our graph—so the map felt local when it mattered.",
     {
@@ -85,6 +87,7 @@ const baseMapMagicCaseStudy = {
     },
     "My footprint was deliberately split: I owned the map API surface partners and the Android client actually called—REST contracts, tiles, search and geocoding, embed patterns that did not snap when data churned. I built the web and mobile back-office loops that moved field capture and QA into production tiles and search indexes. And I put serious time into the routing stack—graph usage, cost models, and algorithm behavior on OSM-derived geometry edited for Thailand—so previews and turn-by-turn did not fantasize turns the asphalt would refuse.",
   ],
+  /* What I did */
   strategyTitle: "What I did",
   strategyIntro:
     "Two audiences, one database. Partners wanted map capabilities that felt boring in the best way—predictable REST, embeddings that did not rot when tiles revved, errors a human could action from a log. Ops wanted to move geometry and POIs from motorcycles and desk QA into production without playing telephone. OpenStreetMap bought us honesty on day one; the craft was everything we layered on top. Routing sat in the uncomfortable center—bad graph math does not hide behind copywriting, it shows up as a nonsense turn someone tries to drive.",
@@ -102,12 +105,14 @@ const baseMapMagicCaseStudy = {
       body: "I tightened API vocabulary, error shapes, and examples so integrations failed in legible ways, and kept map UI patterns readable on a phone in glare—not a lab screenshot with perfect signal.",
     },
   ],
+  /* How I shipped it */
   approachTitle: "How I shipped it",
   approach: [
     "Shipped hardened REST contracts, embedding patterns, rate limits, and attribution so partner embeds and first-party Android stayed upright when POIs and tiles moved underneath.",
     "Delivered back-office web and mobile capture/QA that fed production tiles and search indexes—field reality in, curated data out.",
     "Iterated routing graph usage and algorithm behavior on OSM-derived geometry with our cost models and Thailand-specific graph edits, plus docs and guardrails so new basemap skins did not quietly desync overlays.",
   ],
+  /* Supporting gallery */
   galleryBlock: {
     title: "MapMagic Android — sign-in, discovery, field capture",
     figureColumns: 3,

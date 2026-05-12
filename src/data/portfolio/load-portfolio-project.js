@@ -60,11 +60,6 @@ const SLUG_LOADERS = {
 
 export const PORTFOLIO_PROJECT_SLUGS = Object.freeze(Object.keys(SLUG_LOADERS));
 
-function isPlainObject(value) {
-  return value != null && typeof value === "object" && !Array.isArray(value);
-}
-
-
 /** @param {string | undefined} slug */
 export function hasPortfolioProjectSlug(slug) {
   return Boolean(slug && SLUG_LOADERS[slug]);

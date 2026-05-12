@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { photoCompetitionMyHometownCaseStudyVariant } from "./variants.js";
 
 const basePhotoCompetitionMyHometownCaseStudy = {
+  /* Header / intro */
   eyebrow: "Photography · Cultural Documentation · Competition Entry",
   featuredImg:
     "images/portfolio/photo-competition-my-hometown/amphawa-floating-market.png",
@@ -31,9 +32,18 @@ const basePhotoCompetitionMyHometownCaseStudy = {
       href: "https://www.adobe.com/products/photoshop-lightroom.html",
     },
   ],
+  /* Impact */
+  results: [
+    {
+      value: "Juried",
+      label: "Accepted into Texas Tech exhibit",
+    },
+  ],
+  /* Overview */
   overview: [
     "Captured the vibrant culture of Amphawa Floating Market through photography, documenting traditional Thai market life, architecture, and community interactions.",
   ],
+  /* What I did */
   strategyTitle: "What I did",
   pillars: [
     {
@@ -45,15 +55,10 @@ const basePhotoCompetitionMyHometownCaseStudy = {
       body: "Composed images to tell stories of daily life and community in Amphawa.",
     },
   ],
+  /* How I approached it */
   approachTitle: "How I approached it",
   approach: [
     "Visited the market during golden hour, used natural light, and edited photos to highlight cultural elements.",
-  ],
-  results: [
-    {
-      value: "Juried",
-      label: "Accepted into Texas Tech exhibit",
-    },
   ],
 };
 

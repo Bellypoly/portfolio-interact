@@ -25,12 +25,8 @@ const MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG = {
   "photo-competition-my-hometown": EDU_TIMELINE_FILTER.achievement,
 };
 
-function buildMissionGalleryProjectsOrdered() {
-  return [...MISSION_GALLERY_MANIFEST];
-}
-
 /** Built once: manifest is static for the lifetime of the app shell. */
-const MISSION_GALLERY_ORDERED_ALL = buildMissionGalleryProjectsOrdered();
+const MISSION_GALLERY_ORDERED_ALL = MISSION_GALLERY_MANIFEST;
 
 if (import.meta.env.DEV) {
   import("../../data/portfolio/load-portfolio-project.js").then(

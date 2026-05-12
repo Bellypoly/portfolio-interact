@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { jerdiKidsCaseStudyVariant } from "./variants.js";
 
 const baseJerdiKidsCaseStudy = {
+  /* Header / intro */
   eyebrow: "System design · UI/UX · Development · QR & BLE · Social impact",
   featuredImg: "images/portfolio/jerdi/featured-image.png",
   featuredImgWebp: "images/portfolio/jerdi/featured-image.webp",
@@ -40,6 +41,7 @@ const baseJerdiKidsCaseStudy = {
       href: "https://en.wikipedia.org/wiki/Push_technology",
     },
   ],
+  /* Impact */
   results: [
     {
       value: "$900",
@@ -47,6 +49,7 @@ const baseJerdiKidsCaseStudy = {
     },
     { value: "Consolation Prize", label: "Final round — 138 teams entered" },
   ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "JerDi plays on Thai เจอ — colloquially \u201cfound\u201d or \u201cran into\u201d someone — the name captures the core promise: anyone nearby can help a family find their missing person.",
@@ -62,6 +65,7 @@ const baseJerdiKidsCaseStudy = {
         " — market, operations, and rollout narrative as submitted to the program.",
     },
   ],
+  /* What I did */
   strategyTitle: "What I did",
   strategyIntro:
     "My role covered system architecture for both QR and beacon flows, hands-on software development on the web platform and app, BLE hardware evaluation, UI/UX for the app and the wearable surface, and how those pieces read as one product.",
@@ -83,11 +87,13 @@ const baseJerdiKidsCaseStudy = {
       body: "The project deliberately uses both QR codes and beacon technology: QR scales to any smartphone with a camera for broad public participation; beacons pair with receivers you deploy for coverage you design — e.g. roll call on a school bus route, check-in at a clinic lobby, perimeter alerts at a care home, or footfall zones in retail and transit. I documented how each mode fits different deployment contexts while keeping a single family-facing experience.",
     },
   ],
+  /* Competition context */
   approachTitle: "The competition",
   approach: [
     "The Young Technopreneur program is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. It runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
     "The JerDi-Kids entry entered the electronics & software track, cleared the field of 138 teams to reach the final 20, and was awarded the $900 development grant (฿30,000) — the funding tier for the highest-scoring finalists below the top-3 prize podium.",
   ],
+  /* Final result */
   showcase: {
     title: "On stage at Samart Innovation Awards",
     figureGridColumns: 2,

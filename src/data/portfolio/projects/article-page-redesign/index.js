@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { articlePageRedesignCaseStudyVariant } from "./variants.js";
 
 const baseArticlePageRedesignCaseStudy = {
+  /* Header / intro */
   eyebrow: "Product · Reader Experience · Monetization · Performance",
   featuredImg: "images/portfolio/article-redesign/featured-image.png",
   featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
@@ -63,6 +64,7 @@ const baseArticlePageRedesignCaseStudy = {
       href: "https://graphql.org/",
     },
   ],
+  /* Impact */
   earlyImpactTitle:
     "Impact (team program — my contribution was implementation)",
   results: [
@@ -103,11 +105,13 @@ const baseArticlePageRedesignCaseStudy = {
       after: ".",
     },
   ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "When AMP went away, we regained full control of the article DOM — and inherited the work to make that control measurable.",
     "I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out behind feature flags from September through full deployment by year-end.",
   ],
+  /* Article stack */
   overviewSystemDesign: {
     sectionTitle: "Article stack",
     intro:
@@ -128,6 +132,7 @@ const baseArticlePageRedesignCaseStudy = {
     diagramAlt:
       "Flow from Arc XP and PageBuilder through single-column layout, GAM, performance tuning, Viafoura commenting, and dynamic-paywall-aware reader states",
   },
+  /* Problem */
   problemSection: {
     title: "Problem",
     paragraphs: [
@@ -186,6 +191,7 @@ const baseArticlePageRedesignCaseStudy = {
         "Same structural shift in both rows — from competing sidebar to a single reading column — whether you look at shipped pages or the underlying templates.",
     },
   },
+  /* What I built */
   strategyTitle: "What I built",
   strategyBullets: null,
   pillars: [
@@ -210,11 +216,13 @@ const baseArticlePageRedesignCaseStudy = {
       body: "Branching render paths for anonymous → registered → subscriber: correct paywall, regiwall, newsletter CTAs, and inline registration triggers per state. GA4 for engagement events, Datadog for errors and latency, BlueConic for reader-data enrichment. Unit and integration tests on ad-slot, reader-state, and PageBuilder rendering branches.",
     },
   ],
+  /* Reflection */
   approachTitle: "What I learned",
   approach: [
     "Lazy-loading the comment widget protects LCP but delays first interaction. We settled on an intersection-observer trigger near the midpoint of the article as the tradeoff. That pattern — defer cost, then measure where engagement actually starts — carried over to GAM slots and the newsletter CTA.",
     "Shipping layout, ads, commenting, and reader-state in one coordinated rollout instead of parallel tracks meant fewer integration surprises, but every feature-flag combination needed its own test matrix. Unit and integration coverage across render-branch permutations was the hardest part of the project.",
   ],
+  /* Outcome / result */
   businessOutcome:
     "One implementation surface in production, rolled out incrementally with product, design, and ads from September through full deployment by year-end.",
   showcase: {
@@ -244,6 +252,7 @@ const baseArticlePageRedesignCaseStudy = {
       },
     ],
   },
+  /* Final related surface */
   relatedProject: {
     slug: "dynamic-paywall",
     label:

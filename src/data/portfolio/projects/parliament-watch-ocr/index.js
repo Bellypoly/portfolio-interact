@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { parliamentWatchOcrCaseStudyVariant } from "./variants.js";
 
 const baseParliamentWatchOcrCaseStudy = {
+  /* Header / intro */
   eyebrow: "Civic Tech · OCR · Open Government Records",
   featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
   featuredImgWebp: "images/portfolio/parliament-watch-ocr/featured-image.webp",
@@ -13,8 +14,7 @@ const baseParliamentWatchOcrCaseStudy = {
     "WeVis Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
-  task:
-    "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
+  task: "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
   disciplines: ["Document OCR", "Data engineering", "Civic technology"],
   context: "WeVis / Parliament Watch (open-source civic tech, Thailand)",
   techStack: [
@@ -35,6 +35,7 @@ const baseParliamentWatchOcrCaseStudy = {
       href: "",
     },
   ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "Thailand’s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th—not spreadsheets. They are scans: government templates, Thai text and numerals, handwriting, photos, stamps, and tables that shift shape between sessions.",
@@ -57,6 +58,7 @@ const baseParliamentWatchOcrCaseStudy = {
         " — the tabular dataset my OCR pipeline produced from scanned parliament PDFs, used directly by the visualization and analysis teams.",
     },
   ],
+  /* What I built */
   strategyTitle: "What I built",
   pillars: [
     {
@@ -72,12 +74,14 @@ const baseParliamentWatchOcrCaseStudy = {
       body: "Output clean, structured records (per-MP vote, per-motion) that Parliament Watch consumed directly for front-end rendering and open data export — no manual correction step.",
     },
   ],
+  /* How I approached it */
   approachTitle: "How I approached it",
   approach: [
     "I treated each PDF page as an image-first problem: detect table regions, segment cells, then run OCR per cell rather than full-page text extraction. This handled the inconsistent layouts and inline noise (stamps, handwriting) much better than document-level OCR.",
     "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
   ],
   results: null,
+  /* Final related surface */
   relatedProject: {
     slug: "vote62-ect-report-69",
     label:

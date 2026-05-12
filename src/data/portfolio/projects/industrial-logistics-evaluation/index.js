@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { industrialLogisticsEvaluationCaseStudyVariant } from "./variants.js";
 
 const baseIndustrialLogisticsEvaluationCaseStudy = {
+  /* Header / intro */
   eyebrow: "Research · Logistics · IEOM 2016",
   featuredImg:
     "images/portfolio/industrial-logistics-evaluation/featured-image.jpg",
@@ -44,6 +45,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
       href: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
     },
   ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "Printing and packaging sits where make-to-order pressure, material handling, and outbound distribution meet. “Logistics performance” is never one headline number—it depends which LPI dimensions you measure and whether you stay at national averages or walk the shop floor.",
@@ -58,6 +60,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
       after: "",
     },
   ],
+  /* What I evaluated */
   strategyTitle: "What I evaluated",
   pillars: [
     {
@@ -73,6 +76,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
       body: "Closed with concrete recommendations: which dimensions the company can influence directly (warehouse throughput, tracking), which require policy or infrastructure change, and where the biggest cost-to-improvement leverage sits.",
     },
   ],
+  /* How I approached it */
   approachTitle: "How I approached it",
   approach: [
     "I used a structured case-study methodology: site observation, operational data, and stakeholder interviews to ground the LPI scores in what actually happens on the warehouse floor and the loading dock.",

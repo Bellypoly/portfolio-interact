@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PortraitLandscapeGate from "./portrait-landscape-gate/portrait-landscape-gate.jsx";
+import PortraitLandscapeGate from "./pages/portrait-landscape-gate/portrait-landscape-gate.jsx";
 
 const SpaceResume = lazy(() => import("./space-resume.jsx"));
 const ProjectCaseStudyPage = lazy(

@@ -16,8 +16,8 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import "./space-resume.css";
-import OpeningCrawl from "./cards/opening-crawl-section/index.jsx";
-import { useMobileScrollBeginHint } from "./cards/opening-crawl-section/use-opening-crawl.js";
+import OpeningCrawl from "./sections/opening-crawl-section/index.jsx";
+import { useMobileScrollBeginHint } from "./sections/opening-crawl-section/use-opening-crawl.js";
 import LandingSectionContent from "./components/landing-section.jsx";
 import ProfileIcon from "./components/profile-icon";
 import Star from "./components/star";
@@ -55,18 +55,18 @@ import {
   MARKER_JUMP_SUPPRESS_MS,
 } from "./constants/space-resume-layout.js";
 
-const PrequelSection = lazy(() => import("./cards/prequel-section"));
-const RocketSection = lazy(() => import("./cards/rocket-section"));
-const WorkSection = lazy(() => import("./cards/work-section"));
+const PrequelSection = lazy(() => import("./sections/prequel-section"));
+const RocketSection = lazy(() => import("./sections/rocket-section"));
+const WorkSection = lazy(() => import("./sections/work-section"));
 const EducationAchievementsSection = lazy(
-  () => import("./cards/education-achievements-section"),
+  () => import("./sections/education-achievements-section"),
 );
-const PortfolioSection = lazy(() => import("./cards/portfolio-section"));
+const PortfolioSection = lazy(() => import("./sections/portfolio-section"));
 const MissionGalleryGateSection = lazy(
-  () => import("./cards/portfolio-pre-section/index.jsx"),
+  () => import("./sections/portfolio-pre-section/index.jsx"),
 );
 const MissionCompleteSection = lazy(
-  () => import("./cards/mission-complete-section"),
+  () => import("./sections/mission-complete-section"),
 );
 
 const SECTION_SUSPENSE_FALLBACK = <div className="app-section-loading" />;

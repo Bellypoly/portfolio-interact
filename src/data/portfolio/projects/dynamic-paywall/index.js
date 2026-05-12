@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { dynamicPaywallCaseStudyVariant } from "./variants.js";
 
 const baseDynamicPaywallCaseStudy = {
+  /* Header / intro */
   eyebrow: "Product · Monetization · AI",
   // Case-study featured strip (gallery uses img/imgWebp thumbnails above)
   featuredImg: "images/portfolio/dynamic-paywall/featured-image.png",
@@ -46,16 +47,19 @@ const baseDynamicPaywallCaseStudy = {
       href: "https://martinfowler.com/articles/feature-toggles.html",
     },
   ],
+  /* Impact */
   results: [
     { value: "+22%", label: "Conversion rate" },
     { value: "+15%", label: "More subscription starts" },
   ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "Those gains came from solving a fundamental problem: static paywalls treat every reader the same. Block too early and you lose casual readers who might have converted later. Block too late and you leave revenue on the table.",
     "What made it harder was that different content behaves differently — politics, crime, and restaurant coverage drive the most subscription starts, while high school sports, commentary, and business convert at the highest rates. No single static rule could capture that.",
     "The metrics in the Impact section (+22% conversion, +15% more subscription starts) were referenced in the DMN employee town hall on August 13, 2025.",
   ],
+  /* What I did */
   strategyTitle: "What I did",
   strategyIntro:
     "My role: integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags. The answer was Sophi — an AI-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here’s how I brought it to production:",
@@ -67,6 +71,7 @@ const baseDynamicPaywallCaseStudy = {
     "After first launch, GA4 and Sophi didn’t always agree — we traced which analytics definitions and events needed tuning versus which model inputs had to change so dashboards and the learning loop matched real reader behavior.",
   ],
   pillars: null,
+  /* System design */
   systemDesign: {
     intro:
       "Those four pieces connect into a single feedback loop — every visit generates data that makes the next paywall decision smarter.",
@@ -77,6 +82,7 @@ const baseDynamicPaywallCaseStudy = {
     caption:
       "User behavior flows down, analytics flows back up — the loop never stops learning.",
   },
+  /* Production findings */
   approachTitle: "What I found in production",
   approachIntro:
     "As the feedback loop matured, a clear pattern emerged in the data:",
@@ -87,8 +93,10 @@ const baseDynamicPaywallCaseStudy = {
   flourishEmbed: "https://flo.uri.sh/visualisation/28171634/embed",
   flourishCaption:
     "The data below shows exactly how this plays out — volume and conversion tell very different stories depending on the section.",
+  /* Outcome / result */
   businessOutcome:
     "The result is a paywall that gets smarter every day — continuously balancing subscription conversion against reader engagement, one visit at a time. The +22% conversion lift and +15% more subscription starts reflect a system that learns, not just a feature that shipped.",
+  /* Final related surface */
   relatedProject: {
     slug: "subscription-checkout-activation",
     label:

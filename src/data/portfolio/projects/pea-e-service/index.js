@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { peaEServiceCaseStudyVariant } from "./variants.js";
 
 const basePeaEServiceCaseStudy = {
+  /* Header / intro */
   eyebrow: "Public sector · Engineering & user experience (UX)",
   featuredImg: "images/portfolio/pea-e-service/featured-image.png",
   featuredImgWebp: "images/portfolio/pea-e-service/featured-image.webp",
@@ -38,9 +39,22 @@ const basePeaEServiceCaseStudy = {
       href: "https://www.w3.org/WAI/WCAG21/quickref/",
     },
   ],
+  /* Impact */
+  results: [
+    {
+      value: "Accessible",
+      label: "WCAG-compliant portal",
+    },
+    {
+      value: "User-friendly",
+      label: "Simplified application processes",
+    },
+  ],
+  /* Overview */
   overview: [
     "PEA E-Service is the public portal for electricity and water connection applications, status tracking, and service requests. I designed the user flows, built the frontend, and ensured accessibility and mobile compatibility.",
   ],
+  /* What I did */
   strategyTitle: "What I did",
   pillars: [
     {
@@ -56,19 +70,10 @@ const basePeaEServiceCaseStudy = {
       body: "Ensured WCAG compliance for public sector accessibility requirements.",
     },
   ],
+  /* How I shipped it */
   approachTitle: "How I shipped it",
   approach: [
     "Collaborated with PEA teams on requirements, designed wireframes and prototypes, developed the frontend, and tested for accessibility and usability.",
-  ],
-  results: [
-    {
-      value: "Accessible",
-      label: "WCAG-compliant portal",
-    },
-    {
-      value: "User-friendly",
-      label: "Simplified application processes",
-    },
   ],
 };
 

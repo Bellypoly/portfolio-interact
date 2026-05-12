@@ -6,6 +6,7 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { electricityBillBreakdownCaseStudyVariant } from "./variants.js";
 
 const baseElectricityBillBreakdownCaseStudy = {
+  /* Header / intro */
   eyebrow: "Civic Tech · Flow Design · Energy Literacy",
   featuredImg:
     "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
@@ -32,12 +33,14 @@ const baseElectricityBillBreakdownCaseStudy = {
       href: "https://wordpress.org/",
     },
   ],
+  /* Overview */
   overviewTitle: "Overview",
   overview: [
     "Most Thai consumers see a single total on their electricity bill. Behind it sits a layered structure — base energy charges, a variable fuel tariff (Ft), regulatory surcharges, VAT — that few people can parse without domain knowledge. This tool unpacks that structure and asks an uncomfortable civic question: is the price fair?",
     "My role was flow design and information support. I mapped the reader journey from casual curiosity through progressive disclosure of each charge component, making sure every screen earns the next rather than dumping definitions upfront. I also grounded the copy in how Thai billing and tariff mechanisms actually work, so the tool educates without hand-waving.",
     "I brought firsthand utility-system context from my time at PEA (Provincial Electricity Authority of Thailand) — outage management, billing integrations, real-time consumption dashboards — which gave me the mental model to connect what appears on a PDF bill to the engineering and regulatory reality underneath.",
   ],
+  /* What I shaped */
   strategyTitle: "What I shaped",
   strategyIntro:
     "My lane: flow architecture and domain-grounded information design. Engineering (WordPress / Elementor) was handled by the team; I owned how users move through the content and whether the explanations hold up technically.",
@@ -55,6 +58,7 @@ const baseElectricityBillBreakdownCaseStudy = {
       body: "Framed the closing question (\u201cis it fair?\u201d) as an informed conclusion the reader reaches on their own — evidence in the flow, opinion left to the user. The tool is civic, not a campaign.",
     },
   ],
+  /* Reflection */
   approachTitle: "How PEA experience shaped my contribution",
   approach: [
     "At PEA I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",

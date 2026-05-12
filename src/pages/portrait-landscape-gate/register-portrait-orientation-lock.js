@@ -1,4 +1,4 @@
-import { isPhoneViewportForPortraitLock } from "../phone-viewport-for-portrait-lock.js";
+import { isPhoneViewportForPortraitLock } from "../../phone-viewport-for-portrait-lock.js";
 
 /**
  * Screen Orientation API: lock to portrait after the first pointer gesture — **phones only**.

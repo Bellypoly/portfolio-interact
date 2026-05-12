@@ -156,19 +156,82 @@
   @apply font-semibold uppercase text-stone-600;
 }
 
+/* Section titles: clearly above .project-case-study__h3 (which reads as in-flow subheads) */
 .project-case-study__h2 {
-  font-size: var(--cs-text-overline);
-  line-height: 1.35;
+  font-size: var(--cs-text-lead);
+  line-height: 1.28;
   letter-spacing: var(--cs-tracking-overline);
-  @apply font-bold uppercase text-stone-600;
+  @apply font-extrabold uppercase text-stone-700;
 }
 
 @media (min-width: 768px) {
-  .project-case-study__eyebrow,
-  .project-case-study__h2 {
+  .project-case-study__eyebrow {
     font-size: var(--cs-text-overline-md);
     letter-spacing: var(--cs-tracking-overline-md);
   }
+  .project-case-study__h2 {
+    font-size: var(--cs-text-lead-md);
+    letter-spacing: var(--cs-tracking-overline-md);
+  }
+}
+
+/* Same recipe as diagram .project-case-study__ba-panel-title; left-aligned for overview / narrative flow. */
+.project-case-study__ba-panel-title.project-case-study__ba-panel-title--overview {
+  font-size: clamp(1.125rem, 2.25vw, 1.75rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0;
+  margin-top: 1.75rem;
+  text-align: left;
+  color: var(--ba-teal);
+  font-synthesis: none;
+}
+
+@media (min-width: 1201px) {
+  .project-case-study__ba-panel-title.project-case-study__ba-panel-title--overview {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+/* Overview block: same shell as before/after `article.project-case-study__ba-panel` (see case-study-version-compare-diagram.css) */
+.project-case-study__overview-ba-panel {
+  border: 1.5px solid var(--ba-border);
+  border-radius: var(--ba-radius);
+  padding: 1.5rem 1.65rem 1.65rem;
+  box-shadow: var(--ba-shadow);
+  min-height: 0;
+}
+
+.project-case-study__overview-ba-panel--after {
+  background: linear-gradient(
+    180deg,
+    rgba(223, 233, 230, 0.72),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.project-case-study__overview-ba-panel--before {
+  background: linear-gradient(
+    180deg,
+    rgba(236, 229, 220, 0.72),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.project-case-study__overview-ba-panel--neutral {
+  background: rgba(255, 255, 255, 0.44);
+}
+
+/* Panel title uses same typography as section `h2.project-case-study__h2` */
+.project-case-study__overview-ba-panel__head {
+  margin: 0 0 0.75rem;
+  text-align: left;
+}
+
+.project-case-study__overview-ba-panel__body
+  > .project-case-study__bullet-list {
+  margin-top: 0.4rem !important;
 }
 
 .project-case-study__title {
@@ -358,9 +421,16 @@
 }
 
 .project-case-study__meta-context-detail {
-  @apply mt-2.5 border-l-2 border-stone-300/90 pl-3.5 text-stone-600;
+  @apply mt-2.5 text-stone-600;
   font-size: 0.9375em;
   line-height: 1.6;
+}
+
+/* Inset left rule: meta context line, dash bullet lists, methodology pillars */
+.project-case-study__bullet-list,
+.project-case-study__pillars,
+.project-case-study__meta-context-detail {
+  @apply max-w-none border-l-2 border-stone-300/90 pl-6 md:pl-8;
 }
 
 @media (min-width: 768px) {
@@ -398,6 +468,92 @@
   letter-spacing: var(--cs-tracking-body);
 }
 
+.project-case-study__hl {
+  background: rgb(from var(--site-accent-yellow) r g b / 0.7);
+  padding: 0.3em 0.15em;
+  border-radius: 0.12em;
+  font-weight: inherit;
+  font-synthesis: none;
+}
+
+/* --- Block callouts (warning / info panels) --- */
+.project-case-study__callout {
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  padding: 1rem 1.125rem 1.125rem;
+  max-width: none;
+}
+
+.project-case-study__callout--warning {
+  background: linear-gradient(
+    180deg,
+    rgb(254 242 242) 0%,
+    rgb(255 235 238 / 0.97) 100%
+  );
+  border: 1px solid rgb(254 202 202);
+  color: rgb(55 40 40);
+  box-shadow: 0 1px 0 rgb(254 226 226 / 0.9) inset;
+}
+
+.project-case-study__callout--info {
+  background: linear-gradient(
+    180deg,
+    rgb(240 253 250) 0%,
+    rgb(236 253 245 / 0.95) 100%
+  );
+  border: 1px solid rgb(167 243 208);
+  color: rgb(31 41 55);
+}
+
+.project-case-study__callout__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.project-case-study__callout__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-top: 0.1rem;
+  border: 2px solid rgb(220 38 38);
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+  color: rgb(185 28 28);
+  background-color: rgb(255 255 255 / 0.65);
+}
+
+.project-case-study__callout__title {
+  margin: 0;
+  flex: 1;
+  font-size: var(--cs-text-body);
+  line-height: var(--cs-lh-body);
+  font-weight: 400;
+  letter-spacing: var(--cs-tracking-body);
+  color: inherit;
+}
+
+.project-case-study__callout__head + .project-case-study__callout__body {
+  margin-top: 0.35rem;
+}
+
+.project-case-study__callout__body > .project-case-study__p:first-child {
+  margin-top: 0;
+}
+
+.project-case-study__callout__body > .project-case-study__p:not(:first-child) {
+  margin-top: 0.65rem;
+}
+
+.project-case-study__callout__body .project-case-study__bullet-list {
+  margin-top: 0.65rem;
+}
+
 .project-case-study__p--tight {
   @apply mt-3.5 max-w-none text-stone-800;
   font-size: 1em;
@@ -411,13 +567,37 @@
   line-height: var(--cs-lh-ui);
 }
 
-.project-case-study__bullet-list,
-.project-case-study__pillars {
-  @apply max-w-none border-l-2 border-stone-300 pl-6 md:pl-8;
-}
-
 .project-case-study__bullet-list {
   @apply mt-8 list-none space-y-5;
+}
+
+/* Optional: normal disc bullets, no editorial left rule (overview / dense lists) */
+.project-case-study__bullet-list.project-case-study__bullet-list--plain {
+  border-left-width: 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+@media (min-width: 768px) {
+  .project-case-study__bullet-list.project-case-study__bullet-list--plain {
+    padding-left: 1.5rem;
+  }
+}
+
+.project-case-study__bullet-list--plain
+  .project-case-study__bullet-item::before {
+  content: none;
+}
+
+.project-case-study__bullet-list.project-case-study__bullet-list--plain
+  > .project-case-study__bullet-item
+  + .project-case-study__bullet-item {
+  margin-top: 0.4rem;
+}
+
+.project-case-study__bullet-list--plain .project-case-study__bullet-item {
+  line-height: 1.45;
 }
 
 /* --- BA / UX lists: no flex on ul (preserves markers) --- */
@@ -447,8 +627,27 @@
   @apply relative pl-0;
 }
 
+/* Methodology pillar blocks as subsections (stack only; inset rule comes from .pillars + shared rule above) */
+.project-case-study__methodology-subsections {
+  @apply mt-10 max-w-none space-y-12;
+}
+
+@media (min-width: 768px) {
+  .project-case-study__methodology-subsections {
+    @apply space-y-14;
+  }
+}
+
+.project-case-study__methodology-subsection {
+  @apply max-w-none;
+}
+
+.project-case-study__methodology-subsection > .project-case-study__h3 {
+  @apply mb-3 md:mb-4;
+}
+
 .project-case-study__h3 {
-  @apply font-semibold leading-snug text-stone-950;
+  @apply font-medium leading-snug text-stone-700;
   font-size: var(--cs-text-subhead);
 }
 
@@ -620,27 +819,27 @@
   }
 }
 
-.project-case-study__section--embed,
-.project-case-study__section--breakout {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  box-sizing: border-box;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  overflow-x: clip;
-}
-
+/* Full-bleed to viewport; xl+ (and 2xl) cap width so large viewports are not edge-to-edge 100vw */
 .project-case-study__section--embed {
-  @apply border-t-0 pt-0;
+  @apply ml-[calc(50%-50vw)] box-border w-screen max-w-[100vw] overflow-x-clip border-t-0
+    px-5 pt-0 md:px-8
+    xl:w-[min(100vw,81rem)] xl:max-w-[min(100vw,81rem)]
+    xl:ml-[calc(50%-min(50vw,40.5rem))];
 }
 
-@media (min-width: 768px) {
-  .project-case-study__section--embed,
-  .project-case-study__section--breakout {
-    padding-left: 2rem;
-    padding-right: 2rem;
+@media (min-width: 1280px) {
+  .project-case-study__media-bleed.project-case-study__section--embed {
+    width: min(100vw, 81rem);
+    max-width: min(100vw, 81rem);
+    margin-left: calc(50% - min(50vw, 40.5rem));
   }
+}
+
+.project-case-study__section--breakout {
+  @apply relative ml-[calc(50%-50vw)] box-border w-screen max-w-[100vw] overflow-x-clip
+    border-t-0 px-5 md:px-8
+    before:pointer-events-none before:absolute before:inset-x-3 before:top-0 before:h-px
+    before:bg-stone-300/70 before:content-[''] md:before:inset-x-4;
 }
 
 .project-case-study__section--breakout .project-case-study__h2 {
@@ -671,6 +870,14 @@
   @apply mx-auto mt-8 w-full max-w-[78rem] overflow-hidden rounded-sm border-0;
 }
 
+/* Iframe embed: bleed lives on wrap so caption stays article-width (CaseStudyEmbed). */
+.project-case-study__embed-wrap.project-case-study__section--embed {
+  @apply mx-0 ml-[calc(50%-50vw)] box-border w-screen max-w-[100vw] overflow-x-clip border-0
+    px-5 pt-0 md:px-8
+    xl:w-[min(100vw,81rem)] xl:max-w-[min(100vw,81rem)]
+    xl:ml-[calc(50%-min(50vw,40.5rem))];
+}
+
 .project-case-study__embed {
   @apply block w-full border-0;
   min-height: var(--cs-embed-min-h);
@@ -695,6 +902,24 @@
 .project-case-study__cta:hover {
   color: var(--site-editorial-rust);
   text-decoration-color: var(--site-editorial-rust);
+}
+
+/* Fixed bottom strip when mission manifest supplies external project URL */
+.project-case-study__cta-bar {
+  @apply fixed bottom-0 left-0 right-0 z-10 border-t border-stone-300/80 backdrop-blur-sm;
+  background-color: var(--cs-header-bg);
+  font-family: var(--cs-font-body);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.project-case-study__cta--bar {
+  @apply mt-0 inline-flex w-auto max-w-full shrink-0 items-center justify-start border-0 bg-transparent py-3.5 text-left font-normal leading-snug text-stone-700 no-underline transition-colors duration-150;
+  font-family: var(--cs-font-body);
+  font-size: var(--cs-text-ui);
+}
+
+.project-case-study--sticky-cta .project-case-study__article {
+  padding-bottom: calc(7rem + 3.75rem + env(safe-area-inset-bottom, 0px));
 }
 
 .project-case-study__problem-group {

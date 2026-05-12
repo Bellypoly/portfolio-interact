@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { motion, useTransform, AnimatePresence } from "framer-motion";
-import AstronautCard from "../../cards/astronaut-id-card";
+import AstronautCard from "../../sections/astronaut-id-card";
 import "./profile-icon.css";
 
 export default React.memo(function ProfileIcon({ crawlProgress }) {

@@ -1,8 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CaseStudyAsciiDiagram from "./case-study-ascii-diagram";
+import CaseStudyBeforeAfterCompare from "./case-study-before-after-compare";
+import CaseStudyCaptionedFigure from "./case-study-captioned-figure";
 import CaseStudyLightboxImage from "./case-study-lightbox-image";
 import CaseStudySection from "./case-study-section";
+import { CaseStudyDashBulletList } from "./case-study-dash-bullet-list";
+import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
+
+/** Reusable value/label stat rows (`cs.results`, impact blocks, deferred impact). */
+export function CaseStudyResultsList({ rows, className }) {
+  if (!rows?.length) return null;
+  return (
+    <ul className={className ?? "project-case-study__results"} role="list">
+      {rows.map((row, i) => (
+        <li key={`${row.label}-${i}`} className="project-case-study__result">
+          <span className="project-case-study__result-value">{row.value}</span>
+          <span className="project-case-study__result-label">{row.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 /** Optional `{ title, intro?, rows, figureCaption?, figure? }` — e.g. impactAfterV2 / impactAfterV3. */
 export function CaseStudyImpactBlock({ block, baseUrl, sectionId }) {
@@ -14,39 +33,18 @@ export function CaseStudyImpactBlock({ block, baseUrl, sectionId }) {
       {block.intro ? (
         <p className="project-case-study__p">{block.intro}</p>
       ) : null}
-      <ul className="project-case-study__results mt-6 md:mt-8" role="list">
-        {block.rows.map((row) => (
-          <li key={row.label} className="project-case-study__result">
-            <span className="project-case-study__result-value">
-              {row.value}
-            </span>
-            <span className="project-case-study__result-label">
-              {row.label}
-            </span>
-          </li>
-        ))}
-      </ul>
-      {fig?.img ? (
-        <figure className="project-case-study__figure mt-6 md:mt-8">
-          <CaseStudyLightboxImage
-            baseUrl={baseUrl}
-            img={fig.img}
-            imgWebp={fig.imgWebp}
-            alt={fig.alt ?? ""}
-          />
-          {caption ? (
-            <figcaption className="project-case-study__caption">
-              {caption}
-            </figcaption>
-          ) : null}
-        </figure>
-      ) : caption ? (
-        <figure className="project-case-study__figure mt-6 md:mt-8">
-          <figcaption className="project-case-study__caption">
-            {caption}
-          </figcaption>
-        </figure>
-      ) : null}
+      <CaseStudyResultsList
+        rows={block.rows}
+        className="project-case-study__results mt-6 md:mt-8"
+      />
+      <CaseStudyCaptionedFigure
+        baseUrl={baseUrl}
+        img={fig?.img}
+        imgWebp={fig?.imgWebp}
+        alt={fig?.alt ?? ""}
+        caption={caption}
+        className="project-case-study__figure mt-6 md:mt-8"
+      />
     </CaseStudySection>
   );
 }
@@ -74,35 +72,130 @@ export function renderCaseStudyMediaBlock(mediaBlock, key, baseUrl) {
 
   if (mediaBlock.type === "image" && mediaBlock.src) {
     return (
-      <figure
+      <CaseStudyCaptionedFigure
         key={key}
+        baseUrl={baseUrl}
+        img={mediaBlock.src}
+        imgWebp={mediaBlock.imgWebp}
+        alt={mediaBlock.alt ?? mediaBlock.caption ?? ""}
+        caption={mediaBlock.caption}
         className="project-case-study__figure project-case-study__figure--full mt-6 md:mt-7"
-      >
-        <CaseStudyLightboxImage
-          baseUrl={baseUrl}
-          img={mediaBlock.src}
-          imgWebp={mediaBlock.imgWebp}
-          alt={mediaBlock.alt ?? mediaBlock.caption ?? ""}
-        />
-        {mediaBlock.caption ? (
-          <figcaption className="project-case-study__caption">
-            {mediaBlock.caption}
-          </figcaption>
-        ) : null}
-      </figure>
+      />
     );
   }
 
   return null;
 }
 
-/** Rich overview-style paragraph: string, or `{ text, externalLink?, link?, after?, emphasis? }`, or `{ referenceTable }`, or `{ figureBlock }`, or `{ compareFigures }`, or `{ mediaBlock }` (`type: "image"` | `type: "ascii"`). */
+/**
+ * Block callout (e.g. warning panel). Data: `{ variant?: "warning"|"info", title?, body?, paragraphs?, showAlertIcon? }`.
+ * Use `paragraphs` for rich blocks (same shapes as overview), or a single `body` string.
+ */
+function renderCaseStudyCalloutBlock(callout, key, baseUrl, renderParagraph) {
+  const variant = callout.variant ?? "warning";
+  const inner =
+    callout.paragraphs?.length > 0
+      ? callout.paragraphs
+      : callout.body != null && callout.body !== ""
+        ? [callout.body]
+        : [];
+  const showIcon = callout.showAlertIcon !== false && variant === "warning";
+  const hasHead = Boolean(callout.title || showIcon);
+  if (!inner.length && !hasHead) return null;
+
+  return (
+    <aside
+      key={key}
+      role="note"
+      className={`project-case-study__callout project-case-study__callout--${variant}`}
+    >
+      {hasHead ? (
+        <div className="project-case-study__callout__head">
+          {showIcon ? (
+            <span className="project-case-study__callout__icon" aria-hidden>
+              !
+            </span>
+          ) : null}
+          {callout.title ? (
+            <p className="project-case-study__callout__title">
+              {renderCaseStudyInlineRich(callout.title)}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+      {inner.length ? (
+        <div className="project-case-study__callout__body">
+          {inner.map((p, i) =>
+            renderParagraph(p, `${key}-callout-${i}`, baseUrl),
+          )}
+        </div>
+      ) : null}
+    </aside>
+  );
+}
+
+/** Rich overview-style paragraph: string, `{ baPanel: { variant?, title?, paragraphs } }` (BA panel shell), `{ baPanelTitle }`, `{ beforeAfterCompare }`, `{ referenceTable }`, `{ bulletList }` (optional `bulletListPlain`), `{ callout }`, etc. */
 export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   if (typeof paragraph === "string") {
     return (
       <p key={key} className="project-case-study__p">
-        {paragraph}
+        {renderCaseStudyInlineRich(paragraph)}
       </p>
+    );
+  }
+  if (paragraph?.baPanel?.paragraphs?.length > 0) {
+    const bp = paragraph.baPanel;
+    const variant = bp.variant ?? "after";
+    const shellClass =
+      variant === "before"
+        ? "project-case-study__overview-ba-panel project-case-study__overview-ba-panel--before"
+        : variant === "neutral"
+          ? "project-case-study__overview-ba-panel project-case-study__overview-ba-panel--neutral"
+          : "project-case-study__overview-ba-panel project-case-study__overview-ba-panel--after";
+    return (
+      <div key={key} className={`${shellClass} mt-6 md:mt-7`}>
+        {typeof bp.title === "string" && bp.title !== "" ? (
+          <h3 className="project-case-study__h2 project-case-study__overview-ba-panel__head">
+            {renderCaseStudyInlineRich(bp.title)}
+          </h3>
+        ) : null}
+        <div className="project-case-study__overview-ba-panel__body">
+          {bp.paragraphs.map((p, i) =>
+            renderCaseStudyParagraph(p, `${key}-bap-${i}`, baseUrl),
+          )}
+        </div>
+      </div>
+    );
+  }
+  if (typeof paragraph?.baPanelTitle === "string") {
+    return (
+      <h3
+        key={key}
+        className="project-case-study__ba-panel-title project-case-study__ba-panel-title--overview"
+      >
+        {renderCaseStudyInlineRich(paragraph.baPanelTitle)}
+      </h3>
+    );
+  }
+  if (Array.isArray(paragraph?.bulletList)) {
+    return (
+      <CaseStudyDashBulletList
+        key={key}
+        items={paragraph.bulletList}
+        plain={paragraph.bulletListPlain === true}
+        className="mt-4 md:mt-5"
+        renderBullet={(item) =>
+          typeof item === "string" ? renderCaseStudyInlineRich(item) : item
+        }
+      />
+    );
+  }
+  if (paragraph?.callout) {
+    return renderCaseStudyCalloutBlock(
+      paragraph.callout,
+      key,
+      baseUrl,
+      renderCaseStudyParagraph,
     );
   }
   if (
@@ -115,19 +208,15 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   if (paragraph.figureBlock?.img) {
     const fb = paragraph.figureBlock;
     return (
-      <figure key={key} className="project-case-study__figure mt-6 md:mt-7">
-        <CaseStudyLightboxImage
-          baseUrl={baseUrl}
-          img={fb.img}
-          imgWebp={fb.imgWebp}
-          alt={fb.alt ?? ""}
-        />
-        {fb.caption ? (
-          <figcaption className="project-case-study__caption">
-            {fb.caption}
-          </figcaption>
-        ) : null}
-      </figure>
+      <CaseStudyCaptionedFigure
+        key={key}
+        baseUrl={baseUrl}
+        img={fb.img}
+        imgWebp={fb.imgWebp}
+        alt={fb.alt ?? ""}
+        caption={fb.caption}
+        className="project-case-study__figure mt-6 md:mt-7"
+      />
     );
   }
   if (
@@ -160,6 +249,16 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
           </figcaption>
         ) : null}
       </figure>
+    );
+  }
+  if (paragraph?.beforeAfterCompare?.rows?.length) {
+    return (
+      <div key={key} className="mt-4 md:mt-5">
+        <CaseStudyBeforeAfterCompare
+          block={paragraph.beforeAfterCompare}
+          baseUrl={baseUrl}
+        />
+      </div>
     );
   }
   if (paragraph.referenceTable?.rows?.length) {
@@ -263,7 +362,7 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   if (paragraph.externalLink) {
     return (
       <p key={key} className="project-case-study__p">
-        {paragraph.text}
+        {renderCaseStudyInlineRich(paragraph.text ?? "")}
         <a
           href={paragraph.externalLink.href}
           className="project-case-study__inline-link"
@@ -272,7 +371,9 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
         >
           {paragraph.externalLink.label}
         </a>
-        {paragraph.after}
+        {typeof paragraph.after === "string" && paragraph.after !== ""
+          ? renderCaseStudyInlineRich(paragraph.after)
+          : paragraph.after}
       </p>
     );
   }
@@ -293,10 +394,8 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   if (paragraph.emphasis != null) {
     return (
       <p key={key} className="project-case-study__p">
-        {paragraph.text}
-        <strong className="font-bold text-stone-950">
-          {paragraph.emphasis}
-        </strong>
+        {renderCaseStudyInlineRich(paragraph.text ?? "")}
+        {renderCaseStudyInlineRich(paragraph.emphasis)}
       </p>
     );
   }
@@ -332,17 +431,22 @@ export function renderReferenceFigureCaption(caption) {
 
 export function renderApproachBlock(item, baseUrl, key) {
   if (typeof item === "string") {
-    return (
-      <p key={key} className="project-case-study__p">
-        {item}
-      </p>
-    );
+    return renderCaseStudyParagraph(item, key, baseUrl);
   }
   if (item?.paragraph != null) {
-    return (
-      <p key={key} className="project-case-study__p">
-        {item.paragraph}
-      </p>
+    return renderCaseStudyParagraph(item.paragraph, key, baseUrl);
+  }
+  if (item?.baPanel?.paragraphs?.length > 0) {
+    return renderCaseStudyParagraph(item, key, baseUrl);
+  }
+  if (Array.isArray(item?.bulletList)) {
+    return renderCaseStudyParagraph(
+      {
+        bulletList: item.bulletList,
+        ...(item.bulletListPlain === true ? { bulletListPlain: true } : {}),
+      },
+      key,
+      baseUrl,
     );
   }
   if (item?.figureBlock?.img) {
@@ -358,6 +462,9 @@ export function renderApproachBlock(item, baseUrl, key) {
       key,
       baseUrl,
     );
+  }
+  if (item?.callout) {
+    return renderCaseStudyParagraph({ callout: item.callout }, key, baseUrl);
   }
   return null;
 }
