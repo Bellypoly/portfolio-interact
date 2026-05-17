@@ -15,11 +15,7 @@ const baseDynamicPaywallCaseStudy = {
   featuredImageObjectPosition: "center top",
   featuredImageObjectPositionMd: "50% 20%",
   task: "Integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription paths. Wire JavaScript and BlueConic so on-page behavior matches Sophi’s decisions; instrument GA4; ship with feature flags and kill switches for safe rollout and trustworthy model feedback.",
-  disciplines: [
-    "Machine Learning paywall",
-    "Analytics",
-    "Frontend integration",
-  ],
+  focus: ["Machine Learning paywall", "Analytics", "Frontend integration"],
   context: "The Dallas Morning News",
   techStack: [
     {
@@ -99,12 +95,14 @@ const baseDynamicPaywallCaseStudy = {
   /* Final related surface */
   relatedProject: {
     slug: "subscription-checkout-activation",
-    label:
-      "See how the checkout and onboarding system converts this intent →",
+    label: "See how the checkout and onboarding system converts this intent →",
   },
 };
 
 export const dynamicPaywallProject = {
   ...getMissionGalleryManifestRow("dynamic-paywall"),
-  caseStudy: { ...baseDynamicPaywallCaseStudy, ...dynamicPaywallCaseStudyVariant },
+  caseStudy: {
+    ...baseDynamicPaywallCaseStudy,
+    ...dynamicPaywallCaseStudyVariant,
+  },
 };

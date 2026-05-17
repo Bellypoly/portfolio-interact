@@ -65,6 +65,10 @@
   @apply border-[rgb(var(--site-gold-rgb)/0.45)] text-[color-mix(in_srgb,var(--site-gold)_45%,#fde047_55%)];
 }
 
+.project-card__badge--company {
+  @apply border-slate-400/40 bg-black/50 text-stone-100 normal-case tracking-[0.06em];
+}
+
 .project-card__scrim {
   @apply pointer-events-none absolute inset-0;
   @apply bg-[linear-gradient(to_top,rgba(0,0,0,0.97)_0%,rgba(0,0,0,0.93)_12%,rgba(0,0,0,0.92)_18%,rgba(0,0,0,0.78)_34%,rgba(0,0,0,0.52)_60%,rgba(0,0,0,0.28)_74%,rgba(0,0,0,0.12)_86%,rgba(0,0,0,0.04)_94%,transparent_100%)];
@@ -87,11 +91,11 @@
 /* --- Subtitle: same hover-reveal motion as index.css (parent is the card link) --- */
 
 .project-card__subtitle {
-  @apply mt-2 block max-w-full;
+  @apply mt-1 block max-w-full;
 }
 
 .project-card__subtitle-reveal {
-  @apply block h-[2.75rem] max-w-full overflow-hidden align-bottom [contain:layout_style];
+  @apply block h-[4rem] max-w-full overflow-hidden align-bottom [contain:layout_style];
 }
 
 .project-card__subtitle-reveal__track {
@@ -104,8 +108,8 @@
 }
 
 .project-card__subtitle-reveal__line {
-  @apply block max-h-none min-h-[2.75rem] max-w-full shrink-0 overflow-hidden font-robotomono text-site-body font-normal leading-snug text-white/90 transition-colors duration-150;
-  @apply [-webkit-box-orient:vertical] [-webkit-line-clamp:2] [display:-webkit-box];
+  @apply block max-h-none min-h-[4rem] max-w-full shrink-0 overflow-hidden font-robotomono text-site-body font-normal leading-snug text-white/90 transition-colors duration-150;
+  @apply [-webkit-box-orient:vertical] [-webkit-line-clamp:3] [display:-webkit-box];
 }
 
 .project-card__subtitle-reveal__line:last-child {

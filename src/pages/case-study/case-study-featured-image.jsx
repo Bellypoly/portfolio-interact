@@ -1,5 +1,6 @@
 import React from "react";
 import CaseStudyLightboxImage from "./case-study-lightbox-image";
+import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
 
 /**
  * Case-study featured image: optional WebP + compact-height + object-position
@@ -13,6 +14,7 @@ export default function CaseStudyFeaturedImage({
   imgWebp,
   alt,
   title,
+  caption,
   compactHeight,
   objectPosition,
   objectPositionMd,
@@ -63,6 +65,11 @@ export default function CaseStudyFeaturedImage({
           fillFeatured={Boolean(compactHeight)}
         />
       </div>
+      {typeof caption === "string" && caption.trim() ? (
+        <p className="project-case-study__caption max-w-none">
+          {renderCaseStudyInlineRich(caption)}
+        </p>
+      ) : null}
       {source?.href ? (
         <p className="project-case-study__caption max-w-none">
           {source.prefix ?? "Image source"}:{" "}

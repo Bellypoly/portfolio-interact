@@ -42,7 +42,9 @@ const SLUG_LOADERS = {
       (m) => m.parliamentWatchOcrProject,
     ),
   "pea-e-service": () =>
-    import("./projects/pea-e-service/index.js").then((m) => m.peaEServiceProject),
+    import("./projects/pea-e-service/index.js").then(
+      (m) => m.peaEServiceProject,
+    ),
   "photo-competition-my-hometown": () =>
     import("./projects/photo-competition-my-hometown/index.js").then(
       (m) => m.photoCompetitionMyHometownProject,
@@ -52,8 +54,8 @@ const SLUG_LOADERS = {
     import("./projects/subscription-checkout-activation/index.js").then(
       (m) => m.subscriptionCheckoutActivationProject,
     ),
-  "vote62-ect-report-69": () =>
-    import("./projects/vote62-ect-report-69/index.js").then(
+  vote62: () =>
+    import("./projects/vote62/index.js").then(
       (m) => m.vote62EctReport69Project,
     ),
 };

@@ -1,6 +1,6 @@
 import React from "react";
-import CaseStudySection from "./case-study-section";
 import CaseStudyLightboxImage from "./case-study-lightbox-image";
+import CaseStudyMediaSection from "./case-study-media-section";
 import CaseStudyVersionCompareDiagram from "./case-study-version-compare-diagram";
 
 function diagramMode(systemDesign) {
@@ -102,15 +102,15 @@ export default function CaseStudySystemDesign({ systemDesign: sd, baseUrl }) {
     ) : null;
 
   return (
-    <CaseStudySection title={sectionTitle}>
-      {sd.intro ? <p className="project-case-study__p">{sd.intro}</p> : null}
+    <CaseStudyMediaSection
+      title={sectionTitle}
+      intro={sd.intro}
+      caption={sd.caption}
+    >
       {asciiBlocksBody}
       {diagramBody && mode !== "asciiBlocks" ? (
         <div className={wrapClass}>{diagramBody}</div>
       ) : null}
-      {sd.caption ? (
-        <p className="project-case-study__caption">{sd.caption}</p>
-      ) : null}
-    </CaseStudySection>
+    </CaseStudyMediaSection>
   );
 }

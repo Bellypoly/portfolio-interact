@@ -7,14 +7,13 @@ import { subscriptionCheckoutActivationCaseStudyVariant } from "./variants.js";
 
 const subscriptionCheckoutActivationCaseStudyBase = {
   /* Header / intro */
-  eyebrow: "Product · Subscriptions · Platform",
+  eyebrow: "Reader revenue · Newsroom systems · Audience analytics",
   featuredImg: "images/portfolio/subscription-checkout/featured-image.png",
-  featuredImgWebp:
-    "images/portfolio/subscription-checkout/featured-image.webp",
+  featuredImgWebp: "images/portfolio/subscription-checkout/featured-image.webp",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Replace a leaking 3-page, server-rendered checkout with a single React surface, unify Braintree, Stripe, and Apple Pay behind one payment abstraction, and implement deterministic Arc XP identity resolution at email entry — then iterate with Microsoft Clarity in production so evidence, not assumptions, drove the V3 UX fixes.",
-  disciplines: [
+  focus: [
     "Checkout & payments system",
     "Identity & session continuity",
     "Post-purchase onboarding",
@@ -134,17 +133,20 @@ const subscriptionCheckoutActivationCaseStudyBase = {
     ],
     figures: [
       {
-        img: "images/portfolio/subscription-checkout/before-step-1.webp",
+        img: "images/portfolio/subscription-checkout/before-step-1.png",
+        imgWebp: "images/portfolio/subscription-checkout/before-step-1.webp",
         alt: "Step 1: Member information — name, email, and CAPTCHA on a mostly empty page",
         caption: "Page 1 — Name, email, CAPTCHA. That's it.",
       },
       {
-        img: "images/portfolio/subscription-checkout/before-step-2.webp",
+        img: "images/portfolio/subscription-checkout/before-step-2.png",
+        imgWebp: "images/portfolio/subscription-checkout/before-step-2.webp",
         alt: "Step 2: Payment information — card fields, PayPal option, and checkout summary",
         caption: "Page 2 — Payment and summary.",
       },
       {
-        img: "images/portfolio/subscription-checkout/before-step-3.webp",
+        img: "images/portfolio/subscription-checkout/before-step-3.png",
+        imgWebp: "images/portfolio/subscription-checkout/before-step-3.webp",
         alt: "Step 3: Post-purchase password creation blocking content access",
         caption: "Page 3 — Set password before seeing any content.",
       },

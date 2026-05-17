@@ -19,7 +19,7 @@ const baseLocalElectionsHubCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
-  disciplines: [
+  focus: [
     "Frontend architecture (React · Arc XP)",
     "Data-heavy UI & visualization",
     "Performance & progressive disclosure",
@@ -192,5 +192,8 @@ const baseLocalElectionsHubCaseStudy = {
 
 export const localElectionsHubProject = {
   ...getMissionGalleryManifestRow("local-elections-hub"),
-  caseStudy: { ...baseLocalElectionsHubCaseStudy, ...localElectionsHubCaseStudyVariant },
+  caseStudy: {
+    ...baseLocalElectionsHubCaseStudy,
+    ...localElectionsHubCaseStudyVariant,
+  },
 };

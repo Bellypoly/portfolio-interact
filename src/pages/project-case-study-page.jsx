@@ -38,6 +38,7 @@ import {
   renderCaseStudyParagraph,
   renderReferenceFigureCaption,
 } from "./case-study/case-study-renderers";
+import CaseStudyIframe from "./case-study/case-study-iframe";
 import { renderCaseStudyInlineRich } from "./case-study/case-study-inline-rich";
 import "./project-case-study.css";
 
@@ -62,7 +63,9 @@ const CaseStudyShowcaseSection = lazyCaseStudySection(
 const CaseStudyReferenceSection = lazyCaseStudySection(
   "CaseStudyReferenceSection",
 );
-const CaseStudyEmbed = lazy(() => import("./case-study/case-study-embed"));
+const CaseStudyEmbedSection = lazy(
+  () => import("./case-study/case-study-embed-section"),
+);
 
 export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
@@ -140,11 +143,22 @@ export default function ProjectCaseStudyPage() {
     return <Navigate to="/" replace />;
   }
 
-  const { name, desc, img, imgWebp, alt, link, caseStudy: cs } = project;
+  const {
+    name,
+    desc,
+    img,
+    imgWebp,
+    alt,
+    link,
+    hideGalleryDescOnCaseStudy,
+    caseStudy: cs,
+  } = project;
   const baseUrl = import.meta.env.BASE_URL;
   const featuredImg = cs.featuredImg ?? img;
   const featuredImgWebp = cs.featuredImgWebp ?? imgWebp;
   const featuredAlt = cs.featuredImageAlt ?? alt;
+  const caseStudyFooterTagline =
+    cs.footerTagline ?? (hideGalleryDescOnCaseStudy ? null : desc);
 
   const showDeferredImpact = Boolean(
     cs.results?.length &&
@@ -167,7 +181,7 @@ export default function ProjectCaseStudyPage() {
     >
       {typeof cs.publicDatasetSectionIntro === "string" &&
       cs.publicDatasetSectionIntro.trim() !== "" ? (
-        <p className="project-case-study__p project-case-study__p--bridge">
+        <p className="project-case-study__p">
           {renderCaseStudyInlineRich(cs.publicDatasetSectionIntro)}
         </p>
       ) : null}
@@ -178,37 +192,19 @@ export default function ProjectCaseStudyPage() {
               {cs.publicDatasetIframeEmbed.caption}
             </p>
           ) : null}
-          <div
-            className={`project-case-study__embed-wrap${cs.publicDatasetSectionIntro?.trim() ? " mt-6 md:mt-7" : " mt-6 md:mt-8"}`}
-          >
-            <iframe
-              src={cs.publicDatasetIframeEmbed.src}
-              className="project-case-study__embed"
-              style={
-                cs.publicDatasetIframeEmbed.minHeight
-                  ? { minHeight: cs.publicDatasetIframeEmbed.minHeight }
-                  : undefined
-              }
-              title={
-                cs.publicDatasetIframeEmbed.title ?? "Embedded spreadsheet"
-              }
-              frameBorder="0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
+          <CaseStudyIframe
+            iframeEmbed={cs.publicDatasetIframeEmbed}
+            className={
+              cs.publicDatasetSectionIntro?.trim()
+                ? "mt-6 md:mt-7"
+                : "mt-6 md:mt-8"
+            }
+          />
         </div>
       ) : null}
       {(cs.publicDatasetSectionBlocks ?? []).map((block, i) =>
         renderCaseStudyParagraph(block, `public-dataset-block-${i}`, baseUrl),
       )}
-      {!publicDatasetEmbedsSheet && cs.results?.length ? (
-        <CaseStudyResultsList
-          rows={cs.results}
-          className="project-case-study__results mt-6 md:mt-8"
-        />
-      ) : null}
     </CaseStudySection>
   ) : null;
 
@@ -220,12 +216,7 @@ export default function ProjectCaseStudyPage() {
       {cs.deferredImpactLead?.map((p, i) =>
         renderCaseStudyParagraph(p, `def-lead-${i}`, baseUrl),
       )}
-      {!splitPublicDatasetSection ? (
-        <CaseStudyResultsList
-          rows={cs.results}
-          className={`project-case-study__results${cs.deferredImpactLead?.length ? " mt-6 md:mt-8" : ""}`}
-        />
-      ) : publicDatasetEmbedsSheet ? (
+      {cs.results?.length ? (
         <CaseStudyResultsList
           rows={cs.results}
           className={`project-case-study__results${cs.deferredImpactLead?.length ? " mt-6 md:mt-8" : ""}`}
@@ -235,8 +226,7 @@ export default function ProjectCaseStudyPage() {
         <CaseStudyImpactChart
           chart={cs.impactChart}
           className={
-            splitPublicDatasetSection &&
-            (cs.deferredImpactLead?.length || publicDatasetEmbedsSheet)
+            cs.deferredImpactLead?.length || cs.results?.length
               ? "mt-6 md:mt-8"
               : ""
           }
@@ -259,10 +249,43 @@ export default function ProjectCaseStudyPage() {
         : (cs.approach ?? []).map((paragraph, i) =>
             renderCaseStudyParagraph(paragraph, `approach-${i}`, baseUrl),
           )}
+      {cs.approachFigures?.figures?.length ? (
+        <div className="mt-6 md:mt-7">
+          {cs.approachFigures.intro ? (
+            <p className="project-case-study__p mb-4 md:mb-5">
+              {typeof cs.approachFigures.intro === "string"
+                ? renderCaseStudyInlineRich(cs.approachFigures.intro)
+                : cs.approachFigures.intro}
+            </p>
+          ) : null}
+          <CaseStudyFigures
+            embedded
+            baseUrl={baseUrl}
+            columns={cs.approachFigures.figureColumns ?? 2}
+            figures={cs.approachFigures.figures}
+          />
+          {cs.approachFigures.caption ? (
+            <p className="project-case-study__caption mt-4 max-w-none">
+              {typeof cs.approachFigures.caption === "string"
+                ? renderCaseStudyInlineRich(cs.approachFigures.caption)
+                : cs.approachFigures.caption}
+            </p>
+          ) : null}
+          {cs.approachFigures.afterFigure ? (
+            <p className="project-case-study__p mt-6 md:mt-7">
+              {typeof cs.approachFigures.afterFigure === "string"
+                ? renderCaseStudyInlineRich(cs.approachFigures.afterFigure)
+                : cs.approachFigures.afterFigure}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
     </CaseStudySection>
   );
 
-  const approachSecondaryEmbedsSheet = Boolean(cs.approachSecondaryIframeEmbed?.src);
+  const approachSecondaryEmbedsSheet = Boolean(
+    cs.approachSecondaryIframeEmbed?.src,
+  );
 
   const approachSecondaryEl = cs.approachSecondaryTitle ? (
     <CaseStudySection
@@ -285,26 +308,15 @@ export default function ProjectCaseStudyPage() {
               {cs.approachSecondaryIframeEmbed.caption}
             </p>
           ) : null}
-          <div
-            className={`project-case-study__embed-wrap${cs.approachSecondaryIntro?.trim() || (cs.approachSecondary ?? []).length ? " mt-6 md:mt-7" : " mt-6 md:mt-8"}`}
-          >
-            <iframe
-              src={cs.approachSecondaryIframeEmbed.src}
-              className="project-case-study__embed"
-              style={
-                cs.approachSecondaryIframeEmbed.minHeight
-                  ? { minHeight: cs.approachSecondaryIframeEmbed.minHeight }
-                  : undefined
-              }
-              title={
-                cs.approachSecondaryIframeEmbed.title ?? "Embedded spreadsheet"
-              }
-              frameBorder="0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
+          <CaseStudyIframe
+            iframeEmbed={cs.approachSecondaryIframeEmbed}
+            className={
+              cs.approachSecondaryIntro?.trim() ||
+              (cs.approachSecondary ?? []).length
+                ? "mt-6 md:mt-7"
+                : "mt-6 md:mt-8"
+            }
+          />
         </div>
       ) : null}
     </CaseStudySection>
@@ -398,6 +410,7 @@ export default function ProjectCaseStudyPage() {
           imgWebp={featuredImgWebp}
           alt={featuredAlt}
           title={name}
+          caption={cs.featuredImageCaption}
           lightboxAriaLabel={cs.featuredLightboxAriaLabel}
           compactHeight={cs.featuredImageCompact}
           objectPosition={cs.featuredImageObjectPosition}
@@ -411,14 +424,14 @@ export default function ProjectCaseStudyPage() {
               {cs.task}
             </p>
             <CaseStudyMetaDl
-              disciplines={cs.disciplines}
+              focus={cs.focus}
               context={cs.context}
               techStack={cs.techStack}
             />
           </CaseStudySection>
         ) : (
           <CaseStudyMetaDl
-            disciplines={cs.disciplines}
+            focus={cs.focus}
             context={cs.context}
             techStack={cs.techStack}
           />
@@ -453,6 +466,41 @@ export default function ProjectCaseStudyPage() {
             renderCaseStudyParagraph(paragraph, `overview-${i}`, baseUrl),
           )}
         </CaseStudySection>
+
+        {cs.overviewFigures?.figures?.length ? (
+          <div className="mt-6 md:mt-7">
+            {cs.overviewFigures.intro ? (
+              <p className="project-case-study__p mb-4 md:mb-5">
+                {typeof cs.overviewFigures.intro === "string"
+                  ? renderCaseStudyInlineRich(cs.overviewFigures.intro)
+                  : cs.overviewFigures.intro}
+              </p>
+            ) : null}
+            <CaseStudyFigures
+              embedded
+              baseUrl={baseUrl}
+              columns={cs.overviewFigures.figureColumns ?? 2}
+              figures={cs.overviewFigures.figures}
+            />
+            {cs.overviewFigures.caption ? (
+              <p className="project-case-study__caption mt-4 max-w-none">
+                {typeof cs.overviewFigures.caption === "string"
+                  ? renderCaseStudyInlineRich(cs.overviewFigures.caption)
+                  : cs.overviewFigures.caption}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
+        {cs.overviewAfter?.length
+          ? cs.overviewAfter.map((block, i) =>
+              renderCaseStudyParagraph(
+                block,
+                `overview-after-${i}`,
+                baseUrl,
+              ),
+            )
+          : null}
 
         {cs.overviewSystemDesign && !cs.strategyPartSplit ? (
           <CaseStudySystemDesign
@@ -574,7 +622,7 @@ export default function ProjectCaseStudyPage() {
             className={
               slug === "map-magic"
                 ? "map-magic-gallery"
-                : slug === "vote62-ect-report-69"
+                : slug === "vote62"
                   ? undefined
                   : "project-case-study__section--breakout"
             }
@@ -583,7 +631,7 @@ export default function ProjectCaseStudyPage() {
               embedded
               baseUrl={baseUrl}
               mediaBleedClassName={
-                slug === "vote62-ect-report-69"
+                slug === "vote62"
                   ? "project-case-study__section--embed"
                   : undefined
               }
@@ -614,12 +662,52 @@ export default function ProjectCaseStudyPage() {
         ) : null}
 
         <Suspense fallback={null}>
-          <CaseStudyEmbed
+          <CaseStudyEmbedSection
             flourishEmbed={cs.flourishEmbed}
             flourishCaption={cs.flourishCaption}
             iframeEmbed={cs.iframeEmbed}
           />
         </Suspense>
+
+        {cs.whyStructuredElectionDataSection?.title ? (
+          <CaseStudySection
+            title={cs.whyStructuredElectionDataSection.title}
+            sectionId={`${slug}-why-structured-election-data`}
+          >
+            {typeof cs.whyStructuredElectionDataSection.intro === "string" &&
+            cs.whyStructuredElectionDataSection.intro.trim() !== "" ? (
+              <p className="project-case-study__p">
+                {renderCaseStudyInlineRich(
+                  cs.whyStructuredElectionDataSection.intro.trim(),
+                )}
+              </p>
+            ) : null}
+            {cs.whyStructuredElectionDataSection.bulletList?.length ? (
+              <CaseStudyDashBulletList
+                items={cs.whyStructuredElectionDataSection.bulletList}
+                plain={Boolean(
+                  cs.whyStructuredElectionDataSection.bulletListPlain,
+                )}
+                className={
+                  cs.whyStructuredElectionDataSection.intro?.trim()
+                    ? "mt-4 md:mt-5"
+                    : "mt-0"
+                }
+                renderBullet={(b) => renderCaseStudyInlineRich(b)}
+              />
+            ) : null}
+            {typeof cs.whyStructuredElectionDataSection.outro === "string" &&
+            cs.whyStructuredElectionDataSection.outro.trim() !== "" ? (
+              <p
+                className={`project-case-study__p${cs.whyStructuredElectionDataSection.bulletList?.length ? " mt-4 md:mt-5" : ""}`}
+              >
+                {renderCaseStudyInlineRich(
+                  cs.whyStructuredElectionDataSection.outro.trim(),
+                )}
+              </p>
+            ) : null}
+          </CaseStudySection>
+        ) : null}
 
         {cs.businessOutcome || cs.businessOutcomeBullets?.length ? (
           <CaseStudySection
@@ -694,11 +782,13 @@ export default function ProjectCaseStudyPage() {
           </aside>
         ) : null}
 
-        <footer className="project-case-study__footer">
-          <p className="project-case-study__tagline">
-            {cs.footerTagline ?? desc}
-          </p>
-        </footer>
+        {caseStudyFooterTagline ? (
+          <footer className="project-case-study__footer">
+            <p className="project-case-study__tagline">
+              {caseStudyFooterTagline}
+            </p>
+          </footer>
+        ) : null}
       </article>
 
       {link ? (
@@ -710,11 +800,19 @@ export default function ProjectCaseStudyPage() {
           <div className="project-case-study__header-inner">
             <a
               href={link}
-              className="project-case-study__cta project-case-study__cta--bar"
+              className="project-case-study__back project-case-study__cta project-case-study__cta--bar"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open project link →
+              <span
+                className="project-case-study__cta-play"
+                aria-hidden="true"
+              >
+                ▶
+              </span>
+              <HoverRevealText className="project-case-study__hover-reveal project-case-study__cta-label">
+                Open project link
+              </HoverRevealText>
             </a>
           </div>
         </div>

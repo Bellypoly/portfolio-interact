@@ -18,7 +18,7 @@ const baseArticlePageRedesignCaseStudy = {
     label: "The Dallas Morning News",
   },
   task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
-  disciplines: [
+  focus: [
     "Article frontend & Arc XP PageBuilder",
     "Ads & monetization (GAM)",
     "Performance & Core Web Vitals",
@@ -262,5 +262,8 @@ const baseArticlePageRedesignCaseStudy = {
 
 export const articlePageRedesignProject = {
   ...getMissionGalleryManifestRow("article-page-redesign"),
-  caseStudy: { ...baseArticlePageRedesignCaseStudy, ...articlePageRedesignCaseStudyVariant },
+  caseStudy: {
+    ...baseArticlePageRedesignCaseStudy,
+    ...articlePageRedesignCaseStudyVariant,
+  },
 };

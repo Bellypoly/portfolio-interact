@@ -1,6 +1,7 @@
 import React from "react";
 import CaseStudyCaptionedFigure from "./case-study-captioned-figure";
-import CaseStudySection from "./case-study-section";
+import CaseStudyMediaSection from "./case-study-media-section";
+import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
 
 /** Captioned figures; `columns={3}` wraps grid in `media-bleed` + `wide-inner`.
  *  Optional `fullRow: true` on a figure spans all grid columns so mixed layouts work
@@ -56,14 +57,24 @@ export default function CaseStudyFigures({
       gridInner
     );
 
-  const inner = (
-    <>
-      {intro ? <p className="project-case-study__p">{intro}</p> : null}
+  if (embedded) {
+    return (
+      <>
+        {intro ? (
+          <p className="project-case-study__p">
+            {typeof intro === "string"
+              ? renderCaseStudyInlineRich(intro)
+              : intro}
+          </p>
+        ) : null}
+        {grid}
+      </>
+    );
+  }
+
+  return (
+    <CaseStudyMediaSection title={title} intro={intro}>
       {grid}
-    </>
+    </CaseStudyMediaSection>
   );
-
-  if (embedded) return inner;
-
-  return <CaseStudySection title={title}>{inner}</CaseStudySection>;
 }

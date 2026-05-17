@@ -89,6 +89,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
           cardImagePosition,
           portfolioGroup,
           portfolioLabel,
+          companyBadge,
         }) => {
           const card = (
             <ProjectCard
@@ -102,6 +103,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
               imageFit={cardImageFit}
               imagePosition={cardImagePosition}
               contextLabel={portfolioLabel}
+              companyBadge={companyBadge}
               groupBadge={
                 portfolioGroup === "research" ? "Research" : undefined
               }

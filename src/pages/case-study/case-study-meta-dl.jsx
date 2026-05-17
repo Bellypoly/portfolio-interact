@@ -47,7 +47,9 @@ function renderContext(context) {
       return (
         <div className="project-case-study__meta-context">
           {summary ? (
-            <p className="project-case-study__meta-context-summary">{summary}</p>
+            <p className="project-case-study__meta-context-summary">
+              {summary}
+            </p>
           ) : null}
           {detail ? (
             <p className="project-case-study__meta-context-detail">{detail}</p>
@@ -61,9 +63,8 @@ function renderContext(context) {
 
 /** Focus + Context (+ optional Stack) definition list (Task section and standalone layout). */
 export default function CaseStudyMetaDl({
-  disciplines,
-  /** When set, overrides `disciplines.join(" · ")` for the Focus row (exact editorial line). */
   focus,
+  /** `focus` may be an exact string line or an array. */
   context,
   techStack,
 }) {
@@ -71,7 +72,9 @@ export default function CaseStudyMetaDl({
   const focusText =
     typeof focus === "string" && focus.trim()
       ? focus.trim()
-      : (disciplines ?? []).filter(Boolean).join(" · ");
+      : Array.isArray(focus)
+        ? focus.filter(Boolean).join(" · ")
+        : "";
 
   return (
     <dl className="project-case-study__meta">
@@ -81,7 +84,9 @@ export default function CaseStudyMetaDl({
       </div>
       <div className="project-case-study__meta-row">
         <dt className="project-case-study__meta-term">Context</dt>
-        <dd className="project-case-study__meta-def">{renderContext(context)}</dd>
+        <dd className="project-case-study__meta-def">
+          {renderContext(context)}
+        </dd>
       </div>
       {stackItems.length ? (
         <div className="project-case-study__meta-row">

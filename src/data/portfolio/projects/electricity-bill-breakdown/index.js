@@ -7,32 +7,22 @@ import { electricityBillBreakdownCaseStudyVariant } from "./variants.js";
 
 const baseElectricityBillBreakdownCaseStudy = {
   /* Header / intro */
-  eyebrow: "Civic Tech · Flow Design · Energy Literacy",
-  featuredImg:
-    "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
+  eyebrow:
+    "Civic explainer · Energy systems · Public-interest information design",
+  featuredImg: "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
   featuredImgWebp:
     "images/portfolio/electricity-bill-breakdown/featured-image.webp",
   featuredImageAlt:
     "JustPow — Electricity BiLL BREAKDOWN on light textured paper: yellow lightning bolt and BiLL accent, English subtitle on where your monthly bill goes and who gets paid, ring of gray energy lifecycle line icons",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
-  task: "Design the user flow and information structure for a civic tool that explains Thai electricity bills — what each charge means, where the money goes, and whether the pricing is fair — so readers without a utility background can follow a complex regulatory topic one step at a time.",
-  disciplines: [
+  task: "Design a public-facing explainer that translates Thai electricity billing structures, tariffs, and fuel-adjustment charges into accessible civic information—helping readers without a utility background understand how regulatory decisions and infrastructure costs shape the final bill they receive each month.",
+  focus: [
     "User-flow design",
     "Information architecture",
     "Domain translation (energy → plain language)",
   ],
   context: "JustPow (Thailand)",
-  techStack: [
-    {
-      label: "FigJam",
-      href: "https://www.figma.com/figjam/",
-    },
-    {
-      label: "WordPress",
-      href: "https://wordpress.org/",
-    },
-  ],
   /* Overview */
   overviewTitle: "Overview",
   overview: [
@@ -59,9 +49,9 @@ const baseElectricityBillBreakdownCaseStudy = {
     },
   ],
   /* Reflection */
-  approachTitle: "How PEA experience shaped my contribution",
+  approachTitle: "How [[/#work-pea|PEA]] experience shaped my contribution",
   approach: [
-    "At PEA I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",
+    "At [[/#work-pea|PEA]] I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",
     "I used that context to keep terminology consistent with what Thai consumers see on real bills while explaining the engineering levers (variable fuel components, demand charges, cross-subsidy structures) in language that doesn't require a utility background.",
   ],
   results: null,
@@ -69,5 +59,8 @@ const baseElectricityBillBreakdownCaseStudy = {
 
 export const electricityBillBreakdownProject = {
   ...getMissionGalleryManifestRow("electricity-bill-breakdown"),
-  caseStudy: { ...baseElectricityBillBreakdownCaseStudy, ...electricityBillBreakdownCaseStudyVariant },
+  caseStudy: {
+    ...baseElectricityBillBreakdownCaseStudy,
+    ...electricityBillBreakdownCaseStudyVariant,
+  },
 };

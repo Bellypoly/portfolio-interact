@@ -14,7 +14,7 @@ const basePeaEServiceCaseStudy = {
     "PEA E\u2011Service banner — purple E\u2011SERVICE branding; apply for electricity and water; three service paths (individual, organization, check request status); laptop and phone mockups; footer with eservice.pea.co.th and 1129 PEA Contact Center",
   featuredImageCompact: true,
   task: "Design and build the user experience for PEA's public e-service portal: application flows for electricity and water connections, status tracking, and service requests — with accessibility, mobile-first design, and integration with PEA's backend systems.",
-  disciplines: [
+  focus: [
     "UX design",
     "Frontend development",
     "Accessibility",

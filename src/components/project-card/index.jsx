@@ -27,6 +27,8 @@ const ProjectCard = React.memo(function ProjectCard({
   imagePosition,
   /** Mission Gallery context tag (Product, Civic tech, …) */
   contextLabel,
+  /** Employer / org shorthand when present (e.g. DMN, PEA, thnknet) */
+  companyBadge,
   /** Second pill when present (e.g. Research) */
   groupBadge,
 }) {
@@ -74,11 +76,16 @@ const ProjectCard = React.memo(function ProjectCard({
   const body = (
     <>
       <div className={mediaClass}>
-        {contextLabel || groupBadge ? (
+        {contextLabel || companyBadge || groupBadge ? (
           <div className="project-card__badges">
             {contextLabel ? (
               <span className="project-card__badge project-card__badge--context">
                 {contextLabel}
+              </span>
+            ) : null}
+            {companyBadge ? (
+              <span className="project-card__badge project-card__badge--company">
+                {companyBadge}
               </span>
             ) : null}
             {groupBadge ? (

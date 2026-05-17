@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { resolveActiveSiteVersion } from "./site-version.js";
+import {
+  parseSiteVersionFromSearch,
+  resolveActiveSiteVersion,
+  resolveActiveSiteVersionFromUrlAndEnv,
+} from "./site-version.js";
 
 test("returns canonical site version when valid", () => {
   assert.equal(
@@ -75,4 +79,36 @@ test("uses default when both values are empty", () => {
     }),
     "swe",
   );
+});
+
+test("parseSiteVersionFromSearch reads only v (canonical names and shorthand)", () => {
+  assert.equal(parseSiteVersionFromSearch("?v=data-reporter"), "data-reporter");
+  assert.equal(parseSiteVersionFromSearch("v=swe"), "swe");
+  assert.equal(parseSiteVersionFromSearch("?v=1"), "data-reporter");
+  assert.equal(parseSiteVersionFromSearch("?v=0"), "swe");
+});
+
+test("parseSiteVersionFromSearch ignores other query keys", () => {
+  assert.equal(parseSiteVersionFromSearch("?siteVersion=data-reporter"), null);
+  assert.equal(parseSiteVersionFromSearch("?site=swe&v=1"), "data-reporter");
+});
+
+test("parseSiteVersionFromSearch returns null when missing or invalid", () => {
+  assert.equal(parseSiteVersionFromSearch(""), null);
+  assert.equal(parseSiteVersionFromSearch("?v=nope"), null);
+  assert.equal(parseSiteVersionFromSearch("?v="), null);
+});
+
+test("resolveActiveSiteVersionFromUrlAndEnv uses env when v is missing or invalid", () => {
+  const env = { VITE_SITE_VERSION: "data-reporter" };
+  assert.equal(resolveActiveSiteVersionFromUrlAndEnv(env, ""), "data-reporter");
+  assert.equal(resolveActiveSiteVersionFromUrlAndEnv(env, undefined), "data-reporter");
+  assert.equal(resolveActiveSiteVersionFromUrlAndEnv(env, "?v=nope"), "data-reporter");
+  assert.equal(resolveActiveSiteVersionFromUrlAndEnv(env, "?other=x"), "data-reporter");
+});
+
+test("resolveActiveSiteVersionFromUrlAndEnv prefers valid v over env", () => {
+  const env = { VITE_SITE_VERSION: "data-reporter" };
+  assert.equal(resolveActiveSiteVersionFromUrlAndEnv(env, "?v=swe"), "swe");
+  assert.equal(resolveActiveSiteVersionFromUrlAndEnv(env, "?v=0"), "swe");
 });

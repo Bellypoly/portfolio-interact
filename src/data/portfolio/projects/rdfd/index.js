@@ -14,11 +14,7 @@ const baseRdfdCaseStudy = {
     "Illustration — driver at the wheel with phone and watch maps, dashboard trend lines under a magnifying glass, and alert monitoring",
   featuredImageCompact: true,
   task: "Research and develop machine learning models to detect fake drivers in ride-sharing data — analyze patterns in GPS, timing, and behavioral data to identify fraudulent accounts.",
-  disciplines: [
-    "Machine learning",
-    "Data analysis",
-    "Pattern recognition",
-  ],
+  focus: ["Machine learning", "Data analysis", "Pattern recognition"],
   context: "Academic research · Ride-sharing industry",
   techStack: [
     {

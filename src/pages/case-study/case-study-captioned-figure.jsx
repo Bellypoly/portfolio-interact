@@ -1,5 +1,6 @@
 import React from "react";
 import CaseStudyLightboxImage from "./case-study-lightbox-image";
+import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
 
 function captionPresent(caption) {
   if (caption == null || caption === false) return false;
@@ -37,7 +38,11 @@ export default function CaseStudyCaptionedFigure({
         />
       ) : null}
       {showCaption ? (
-        <figcaption className={captionClassName}>{caption}</figcaption>
+        <figcaption className={captionClassName}>
+          {typeof caption === "string"
+            ? renderCaseStudyInlineRich(caption)
+            : caption}
+        </figcaption>
       ) : null}
     </figure>
   );

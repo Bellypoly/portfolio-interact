@@ -8,8 +8,7 @@ import { federatedLearningEnergyCaseStudyVariant } from "./variants.js";
 const baseFederatedLearningEnergyCaseStudy = {
   /* Header / intro */
   eyebrow: "Research · Systems · Wireless",
-  featuredImg:
-    "images/portfolio/federated-learning-energy/featured-image.jpg",
+  featuredImg: "images/portfolio/federated-learning-energy/featured-image.jpg",
   featuredImgWebp:
     "images/portfolio/federated-learning-energy/featured-image.webp",
   featuredImageAlt:
@@ -17,11 +16,7 @@ const baseFederatedLearningEnergyCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Quantify how federated learning burns energy at the edge when the radio channel is non-orthogonal multiple access (NOMA)—so training stories stay honest about compute and transmission cost.",
-  disciplines: [
-    "MATLAB simulation",
-    "Federated learning",
-    "Wireless modeling",
-  ],
+  focus: ["MATLAB simulation", "Federated learning", "Wireless modeling"],
   context: "Academic / systems research",
   techStack: [
     {
@@ -75,5 +70,8 @@ const baseFederatedLearningEnergyCaseStudy = {
 
 export const federatedLearningEnergyProject = {
   ...getMissionGalleryManifestRow("federated-learning-energy"),
-  caseStudy: { ...baseFederatedLearningEnergyCaseStudy, ...federatedLearningEnergyCaseStudyVariant },
+  caseStudy: {
+    ...baseFederatedLearningEnergyCaseStudy,
+    ...federatedLearningEnergyCaseStudyVariant,
+  },
 };

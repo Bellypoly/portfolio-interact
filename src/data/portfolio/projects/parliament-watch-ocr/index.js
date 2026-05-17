@@ -1,5 +1,5 @@
 /**
- * Parliament Watch — Thai voting record OCR (WeVis) — portfolio entry + case study.
+ * Parliament Watch — Structured parliamentary records from Thai voting PDFs (WeVis) — portfolio entry + case study.
  */
 
 import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js";
@@ -11,12 +11,12 @@ const baseParliamentWatchOcrCaseStudy = {
   featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
   featuredImgWebp: "images/portfolio/parliament-watch-ocr/featured-image.webp",
   featuredImageAlt:
-    "WeVis Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
+    "Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
-  disciplines: ["Document OCR", "Data engineering", "Civic technology"],
-  context: "WeVis / Parliament Watch (open-source civic tech, Thailand)",
+  focus: ["Document OCR", "Data engineering", "Civic technology"],
+  context: "Parliament Watch (open-source civic tech, Thailand)",
   techStack: [
     {
       label: "Python",
@@ -27,7 +27,7 @@ const baseParliamentWatchOcrCaseStudy = {
       href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
     },
     {
-      label: "WeVis / Parliament Watch",
+      label: "Parliament Watch",
       href: "https://parliamentwatch.wevis.info",
     },
     {
@@ -39,12 +39,12 @@ const baseParliamentWatchOcrCaseStudy = {
   overviewTitle: "Overview",
   overview: [
     "Thailand’s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th—not spreadsheets. They are scans: government templates, Thai text and numerals, handwriting, photos, stamps, and tables that shift shape between sessions.",
-    "Parliament Watch (WeVis) needed those pages as rows—fuel for charts like Party Unity, mapping seven major parties across 107 motions in the 26th House. I owned extraction: from PDF pixels to validated tables analysts and front-end engineers could trust.",
+    "Parliament Watch needed those pages as rows—fuel for charts like Party Unity, mapping seven major parties across 108 motions in the 26th House. I owned extraction: from PDF pixels to validated tables analysts and front-end engineers could trust.",
     {
       text: "Live visualization: ",
       externalLink: {
         href: "https://wevis.info/partyunityvisual/",
-        label: "Party Unity Visual (WeVis)",
+        label: "Party Unity Visual",
       },
       after: "",
     },
@@ -83,7 +83,7 @@ const baseParliamentWatchOcrCaseStudy = {
   results: null,
   /* Final related surface */
   relatedProject: {
-    slug: "vote62-ect-report-69",
+    slug: "vote62",
     label:
       "Related civic work — VOTE62: ECT Report 69 OCR, validation & open election data →",
   },

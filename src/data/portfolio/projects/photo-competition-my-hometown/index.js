@@ -16,11 +16,7 @@ const basePhotoCompetitionMyHometownCaseStudy = {
     "Amphawa Floating Market — boats on canal with vendors, palm trees, and traditional Thai architecture in golden hour light.",
   featuredImageCompact: true,
   task: "Document cultural heritage through photography: capture the essence of Amphawa Floating Market and submit to Texas Tech's 'My Hometown' juried photography exhibit.",
-  disciplines: [
-    "Photography",
-    "Cultural documentation",
-    "Visual storytelling",
-  ],
+  focus: ["Photography", "Cultural documentation", "Visual storytelling"],
   context: "Texas Tech University · 'My Hometown' Photography Competition",
   techStack: [
     {
@@ -64,5 +60,8 @@ const basePhotoCompetitionMyHometownCaseStudy = {
 
 export const photoCompetitionMyHometownProject = {
   ...getMissionGalleryManifestRow("photo-competition-my-hometown"),
-  caseStudy: { ...basePhotoCompetitionMyHometownCaseStudy, ...photoCompetitionMyHometownCaseStudyVariant },
+  caseStudy: {
+    ...basePhotoCompetitionMyHometownCaseStudy,
+    ...photoCompetitionMyHometownCaseStudyVariant,
+  },
 };

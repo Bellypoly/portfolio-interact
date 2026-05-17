@@ -3,9 +3,9 @@ import { makeThaiArabicNumeralReferenceTableParagraph } from "../../thai-arabic-
 
 const THAI_NUMERAL_TABLE_PARAGRAPH =
   makeThaiArabicNumeralReferenceTableParagraph({
-    rows: "labeled",
+    rows: "compact",
     caption:
-      "Reference table: Same values, two glyph systems. The pipeline normalized both systems for aggregation, joins, and validation while preserving safeguards against ambiguous reads.",
+      "Same value, two glyph systems: Western Arabic (top row) and Thai numerals (bottom row). ECT scans mix them in one run; the pipeline normalizes for math and joins while validation still protects ambiguous reads from being overwritten quietly.",
   });
 
 const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
@@ -18,9 +18,9 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   afterApproachCluster: "parliament",
 
   /* Header / intro */
-  eyebrow: "CIVIC DATA · PUBLIC RECORDS · DATA NORMALIZATION",
+  eyebrow: "Civic data · Parliamentary transparency · Open government records",
   task: "",
-  disciplines: [
+  focus: [
     "Public-records normalization",
     "OCR-assisted extraction",
     "Validation methodology",
@@ -40,7 +40,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   problemSection: Object.freeze({
     title: "Problem",
     paragraphs: Object.freeze([
-      "The \u0022Secretariat of the House of Representatives of Thailand\u0022 publishes parliamentary voting records primarily as PDF documents rather than structured datasets. While technically public, the records were still difficult to search, analyze, or compare at scale because they contained \u0022Thai script and numerals\u0022, parliamentary formatting conventions, and semi-structured multi-line document layouts that were not easily transformed into reliable ==machine-readable voting records==.",
+      "\u0022Thailand’s Secretariat of the House of Representatives\u0022 publishes parliamentary voting records primarily as fixed-layout PDFs rather than structured datasets. While publicly accessible, the records remained difficult to search, compare, and analyze at scale because they contained \u0022Thai script and numerals\u0022, parliamentary formatting conventions, and semi-structured multi-line layouts not easily transformed into reliable ==machine-readable== voting data.",
       "Transforming parliamentary voting records into structured datasets made large-scale legislative analysis more accessible for analysts, journalists, researchers, and the public. Converting those records into reusable data also improved the reproducibility of parliamentary analysis across legislative sessions and voting records.",
     ]),
     figures: Object.freeze([
@@ -50,7 +50,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
           "images/portfolio/parliament-watch-ocr/voting-records-pdf-example.webp",
         alt: "Three pages of Thai House of Representatives voting records as official PDFs: Thai script and Thai numerals in aligned, table-like layouts without a formal grid.",
         caption:
-          "Example parliamentary voting records published as PDF documents rather than structured datasets.",
+          "Examples of parliamentary [[https://msbis.parliament.go.th/ewtadmin/ewt/parliament_report/main_warehouse_dll_x.php?aid=11753&mid=4617|voting records]] and [[https://msbis.parliament.go.th/ewtadmin/ewt/parliament_report/main_warehouse_dll_x.php?aid=11489&mid=4617|summary reports]], published as PDFs rather than structured datasets — see **Why it matters** below.",
       }),
     ]),
     figureColumns: 1,
@@ -71,13 +71,13 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
         "attendance trends within and across political parties",
       ]),
     }),
-    "The resulting visualizations made complex legislative behavior more understandable, explorable, and accessible for public audiences.",
+    "The resulting datasets supported public-facing visualizations that made complex legislative behavior more understandable and explorable for broader public audiences.",
     Object.freeze({
       baPanel: Object.freeze({
         variant: "after",
         title: "Key findings",
         paragraphs: Object.freeze([
-          "Analysis of the structured voting records showed that more than ==77% of parliamentary votes== received majority support across all seven major political parties, while a smaller subset of highly publicized votes revealed clear inter-party conflict and internal voting divisions.",
+          "Analysis of the structured voting records showed that more than ==77% of parliamentary votes== received majority support across all 7 major political parties, while a smaller subset of highly publicized votes revealed clear inter-party conflict and internal voting divisions.",
           "The resulting datasets enabled downstream analysis of:",
           Object.freeze({
             bulletListPlain: true,
@@ -86,7 +86,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
               "coalition behavior over time",
               "parliamentary attendance trends",
               "abstention and non-voting patterns",
-              "intra-party voting conflicts across 107 parliamentary votes and legislative motions",
+              "intra-party voting conflicts across 108 parliamentary votes and legislative motions",
             ]),
           }),
         ]),
@@ -108,30 +108,17 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   overviewSystemDesign: Object.freeze({
     sectionTitle: "Extraction workflow",
     intro: "",
-    diagram: Object.freeze([
-      "Parliamentary PDFs",
-      "↓",
-      "Record Extraction",
-      "↓",
-      "Thai Numeral Extraction",
-      "↓",
-      "Normalization",
-      "↓",
-      "Validation Checks",
-      "↓",
-      "Structured Voting Dataset",
-      "↓",
-      "Public Visualizations + Open Data",
-    ]),
+    diagramImage: "images/portfolio/parliament-watch-ocr/workflow.png",
+    diagramImageWebp: "images/portfolio/parliament-watch-ocr/workflow.webp",
+    diagramCompact: true,
     caption:
-      "Workflow used to transform parliamentary voting PDFs into structured datasets.",
+      "Seven-step pipeline from parliamentary PDFs through OCR, Thai numeral handling, normalization, validation, structured datasets, and public visualizations with open data.",
     diagramAlt:
-      "Flow from parliamentary PDFs through table parsing, Thai numeral extraction, normalization, validation checks, structured voting dataset, to public visualizations and open data",
+      "Parliament Watch OCR workflow in seven steps: parliamentary records, record extraction, Thai numeral extraction, data normalization, validation checks, structured voting dataset, public visualizations and open data",
   }),
 
-  /* Methodology */
+  /* Methodology — bordered pillars (same shell as Vote62 `project-case-study__pillars`) */
   methodologyTitle: "Methodology",
-  methodologyPillarsLayout: "subsections",
   pillars: Object.freeze([
     Object.freeze({
       title: "Structured document parsing",
@@ -168,11 +155,8 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     }),
     Object.freeze({
       title: "Thai-language numeral normalization",
-      body: "I handled Thai numerals (๐–๙) and mixed Thai/Arabic number formats that standard extraction workflows frequently ==misclassified or skipped entirely==.",
-      afterBlocks: Object.freeze([
-        "Numeral normalization reference",
-        THAI_NUMERAL_TABLE_PARAGRAPH,
-      ]),
+      body: "I handled Thai numerals (๐–๙) and mixed Thai/Arabic number formats that standard extraction workflows frequently misclassified or skipped entirely.",
+      afterBlocks: Object.freeze([THAI_NUMERAL_TABLE_PARAGRAPH]),
     }),
   ]),
   strategyAppend: Object.freeze([]),
@@ -214,15 +198,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   /* Public dataset */
   publicDatasetSectionTitle: "Public dataset",
   publicDatasetSectionIntro:
-    "Structured parliamentary voting dataset generated from parliamentary PDFs and used for downstream legislative analysis and visualization workflows.",
-  /** Sheet tab shown in embed = `gid` in URL (open the tab in Sheets; copy `#gid=…` or `?gid=…`). */
-  publicDatasetIframeEmbed: Object.freeze({
-    src: "https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/preview?gid=706401250",
-    title: "Structured parliamentary voting dataset — sheet preview",
-    minHeight: "420px",
-  }),
-  /** No extra link row under embed; sheet open link is implicit from preview above. */
-  publicDatasetSectionBlocks: Object.freeze([]),
+    "Structured parliamentary voting dataset reconstructed from Thai parliamentary PDFs and prepared for legislative analysis, transparency reporting, and civic-data visualization workflows. The dataset is publicly available in [[https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250|Google Sheets]] format.",
 
   /* Broader impact */
   deferredImpactTitle: "Impact",
@@ -241,7 +217,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   ]),
   results: Object.freeze([
     Object.freeze({
-      value: "107",
+      value: "108",
       label: "Parliamentary motions analyzed",
     }),
     Object.freeze({

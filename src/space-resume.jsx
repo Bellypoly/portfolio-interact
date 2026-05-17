@@ -15,6 +15,7 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import "./space-resume.css";
 import OpeningCrawl from "./sections/opening-crawl-section/index.jsx";
 import { useMobileScrollBeginHint } from "./sections/opening-crawl-section/use-opening-crawl.js";
@@ -96,21 +97,7 @@ function useMouseParallax(axisX, axisY, range) {
 }
 
 export default function SpaceResume() {
-  useEffect(() => {
-    const y = consumeMissionScrollRestore();
-    if (y == null) return;
-    const apply = () => window.scrollTo(0, y);
-    apply();
-    const raf = requestAnimationFrame(() => {
-      apply();
-      requestAnimationFrame(apply);
-    });
-    const t = window.setTimeout(apply, 150);
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-    };
-  }, []);
+  const location = useLocation();
 
   const preferSimpleMotion = usePreferSimpleMotion();
   const [eduTimelineFilter, setEduTimelineFilter] = useState(
@@ -129,6 +116,55 @@ export default function SpaceResume() {
     reduce.addEventListener("change", sync);
     return () => reduce.removeEventListener("change", sync);
   }, []);
+
+  useEffect(() => {
+    const hasFragment =
+      typeof window !== "undefined" && window.location.hash.length > 1;
+    const y = consumeMissionScrollRestore();
+    if (hasFragment) {
+      return;
+    }
+    if (y == null) return;
+    const apply = () => window.scrollTo(0, y);
+    apply();
+    const raf = requestAnimationFrame(() => {
+      apply();
+      requestAnimationFrame(apply);
+    });
+    const t = window.setTimeout(apply, 150);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, []);
+
+  useEffect(() => {
+    const id = (location.hash ?? "").replace(/^#/, "").trim();
+    if (!id) return undefined;
+    let cancelled = false;
+    const tryScroll = () => {
+      if (cancelled) return;
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+          block: "start",
+        });
+        return true;
+      }
+      return false;
+    };
+    if (tryScroll()) return undefined;
+    const interval = window.setInterval(() => {
+      if (tryScroll()) window.clearInterval(interval);
+    }, 50);
+    const max = window.setTimeout(() => window.clearInterval(interval), 8000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+      window.clearTimeout(max);
+    };
+  }, [location.hash, prefersReducedMotion]);
 
   const { scrollYProgress } = useScroll();
   const sectionRefs = useRef(null);

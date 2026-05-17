@@ -9,6 +9,7 @@
  *
  * `portfolioLabel` is the small gallery tag; stick to this set: Product, Competition, Thesis,
  * Paper, Academic, Marketplace, Platform, Civic tech, Public sector.
+ * Optional `companyBadge` (manifest): short employer/org tag on the card (e.g. DMN, PEA, thnknet).
  */
 
 import { MISSION_GALLERY_MANIFEST } from "../../data/portfolio/mission-gallery-manifest.js";

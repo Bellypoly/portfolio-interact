@@ -15,7 +15,7 @@ const baseJerdiKidsCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Design and build a community-driven safety net: QR wristbands any passerby can scan with a camera, BLE bands heard by receivers you place where coverage matters (caregiver phones, tablets on a school bus, fixed gateways)—one notification backbone for families, call centers, and authorities. I owned caregiver UI/UX (alerts, maps, status), the wristband face (QR legibility and finish, consistent with the app), and hands-on engineering—the web platform and app UI in production code with integrations, not handoff-only mocks.",
-  disciplines: [
+  focus: [
     "System architecture",
     "UI/UX — mobile app & wristband touchpoint",
     "Software development — web platform & app",

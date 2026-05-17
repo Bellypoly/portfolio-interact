@@ -136,9 +136,18 @@ function renderCaseStudyCalloutBlock(callout, key, baseUrl, renderParagraph) {
 
 /** Rich overview-style paragraph: string, `{ baPanel: { variant?, title?, paragraphs } }` (BA panel shell), `{ baPanelTitle }`, `{ beforeAfterCompare }`, `{ referenceTable }`, `{ bulletList }` (optional `bulletListPlain`), `{ callout }`, etc. */
 export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
+  const paragraphClass = [
+    "project-case-study__p",
+    typeof paragraph?.className === "string" && paragraph.className.trim()
+      ? paragraph.className.trim()
+      : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   if (typeof paragraph === "string") {
     return (
-      <p key={key} className="project-case-study__p">
+      <p key={key} className={paragraphClass}>
         {renderCaseStudyInlineRich(paragraph)}
       </p>
     );
@@ -188,6 +197,38 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
           typeof item === "string" ? renderCaseStudyInlineRich(item) : item
         }
       />
+    );
+  }
+  if (paragraph?.pillar?.body) {
+    const pillar = paragraph.pillar;
+    const pillarClassName = [
+      "project-case-study__pillars",
+      typeof paragraph.className === "string" && paragraph.className.trim()
+        ? paragraph.className.trim()
+        : null,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    return (
+      <ul key={key} className={pillarClassName}>
+        <li className="project-case-study__pillar">
+          {typeof pillar.title === "string" && pillar.title.trim() ? (
+            <h3 className="project-case-study__h3">
+              {renderCaseStudyInlineRich(pillar.title)}
+            </h3>
+          ) : null}
+          <p className="project-case-study__p project-case-study__p--tight">
+            {renderCaseStudyInlineRich(pillar.body)}
+          </p>
+          {pillar.afterBlocks?.length ? (
+            <div className="mt-4 space-y-4 md:mt-5 md:space-y-5">
+              {pillar.afterBlocks.map((block, bi) =>
+                renderCaseStudyParagraph(block, `${key}-pillar-after-${bi}`, baseUrl),
+              )}
+            </div>
+          ) : null}
+        </li>
+      </ul>
     );
   }
   if (paragraph?.callout) {
@@ -361,7 +402,7 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   }
   if (paragraph.externalLink) {
     return (
-      <p key={key} className="project-case-study__p">
+      <p key={key} className={paragraphClass}>
         {renderCaseStudyInlineRich(paragraph.text ?? "")}
         <a
           href={paragraph.externalLink.href}
@@ -379,7 +420,7 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   }
   if (paragraph.link) {
     return (
-      <p key={key} className="project-case-study__p">
+      <p key={key} className={paragraphClass}>
         {paragraph.text}
         <Link
           to={`/mission/${paragraph.link.slug}`}
@@ -393,15 +434,15 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
   }
   if (paragraph.emphasis != null) {
     return (
-      <p key={key} className="project-case-study__p">
+      <p key={key} className={paragraphClass}>
         {renderCaseStudyInlineRich(paragraph.text ?? "")}
         {renderCaseStudyInlineRich(paragraph.emphasis)}
       </p>
     );
   }
   return (
-    <p key={key} className="project-case-study__p">
-      {paragraph.text}
+    <p key={key} className={paragraphClass}>
+      {renderCaseStudyInlineRich(paragraph.text ?? "")}
     </p>
   );
 }

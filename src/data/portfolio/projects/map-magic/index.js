@@ -15,7 +15,7 @@ const baseMapMagicCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Turn OpenStreetMap from a respectable starting line into a Thailand-native map platform: proprietary tiles and POI, dependable REST APIs for partners and first-party Android, internal capture/QA loops that fed production indexes, and routing that respected our graph and cost models—not whatever a generic global router imagines a soi should do.",
-  disciplines: [
+  focus: [
     "Map platform & APIs",
     "Routing & graph",
     "Field + back-office ops",
@@ -69,8 +69,7 @@ const baseMapMagicCaseStudy = {
     {
       figureBlock: {
         img: "images/portfolio/map-magic/thinknet-maps-basemap-styles.png",
-        imgWebp:
-          "images/portfolio/map-magic/thinknet-maps-basemap-styles.webp",
+        imgWebp: "images/portfolio/map-magic/thinknet-maps-basemap-styles.webp",
         alt: "Examples of THiNKNET Maps basemap styles over the same Thailand viewport (e.g. Ivory, Hybrid, Charcoal, Cha Thai, Terrain, Cloudy)—illustrative, not a complete catalog.",
         caption:
           "Sample basemaps on THiNKNET Maps—same view, different styles; more options exist beyond this strip.",

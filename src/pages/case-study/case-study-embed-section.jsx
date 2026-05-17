@@ -1,10 +1,15 @@
 import React from "react";
+import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
+import CaseStudyIframe from "./case-study-iframe";
 
 /**
  * Flourish story / iframe embeds share the same layout shell.
- * Pass either `flourishEmbed` (string URL) or `iframeEmbed` ({ src, title?, caption?, minHeight? }).
+ * Pass either `flourishEmbed` (string URL) or `iframeEmbed` ({
+ *   src, title?, caption?, minHeight?,
+ *   intro? — optional body copy above the iframe (normal `.project-case-study__p`, not caption tone).
+ * }).
  */
-export default function CaseStudyEmbed({
+export default function CaseStudyEmbedSection({
   flourishEmbed,
   flourishCaption,
   iframeEmbed,
@@ -13,13 +18,9 @@ export default function CaseStudyEmbed({
   const hasIframe = Boolean(iframeEmbed?.src);
   if (!hasFlourish && !hasIframe) return null;
 
-  const {
-    src,
-    title = "Embedded document",
-    caption,
-    minHeight,
-  } = iframeEmbed ?? {};
-  const embedStyle = minHeight ? { minHeight } : undefined;
+  const { intro, caption } = iframeEmbed ?? {};
+  const hasIntro = typeof intro === "string" && intro.trim() !== "";
+  const hasCaption = typeof caption === "string" && caption.trim() !== "";
 
   return (
     <>
@@ -46,21 +47,20 @@ export default function CaseStudyEmbed({
       ) : null}
       {hasIframe ? (
         <section className="project-case-study__section">
-          {caption ? (
-            <p className="project-case-study__p mx-auto max-w-none">{caption}</p>
+          {hasIntro ? (
+            <p className="project-case-study__p mx-auto max-w-none">
+              {renderCaseStudyInlineRich(intro.trim())}
+            </p>
           ) : null}
-          <div className="project-case-study__embed-wrap project-case-study__section--embed">
-            <iframe
-              src={src}
-              className="project-case-study__embed"
-              style={embedStyle}
-              title={title}
-              frameBorder="0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
+          <CaseStudyIframe
+            iframeEmbed={iframeEmbed}
+            className={`project-case-study__section--embed${hasIntro ? " mt-6 md:mt-7" : ""}`}
+          />
+          {hasCaption ? (
+            <p className="project-case-study__caption max-w-none mt-3 md:mt-4">
+              {renderCaseStudyInlineRich(caption.trim())}
+            </p>
+          ) : null}
         </section>
       ) : null}
     </>

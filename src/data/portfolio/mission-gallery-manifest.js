@@ -4,7 +4,8 @@
  *
  * Display order comes from the active Mission Gallery version (`ACTIVE_MISSION_GALLERY_VERSION`).
  *
- * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel → anchorId? →
+ * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel → companyBadge? →
+ * hideGalleryDescOnCaseStudy? (when true, `/mission/:slug` footer omits manifest `desc`; gallery tiles still use `desc`) → anchorId? →
  * name → desc → cardImageFit? → cardImagePosition? → img → imgWebp → alt → link?
  *
  * New mission: row in this file, then slug in `load-portfolio-project.js`, then `projects/<slug>/index.js`
@@ -15,16 +16,16 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "./mission-gallery-version-config
 
 const MISSION_GALLERY_ROWS = [
   {
-    slug: "vote62-ect-report-69",
+    slug: "vote62",
     portfolioGroup: "professional",
     portfolioYear: 2026,
     portfolioLabel: "Civic tech",
     anchorId: "portfolio-vote69",
-    name: "VOTE62 — ECT Report 69: OCR, ETL & open election data",
-    desc: "VOTE62 — 400 Thai constituencies rebuilt from ECT tally PDFs into validated tables so civic tech and newsrooms run on structure, not hand-typed cells.",
+    name: "VOTE62 — Structured election data from ECT PDF records",
+    desc: "400 Thai constituencies rebuilt from ECT tally PDFs into validated structured datasets so public-interest projects run on structure, not hand-typed spreadsheets.",
     cardImagePosition: "center center",
-    img: "images/portfolio/vote62-ect-report-69/thumbnail.png",
-    imgWebp: "images/portfolio/vote62-ect-report-69/thumbnail.webp",
+    img: "images/portfolio/vote62/thumbnail.png",
+    imgWebp: "images/portfolio/vote62/thumbnail.webp",
     alt: "VOTE62 Mission Gallery thumbnail: stylized tally tables and constituency-style election graphics",
     link: "https://rocketmedialab.co/database-vote62-report-69-1/",
   },
@@ -34,8 +35,8 @@ const MISSION_GALLERY_ROWS = [
     portfolioYear: 2024,
     portfolioLabel: "Civic tech",
     anchorId: "portfolio-parliament-watch",
-    name: "Parliament Watch — Thai Voting Record OCR",
-    desc: "Parliament Watch OCR—from parliamentary voting PDFs with Thai script & numerals and semi-structured formatting to structured datasets for public-interest analysis.",
+    name: "Parliament Watch — Structured parliamentary records from Thai voting PDFs",
+    desc: "Transformed parliamentary voting PDFs containing Thai script, numerals, and semi-structured legislative records into structured datasets supporting legislative analysis, civic transparency, and public-facing visualization.",
     cardImagePosition: "center 71%",
     img: "images/portfolio/parliament-watch-ocr/thumbnail.png",
     imgWebp: "images/portfolio/parliament-watch-ocr/thumbnail.webp",
@@ -50,6 +51,7 @@ const MISSION_GALLERY_ROWS = [
     anchorId: "portfolio-electricity-bill-breakdown",
     name: "Where Does Your Electricity Bill Go?",
     desc: "Civic explainer for Thai electricity bills—progressive flow from one honest question (\u201cwhat am I paying for?\u201d) to tariffs, Ft, and fairness.",
+    hideGalleryDescOnCaseStudy: true,
     img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
     imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
     alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
@@ -60,6 +62,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2022,
     portfolioLabel: "Product",
+    companyBadge: "DMN",
     anchorId: "portfolio-local-elections-hub",
     name: "Local Elections Hub",
     desc: "Elections hub rebuilt for Arc XP—typed race data, county anchors, lightweight viz, and mobile-first grids for live returns.",
@@ -73,6 +76,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2019,
     portfolioLabel: "Public sector",
+    companyBadge: "PEA",
     anchorId: "portfolio-outage-ms",
     name: "Outage Management & Reliability Platform",
     desc: "At Thailand\u2019s Provincial Electricity Authority (PEA), when maps, outage records, and work systems disagree on the same fault, control rooms and branches fall back to phone calls and spreadsheets. I owned the integration boundary so one outage identity held across the Outage Management System, GIS (geographic information system), SAP ERP, and reporting: APIs from eRespond (PEA\u2019s operator-facing outage intake\u2014faults, planned work, ETR (estimated time of restoration)) into OMS, scheduled GIS shapefiles into OMS, read contracts for every downstream consumer, and warehouse-backed Power BI aligned to the outage lifecycle crews and reliability already depended on. SAP, GIS, SCADA, and ADMS each had PEA platform owners and third-party integrators; I coordinated handoffs across those teams while staying accountable for the seams\u2014APIs, GIS jobs, warehouse joins, and reporting alignment.",
@@ -86,6 +90,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2025,
     portfolioLabel: "Product",
+    companyBadge: "DMN",
     anchorId: "portfolio-paywall",
     name: "AI-Powered Dynamic Paywall",
     desc: "Sophi ML paywall on Arc XP—gate, meter, or let stories through per visit while GA4 and flags keep rollout safe.",
@@ -99,6 +104,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2018,
     portfolioLabel: "Platform",
+    companyBadge: "thnknet",
     anchorId: "portfolio-map-magic",
     name: "MapMagic",
     desc: "Thailand map infrastructure I helped build—REST map APIs, custom tiles and POI, field Android capture, and routing that survives real Bangkok traffic, not demo coordinates.",
@@ -112,6 +118,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2019,
     portfolioLabel: "Marketplace",
+    companyBadge: "thnknet",
     anchorId: "portfolio-thinknet",
     name: "JobThai",
     desc: "Thailand\u2019s national job board—Elasticsearch search, resume flows, and map-grounded filters (e.g. BTS/MRT corridors, industrial estates / นิคมอุตสาหกรรม) so listings match real commutes.",
@@ -125,6 +132,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2025,
     portfolioLabel: "Product",
+    companyBadge: "DMN",
     anchorId: "portfolio-article-redesign",
     name: "Article Experience & Engagement Optimization",
     desc: "Article stack after AMP—single-column story, lazy GAM, Viafoura, paywall-aware branches, GA4 · Datadog · BlueConic instrumentation.",
@@ -138,6 +146,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2025,
     portfolioLabel: "Product",
+    companyBadge: "DMN",
     anchorId: "portfolio-subscription",
     name: "End-to-End Subscription Conversion System",
     desc: "Rebuilt a three-page checkout leak into one React surface—then used Clarity evidence to refine the flow and onboard new subscribers.",
@@ -151,6 +160,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2019,
     portfolioLabel: "Public sector",
+    companyBadge: "PEA",
     anchorId: "portfolio-pea-eservice",
     name: "PEA E\u2011Service",
     desc: "Thai utilities already had the data. The hard part was the story people saw. With PWA (Provincial Waterworks Authority of Thailand) I helped wire PEA (Provincial Electricity Authority) and water into one authenticated portal—plus registry, land, highway, Ministry of Energy (including solar with PEA), and GIS layers kept in sync with case data—so the product read as one journey. I also worked on PPIM (Power Producer Information Management System) so producer programs had their own lane.",
@@ -248,7 +258,7 @@ const MISSION_GALLERY_ORDER = Object.freeze({
     "jobthai",
     "map-magic",
     // TIER 2: Civic/public-interest data impact.
-    "vote62-ect-report-69",
+    "vote62",
     "parliament-watch-ocr",
     "electricity-bill-breakdown",
     // TIER 3: Research/technical depth.
@@ -261,7 +271,7 @@ const MISSION_GALLERY_ORDER = Object.freeze({
   ]),
   "data-reporter": Object.freeze([
     // TIER 1: Identity-defining civic/public-interest data work.
-    "vote62-ect-report-69",
+    "vote62",
     "parliament-watch-ocr",
     "electricity-bill-breakdown",
     "local-elections-hub",
@@ -322,7 +332,7 @@ export const MISSION_GALLERY_MANIFEST = buildMissionGalleryManifestForVersion(
 
 /*
  * Archived `squeeze-it` is intentionally excluded from `MISSION_GALLERY_MANIFEST`.
- * To ship it: add a live gallery row, loader entry, and `projects/squeeze-it-project.js`.
+ * To ship it: add a live gallery row, loader entry, and `projects/squeeze-it/index.js`.
  *
  * {
  *   slug: "squeeze-it",
@@ -337,7 +347,7 @@ export const MISSION_GALLERY_MANIFEST = buildMissionGalleryManifestForVersion(
  *   caseStudy: {
  *     eyebrow: "AI · Visualization",
  *     task: "Ship a marble puzzle people can parse move-by-move, and an AI opponent steered by legible heuristics—not an opaque win/loss score.",
- *     disciplines: ["Heuristic search", "D3.js", "Game UX"],
+ *     focus: ["Heuristic search", "D3.js", "Game UX"],
  *     context: "Academic AI project",
  *     techStack: [
  *       {

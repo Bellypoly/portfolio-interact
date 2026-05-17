@@ -13,9 +13,8 @@ const baseJobthaiCaseStudy = {
   featuredImageAlt:
     "JobThai — job seeker and recruiter illustration with Resume branding and soft green workspace palette",
   task: "Move seekers from skimming listings to confident applications: search that surfaces the right roles under real filters, and resume tooling that strengthens each profile instead of collapsing everything into the same template.",
-  disciplines: ["Search & discovery", "Recommendations", "Resume tools"],
-  context:
-    "JobThai — THiNKNET Co., Ltd. · national job marketplace (Thailand)",
+  focus: ["Search & discovery", "Recommendations", "Resume tools"],
+  context: "JobThai — THiNKNET Co., Ltd. · national job marketplace (Thailand)",
   techStack: [
     {
       label: "THiNKNET",

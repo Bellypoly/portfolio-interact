@@ -17,11 +17,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   task: "Evaluate logistics performance at a printing and packaging company in Thailand — map the operation against World Bank LPI dimensions, quantify where cost, lead time, and service reliability break down, and frame actionable improvement paths.",
-  disciplines: [
-    "Operations research",
-    "LPI benchmarking",
-    "Case study methodology",
-  ],
+  focus: ["Operations research", "LPI benchmarking", "Case study methodology"],
   context: "IEOM 2016 · Academic research (Thailand)",
   techStack: [
     {
@@ -87,5 +83,8 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
 
 export const industrialLogisticsEvaluationProject = {
   ...getMissionGalleryManifestRow("industrial-logistics-evaluation"),
-  caseStudy: { ...baseIndustrialLogisticsEvaluationCaseStudy, ...industrialLogisticsEvaluationCaseStudyVariant },
+  caseStudy: {
+    ...baseIndustrialLogisticsEvaluationCaseStudy,
+    ...industrialLogisticsEvaluationCaseStudyVariant,
+  },
 };

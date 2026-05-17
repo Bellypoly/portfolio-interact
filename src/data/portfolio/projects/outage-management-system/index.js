@@ -8,8 +8,7 @@ import { outageManagementSystemCaseStudyVariant } from "./variants.js";
 const baseOutageManagementSystemCaseStudy = {
   /* Header / intro */
   eyebrow: "Public sector · OMS · Multi-system integration",
-  featuredImg:
-    "images/portfolio/outage-management-system/featured-oms-hub.png",
+  featuredImg: "images/portfolio/outage-management-system/featured-oms-hub.png",
   featuredImgWebp:
     "images/portfolio/outage-management-system/featured-oms-hub.webp",
   featuredImageAlt:
@@ -18,7 +17,7 @@ const baseOutageManagementSystemCaseStudy = {
   featuredImageObjectPosition: "center center",
   featuredImageObjectPositionMd: "center 35%",
   task: "Make outage data one continuous story: a single outage id should travel from intake through the Outage Management System (OMS) into mapping, field and grid operations, and reporting\u2014including ETR (estimated time of restoration)\u2014and still join cleanly when storms, SAP backlog, or late GIS exports stress the pipe. I stayed on the integration layer: APIs between eRespond and OMS (the same class of work as GIS (geographic information system)\u2192OMS), scheduled GIS shapefile ingestion, warehouse fields, and reporting alignment\u2014not SCADA (supervisory control and data acquisition) acquisition or deep SAP ERP core work. That work sat at the intersection of Provincial Electricity Authority (PEA) engineering, reliability, and vendor-led programs, so clear contracts and calm cutovers mattered as much as code.",
-  disciplines: [
+  focus: [
     "API integration",
     "Data synchronization",
     "Distributed systems",
@@ -105,5 +104,8 @@ const baseOutageManagementSystemCaseStudy = {
 
 export const outageManagementSystemProject = {
   ...getMissionGalleryManifestRow("outage-management-system"),
-  caseStudy: { ...baseOutageManagementSystemCaseStudy, ...outageManagementSystemCaseStudyVariant },
+  caseStudy: {
+    ...baseOutageManagementSystemCaseStudy,
+    ...outageManagementSystemCaseStudyVariant,
+  },
 };
