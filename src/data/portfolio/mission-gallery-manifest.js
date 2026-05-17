@@ -27,7 +27,7 @@ const MISSION_GALLERY_ROWS = [
     img: "images/portfolio/vote62/thumbnail.png",
     imgWebp: "images/portfolio/vote62/thumbnail.webp",
     alt: "VOTE62 Mission Gallery thumbnail: stylized tally tables and constituency-style election graphics",
-    link: "https://rocketmedialab.co/database-vote62-report-69-1/",
+    link: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/preview",
   },
   {
     slug: "parliament-watch-ocr",

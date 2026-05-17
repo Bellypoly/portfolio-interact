@@ -113,7 +113,7 @@ export default function ProjectCaseStudyPage() {
   if (project === undefined) {
     return (
       <div
-        className={`project-case-study${slug ? ` project-case-study--${slug}` : ""}`}
+        className={`project-case-study project-case-study--loading${slug ? ` project-case-study--${slug}` : ""}`}
       >
         <header className="project-case-study__header">
           <div className="project-case-study__header-inner">
@@ -128,13 +128,19 @@ export default function ProjectCaseStudyPage() {
             </button>
           </div>
         </header>
-        <p
-          className="project-case-study__loading"
+        <div
+          className="project-case-study__loading-wrap"
           role="status"
           aria-live="polite"
+          aria-label="Loading case study"
         >
-          Loading case study…
-        </p>
+          <p className="project-case-study__loading-icon" aria-hidden="true">
+            🔭
+          </p>
+          <p className="project-case-study__loading-text">
+            Loading case study…
+          </p>
+        </div>
       </div>
     );
   }
@@ -494,11 +500,7 @@ export default function ProjectCaseStudyPage() {
 
         {cs.overviewAfter?.length
           ? cs.overviewAfter.map((block, i) =>
-              renderCaseStudyParagraph(
-                block,
-                `overview-after-${i}`,
-                baseUrl,
-              ),
+              renderCaseStudyParagraph(block, `overview-after-${i}`, baseUrl),
             )
           : null}
 
@@ -804,10 +806,7 @@ export default function ProjectCaseStudyPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span
-                className="project-case-study__cta-play"
-                aria-hidden="true"
-              >
+              <span className="project-case-study__cta-play" aria-hidden="true">
                 ▶
               </span>
               <HoverRevealText className="project-case-study__hover-reveal project-case-study__cta-label">

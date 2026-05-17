@@ -52,7 +52,7 @@ const baseParliamentWatchOcrCaseStudy = {
       text: "Structured output (open data): ",
       externalLink: {
         href: "https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250",
-        label: "Vote26 Data — per-party voting records (Google Sheets)",
+        label: "Vote62 Data — per-party voting records (Google Sheets)",
       },
       after:
         " — the tabular dataset my OCR pipeline produced from scanned parliament PDFs, used directly by the visualization and analysis teams.",
@@ -85,7 +85,7 @@ const baseParliamentWatchOcrCaseStudy = {
   relatedProject: {
     slug: "vote62",
     label:
-      "Related civic work — VOTE62: ECT Report 69 OCR, validation & open election data →",
+      "Related civic work — VOTE62 : ECT Report 2026 OCR, validation & open election data →",
   },
 };
 

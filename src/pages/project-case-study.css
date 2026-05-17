@@ -66,9 +66,24 @@
   @apply relative flex w-full max-w-[90ch] items-center justify-start px-5 md:px-8;
 }
 
-.project-case-study__loading {
-  @apply mx-auto max-w-[90ch] px-5 py-16 md:px-8;
+.project-case-study--loading {
+  @apply flex min-h-dvh flex-col;
+}
+
+.project-case-study__loading-wrap {
+  @apply flex flex-1 flex-col items-center justify-center gap-4 px-5 py-16 text-center md:px-8;
   font-family: var(--cs-font-body);
+}
+
+.project-case-study__loading-icon {
+  @apply m-0 leading-none;
+  font-size: clamp(3.5rem, 14vw, 5.5rem);
+}
+
+.project-case-study__loading-text {
+  @apply m-0;
+  font-size: var(--cs-text-ui);
+  line-height: var(--cs-lh-ui);
   color: var(--site-editorial-muted);
 }
 

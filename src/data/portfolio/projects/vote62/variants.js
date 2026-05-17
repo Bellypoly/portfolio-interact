@@ -6,7 +6,7 @@ export const vote62CaseStudyVariants = Object.freeze({
   "data-reporter": Object.freeze({
     eyebrow:
       "Civic data · Election transparency · OCR · Open government records",
-    task: "Transform government-published ECT election PDFs into structured datasets for civic-data platforms, public-interest analysis, and newsroom reporting.",
+    task: "Transform government-published ECT election PDFs into structured datasets for civic-data platforms, public-interest analysis, and newsroom reporting. ",
     focus: [
       "Election records",
       "OCR",
@@ -15,9 +15,8 @@ export const vote62CaseStudyVariants = Object.freeze({
       "Public-interest analysis",
     ],
     context:
-      "Collaborative civic-data initiative supporting public-interest election reporting and open election data workflows in Thailand.",
+      "Collaborative civic-data initiative supporting public-interest election reporting and open election-data workflows in Thailand.",
   }),
-  
 });
 
 export const vote62EctReport69CaseStudyVariant =

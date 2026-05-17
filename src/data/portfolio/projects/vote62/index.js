@@ -17,7 +17,7 @@ export const vote62CaseStudyBase = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   featuredImageCaption:
-    "==Thailand’s Election Commission publishes authoritative election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 focused on reconstructing those records into validated, analysis-ready election data suitable for public-interest reporting, verification, and civic-data workflows.==",
+    "==Thailand’s Election Commission publishes election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 (2026) reconstructed those fragmented records into validated, analysis-ready election data for public-interest reporting, verification workflows, and civic-data analysis.==",
   task: "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
   focus: [
     "OCR & document parsing",
@@ -33,13 +33,15 @@ export const vote62CaseStudyBase = {
       href: "https://en.wikipedia.org/wiki/Optical_character_recognition",
     },
     {
-      label: "ECT Report 69",
-      href: "https://ectreport69.ect.go.th/",
+      label: "Table reconstruction",
+      href: "",
     },
     {
-      label: "Rocket Media Lab",
-      href: "https://rocketmedialab.co/tag/vote62/",
+      label: "Validation workflows",
+      href: "",
     },
+    // { // label: "ECT Report 69", // href: "https://ectreport69.ect.go.th/", // },
+    // { // label: "Rocket Media Lab", // href: "https://rocketmedialab.co/tag/vote62/", // },
   ],
 
   /* Impact */
@@ -48,7 +50,7 @@ export const vote62CaseStudyBase = {
     {
       value: "No wholesale retyping",
       label:
-        "reviewers intervene only where validation flags a suspect cell before publication.",
+        "Reviewers intervened only where validation flagged ambiguous extraction",
     },
     {
       value: "Validated",
@@ -59,9 +61,9 @@ export const vote62CaseStudyBase = {
   /* Overview */
   overviewTitle: "When the official release is only paper on a screen",
   overview: [
-    "Thailand\u2019s Election Commission (ECT) publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, no API for the same numbers living inside the scan.",
-    "That split creates real pressure. Newsrooms and the public all need trustworthy structured data under deadline. But until someone reconstructs the grids, workflows depend heavily on manual retyping or fragile copy-paste extraction. VOTE62 existed to help close that gap through a collaborative civic-data effort.",
-    ">>The goal was never pretend-perfect OCR. It was to make uncertainty legible—so a chart or open dataset does not silently inherit a number that never matched the official scan.<<",
+    "Thailand\u2019s Election Commission (ECT) publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, and no API for the same numbers living inside the scan.",
+    "That gap creates real pressure. Newsrooms and the public need trustworthy structured data under deadline, yet workflows still depend heavily on manual retyping or fragile copy-paste extraction. VOTE62 helped close that gap through a collaborative civic-data effort.",
+    ">>The goal was never pretend-perfect OCR. It was to make uncertainty legible—so downstream charts, datasets, and reporting workflows do not silently inherit numbers that never matched the official scan.<<",
     {
       mediaBlock: {
         type: "image",
@@ -72,25 +74,25 @@ export const vote62CaseStudyBase = {
           "Same official template, different handwriting and corrections in the wild—the kind of variability that breaks naïve extraction workflows.",
       },
     },
-    "Across 400 constituencies I built the reconstruction path: detect layout first, OCR cells in context (never a single naive text dump), then validation aggressive enough that bad numbers surface before they become someone else\u2019s \u201cground truth.\u201d",
-    "The gallery further down compresses that arc—paper chaos, extractor logs with warnings, reviewer-ready tables—in three lightbox panels.",
+    "Across 400 constituencies, I reconstructed records through layout-aware extraction, contextual OCR, and validation workflows designed to surface suspicious numbers before they became downstream \u201cground truth.\u201d",
+    "The gallery below compresses that process into 3 stages: messy source records, OCR extraction with validation warnings, and reviewer-ready structured outputs.",
   ],
 
-  /* What the pipeline had to get right */
-  strategyTitle: "What the pipeline had to get right",
+  /* Building reliable election data from PDFs */
+  strategyTitle: "Building reliable election data from PDF",
   strategyIntro:
-    "VOTE62 is bigger than one pipeline: partners shape how the story is told and how data reaches people. My contribution sat in the ingestion layer—Python, OCR, table reconstruction, validation, and rerunnable jobs—so the coalition could trust the rows underneath the headlines and spreadsheets.",
+    "VOTE62 was bigger than one extraction workflow: partners shaped how election records became publicly usable data. My contribution focused on the reconstruction layer—Python, OCR, table reconstruction, validation, and rerunnable processing workflows—so downstream analysis could remain tied to the official source material.",
   pillars: [
     {
       title: "Layout-aware extraction",
-      body: "Government templates repeat, but scans do not: stamps, handwriting, and crooked grids punish document-level OCR.",
+      body: "Government templates repeat, but scans do not: stamps, handwriting, corrections, and warped tables break naïve document-level OCR.",
       afterBlocks: [
-        "I segmented regions and read cells in context so numbers stayed tied to the headers they belonged to.",
+        "I segmented regions and reconstructed rows in context so extracted values remained tied to the labels and vote structures they belonged to.",
       ],
     },
     {
       title: "Numeral normalization",
-      body: "Official rows mix Thai (๐–๙) and Arabic (0–9) digits in the same table. I mapped both to one canonical representation for arithmetic and joins—while still preserving ambiguity when the read was not safe to force.",
+      body: "Official rows mix Thai (๐–๙) and Arabic (0–9) digits in the same table. I mapped both into canonical numeric representations for joins, aggregation, and arithmetic—while preserving ambiguity when extraction confidence was too low to safely force a value.",
       afterBlocks: [
         makeThaiArabicNumeralReferenceTableParagraph({
           rows: "compact",
@@ -101,11 +103,11 @@ export const vote62CaseStudyBase = {
     },
     {
       title: "Ambiguity detection",
-      body: "I treated totals, cross-checks, and low-confidence reads as first-class outputs: mismatches and suspicious tokens surface upstream instead of vanishing into a \u201cclean\u201d CSV export.",
+      body: "I treated totals, cross-checks, and low-confidence reads as first-class outputs: mismatches and suspicious tokens surfaced upstream instead of vanishing into a “clean” CSV export.",
     },
     {
       title: "Re-runnable architecture",
-      body: "Returns trickle out and PDFs get revised. I designed the job to rerun incrementally so refreshed official pages did not mean rebuilding every constituency from scratch.",
+      body: "Returns trickle out and PDFs get revised. We designed the workflow to rerun incrementally so refreshed official pages did not require rebuilding every constituency from scratch.",
     },
   ],
 
@@ -114,7 +116,7 @@ export const vote62CaseStudyBase = {
   approach: [
     "I insisted validation be allowed to say \u201cno\u201d: totals that do not reconcile, candidate rows that disagree with ballot counts, and tokens that are not plausible digits stay visible as warnings—not auto-smoothed into a tidy fiction.",
     "_I wired provenance so every structured value retained a path back to the PDF region it came from—so a skeptic with the official scan and the spreadsheet could answer the same question: where did this number appear?_",
-    "That is the contribution I cared about shipping: transparency over vanity metrics—a dataset that shows where the machine is confident, where it is guessing, and where a human still has to intervene after validation.",
+    "The goal was not a cleaner-looking spreadsheet. It was a dataset that made uncertainty visible—where the machine was confident, where validation failed, and where human review still mattered.",
   ],
 
   /* Supporting media and open data */
@@ -149,13 +151,13 @@ export const vote62CaseStudyBase = {
       },
     ],
     caption:
-      "Same story in three frames: what officials and voters put on paper, what the extractor prints before anyone trusts it, and what validation clears for downstream open data.",
+      "Same story in 3 frames: what officials and voters put on paper, what the extractor prints before anyone trusts it, and what validation clears for downstream open data.",
   },
   iframeEmbed: {
     src: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/preview?gid=780194054",
     title: "VOTE62 — structured election dataset",
     intro:
-      "Live structured turnout and election tallies derived from official ECT PDFs—updated when revised records became available so downstream analysis remained tied to the official source of truth.",
+      "Live structured turnout and election tallies reconstructed from official ECT PDFs and refreshed as revised records became available.",
     caption:
       "Structured election datasets normalized from ECT PDFs and prepared for downstream analysis, verification, and public-interest reporting.",
     minHeight: "580px",
@@ -173,22 +175,20 @@ export const vote62CaseStudyBase = {
       "downstream audits and analysis",
     ],
     outro:
-      "without requiring manual extraction from thousands of government-published documents.",
+      "without manual reconstruction from thousands of government-published documents.",
   },
   businessOutcomeSectionTitle: "Outcome",
   businessOutcome:
-    "My contribution was not a prettier spreadsheet—it was shifting labor from wholesale retyping to a pipeline where machines do the bulk extraction, validation decides what is safe to publish, and humans spend their time only on rows that checks actually flag.",
+    "My contribution was not a prettier spreadsheet—it was shifting labor from wholesale retyping toward a workflow where machines handled bulk extraction, validation determined what was safe to publish, and humans intervened only where checks actually flagged uncertainty.",
 
   /* Final sections */
-  futureBlock: {
-    title: "Next steps",
-    body: "Where I would push next: stronger ML table detection, richer per-cell confidence, and a review surface purpose-built for post-validation fixes—so the same transparency scales when the document mix gets harder.",
-  },
   referenceSection: {
     title: "Raw sources",
-    intro:
-      "Official ECT return PDFs for the ส.ส. 69 count—fixed-layout scans grouped by constituency in the same structure used by the Election Commission when publishing official releases.",
+    intro: "",
     paragraphs: [
+      {
+        text: "[[https://ectreport69.ect.go.th/|Official ECT Report 69]] return PDFs—fixed-layout scans grouped by constituency in the same structure used by the Election Commission when publishing official releases.",
+      },
       {
         text: "",
         externalLink: {
@@ -196,7 +196,7 @@ export const vote62CaseStudyBase = {
           label: "Raw PDFs by constituency",
         },
         after:
-          " (~2,902 files) used for reruns, validation, provenance checks, and downstream structured extraction workflows.",
+          " (~2,902 files) were retained for reruns, provenance checks, and validation review throughout the reconstruction process. Structured outputs later supported downstream civic-data reporting and analysis through [[https://rocketmedialab.co/database-vote62-report-69-1/|Rocket Media Lab]].",
       },
     ],
   },
