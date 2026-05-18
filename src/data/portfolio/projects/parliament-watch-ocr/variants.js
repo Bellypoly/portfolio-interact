@@ -38,10 +38,10 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
 
   /* Problem */
   problemSection: Object.freeze({
-    title: "Problem",
+    title: "When parliamentary records exist only as PDFs",
     paragraphs: Object.freeze([
       "\u0022Thailand’s Secretariat of the House of Representatives\u0022 publishes parliamentary voting records primarily as fixed-layout PDFs rather than structured datasets. While publicly accessible, the records remained difficult to search, compare, and analyze at scale because they contained \u0022Thai script and numerals\u0022, parliamentary formatting conventions, and semi-structured multi-line layouts not easily transformed into reliable ==machine-readable== voting data.",
-      "Transforming parliamentary voting records into structured datasets made large-scale legislative analysis more accessible for analysts, journalists, researchers, and the public. Converting those records into reusable data also improved the reproducibility of parliamentary analysis across legislative sessions and voting records.",
+      "Turning those PDFs into reliable voting data made large-scale review more accessible for analysts, journalists, researchers, and the public. It also made comparisons across sessions and motions easier to reproduce.",
     ]),
     figures: Object.freeze([
       Object.freeze({
@@ -50,7 +50,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
           "images/portfolio/parliament-watch-ocr/voting-records-pdf-example.webp",
         alt: "Three pages of Thai House of Representatives voting records as official PDFs: Thai script and Thai numerals in aligned, table-like layouts without a formal grid.",
         caption:
-          "Examples of parliamentary [[https://msbis.parliament.go.th/ewtadmin/ewt/parliament_report/main_warehouse_dll_x.php?aid=11753&mid=4617|voting records]] and [[https://msbis.parliament.go.th/ewtadmin/ewt/parliament_report/main_warehouse_dll_x.php?aid=11489&mid=4617|summary reports]], published as PDFs rather than structured datasets — see **Why it matters** below.",
+          "Examples of parliamentary [[https://msbis.parliament.go.th/ewtadmin/ewt/parliament_report/main_warehouse_dll_x.php?aid=11753&mid=4617|voting records]] and [[https://msbis.parliament.go.th/ewtadmin/ewt/parliament_report/main_warehouse_dll_x.php?aid=11489&mid=4617|summary reports]], published as PDFs rather than ready-to-query tables — see **Why it matters** below.",
       }),
     ]),
     figureColumns: 1,
@@ -60,7 +60,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   overviewTitle: "Why it matters",
   overview: Object.freeze([
     "Legislative voting records published by government institutions are foundational ==public-interest data==. When those records exist only as PDFs and semi-structured documents, meaningful analysis becomes difficult not only for journalists and researchers, but also for the public trying to understand how elected representatives actually vote.",
-    "Transforming parliamentary voting records into structured datasets enabled analysis of:",
+    "Converting parliamentary voting records into reusable data opened up questions such as:",
     Object.freeze({
       bulletListPlain: true,
       bulletList: Object.freeze([
@@ -71,14 +71,14 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
         "attendance trends within and across political parties",
       ]),
     }),
-    "The resulting datasets supported public-facing visualizations that made complex legislative behavior more understandable and explorable for broader public audiences.",
+    "The cleaned records also supported public charts that made complex voting behavior easier for broader audiences to explore.",
     Object.freeze({
       baPanel: Object.freeze({
         variant: "after",
         title: "Key findings",
         paragraphs: Object.freeze([
           "Analysis of the structured voting records showed that more than ==77% of parliamentary votes== received majority support across all 7 major political parties, while a smaller subset of highly publicized votes revealed clear inter-party conflict and internal voting divisions.",
-          "The resulting datasets enabled downstream analysis of:",
+          "From there, the project could examine:",
           Object.freeze({
             bulletListPlain: true,
             bulletList: Object.freeze([
@@ -97,8 +97,8 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   /* Contribution */
   strategyTitle: "Contribution",
   strategyIntro: Object.freeze([
-    "I transformed parliamentary voting records into structured datasets suitable for downstream analysis and public-facing visualization. This work included OCR-assisted extraction, semi-structured document parsing, Thai script and numeral normalization, data validation workflows, and structured dataset exports.   ",
-    "The resulting datasets enabled legislative analysis and public-facing visualizations examining voting alignment, coalition behavior, and parliamentary trends.",
+    "I turned parliamentary voting PDFs into analysis-ready records and public visualization inputs. This work included OCR-assisted extraction, semi-structured document parsing, Thai script and numeral normalization, data validation workflows, and open-data exports.",
+    "The outputs helped examine voting alignment, coalition behavior, and parliamentary trends without forcing every analyst to start from raw documents.",
   ]),
   strategyBulletsPlain: true,
   strategyBullets: Object.freeze([]),
@@ -112,7 +112,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     diagramImageWebp: "images/portfolio/parliament-watch-ocr/workflow.webp",
     diagramCompact: true,
     caption:
-      "Seven-step pipeline from parliamentary PDFs through OCR, Thai numeral handling, normalization, validation, structured datasets, and public visualizations with open data.",
+      "Seven-step pipeline from parliamentary PDFs through OCR, Thai numeral handling, normalization, validation, open data, and public visualizations.",
     diagramAlt:
       "Parliament Watch OCR workflow in seven steps: parliamentary records, record extraction, Thai numeral extraction, data normalization, validation checks, structured voting dataset, public visualizations and open data",
   }),
@@ -139,7 +139,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     }),
     Object.freeze({
       title: "Record extraction & normalization",
-      body: "I transformed parliamentary voting records into structured datasets and normalized vote data into formats suitable for downstream analysis and public-facing visualization.",
+      body: "I extracted parliamentary voting records and normalized the results into formats that could support comparison, reporting, and interactive charts.",
       afterBlocks: Object.freeze([
         "This supported:",
         Object.freeze({
@@ -165,7 +165,8 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   approachTitle: "Validation & data quality",
   approach: Object.freeze([
     "I developed validation checks against published lists of Members of Parliament (MPs), expected parliamentary vote counts, and published motion records so extraction failures surfaced immediately instead of silently propagating downstream into analysis and visualization workflows.",
-    "This validation layer was important because extraction mistakes in public-records projects can unintentionally change the interpretation of legislative behavior if they are not identified early.",
+    "Legislative records are public-interest data. Small extraction errors can silently change the interpretation of parliamentary behavior if validation failures are not surfaced early.",
+    "I treated reconciliation, MP roster checks, and vote-total mismatches as first-class outputs rather than allowing questionable records to disappear into a “clean” dataset export.",
   ]),
 
   /* Data limitations */
@@ -185,25 +186,25 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     ]),
   }),
 
-  /* Public-facing visualization */
-  approachSecondaryTitle: "Public-facing visualization",
+  /* Public visualization */
+  approachSecondaryTitle: "Public visualization",
   approachSecondaryIntro:
-    "Public-facing parliamentary voting visualization built from structured voting records normalized from government-published PDFs.",
+    "Public parliamentary voting view built from government-published PDFs that had been extracted, cleaned, and checked.",
   approachSecondaryIframeEmbed: Object.freeze({
     src: "https://docs.google.com/spreadsheets/d/1y4avcF8i29Gt_TdY7FR63NOvq-_2f5gl05AEr4VqUIc/preview?gid=72713396",
-    title: "Public-facing visualization — sheet preview",
+    title: "Voting sheet preview",
     minHeight: "510px",
   }),
 
   /* Public dataset */
   publicDatasetSectionTitle: "Public dataset",
   publicDatasetSectionIntro:
-    "Structured parliamentary voting dataset reconstructed from Thai parliamentary PDFs and prepared for legislative analysis, transparency reporting, and civic-data visualization workflows. The dataset is publicly available in [[https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250|Google Sheets]] format.",
+    "Parliamentary voting dataset reconstructed from Thai House PDFs and prepared for transparency reporting, civic-data work, and reproducible vote comparisons. The dataset is publicly available in [[https://docs.google.com/spreadsheets/d/1HxHsCAc_2j-nHvmLx_XF5Je49gidRRoRtJ7NwCNURpA/edit?gid=706401250#gid=706401250|Google Sheets]] format.",
 
   /* Broader impact */
   deferredImpactTitle: "Impact",
   deferredImpactLead: Object.freeze([
-    "The extraction pipeline transformed previously difficult-to-search parliamentary records into reusable structured public-interest data supporting:",
+    "The extraction pipeline made previously difficult-to-search parliamentary records usable for:",
     Object.freeze({
       bulletListPlain: true,
       bulletList: Object.freeze([
@@ -235,7 +236,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     title: "Broader Civic-Data Ecosystem",
     body: Object.freeze([
       Object.freeze({
-        text: "This pipeline supported charts, spreadsheets, and downstream legislative analysis, but structured parliamentary records from the same transparency ecosystem also contributed to broader civic-data projects. One example ",
+        text: "This pipeline supported charts, spreadsheets, and vote analysis, and records from the same transparency ecosystem also contributed to broader civic-data projects. One example ",
         externalLink: Object.freeze({
           href: "https://parliamentwatch.wevis.info/#voting",
           label: "Parliament Watch",
@@ -243,7 +244,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
         after:
           ": a public-facing platform for exploring representatives, parliamentary votes, legislation, and related government records without starting from raw PDF documents.",
       }),
-      "Other civic-data teams and interfaces can build on similar structured datasets for different forms of public-interest analysis and visualization.",
+      "Other civic-data teams and interfaces can build on similar open records for different forms of public-interest reporting and visualization.",
     ]),
   }),
 });

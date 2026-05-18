@@ -961,8 +961,8 @@
 
 .project-case-study__cta-play {
   @apply inline-flex shrink-0 items-center justify-center rounded-full font-mono text-[13px] leading-none;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
   animation: project-case-study-cta-play-hint 2.6s ease-in-out infinite;
 }
 
