@@ -14,7 +14,7 @@ const baseDynamicPaywallCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center top",
   featuredImageObjectPositionMd: "50% 20%",
-  task: "Integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription paths. Wire JavaScript and BlueConic so on-page behavior matches Sophi’s decisions; instrument GA4; ship with feature flags and kill switches for safe rollout and trustworthy model feedback.",
+  task: "Integrate Sophi's ML paywall into DMN's Arc XP frontend and subscription paths. Wire JavaScript and BlueConic so on-page behavior matches Sophi's decisions; instrument GA4; ship with feature flags and kill switches for safe rollout and reliable model feedback.",
   focus: ["Machine Learning paywall", "Analytics", "Frontend integration"],
   context: "The Dallas Morning News",
   techStack: [
@@ -58,13 +58,13 @@ const baseDynamicPaywallCaseStudy = {
   /* What I did */
   strategyTitle: "What I did",
   strategyIntro:
-    "My role: integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags. The answer was Sophi — an AI-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here’s how I brought it to production:",
+    "My role: integrate Sophi's ML paywall into DMN's Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags. The answer was Sophi — an AI-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here's how I brought it to production:",
   strategyBullets: [
-    "I integrated Sophi’s decisioning layer into frontend rendering and subscription flows so paywall responses followed user behavior and content context in real time.",
+    "I integrated Sophi's decisioning layer into frontend rendering and subscription flows so paywall responses followed user behavior and content context in real time.",
     "I designed user-state handling across new visitors, returning readers, and subscribers so gating logic and messaging stayed consistent.",
-    "I established analytics instrumentation so model training and evaluation had trustworthy signals.",
+    "I established analytics instrumentation so model training and evaluation had reliable signals.",
     "I supported controlled rollout with feature flags and kill switches to limit risk and protect editorial trust.",
-    "After first launch, GA4 and Sophi didn’t always agree — we traced which analytics definitions and events needed tuning versus which model inputs had to change so dashboards and the learning loop matched real reader behavior.",
+    "After first launch, GA4 and Sophi didn't always agree — we traced which analytics definitions and events needed tuning versus which model inputs had to change so dashboards and the learning loop matched real reader behavior.",
   ],
   pillars: null,
   /* System design */
@@ -84,7 +84,7 @@ const baseDynamicPaywallCaseStudy = {
     "As the feedback loop matured, a clear pattern emerged in the data:",
   approach: [
     "I saw conversion performance vary sharply by content category. High-traffic sections like politics and crime drove the most subscription starts in absolute volume — but high school sports, commentary, and business converted at significantly higher rates per reader.",
-    "That told me the paywall couldn’t just count pageviews. It had to weigh reader intent against content type to know when gating would help — and when it would only push people away.",
+    "That told me the paywall couldn't just count pageviews. It had to weigh reader intent against content type to know when gating would help — and when it would only push people away.",
   ],
   flourishEmbed: "https://flo.uri.sh/visualisation/28171634/embed",
   flourishCaption:

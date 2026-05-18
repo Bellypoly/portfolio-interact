@@ -3,7 +3,7 @@ import CaseStudySection from "./case-study-section";
 
 /**
  * Optional draft area for media or copy you will add later.
- * Remove `placeholderBlock` from the project’s caseStudy when shipping.
+ * Remove `placeholderBlock` from the project's caseStudy when shipping.
  */
 export default function CaseStudyPlaceholderBlock({ block }) {
   if (!block?.body) return null;

@@ -23,6 +23,7 @@ const MISSION_GALLERY_ROWS = [
     anchorId: "portfolio-vote69",
     name: "VOTE62 — Structured election data from ECT PDF records",
     desc: "400 Thai constituencies rebuilt from ECT tally PDFs into validated structured datasets so public-interest projects run on structure, not hand-typed spreadsheets.",
+    hideGalleryDescOnCaseStudy: true,
     cardImagePosition: "center center",
     img: "images/portfolio/vote62/thumbnail.png",
     imgWebp: "images/portfolio/vote62/thumbnail.webp",

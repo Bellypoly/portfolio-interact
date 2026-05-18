@@ -176,8 +176,8 @@ const baseLocalElectionsHubCaseStudy = {
   /* How I shipped it */
   approachTitle: "How I shipped it",
   approach: [
-    "Election night is the worst time to discover layout thrash or unbounded lists. I biased toward stable shells (reserved row height where possible), bounded “view more” paths, and client navigation so the server wasn’t replaying full pages for every county hop.",
-    "The hard part wasn’t a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns.",
+    "Election night is the worst time to discover layout thrash or unbounded lists. I biased toward stable shells (reserved row height where possible), bounded “view more” paths, and client navigation so the server wasn't replaying full pages for every county hop.",
+    "The hard part wasn't a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns.",
   ],
   /* Business outcome */
   businessOutcome:

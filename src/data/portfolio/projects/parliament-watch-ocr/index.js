@@ -38,7 +38,7 @@ const baseParliamentWatchOcrCaseStudy = {
   /* Overview */
   overviewTitle: "Overview",
   overview: [
-    "Thailand’s House of Representatives publishes voting records as PDFs on msbis.parliament.go.th—not spreadsheets. They are scans: government templates, Thai text and numerals, handwriting, photos, stamps, and tables that shift shape between sessions.",
+    "Thailand's House of Representatives publishes voting records as PDFs on msbis.parliament.go.th—not spreadsheets. They are scans: government templates, Thai text and numerals, handwriting, photos, stamps, and tables that shift shape between sessions.",
     "Parliament Watch needed those pages as rows—fuel for charts like Party Unity, mapping seven major parties across 108 motions in the 26th House. I owned extraction: from PDF pixels to validated tables analysts and front-end engineers could trust.",
     {
       text: "Live visualization: ",

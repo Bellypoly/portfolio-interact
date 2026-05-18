@@ -33,7 +33,7 @@ const baseJobthaiCaseStudy = {
   ],
   /* Overview */
   overview: [
-    "At national scale, the job isn’t “show more rows.” It’s whether someone can answer fast: Is this role for me? Is this employer real? Is applying worth the time? When those questions stay fuzzy, people bounce—or they blast the same generic application into the void.",
+    "At national scale, the job isn't “show more rows.” It's whether someone can answer fast: Is this role for me? Is this employer real? Is applying worth the time? When those questions stay fuzzy, people bounce—or they blast the same generic application into the void.",
     "Search and recommendations carry the first half of that decision; resume tooling carries the second. Search has to feel fast and legible under real filters (location, pay band, seniority). Resumes need guardrails so people finish, but not so much rigidity that every profile reads like the same template.",
     "In Thailand, “where?” rarely means a single city string — commuters care about BTS/MRT corridors, and manufacturing and logistics roles cluster near industrial estates (นิคมอุตสาหกรรม).",
     "JobThai drew on THiNKNET\u2019s map and POI layer so seekers could discover roles by geography the way they plan a commute, not only by typing a province name.",
@@ -50,7 +50,7 @@ const baseJobthaiCaseStudy = {
     },
     {
       title: "Momentum",
-      body: "Saved searches, alerts, and resume checkpoints were chained so “I like this” didn’t dead-end—the next obvious step was always one lightweight action away, especially on mobile.",
+      body: "Saved searches, alerts, and resume checkpoints were chained so “I like this” didn't dead-end—the next obvious step was always one lightweight action away, especially on mobile.",
     },
     {
       title: "Credibility",

@@ -79,7 +79,7 @@ export function getSectionScrollSpyDebug(
     const top = Math.round(r.top);
     const bottom = Math.round(r.bottom);
     const h = r.height;
-    /** 0–100: where the probe line sits within this section’s box (0 = probe at top edge, 100 = at bottom). */
+    /** 0–100: where the probe line sits within this section's box (0 = probe at top edge, 100 = at bottom). */
     let throughPct = null;
     if (h > 0) {
       const raw = ((probeY - r.top) / h) * 100;
@@ -129,7 +129,7 @@ export function scrollDocumentToTop() {
 }
 
 /**
- * Clears OpeningCrawl’s inner scroller so copy matches window progress at top.
+ * Clears OpeningCrawl's inner scroller so copy matches window progress at top.
  * Sync + next frame: one `querySelector`, same node reference after layout.
  */
 export function resetOpeningCrawlScroller() {
@@ -144,7 +144,7 @@ export function resetOpeningCrawlScroller() {
 
 /**
  * Set the URL hash without scrolling. Used for marker index 0: scroll is y=0,
- * not aligning the viewport to `#intro`’s element top.
+ * not aligning the viewport to `#intro`'s element top.
  */
 export function replaceHistoryHash(sectionId) {
   if (typeof window === "undefined" || !sectionId) return;

@@ -60,7 +60,7 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
     overview: [
       "Most Thai consumers see a single total on their electricity bill. Behind that number sits a layered pricing structure—fuel-adjustment tariffs (Ft), infrastructure costs, regulatory mechanisms, and taxes—that is difficult to interpret without utility or regulatory knowledge.",
       "This project translated those systems into a public-facing civic explainer helping readers understand how infrastructure decisions, energy policy, and regulatory pricing shape the final bill they receive each month.",
-      "The explainer also connected household electricity costs to broader structural questions inside Thailand’s energy system—including fuel dependence, reserve-capacity policy, and state price-intervention mechanisms.",
+      "The explainer also connected household electricity costs to broader structural questions inside Thailand's energy system—including fuel dependence, reserve-capacity policy, and state price-intervention mechanisms.",
       ">>_Is the price fair?_<<",
       "Rather than overwhelming readers with technical definitions upfront, the experience progressively introduced one billing concept at a time so non-specialist audiences could navigate increasingly complex pricing structures and energy-policy tradeoffs.",
     ],

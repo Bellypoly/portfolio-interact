@@ -40,7 +40,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   problemSection: Object.freeze({
     title: "When parliamentary records exist only as PDFs",
     paragraphs: Object.freeze([
-      "\u0022Thailand’s Secretariat of the House of Representatives\u0022 publishes parliamentary voting records primarily as fixed-layout PDFs rather than structured datasets. While publicly accessible, the records remained difficult to search, compare, and analyze at scale because they contained \u0022Thai script and numerals\u0022, parliamentary formatting conventions, and semi-structured multi-line layouts not easily transformed into reliable ==machine-readable== voting data.",
+      "\u0022Thailand's Secretariat of the House of Representatives\u0022 publishes parliamentary voting records primarily as fixed-layout PDFs rather than structured datasets. While publicly accessible, the records remained difficult to search, compare, and analyze at scale because they contained \u0022Thai script and numerals\u0022, parliamentary formatting conventions, and semi-structured multi-line layouts not easily transformed into reliable ==machine-readable== voting data.",
       "Turning those PDFs into reliable voting data made large-scale review more accessible for analysts, journalists, researchers, and the public. It also made comparisons across sessions and motions easier to reproduce.",
     ]),
     figures: Object.freeze([
@@ -173,7 +173,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   ambiguitySection: Object.freeze({
     title: "Data limitations",
     body: Object.freeze([
-      "The source dataset did not contain every parliamentary vote from Thailand’s 26th House of Representatives. Only parliamentary motions with publicly available per-member voting records were included, and some records required additional normalization because formatting conventions varied across parliamentary documents.",
+      "The source dataset did not contain every parliamentary vote from Thailand's 26th House of Representatives. Only parliamentary motions with publicly available per-member voting records were included, and some records required additional normalization because formatting conventions varied across parliamentary documents.",
       "The project also avoided overstating internal party conflict by not treating every non-vote or absence as political disagreement. Some missing votes may reflect technical issues or scheduling conflicts rather than intentional dissent.",
       Object.freeze({
         text: "Source records were published by the Secretariat of the House of Representatives of Thailand through parliamentary voting documents available on ",

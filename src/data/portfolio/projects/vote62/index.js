@@ -17,7 +17,7 @@ export const vote62CaseStudyBase = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   featuredImageCaption:
-    "==Thailand’s Election Commission publishes election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 (2026) reconstructed those fragmented records into validated, analysis-ready election data for public-interest reporting, verification workflows, and civic-data analysis.==",
+    "==Thailand's Election Commission publishes election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 (2026) reconstructed those fragmented records into validated, analysis-ready election data for public-interest reporting, verification workflows, and civic-data analysis.==",
   task: "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
   focus: [
     "OCR & document parsing",
@@ -62,7 +62,7 @@ export const vote62CaseStudyBase = {
   overviewTitle: "When the official release is only paper on a screen",
   overview: [
     "Thailand\u2019s Election Commission (ECT) publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, and no API for the same numbers living inside the scan.",
-    "That gap creates real pressure. Newsrooms and the public need trustworthy structured data under deadline, yet workflows still depend heavily on manual retyping or fragile copy-paste extraction. VOTE62 helped close that gap through a collaborative civic-data effort.",
+    "That gap creates real pressure. Newsrooms and the public need reliable structured data under deadline, yet workflows still depend heavily on manual retyping or fragile copy-paste extraction. VOTE62 helped close that gap through a collaborative civic-data effort.",
     ">>The goal was never pretend-perfect OCR. It was to make uncertainty legible—so downstream charts, datasets, and reporting workflows do not silently inherit numbers that never matched the official scan.<<",
     {
       mediaBlock: {
@@ -151,7 +151,7 @@ export const vote62CaseStudyBase = {
       },
     ],
     caption:
-      "Same story in 3 frames: what officials and voters put on paper, what the extractor prints before anyone trusts it, and what validation clears for downstream open data.",
+      "Same story in 3 frames: what officials and voters put on paper, what extraction produces before validation clears it for downstream use, and what validation clears for downstream open data.",
   },
   iframeEmbed: {
     src: "https://docs.google.com/spreadsheets/d/1KqmtYX6Iz0ODJpLj2cB7eW1WuoP4aL8gsj9XKV6-YQo/preview?gid=780194054",

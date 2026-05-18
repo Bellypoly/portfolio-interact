@@ -45,7 +45,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
   overviewTitle: "Overview",
   overview: [
     "Printing and packaging sits where make-to-order pressure, material handling, and outbound distribution meet. “Logistics performance” is never one headline number—it depends which LPI dimensions you measure and whether you stay at national averages or walk the shop floor.",
-    "This paper applies the World Bank LPI framework to one Thai company and asks: which dimensions (timeliness, customs, infrastructure, service quality, tracking, international shipments) actually constrain this business, and what does the gap between Thailand’s national LPI score and shop-floor reality look like?",
+    "This paper applies the World Bank LPI framework to one Thai company and asks: which dimensions (timeliness, customs, infrastructure, service quality, tracking, international shipments) actually constrain this business, and what does the gap between Thailand's national LPI score and shop-floor reality look like?",
     {
       text: "Full paper (IEOM 2016 proceedings): ",
       externalLink: {
@@ -65,7 +65,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
     },
     {
       title: "Gap analysis",
-      body: "Compared the company’s performance against Thailand’s 2014 LPI scores and regional peers (Singapore, Malaysia) to identify where domestic infrastructure, customs friction, and internal process gaps compound.",
+      body: "Compared the company's performance against Thailand's 2014 LPI scores and regional peers (Singapore, Malaysia) to identify where domestic infrastructure, customs friction, and internal process gaps compound.",
     },
     {
       title: "Improvement framing",

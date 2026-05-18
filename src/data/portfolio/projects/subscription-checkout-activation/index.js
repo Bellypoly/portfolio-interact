@@ -319,11 +319,11 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   /* Onboarding */
   onboardingSection: {
     title: "Making the first week count",
-    lead: "A subscription is a recurring charge. If someone forgets why they’re paying before the first renewal, they cancel. The checkout system I built knew exactly who the new subscriber was (identity resolution), what plan they picked, and what they’d seen on the way in. I piped that context into a 3-step onboarding sequence that fires the moment payment confirms — while intent is still hot.",
+    lead: "A subscription is a recurring charge. If someone forgets why they're paying before the first renewal, they cancel. The checkout system I built knew exactly who the new subscriber was (identity resolution), what plan they picked, and what they'd seen on the way in. I piped that context into a 3-step onboarding sequence that fires the moment payment confirms — while intent is still hot.",
     stepBullets: [
       "Newsletter selection — we already know the subscriber is authenticated (identity layer), so we pre-filter the catalog to exclude newsletters they already receive. The first email they get feels personal because the system did the work, not the reader.",
       "App adoption — a direct prompt to install the mobile app with deep links to both stores. App users have significantly higher session frequency and retention; this step is the single biggest lever for reducing churn that we could influence at onboarding time.",
-      "Product discovery — a curated tour of content verticals, tools, and features most subscribers don’t know exist (events, podcasts, puzzles). This anchors the perceived value of the subscription beyond just 'articles' and gives the reader reasons to come back that aren’t tied to a single news cycle.",
+      "Product discovery — a curated tour of content verticals, tools, and features most subscribers don't know exist (events, podcasts, puzzles). This anchors the perceived value of the subscription beyond just 'articles' and gives the reader reasons to come back that aren't tied to a single news cycle.",
     ],
     figures: [
       {
@@ -355,7 +355,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   approachTitle: "What I learned",
   approach: [
     "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — three pages meant three round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
-    "Version 3 was the humbling part. The progress bar I added for wayfinding was being used as navigation. The payment gating I built for backend safety was making inputs look broken. Clarity did not surface someone else’s mistakes — it surfaced mine. The takeaway is not simply “test more”; engineering decisions have UX consequences you cannot predict from code alone, and the honest way to find them is to instrument production and let real sessions push back.",
+    "Version 3 was the humbling part. The progress bar I added for wayfinding was being used as navigation. The payment gating I built for backend safety was making inputs look broken. Clarity did not surface someone else's mistakes — it surfaced mine. The takeaway is not simply “test more”; engineering decisions have UX consequences you cannot predict from code alone, and the honest way to find them is to instrument production and let real sessions push back.",
   ],
 
   /* Final result */

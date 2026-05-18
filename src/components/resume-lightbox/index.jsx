@@ -29,19 +29,13 @@ function modalTriggerProps(props) {
 }
 
 function isModifiedClick(e) {
-  return (
-    e.metaKey ||
-    e.ctrlKey ||
-    e.shiftKey ||
-    e.altKey ||
-    e.button !== 0
-  );
+  return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0;
 }
 
 /**
  * Résumé link: opens in a new tab when inline PDF in an iframe is unlikely to work
  * (`navigator.pdfViewerEnabled`, with iOS iframe limitations excluded). Otherwise
- * uses a centered modal with the browser’s built-in PDF iframe viewer.
+ * uses a centered modal with the browser's built-in PDF iframe viewer.
  */
 const ResumeLightboxLink = memo(function ResumeLightboxLink({
   pdfPath = "resume-suwaphit.pdf",

@@ -58,7 +58,7 @@ const FullStackII = () => (
     title="Full Stack Developer II"
     org="PEA (Provincial Electricity Authority)"
     where="Bangkok, Thailand"
-    description="Built and integrated a nationwide geospatial Outage Management System (OMS), transforming GIS network data into operational systems to improve grid reliability, real-time outage response, and customer-facing services across Thailand’s provincial electricity network."
+    description="Built and integrated a nationwide geospatial Outage Management System (OMS), transforming GIS network data into operational systems to improve grid reliability, real-time outage response, and customer-facing services across Thailand's provincial electricity network."
     bullets={[
       "Geospatial data ingestion: designed APIs and data pipelines to ingest and transform GIS shapefiles into structured network models for outage tracking.",
 

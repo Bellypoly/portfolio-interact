@@ -158,7 +158,7 @@ function CheckoutFlowPills({ purchaseModifier }) {
  *
  * Set `variant` from case study data (project `caseStudy` → `beforeAfterVariant`):
  *
- * | `variant` | Left panel | Right panel | Where it’s used in the subscription story |
+ * | `variant` | Left panel | Right panel | Where it's used in the subscription story |
  * |-----------|------------|-------------|-------------------------------------------|
  * | `v1v2` | **Version 1** — 3 phone steps + long broken path to Purchase | **Version 2** — single-page desktop, progress bar on | After “Version 1” problem; `problemSection.diagram` |
  * | `v1v3` | Same **Version 1** column | **Version 3** — desktop without progress bar (final chrome) | Optional shortcut compare (same grid as v1v2, different right notes/title) |

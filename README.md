@@ -12,7 +12,7 @@ A modern, interactive resume built with React, Framer Motion, and Tailwind CSS. 
 
 ## Technology Stack
 
-_(Same idea as “what runs this site?” — here’s what this project uses.)_
+_(Same idea as “what runs this site?” — here's what this project uses.)_
 
 | Category         | Technology             | Purpose                                               |
 | ---------------- | ---------------------- | ----------------------------------------------------- |
