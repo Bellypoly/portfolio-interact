@@ -57,8 +57,10 @@ const baseDynamicPaywallCaseStudy = {
   ],
   /* What I did */
   strategyTitle: "What I did",
-  strategyIntro:
-    "My role: integrate Sophi's ML paywall into DMN's Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags. The answer was Sophi — an AI-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here's how I brought it to production:",
+  strategyIntro: Object.freeze([
+    "My role was integrating Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows, instrumenting analytics, and rolling out safely with feature flags. The system adjusted when and how paywalls appeared per visit based on reader behavior and content context.",
+    "Here’s how I brought it into production:",
+  ]),
   strategyBullets: [
     "I integrated Sophi's decisioning layer into frontend rendering and subscription flows so paywall responses followed user behavior and content context in real time.",
     "I designed user-state handling across new visitors, returning readers, and subscribers so gating logic and messaging stayed consistent.",
@@ -85,10 +87,10 @@ const baseDynamicPaywallCaseStudy = {
   approach: [
     "I saw conversion performance vary sharply by content category. High-traffic sections like politics and crime drove the most subscription starts in absolute volume — but high school sports, commentary, and business converted at significantly higher rates per reader.",
     "That told me the paywall couldn't just count pageviews. It had to weigh reader intent against content type to know when gating would help — and when it would only push people away.",
+    "Conversion volume and conversion efficiency turned out to be very different signals depending on the section.",
   ],
   flourishEmbed: "https://flo.uri.sh/visualisation/28171634/embed",
-  flourishCaption:
-    "The data below shows exactly how this plays out — volume and conversion tell very different stories depending on the section.",
+  flourishCaption: "",
   /* Outcome / result */
   businessOutcome:
     "The result is a paywall that gets smarter every day — continuously balancing subscription conversion against reader engagement, one visit at a time. The +22% conversion lift and +15% more subscription starts reflect a system that learns, not just a feature that shipped.",
@@ -97,6 +99,8 @@ const baseDynamicPaywallCaseStudy = {
     slug: "subscription-checkout-activation",
     label: "See how the checkout and onboarding system converts this intent →",
   },
+  footerTagline:
+    "Sophi ML paywall integrated into Arc XP—per-visit gating decisions tied to reader behavior, analytics instrumentation, and controlled newsroom rollout.",
 };
 
 export const dynamicPaywallProject = {
