@@ -32,7 +32,7 @@ export const electricityBillBreakdownApproachFigureGrid = Object.freeze({
   caption:
     "Public-facing civic explainer translating Thai electricity bills, fuel-adjustment charges, and infrastructure pricing systems into progressively structured information for non-technical audiences.",
   afterFigure:
-    "The project focused on translating complex utility and regulatory systems into explanations that help non-technical readers connect everyday electricity bills to the infrastructure, pricing policies, and energy decisions shaping them underneath.",
+    "The explainer focused on helping readers connect a monthly electricity bill to the infrastructure, pricing policies, and regulatory systems shaping it underneath.",
 });
 
 export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
@@ -59,16 +59,16 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
     overviewTitle: "Overview",
     overview: [
       "Most Thai consumers see a single total on their electricity bill. Behind that number sits a layered pricing structure—fuel-adjustment tariffs (Ft), infrastructure costs, regulatory mechanisms, and taxes—that is difficult to interpret without utility or regulatory knowledge.",
-      "This project translated those systems into a public-facing civic explainer helping readers understand how infrastructure decisions, energy policy, and regulatory pricing shape the final bill they receive each month.",
-      "The explainer also connected household electricity costs to broader structural questions inside Thailand's energy system—including fuel dependence, reserve-capacity policy, and state price-intervention mechanisms.",
+      "This project explored how complex electricity pricing systems could be explained progressively for non-specialist audiences without losing technical accuracy. The explainer helped readers understand how infrastructure decisions, energy policy, and regulatory pricing shape the final bill they receive each month.",
+      "It also connected household electricity costs to broader structural questions inside Thailand’s energy system—including fuel dependence, reserve-capacity policy, and state price-intervention mechanisms.",
       ">>_Is the price fair?_<<",
-      "Rather than overwhelming readers with technical definitions upfront, the experience progressively introduced one billing concept at a time so non-specialist audiences could navigate increasingly complex pricing structures and energy-policy tradeoffs.",
+      "Rather than overwhelming readers with technical definitions upfront, the experience introduced one billing concept at a time so readers could move through increasingly complex pricing structures and energy-policy tradeoffs progressively.",
     ],
     overviewFigures: electricityBillBreakdownOverviewFigureGrid,
     /* What I shaped */
     strategyTitle: "What I shaped",
     strategyIntro:
-      "My lane was flow architecture and domain-grounded explanation design. Engineering implementation was handled by the broader team; I focused on whether readers could move through complex utility concepts progressively—and whether the explanations still held up technically against real billing and tariff systems.",
+      "My contribution focused on how readers moved through increasingly complex utility concepts—and whether the explanations still held up technically against real billing and tariff systems.",
     pillars: [
       {
         title: "Progressive disclosure flow",
