@@ -55,6 +55,8 @@ const baseElectricityBillBreakdownCaseStudy = {
     "I used that context to keep terminology consistent with what Thai consumers see on real bills while explaining the engineering levers (variable fuel components, demand charges, cross-subsidy structures) in language that doesn't require a utility background.",
   ],
   results: null,
+  footerTagline:
+    "Civic explainer for Thai electricity bills—progressive flow from one honest question (\u201cwhat am I paying for?\u201d) to tariffs, Ft, and fairness.",
 };
 
 export const electricityBillBreakdownProject = {

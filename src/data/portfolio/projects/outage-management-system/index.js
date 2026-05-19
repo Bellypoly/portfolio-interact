@@ -61,12 +61,13 @@ const baseOutageManagementSystemCaseStudy = {
       label: "OMS with eRespond, GIS, SAP, and ADMS",
     },
     {
-      value: "Reliable",
-      label: "Outage tracking and ETR reporting",
+      value: "Consistent",
+      label:
+        "Outage records and restoration estimates stayed aligned across operational systems",
     },
     {
-      value: "Scalable",
-      label: "Handled monsoon season outages",
+      value: "Operational",
+      label: "Integrations held through high-volume monsoon outages",
     },
   ],
   /* Overview */
@@ -97,8 +98,12 @@ const baseOutageManagementSystemCaseStudy = {
   /* How I shipped it */
   approachTitle: "How I shipped it",
   approach: [
-    "Started with data mapping and API design, then built ETL pipelines and monitoring. Tested integrations under simulated load before production cutovers.",
-    "Documented all contracts and processes so future changes could be made without rediscovering the system.",
+    "Started with outage lifecycle mapping and API contracts, then built ETL pipelines, monitoring, and validation around the integrations before production cutovers. Load testing mattered because the hard part was not moving one outage record—it was keeping the same outage coherent as systems updated at different speeds.",
+    "Documented contracts and operational flows so future changes could be made without rediscovering the system.",
+  ],
+  footerTagline: [
+    "At Thailand’s Provincial Electricity Authority (PEA), when maps, outage records, and work systems fell out of sync during the same faultd on the same fault, control rooms and branches fell back to phone calls and spreadsheets.",
+    "I owned the integration boundary so one outage identity held across OMS, GIS, SAP ERP, and reporting: APIs from eRespond into OMS, scheduled GIS shapefiles into OMS, read contracts for downstream consumers, and warehouse-backed reporting Power BI aligned to the outage lifecycle crews and reliability teams already depended on.",
   ],
 };
 

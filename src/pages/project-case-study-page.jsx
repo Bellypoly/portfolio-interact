@@ -152,6 +152,7 @@ export default function ProjectCaseStudyPage() {
   const {
     name,
     desc,
+    caseStudyDesc,
     img,
     imgWebp,
     alt,
@@ -164,7 +165,13 @@ export default function ProjectCaseStudyPage() {
   const featuredImgWebp = cs.featuredImgWebp ?? imgWebp;
   const featuredAlt = cs.featuredImageAlt ?? alt;
   const caseStudyFooterTagline =
-    cs.footerTagline ?? (hideGalleryDescOnCaseStudy ? null : desc);
+    cs.footerTagline ??
+    (hideGalleryDescOnCaseStudy ? null : (caseStudyDesc ?? desc));
+  const caseStudyFooterTaglineParagraphs = Array.isArray(
+    caseStudyFooterTagline,
+  )
+    ? caseStudyFooterTagline
+    : [caseStudyFooterTagline].filter(Boolean);
 
   const showDeferredImpact = Boolean(
     cs.results?.length &&
@@ -426,9 +433,16 @@ export default function ProjectCaseStudyPage() {
 
         {cs.task ? (
           <CaseStudySection title="Task" sectionId={`${slug}-task`}>
-            <p className="project-case-study__p mt-7 text-stone-800">
-              {cs.task}
-            </p>
+            {(Array.isArray(cs.task) ? cs.task : [cs.task]).map(
+              (paragraph, index) => (
+                <p
+                  className="project-case-study__p mt-7 text-stone-800"
+                  key={`task-${index}`}
+                >
+                  {renderCaseStudyInlineRich(paragraph)}
+                </p>
+              ),
+            )}
             <CaseStudyMetaDl
               focus={cs.focus}
               context={cs.context}
@@ -784,11 +798,16 @@ export default function ProjectCaseStudyPage() {
           </aside>
         ) : null}
 
-        {caseStudyFooterTagline ? (
+        {caseStudyFooterTaglineParagraphs.length ? (
           <footer className="project-case-study__footer">
-            <p className="project-case-study__tagline">
-              {caseStudyFooterTagline}
-            </p>
+            {caseStudyFooterTaglineParagraphs.map((paragraph, index) => (
+              <p
+                className="project-case-study__tagline"
+                key={`footer-tagline-${index}`}
+              >
+                {renderCaseStudyInlineRich(paragraph)}
+              </p>
+            ))}
           </footer>
         ) : null}
       </article>

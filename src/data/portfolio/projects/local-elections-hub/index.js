@@ -7,7 +7,7 @@ import { localElectionsHubCaseStudyVariant } from "./variants.js";
 
 const baseLocalElectionsHubCaseStudy = {
   /* Header / intro */
-  eyebrow: "Product · Data UI · Newsroom",
+  eyebrow: "Election systems · Data UI · Newsroom engineering",
   featuredImg: "images/portfolio/local-elections-hub/featured-image.png",
   featuredImgWebp: "images/portfolio/local-elections-hub/featured-image.webp",
   featuredImageAlt:
@@ -188,6 +188,8 @@ const baseLocalElectionsHubCaseStudy = {
     label:
       "Same platform: article experience, ads, engagement, and reader state →",
   },
+  footerTagline:
+    "Elections hub rebuilt for Arc XP—typed race data, county anchors, lightweight viz, and mobile-first grids for live returns.",
 };
 
 export const localElectionsHubProject = {
