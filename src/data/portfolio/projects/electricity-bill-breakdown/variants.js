@@ -30,9 +30,9 @@ export const electricityBillBreakdownApproachFigureGrid = Object.freeze({
     }),
   ]),
   caption:
-    "Public-facing civic explainer translating Thai electricity bills, fuel-adjustment charges, and infrastructure pricing systems into progressively structured information for non-technical audiences.",
+    "Civic explainer translating Thai electricity bills, fuel-adjustment charges, and infrastructure pricing systems into structured information for non-technical audiences.",
   afterFigure:
-    "The explainer focused on helping readers connect a monthly electricity bill to the infrastructure, pricing policies, and regulatory systems shaping it underneath.",
+    "The explainer focused on helping readers connect a monthly electricity bill to the infrastructure, pricing systems, and regulatory decisions behind it.",
 });
 
 export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
@@ -58,28 +58,28 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
     /* Overview */
     overviewTitle: "Overview",
     overview: [
-      "Most Thai consumers see a single total on their electricity bill. Behind that number sits a layered pricing structure—fuel-adjustment tariffs (Ft), infrastructure costs, regulatory mechanisms, and taxes—that is difficult to interpret without utility or regulatory knowledge.",
+      "Most Thai consumers see a single total on their electricity bill. What sits underneath it—fuel-adjustment tariffs (Ft), infrastructure costs, taxes, and regulatory pricing mechanisms—is difficult to interpret without utility or regulatory knowledge.",
       "This project explored how complex electricity pricing systems could be explained progressively for non-specialist audiences without losing technical accuracy. The explainer helped readers understand how infrastructure decisions, energy policy, and regulatory pricing shape the final bill they receive each month.",
       "It also connected household electricity costs to broader structural questions inside Thailand’s energy system—including fuel dependence, reserve-capacity policy, and state price-intervention mechanisms.",
       ">>_Is the price fair?_<<",
-      "Rather than overwhelming readers with technical definitions upfront, the experience introduced one billing concept at a time so readers could move through increasingly complex pricing structures and energy-policy tradeoffs progressively.",
+      "Rather than overwhelming readers with technical definitions upfront, the experience introduced one billing concept at a time so readers could move through increasingly complex pricing structures and energy-policy decisions step by step.",
     ],
     overviewFigures: electricityBillBreakdownOverviewFigureGrid,
     /* What I shaped */
     strategyTitle: "What I shaped",
     strategyIntro:
-      "My contribution focused on how readers moved through increasingly complex utility concepts—and whether the explanations still held up technically against real billing and tariff systems.",
+      "My contribution focused on how readers moved through layered utility concepts—and whether the explanations still held up technically against real billing and tariff systems.",
     pillars: [
       {
         title: "Progressive disclosure flow",
-        body: "Mapped the reader journey from a simple consumer question (“_what am I paying for?_”) into progressively more complex concepts—fuel-adjustment tariffs (Ft), fixed infrastructure costs, taxes, and cross-subsidy mechanisms—so each section resolved one layer of the bill before introducing the next.",
+        body: "Mapped the reader journey from a simple consumer question (“_what am I paying for?_”) into more complex concepts—fuel-adjustment tariffs (Ft), fixed infrastructure costs, taxes, and cross-subsidy mechanisms—so each section explained one layer of the bill before introducing the next.",
         afterBlocks: [
-          "The goal was not to simplify away complexity, but to structure it in a way non-technical readers could follow without prior utility knowledge.",
+          "The goal was not to flatten the system into oversimplified answers, but to structure it in a way non-technical readers could still follow.",
         ],
       },
       {
         title: "Domain-accurate language",
-        body: "Wrote and reviewed explanations against real Thai tariff structures and utility billing logic, replacing vague or misleading shorthand with terminology grounded in how billing systems and energy pricing mechanisms actually operate.",
+        body: "Wrote and reviewed explanations against real Thai tariff structures and utility billing logic, replacing vague or misleading shorthand with explanations grounded in how Thai billing systems and energy pricing actually work.",
         afterBlocks: [
           "This helped ensure the explainer remained accessible without sacrificing technical accuracy.",
         ],
@@ -94,7 +94,7 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
     approachTitle: "How PEA experience shaped my contribution",
     approach: [
       "My earlier work at [[/#work-pea|PEA (Provincial Electricity Authority of Thailand)]] provided practical context for how billing systems, outage management, consumption data, and customer-facing dashboards connect operational infrastructure to the numbers consumers ultimately see on a monthly bill.",
-      "That experience helped ground the explainer in real utility-system behavior rather than abstract pricing descriptions, while translating engineering and regulatory concepts into language accessible to non-specialist audiences.",
+      "That experience helped ground the explainer in real utility-system behavior rather than abstract pricing descriptions, while translating engineering and regulatory concepts into language non-specialist audiences could still follow.",
     ],
     approachFigures: electricityBillBreakdownApproachFigureGrid,
     results: null,
