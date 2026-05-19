@@ -17,7 +17,7 @@ export const vote62CaseStudyBase = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   featuredImageCaption:
-    "==Thailand's Election Commission publishes election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 (2026) reconstructed those fragmented records into validated, analysis-ready election data for public-interest reporting, verification workflows, and civic-data analysis.==",
+    "==Thailand's Election Commission publishes election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 (2026) reconstructed those fragmented records into validated election datasets for public-interest reporting, verification workflows, and civic-data analysis.==",
   task: "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
   focus: [
     "OCR & document parsing",
@@ -62,8 +62,9 @@ export const vote62CaseStudyBase = {
   overviewTitle: "When the official release is only paper on a screen",
   overview: [
     "Thailand\u2019s Election Commission (ECT) publishes returns you can read on paper or on screen—but those releases are fixed-layout PDFs. They are authoritative, yet they are not a database: there are no companion tables, no stable schema, and no API for the same numbers living inside the scan.",
-    "That gap creates real pressure. Newsrooms and the public need reliable structured data under deadline, yet workflows still depend heavily on manual retyping or fragile copy-paste extraction. VOTE62 helped close that gap through a collaborative civic-data effort.",
-    ">>The goal was never pretend-perfect OCR. It was to make uncertainty legible—so downstream charts, datasets, and reporting workflows do not silently inherit numbers that never matched the official scan.<<",
+    "That gap creates real pressure. Journalists, researchers, and the public all need reliable election data under deadline—but critical records still arrive as scans meant for human reading, not verification at scale.",
+    "When public understanding depends on numbers trapped inside thousands of PDF pages, small extraction mistakes can quietly become reporting mistakes, charts, or downstream datasets that no longer match the official record.",
+    ">>The goal was never perfect OCR. It was making sure uncertainty stayed visible before numbers turned into charts and datasets that no longer matched the official scan.<<",
     {
       mediaBlock: {
         type: "image",
@@ -74,14 +75,14 @@ export const vote62CaseStudyBase = {
           "Same official template, different handwriting and corrections in the wild—the kind of variability that breaks naïve extraction workflows.",
       },
     },
-    "Across 400 constituencies, I reconstructed records through layout-aware extraction, contextual OCR, and validation workflows designed to surface suspicious numbers before they became downstream \u201cground truth.\u201d",
+    "Across 400 constituencies, I reconstructed records through layout-aware extraction, contextual OCR, and validation workflows designed to surface suspicious numbers before they propagated downstream.",
     "The gallery below compresses that process into 3 stages: messy source records, OCR extraction with validation warnings, and reviewer-ready structured outputs.",
   ],
 
   /* Building reliable election data from PDFs */
-  strategyTitle: "Building reliable election data from PDF",
+  strategyTitle: "Building reliable election data from PDFs",
   strategyIntro:
-    "VOTE62 was bigger than one extraction workflow: partners shaped how election records became publicly usable data. My contribution focused on the reconstruction layer—Python, OCR, table reconstruction, validation, and rerunnable processing workflows—so downstream analysis could remain tied to the official source material.",
+    "VOTE62 was bigger than one extraction workflow: partners shaped how election records became publicly usable data. My contribution focused on the reconstruction layer—Python, OCR, table reconstruction, validation, and rerunnable processing workflows—so reconstructed records could still be traced back to the official PDFs they came from.",
   pillars: [
     {
       title: "Layout-aware extraction",
@@ -115,7 +116,6 @@ export const vote62CaseStudyBase = {
   approachTitle: "Trust beats a clean-looking lie",
   approach: [
     "I insisted validation be allowed to say \u201cno\u201d: totals that do not reconcile, candidate rows that disagree with ballot counts, and tokens that are not plausible digits stay visible as warnings—not auto-smoothed into a tidy fiction.",
-    "_I wired provenance so every structured value retained a path back to the PDF region it came from—so a skeptic with the official scan and the spreadsheet could answer the same question: where did this number appear?_",
     "The goal was not a cleaner-looking spreadsheet. It was a dataset that made uncertainty visible—where the machine was confident, where validation failed, and where human review still mattered.",
   ],
 
@@ -165,7 +165,8 @@ export const vote62CaseStudyBase = {
   /* Narrative after live sheet embed (see project-case-study-page order) */
   whyStructuredElectionDataSection: {
     title: "Why Structured Election Data Matters",
-    intro: "Transforming ECT PDFs into structured datasets enabled:",
+    intro:
+      "Once reconstructed into structured datasets, the records could finally be compared, audited, and analyzed without manually rebuilding results from thousands of PDF pages.",
     bulletListPlain: true,
     bulletList: [
       "constituency-level election analysis",
@@ -196,7 +197,7 @@ export const vote62CaseStudyBase = {
           label: "Raw PDFs by constituency",
         },
         after:
-          " (~2,902 files) were retained for reruns, provenance checks, and validation review throughout the reconstruction process. Structured outputs later supported downstream civic-data reporting and analysis through [[https://rocketmedialab.co/database-vote62-report-69-1/|Rocket Media Lab]].",
+          " (~2,902 files) were retained for reruns, provenance checks, and validation review throughout the reconstruction process. Structured outputs later supported civic-data reporting and analysis through [[https://rocketmedialab.co/database-vote62-report-69-1/|Rocket Media Lab]].",
       },
     ],
   },
