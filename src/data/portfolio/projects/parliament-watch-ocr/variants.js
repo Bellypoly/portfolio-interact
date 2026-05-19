@@ -40,8 +40,9 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   problemSection: Object.freeze({
     title: "When parliamentary records exist only as PDFs",
     paragraphs: Object.freeze([
-      "\u0022Thailand's Secretariat of the House of Representatives\u0022 publishes parliamentary voting records primarily as fixed-layout PDFs rather than structured datasets. While publicly accessible, the records remained difficult to search, compare, and analyze at scale because they contained \u0022Thai script and numerals\u0022, parliamentary formatting conventions, and semi-structured multi-line layouts not easily transformed into reliable ==machine-readable== voting data.",
-      "Turning those PDFs into reliable voting data made large-scale review more accessible for analysts, journalists, researchers, and the public. It also made comparisons across sessions and motions easier to reproduce.",
+      "Thailand’s Secretariat of the House of Representatives publishes parliamentary voting records primarily as fixed-layout PDFs rather than structured datasets. While publicly accessible, the records were still hard to search, compare, and analyze at scale.",
+      "The documents contain Thai script, mixed numerals, parliamentary formatting conventions, and semi-structured multi-line layouts that are not easily transformed into reliable ==machine-readable== voting data.",
+      "Turning those PDFs into structured voting records made large-scale review more accessible for analysts, journalists, researchers, and the public. It also made comparisons across parliamentary motions and sessions easier to reproduce.",
     ]),
     figures: Object.freeze([
       Object.freeze({
@@ -75,18 +76,18 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     Object.freeze({
       baPanel: Object.freeze({
         variant: "after",
-        title: "Key findings",
+        title: "What structured parliamentary records enabled",
         paragraphs: Object.freeze([
-          "Analysis of the structured voting records showed that more than ==77% of parliamentary votes== received majority support across all 7 major political parties, while a smaller subset of highly publicized votes revealed clear inter-party conflict and internal voting divisions.",
-          "From there, the project could examine:",
+          "Once reconstructed into structured datasets, parliamentary records could finally be compared across motions, parties, and legislative sessions without manually rebuilding vote tables from government PDFs.",
+          "The records supported:",
           Object.freeze({
             bulletListPlain: true,
             bulletList: Object.freeze([
-              "voting alignment across major political parties",
-              "coalition behavior over time",
-              "parliamentary attendance trends",
-              "abstention and non-voting patterns",
-              "intra-party voting conflicts across 108 parliamentary votes and legislative motions",
+              "coalition and voting-alignment analysis",
+              "attendance and abstention tracking",
+              "cross-party comparison",
+              "longitudinal parliamentary review",
+              "public-interest visualization and reporting",
             ]),
           }),
         ]),

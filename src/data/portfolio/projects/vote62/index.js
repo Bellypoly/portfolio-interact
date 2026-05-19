@@ -82,7 +82,7 @@ export const vote62CaseStudyBase = {
   /* Building reliable election data from PDFs */
   strategyTitle: "Building reliable election data from PDFs",
   strategyIntro:
-    "VOTE62 was bigger than one extraction workflow: partners shaped how election records became publicly usable data. My contribution focused on the reconstruction layer—Python, OCR, table reconstruction, validation, and rerunnable processing workflows—so reconstructed records could still be traced back to the official PDFs they came from.",
+    "VOTE62 was bigger than one extraction workflow: partners shaped how election records became usable election records. My contribution focused on the reconstruction layer—Python, OCR, table reconstruction, validation, and rerunnable processing workflows—so reconstructed records could still be traced back to the official PDFs they came from.",
   pillars: [
     {
       title: "Layout-aware extraction",
@@ -116,7 +116,7 @@ export const vote62CaseStudyBase = {
   approachTitle: "Trust beats a clean-looking lie",
   approach: [
     "I insisted validation be allowed to say \u201cno\u201d: totals that do not reconcile, candidate rows that disagree with ballot counts, and tokens that are not plausible digits stay visible as warnings—not auto-smoothed into a tidy fiction.",
-    "The goal was not a cleaner-looking spreadsheet. It was a dataset that made uncertainty visible—where the machine was confident, where validation failed, and where human review still mattered.",
+    "The goal was not a cleaner-looking spreadsheet. It was a workflow where uncertainty stayed visible—where the machine was confident, where validation failed, and where human review still mattered.",
   ],
 
   /* Supporting media and open data */
