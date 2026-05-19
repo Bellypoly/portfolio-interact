@@ -67,7 +67,7 @@ const baseLocalElectionsHubCaseStudy = {
     {
       value: "Ready",
       label:
-        "Layout and semantics suited to high-visibility, high-stakes publishing windows",
+        "Layout and semantics suited to heavy-traffic election-night publishing",
     },
   ],
   /* Overview */
@@ -79,13 +79,13 @@ const baseLocalElectionsHubCaseStudy = {
   overviewSystemDesign: {
     sectionTitle: "Data to UI",
     intro:
-      "Editorial and wire data normalize into typed race/candidate models; the UI layer maps those models to tables, progress indicators, and metadata chips — with client-side navigation across counties without extra round-trips.",
+      "Editorial and wire feeds were normalized into shared race and candidate structures so results, reporting status, and metadata stayed consistent across counties. The UI layer then mapped those records into reusable tables, vote indicators, and navigation patterns optimized for live election coverage.",
     diagram: [
       "Feeds / CMS — structured election payloads",
       "↓",
       "Normalize — counties, races, candidates, party, vote totals",
       "↓",
-      "Component registry — tables · vote bars · status tags · reporting footer",
+      "Election UI patterns — tables · vote bars · status tags · reporting footer",
       "↓",
       "Render — responsive grid (6-col) · anchor nav · progressive disclosure",
     ],
@@ -128,7 +128,7 @@ const baseLocalElectionsHubCaseStudy = {
               "images/portfolio/local-elections-hub/hub-before-2021-mobile.webp",
             alt: "Dallas Morning News mobile — Dallas City Council races, May 2021: tables with votes, percentages, and RUNOFF tags.",
             caption:
-              "2021 hub — dense tables and status tags; groundwork for the later component model.",
+              "2021 hub — dense tables and status tags that became difficult to scan quickly during live returns.",
           },
           after: {
             img: "images/portfolio/local-elections-hub/hub-after-2022-mobile.png",
@@ -136,7 +136,7 @@ const baseLocalElectionsHubCaseStudy = {
               "images/portfolio/local-elections-hub/hub-after-2022-mobile.webp",
             alt: "Dallas Morning News mobile — Local Elections November 2022, Dallas County: candidate rows with party badges and vote share bars.",
             caption:
-              "2022 hub — same product family with county navigation, party indicators, and lightweight vote-share bars for faster scanning.",
+              "2022 hub — clearer hierarchy, county navigation, and lightweight vote-share indicators designed for faster scanning during election-night updates.",
           },
         },
       ],
@@ -149,7 +149,7 @@ const baseLocalElectionsHubCaseStudy = {
   strategyBullets: null,
   pillars: [
     {
-      title: "Dynamic data rendering layer",
+      title: "Reusable election result components",
       body: "Reusable components for structured election payloads — candidates, vote counts, percentages — with consistent formatting whether the race is county-wide, city council, or down-ballot.",
     },
     {
@@ -181,7 +181,7 @@ const baseLocalElectionsHubCaseStudy = {
   ],
   /* Business outcome */
   businessOutcome:
-    "The hub became a reusable elections surface — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
+    "The rebuilt hub gave the newsroom one reusable election system for live results, mobile readers, and repeat coverage across election cycles instead of rebuilding separate layouts for every race and county.",
   /* Final related surface */
   relatedProject: {
     slug: "article-page-redesign",
