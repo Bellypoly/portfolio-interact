@@ -7,7 +7,7 @@ import { subscriptionCheckoutActivationCaseStudyVariant } from "./variants.js";
 
 const subscriptionCheckoutActivationCaseStudyBase = {
   /* Header / intro */
-  eyebrow: "Reader revenue · Newsroom systems · Audience analytics",
+  eyebrow: "Reader revenue · Newsroom systems · Conversion infrastructure",
   featuredImg: "images/portfolio/subscription-checkout/featured-image.png",
   featuredImgWebp: "images/portfolio/subscription-checkout/featured-image.webp",
   featuredImageCompact: true,
@@ -157,7 +157,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
     diagram: {
       sectionTitle: "Version 1 vs Version 2",
       intro:
-        "The screenshots above show what readers experienced. The diagram below shows what I engineered against: how many page boundaries sit between intent and payment, and what happens to state at each one. Version 1 fragments the funnel across 3 navigations with no shared context. Version 2 puts everything on one surface with a linear pill path through the same stages — and keeps client state alive the entire time.",
+        "The screenshots above show what readers experienced. Underneath, the architecture changed just as much: Version 1 fragmented checkout across 3 page loads with no shared client state, while Version 2 collapsed the same flow into one React surface with deterministic identity branching and a shorter path from intent to payment.",
       beforeAfter: true,
       beforeAfterVariant: "v1v2",
       caption:
