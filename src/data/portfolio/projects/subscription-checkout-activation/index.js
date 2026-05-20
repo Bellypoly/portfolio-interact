@@ -1,5 +1,5 @@
 /**
- * End-to-end subscription conversion system (DMN) — portfolio entry + case study.
+ * Evidence-Driven Redesign of a News Subscription Funnel (DMN) — portfolio entry + case study.
  */
 
 import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js";
@@ -75,8 +75,9 @@ const subscriptionCheckoutActivationCaseStudyBase = {
       after:
         " — more readers than ever were reaching the moment they wanted to subscribe. But the checkout they hit was 3 server-rendered pages with no shared client state: member info, payment, password. Every navigation was a full round-trip, a fresh DOM, and another chance for the reader to close the tab.",
     },
-    "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified 3 payment providers (Braintree, Stripe, Apple Pay) behind one tokenization interface, and wrote deterministic identity resolution against Arc XP so the system could distinguish new visitors, existing accounts, and active subscribers — all at the email-entry boundary.",
+    "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified multiple payment providers behind one interface (e.g., Braintree, Stripe, Apple Pay), and wrote deterministic identity resolution against Arc XP so the system could distinguish new visitors, existing accounts, and active subscribers — all at the email-entry boundary.",
     "The second pass used Microsoft Clarity tap heatmaps in production to show that some of my own earlier engineering choices had become the UX bottleneck. I shipped fixes directly against that evidence.",
+    "Subscription systems are also newsroom systems. Every friction point between a reader and a story affects how journalism is discovered, supported, and sustained. This project focused on reducing technical and behavioral barriers between reader intent and newsroom engagement.",
   ],
 
   /* The pipeline */
@@ -123,7 +124,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
         ],
       },
       {
-        title: "The platform fought back",
+        title: "Platform constraints",
         items: [
           "Arc XP's identity layer had one entry point for 3 distinct states — new visitor, existing account, active subscriber — with no built-in branching. Every path through checkout needed explicit resolution logic or the flow silently broke.",
           "Sessions and accounts fell out of sync constantly: 'user already exists' errors on fresh signups, cart state vanishing across navigations, duplicate accounts created when retries hit the wrong endpoint.",
@@ -170,12 +171,12 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   /* Version 2: single-page checkout */
   checkoutSection: {
     title: "Version 2: Single-page checkout",
-    lead: 'The first pass rewrote the architecture. We collapsed the 3-page flow into a single React-driven surface, unified 3 payment providers behind one abstraction, and wired deterministic identity resolution into the entry point. It shipped as the "Single Page Checkout" and moved digital subscriptions materially within the first month.',
+    lead: "The first pass rewrote the checkout architecture. We collapsed a fragmented 3-page flow into a single React-driven surface, unified multiple payment providers behind one interface, and wired deterministic identity resolution directly into the entry point. It shipped as the “Single Page Checkout” and materially increased digital subscriptions within the first month.",
     bullets: [
-      "Moved member info, payment, and order summary onto a single page — eliminating two full navigations and two server round-trips. Client state now lives in one component tree instead of being serialized and hoped to survive across page loads.",
-      "Built a unified payment abstraction over Braintree, Stripe, and Apple Pay. Each provider has its own tokenization flow, validation contract, and error shape; the abstraction normalizes all of that behind one interface so the checkout form doesn't care which provider is active.",
-      "Arc XP's subscription API required validated member info before it would create an order. I enforced that constraint on the client by gating payment fields behind member-info validation — the fields stayed disabled until the backend confirmed the identity. Clean engineering; the payment form couldn't submit junk. Readers saw it differently, but I didn't know that yet.",
-      "Added a 3-step progress bar (Select Plan → Payment → Confirmation) and a benefits sidebar. Both felt like smart additions — wayfinding for the reader, confidence for the purchase. We were proud of them.",
+      "Moved member information, payment, and order summary onto one surface — eliminating two navigations and reducing opportunities for session loss between steps.",
+      "Built a unified payment layer over Braintree, Stripe, and Apple Pay so the checkout experience remained consistent regardless of provider-specific tokenization or validation flows.",
+      "Wired email-first identity resolution into checkout. Arc XP required validated member information before order creation, so payment actions remained gated until identity checks completed successfully.",
+      "Added a 3-step progress indicator and benefits sidebar to improve wayfinding and reinforce subscription value. Later production analytics would show where some of these assumptions introduced friction.",
     ],
     flowDiagram: {
       img: "images/portfolio/subscription-checkout/checkout-flow-diagram.png",
@@ -343,7 +344,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
       {
         img: "images/portfolio/subscription-checkout/onboarding-step-3.png",
         imgWebp:
-          "images/portfolio/subscription-checkout/onboarding-step-3.webp",
+          "images/portfolio/subsc ription-checkout/onboarding-step-3.webp",
         alt: "Onboarding step three — guided product tour",
         caption: "Step 3 — Discover what's here.",
       },
@@ -354,7 +355,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   /* Reflection */
   approachTitle: "What I learned",
   approach: [
-    "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — three pages meant three round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
+    "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — 3 pages meant 3 round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
     "Version 3 was the humbling part. The progress bar I added for wayfinding was being used as navigation. The payment gating I built for backend safety was making inputs look broken. Clarity did not surface someone else's mistakes — it surfaced mine. The takeaway is not simply “test more”; engineering decisions have UX consequences you cannot predict from code alone, and the honest way to find them is to instrument production and let real sessions push back.",
   ],
 

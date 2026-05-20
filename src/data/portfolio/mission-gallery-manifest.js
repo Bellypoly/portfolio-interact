@@ -149,7 +149,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioLabel: "Product",
     companyBadge: "DMN",
     anchorId: "portfolio-subscription",
-    name: "End-to-End Subscription Conversion System",
+    name: "Evidence-Driven Redesign of a News Subscription Funnel",
     desc: "Rebuilt a three-page checkout leak into one React surface—then used Clarity evidence to refine the flow and onboard new subscribers.",
     cardImagePosition: "center 10%",
     img: "images/portfolio/subscription-checkout/thumbnail.png",

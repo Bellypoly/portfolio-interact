@@ -7,7 +7,7 @@ import { articlePageRedesignCaseStudyVariant } from "./variants.js";
 
 const baseArticlePageRedesignCaseStudy = {
   /* Header / intro */
-  eyebrow: "Product · Reader Experience · Monetization · Performance",
+  eyebrow: "Newsroom Systems · Reader Experience · Monetization · Performance",
   featuredImg: "images/portfolio/article-redesign/featured-image.png",
   featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
   featuredImageCompact: true,
@@ -109,7 +109,7 @@ const baseArticlePageRedesignCaseStudy = {
   overviewTitle: "Overview",
   overview: [
     "When AMP went away, we regained full control of the article DOM — and inherited the work to make that control measurable.",
-    "I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out behind feature flags from September through full deployment by year-end.",
+    "I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out incrementally behind feature flags from September through full deployment by year-end.",
   ],
   /* Article stack */
   overviewSystemDesign: {
@@ -137,6 +137,7 @@ const baseArticlePageRedesignCaseStudy = {
     title: "Problem",
     paragraphs: [
       "The old experience was sidebar-heavy: ads and modules competed with the story, Core Web Vitals were hard to defend under shifting load, and growth paths (subscribe, register, newsletter) sat outside a coherent reading line — so engagement stayed passive and iteration was slow.",
+      "The goal was not only performance improvement, but a calmer reading surface where long-form stories, visual reporting, and civic explainers could hold reader attention without competing sidebar noise.",
     ],
     figureCaption:
       "2 comparisons: representative production pages, then Arc XP PageBuilder templates — same before/after story at different levels of fidelity.",
@@ -197,7 +198,7 @@ const baseArticlePageRedesignCaseStudy = {
   pillars: [
     {
       title: "Article layout & templates (Arc XP PageBuilder · React)",
-      body: "Built a component-based single-column layout: text, image, embed, and ad-slot blocks composed at render time via a content-type resolver so editorial gets varied templates without one-off forks. Responsive behavior across mobile, tablet, and desktop; typography and spacing from the design system.",
+      body: "Built a component-based single-column article system in Arc XP PageBuilder. Text, image, embed, and ad-slot blocks render through a shared content resolver so editorial teams can assemble varied story layouts without one-off template forks. Responsive typography and spacing adapt across mobile, tablet, and desktop.",
     },
     {
       title: "Monetization (Google Ad Manager)",
@@ -223,6 +224,7 @@ const baseArticlePageRedesignCaseStudy = {
     "Shipping layout, ads, commenting, and reader-state in one coordinated rollout instead of parallel tracks meant fewer integration surprises, but every feature-flag combination needed its own test matrix. Unit and integration coverage across render-branch permutations was the hardest part of the project.",
   ],
   /* Outcome / result */
+  businessOutcomeSectionTitle: "Deployment outcome",
   businessOutcome:
     "One implementation surface in production, rolled out incrementally with product, design, and ads from September through full deployment by year-end.",
   showcase: {
