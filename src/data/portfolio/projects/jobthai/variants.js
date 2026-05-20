@@ -3,9 +3,8 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const jobthaiCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
-    eyebrow: "Data journalism · Marketplace",
-    task:
-      "Analyze job market trends from Thai marketplace data to inform civic platforms and newsroom reports on employment patterns.",
+    // eyebrow: "Data journalism · Marketplace",
+    task: "Analyze job market trends from Thai marketplace data to inform civic platforms and newsroom reports on employment patterns.",
   }),
 });
 

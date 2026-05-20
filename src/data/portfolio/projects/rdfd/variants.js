@@ -3,9 +3,8 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const rdfdCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
-    eyebrow: "Data journalism · Machine learning",
-    task:
-      "Develop ML models for detecting fake data in civic systems — analyze patterns in transportation data to identify fraudulent activities and inform public reporting.",
+    // eyebrow: "Data journalism · Machine learning",
+    task: "Develop ML models for detecting fake data in civic systems — analyze patterns in transportation data to identify fraudulent activities and inform public reporting.",
   }),
 });
 
