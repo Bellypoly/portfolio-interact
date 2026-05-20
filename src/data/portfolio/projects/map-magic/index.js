@@ -7,7 +7,7 @@ import { mapMagicCaseStudyVariant } from "./variants.js";
 
 const baseMapMagicCaseStudy = {
   /* Header / intro */
-  eyebrow: "Platform · Geospatial",
+  eyebrow: "Geospatial Platform · Routing · Maps",
   featuredImg: "images/portfolio/map-magic/featured-image.png",
   featuredImgWebp: "images/portfolio/map-magic/featured-image.webp",
   featuredImageAlt:
@@ -46,7 +46,7 @@ const baseMapMagicCaseStudy = {
   ],
   /* Overview */
   overview: [
-    "At THiNKNET the product line was MapMagic; today most people meet it as THiNKNET Maps in the browser. We started from OpenStreetMap because it gave us a credible geography to argue with—but Thailand is not a tutorial bbox. Heat, traffic, patchy mobile signal, and Thai addressing habits will embarrass lazy tiles, lazy POIs, and lazy routing faster than any QA script. The work was never “skin OSM”; it was building the proprietary layer—tiles, POI depth, capture tooling, and a router that understood our graph—so the map felt local when it mattered.",
+    "At THiNKNET the product line was MapMagic; today most people meet it as THiNKNET Maps in the browser. We started from OpenStreetMap because it gave us a credible geography to argue with—but Thailand is not a tutorial bbox. Heat, traffic, patchy mobile signal, and Thai addressing habits will embarrass lazy tiles, lazy POIs, and lazy routing faster than any QA script. The work was never only styling OpenStreetMap. We built the proprietary layer underneath—tiles, POI depth, capture tooling, and routing tuned for Thailand-specific road behavior—so the map felt local where accuracy actually mattered.",
     {
       text: "That stack quietly props up everyday products: map-grounded job search on JobThai, travel and editorial lines such as ",
       externalLink: {
@@ -56,15 +56,16 @@ const baseMapMagicCaseStudy = {
       after:
         "—still the kind of highway-first print drivers trust—plus other digital surfaces that reuse the same tiles, search, and routing muscle.",
     },
+    "Reliable maps are also public-information systems: job search, travel, local discovery, routing, and civic access all depend on geospatial data people can actually trust.",
     "HotelGuide Thailand was one hospitality front built on the same footprint. The standalone app is retired, but the infrastructure underneath—tiles, POI, routing, APIs—did not retire with it; it still feeds THiNKNET\u2019s live map portfolio.",
     {
-      text: "The public map most people open today is ",
+      text: "Today, most people encounter the stack through ",
       externalLink: {
         href: "https://maps.thinknet.co.th/th",
         label: "THiNKNET Maps",
       },
       after:
-        ", where you can swap basemap moods without swapping the road network underneath.",
+        ", where users can swap basemap moods without changing the road network underneath.",
     },
     {
       figureBlock: {
