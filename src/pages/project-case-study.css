@@ -931,6 +931,10 @@
   line-height: var(--cs-lh-ui);
 }
 
+.project-case-study__print-project-url {
+  display: none;
+}
+
 /* Fixed bottom strip when mission manifest supplies external project URL */
 .project-case-study__cta-bar {
   @apply fixed bottom-0 left-0 right-0 z-20 border-t backdrop-blur-md;
@@ -1156,4 +1160,31 @@
 .project-case-study__inline-link:hover {
   color: var(--site-editorial-rust);
   text-decoration-color: var(--site-editorial-rust);
+}
+
+@media print {
+  .project-case-study__header,
+  .project-case-study__cta-bar {
+    display: none !important;
+  }
+
+  .project-case-study--sticky-cta .project-case-study__article {
+    padding-bottom: 0;
+  }
+
+  .project-case-study__print-project-url {
+    display: block;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #d6d3d1;
+    color: #44403c;
+    font-family: var(--cs-font-body);
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+
+  .project-case-study__print-project-url span {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 }

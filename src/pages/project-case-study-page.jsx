@@ -808,6 +808,12 @@ export default function ProjectCaseStudyPage() {
             ))}
           </footer>
         ) : null}
+
+        {link ? (
+          <p className="project-case-study__print-project-url">
+            Project URL: <span>{link}</span>
+          </p>
+        ) : null}
       </article>
 
       {link ? (

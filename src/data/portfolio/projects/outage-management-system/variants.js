@@ -17,7 +17,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
       "Make outage data one continuous story: a single outage id should travel from intake through the Outage Management System (OMS) into mapping, field and grid operations, and reporting—including ETR (estimated time of restoration)—and still join cleanly when storms, SAP backlog, or late GIS exports stress the pipe.",
       "I stayed on the integration layer: APIs between eRespond and OMS alongside GIS→OMS ingestion, scheduled GIS shapefile pipelines, warehouse fields, and reporting alignment—not SCADA acquisition or deep SAP ERP core work. The work sat at the intersection of PEA engineering, reliability, and vendor-led programs, so clear contracts and calm cutovers mattered as much as code.",
     ],
-    disciplines: [
+    focus: [
       "API integration",
       "Data synchronization",
       "Distributed systems",
