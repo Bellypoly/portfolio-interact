@@ -20,6 +20,16 @@ test("manifest rows all have route loaders", () => {
   }
 });
 
+test("manifest rows use current footer visibility key", () => {
+  for (const row of MISSION_GALLERY_MANIFEST) {
+    assert.equal(
+      Object.hasOwn(row, "hideGalleryDescOnCaseStudy"),
+      false,
+      `${row.slug} uses legacy hideGalleryDescOnCaseStudy`,
+    );
+  }
+});
+
 test("manifest map points at same row objects", () => {
   const row = MISSION_GALLERY_MANIFEST[0];
   assert.ok(row?.slug);

@@ -5,7 +5,7 @@
  * Display order comes from the active Mission Gallery version (`ACTIVE_MISSION_GALLERY_VERSION`).
  *
  * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel → companyBadge? →
- * hideGalleryDescOnCaseStudy? (when true, `/mission/:slug` footer omits manifest `desc`; gallery tiles still use `desc`) → anchorId? →
+ * hideFooterTagline? (when true, `/mission/:slug` omits the footer tagline; gallery tiles still use `desc`) → anchorId? →
  * name → desc → cardImageFit? → cardImagePosition? → img → imgWebp → alt → link?
  *
  * New mission: row in this file, then slug in `load-portfolio-project.js`, then `projects/<slug>/index.js`
@@ -23,7 +23,7 @@ const MISSION_GALLERY_ROWS = [
     anchorId: "portfolio-vote69",
     name: "VOTE62 — Structured election data from ECT PDF records",
     desc: "400 Thai constituencies rebuilt from ECT tally PDFs into validated structured datasets so public-interest projects run on structure, not hand-typed spreadsheets.",
-    hideGalleryDescOnCaseStudy: true,
+    hideFooterTagline: true,
     cardImagePosition: "center center",
     img: "images/portfolio/vote62/thumbnail.png",
     imgWebp: "images/portfolio/vote62/thumbnail.webp",
@@ -52,7 +52,7 @@ const MISSION_GALLERY_ROWS = [
     anchorId: "portfolio-electricity-bill-breakdown",
     name: "Where Does Your Electricity Bill Go?",
     desc: "Public-interest explainer translating Thai electricity bills, fuel-adjustment charges (Ft), and energy pricing systems into progressively structured information for non-specialist readers.",
-    hideGalleryDescOnCaseStudy: true,
+    hideFooterTagline: true,
     img: "images/portfolio/electricity-bill-breakdown/thumbnail.png",
     imgWebp: "images/portfolio/electricity-bill-breakdown/thumbnail.webp",
     alt: "Electricity bill breakdown — black square graphic with a glowing lightning bolt, stacked electricity / bill / breakdown type, and a ring of white line-art energy icons (grid, generation, fuel, industry)",
@@ -81,6 +81,7 @@ const MISSION_GALLERY_ROWS = [
     anchorId: "portfolio-outage-ms",
     name: "Outage Management & Reliability Platform",
     desc: "PEA outage-management integrations across OMS, GIS, SAP, and reporting systems—keeping outage identities, restoration estimates, and operational data aligned during high-volume monsoon outages.",
+    hideFooterTagline: true,
     img: "images/portfolio/outage-management-system/thumbnail.png",
     imgWebp: "images/portfolio/outage-management-system/thumbnail.webp",
     alt: "Portfolio thumbnail: soft neumorphic hub diagram\u2014central outage data store with a power bolt, linked to grid tower, mobile alert, maps, live monitoring, and bar-chart reporting icons",

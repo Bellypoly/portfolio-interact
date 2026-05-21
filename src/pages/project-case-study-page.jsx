@@ -39,6 +39,7 @@ import {
   renderReferenceFigureCaption,
 } from "./case-study/case-study-renderers";
 import CaseStudyIframe from "./case-study/case-study-iframe";
+import { resolveCaseStudyFooterTaglineParagraphs } from "./case-study/case-study-footer-tagline";
 import { renderCaseStudyInlineRich } from "./case-study/case-study-inline-rich";
 import "./project-case-study.css";
 
@@ -152,26 +153,23 @@ export default function ProjectCaseStudyPage() {
   const {
     name,
     desc,
-    caseStudyDesc,
     img,
     imgWebp,
     alt,
     link,
-    hideGalleryDescOnCaseStudy,
+    hideFooterTagline,
     caseStudy: cs,
   } = project;
   const baseUrl = import.meta.env.BASE_URL;
   const featuredImg = cs.featuredImg ?? img;
   const featuredImgWebp = cs.featuredImgWebp ?? imgWebp;
   const featuredAlt = cs.featuredImageAlt ?? alt;
-  const caseStudyFooterTagline =
-    cs.footerTagline ??
-    (hideGalleryDescOnCaseStudy ? null : (caseStudyDesc ?? desc));
-  const caseStudyFooterTaglineParagraphs = Array.isArray(
-    caseStudyFooterTagline,
-  )
-    ? caseStudyFooterTagline
-    : [caseStudyFooterTagline].filter(Boolean);
+  const caseStudyFooterTaglineParagraphs =
+    resolveCaseStudyFooterTaglineParagraphs({
+      caseStudy: cs,
+      desc,
+      hideFooterTagline,
+    });
 
   const showDeferredImpact = Boolean(
     cs.results?.length &&
