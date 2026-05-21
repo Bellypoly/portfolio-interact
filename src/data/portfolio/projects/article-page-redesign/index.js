@@ -65,8 +65,7 @@ const baseArticlePageRedesignCaseStudy = {
     },
   ],
   /* Impact */
-  earlyImpactTitle:
-    "Impact (team program — my contribution was implementation)",
+  ImpactTitle: "Impact (team program — my contribution was implementation)",
   results: [
     {
       value: "-9.91%",

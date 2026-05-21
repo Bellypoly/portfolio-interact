@@ -13,7 +13,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
     featuredImageCompact: true,
     featuredImageObjectPosition: "center center",
 
-    disciplines: [
+    focus: [
       "Checkout & payments system",
       "Identity & session continuity",
       "Post-purchase onboarding",
@@ -39,7 +39,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
       { label: "React", href: "https://react.dev/" },
     ],
 
-    earlyImpactTitle: "Impact",
+    ImpactTitle: "Impact",
     earlyImpactIntro:
       "Subscription metrics from the same internal milestone referenced elsewhere in this case study — first after the V2 single-page launch, then after the Clarity-driven V3 iteration on that same surface.",
 

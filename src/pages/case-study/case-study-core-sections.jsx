@@ -85,7 +85,7 @@ export function CaseStudyEarlyImpactSection({
 
   return (
     <CaseStudySection
-      title={cs.earlyImpactTitle ?? "Impact"}
+      title={cs.ImpactTitle ?? "Impact"}
       sectionId={`${slug}-impact-early`}
     >
       {cs.earlyImpactIntro ? (
@@ -142,9 +142,9 @@ export function CaseStudyStrategySection({
   if (cs.strategyPartSplit) {
     const showMyRole = Boolean(
       cs.strategyTitle ||
-        hasStrategyIntro(cs.strategyIntro) ||
-        cs.strategyOutro ||
-        (cs.strategyBullets?.length ?? 0) > 0,
+      hasStrategyIntro(cs.strategyIntro) ||
+      cs.strategyOutro ||
+      (cs.strategyBullets?.length ?? 0) > 0,
     );
     const showMethodology = Boolean(
       (cs.pillars?.length ?? 0) > 0 || (cs.strategyAppend?.length ?? 0) > 0,
@@ -208,11 +208,11 @@ export function CaseStudyStrategySection({
 
   const showStrategySection = Boolean(
     cs.strategyTitle ||
-      hasStrategyIntro(cs.strategyIntro) ||
-      cs.strategyOutro ||
-      (cs.strategyBullets?.length ?? 0) > 0 ||
-      (cs.pillars?.length ?? 0) > 0 ||
-      (cs.strategyAppend?.length ?? 0) > 0,
+    hasStrategyIntro(cs.strategyIntro) ||
+    cs.strategyOutro ||
+    (cs.strategyBullets?.length ?? 0) > 0 ||
+    (cs.pillars?.length ?? 0) > 0 ||
+    (cs.strategyAppend?.length ?? 0) > 0,
   );
   if (!showStrategySection) return null;
 

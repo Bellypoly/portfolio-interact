@@ -38,7 +38,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   ],
 
   /* Impact */
-  earlyImpactTitle: "Impact",
+  ImpactTitle: "Impact",
   earlyImpactIntro:
     "Subscription metrics from the same internal milestone referenced elsewhere in this case study — first after the V2 single-page launch, then after the Clarity-driven V3 iteration on that same surface.",
   earlyImpactGroups: [
