@@ -7,7 +7,7 @@ import { peaEServiceCaseStudyVariant } from "./variants.js";
 
 const basePeaEServiceCaseStudy = {
   /* Header / intro */
-  eyebrow: "Public sector · Engineering & user experience (UX)",
+  eyebrow: "Public Infrastructure · Service Systems",
   featuredImg: "images/portfolio/pea-e-service/featured-image.png",
   featuredImgWebp: "images/portfolio/pea-e-service/featured-image.webp",
   featuredImageAlt:
@@ -54,8 +54,8 @@ const basePeaEServiceCaseStudy = {
   overview: [
     "PEA E-Service is the public portal for electricity and water connection applications, status tracking, and service requests. I designed the user flows, built the frontend, and ensured accessibility and mobile compatibility.",
   ],
-  /* What I did */
-  strategyTitle: "What I did",
+  /* System goals */
+  strategyTitle: "System goals",
   pillars: [
     {
       title: "User flow design",
