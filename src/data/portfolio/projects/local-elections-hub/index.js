@@ -9,6 +9,7 @@ const baseLocalElectionsHubCaseStudy = {
   /* Header / intro */
   eyebrow: "Election Systems · Newsroom Engineering",
 
+  /* Media */
   featuredImg: "images/portfolio/local-elections-hub/featured-image.png",
   featuredImgWebp: "images/portfolio/local-elections-hub/featured-image.webp",
 
@@ -23,6 +24,7 @@ const baseLocalElectionsHubCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
 
+  /* Project frame */
   task: "Full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
 
   focus: [
@@ -34,6 +36,7 @@ const baseLocalElectionsHubCaseStudy = {
 
   context: "The Dallas Morning News",
 
+  /* Stack */
   techStack: [
     {
       label: "Arc XP",
@@ -57,8 +60,8 @@ const baseLocalElectionsHubCaseStudy = {
     },
   ],
 
-  /* Impact */
 
+  /* Impact */
   results: [
     {
       value: "Readable",
@@ -82,8 +85,8 @@ const baseLocalElectionsHubCaseStudy = {
   ],
   resultsLabelCase: "sentence",
 
-  /* Overview */
 
+  /* Overview */
   overviewTitle: "Overview",
 
   overview: [
@@ -92,6 +95,7 @@ const baseLocalElectionsHubCaseStudy = {
 
   /* Data to UI */
 
+  /* System design */
   overviewSystemDesign: {
     sectionTitle: "Data to UI",
 
@@ -115,8 +119,8 @@ const baseLocalElectionsHubCaseStudy = {
       "Flow from election data through normalization to component registry and responsive render with anchor navigation",
   },
 
-  /* Problem */
 
+  /* Problem */
   problemSection: {
     title: "Problem",
 
@@ -190,6 +194,7 @@ const baseLocalElectionsHubCaseStudy = {
 
   /* System components */
 
+  /* What I focused on */
   strategyTitle: "System components",
 
   strategyBullets: null,
@@ -234,6 +239,7 @@ const baseLocalElectionsHubCaseStudy = {
 
   /* How I shipped it */
 
+  /* How it shipped */
   approachTitle: "How I shipped it",
 
   approach: [
@@ -256,6 +262,7 @@ const baseLocalElectionsHubCaseStudy = {
       "Same platform: article experience, ads, engagement, and reader state →",
   },
 
+  /* Footer */
   footerTagline:
     "Elections hub rebuilt for Arc XP—typed race data, county anchors, lightweight viz, and mobile-first grids for live returns.",
 };
@@ -263,6 +270,7 @@ const baseLocalElectionsHubCaseStudy = {
 export const localElectionsHubProject = {
   ...getMissionGalleryManifestRow("local-elections-hub"),
 
+  /* Export */
   caseStudy: {
     ...baseLocalElectionsHubCaseStudy,
     ...localElectionsHubCaseStudyVariant,

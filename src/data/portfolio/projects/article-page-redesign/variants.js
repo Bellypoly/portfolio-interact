@@ -6,9 +6,11 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
     // eyebrow:
     //   "Newsroom Systems · Reader Experience · Monetization · Performance",
     // task: "Optimize article surfaces for data-driven storytelling: PageBuilder (React), analytics integration, Core Web Vitals, and reader engagement metrics for civic platforms and newsroom data reports.",
+    /* Header / intro */
     eyebrow:
       "Newsroom Systems · Reader Experience · Monetization · Performance",
 
+    /* Media */
     featuredImg: "images/portfolio/article-redesign/featured-image.png",
     featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
     featuredImageCompact: true,
@@ -20,6 +22,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
       label: "The Dallas Morning News",
     },
 
+    /* Project frame */
     task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
 
     focus: [
@@ -32,6 +35,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
 
     context: "The Dallas Morning News",
 
+    /* Stack */
     techStack: [
       {
         label: "Arc XP",
@@ -71,9 +75,9 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
       },
     ],
 
-    /* Impact */
     ImpactTitle: "Impact",
 
+    /* Impact */
     results: [
       {
         value: "-9.91%",
@@ -126,6 +130,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
     ],
 
     /* Article stack */
+    /* System design */
     overviewSystemDesign: {
       sectionTitle: "Article stack",
 
@@ -243,6 +248,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
     },
 
     /* What I built */
+    /* What I focused on */
     strategyTitle: "What I built",
 
     strategyBullets: null,
@@ -280,6 +286,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
     ],
 
     /* Reflection */
+    /* How it shipped */
     approachTitle: "What I learned",
 
     approach: [

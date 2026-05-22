@@ -6,8 +6,10 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { industrialLogisticsEvaluationCaseStudyVariant } from "./variants.js";
 
 const baseIndustrialLogisticsEvaluationCaseStudy = {
+  /* Header / intro */
   eyebrow: "Research · Logistics · IEOM 2016",
 
+  /* Media */
   featuredImg:
     "images/portfolio/industrial-logistics-evaluation/featured-image.jpg",
 
@@ -21,12 +23,14 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
 
   featuredImageObjectPosition: "center center",
 
+  /* Project frame */
   task: "Evaluate how logistics friction actually appears inside a Thai printing and packaging operation — where warehouse flow, outbound shipping, tracking, and infrastructure constraints stop matching the clean assumptions inside national logistics rankings.",
 
   focus: ["Operations research", "LPI benchmarking", "Case study methodology"],
 
   context: "IEOM 2016 · Academic research (Thailand)",
 
+  /* Stack */
   techStack: [
     {
       label: "MATLAB",
@@ -50,6 +54,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
     },
   ],
 
+  /* Impact */
   results: [
     {
       value: "Shop-floor lens",
@@ -69,6 +74,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
   ],
   resultsLabelCase: "sentence",
 
+  /* Overview */
   overviewTitle: "Overview",
 
   overview: [
@@ -89,6 +95,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
     },
   ],
 
+  /* What I focused on */
   strategyTitle: "What I evaluated",
 
   pillars: [
@@ -111,6 +118,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
     },
   ],
 
+  /* How it shipped */
   approachTitle: "How I approached it",
 
   approach: [
@@ -127,6 +135,7 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
 
 export const industrialLogisticsEvaluationProject = {
   ...getMissionGalleryManifestRow("industrial-logistics-evaluation"),
+  /* Export */
   caseStudy: {
     ...baseIndustrialLogisticsEvaluationCaseStudy,
     ...industrialLogisticsEvaluationCaseStudyVariant,

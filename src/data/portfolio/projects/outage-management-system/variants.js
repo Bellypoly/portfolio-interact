@@ -3,7 +3,9 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const outageManagementSystemCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     eyebrow: "Public infrastructure · OMS · Multi-system integration",
+    /* Media */
     featuredImg:
       "images/portfolio/outage-management-system/featured-oms-hub.png",
     featuredImgWebp:
@@ -13,6 +15,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
     featuredImageCompact: true,
     featuredImageObjectPosition: "center center",
     featuredImageObjectPositionMd: "center 35%",
+    /* Project frame */
     task: [
       "Make outage data one continuous story: a single outage id should travel from intake through the Outage Management System (OMS) into mapping, field and grid operations, and reporting—including ETR (estimated time of restoration)—and still join cleanly when storms, SAP backlog, or late GIS exports stress the pipe.",
       "I stayed on the integration layer: APIs between eRespond and OMS alongside GIS→OMS ingestion, scheduled GIS shapefile pipelines, warehouse fields, and reporting alignment—not SCADA acquisition or deep SAP ERP core work. The work sat at the intersection of PEA engineering, reliability, and vendor-led programs, so clear contracts and calm cutovers mattered as much as code.",
@@ -26,6 +29,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
     ],
     context:
       "PEA (Thailand) \u2014 OMS reliability: eRespond\u2192OMS and GIS\u2192OMS integration, SAP touchpoints, warehouse reporting; delivered with PEA teams and third-party implementation partners",
+    /* Stack */
     techStack: [
       {
         label: "SCADA (power grid monitoring)",
@@ -73,6 +77,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
         href: "https://www.oracle.com/database/",
       },
     ],
+    /* Overview */
     overview: [
       "This case study pairs with PEA E\u2011Service: where E\u2011Service faces citizens, this stack keeps branches, control rooms, and reliability pointed at the same outage when something trips or a planned outage is on the calendar.",
       "Outage truth arrives from many places\u2014real-time power grid monitoring, eRespond (where operators log faults, planned outages, and live ETR in lists and on the map), GIS, SAP ERP. Without deliberate seams, those feeds drift: different status on the map, different geometry in OMS, different restoration time on the phone.",
@@ -125,6 +130,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
       caption:
         "In production those paths are not a slide sequence\u2014they are one integration boundary I contributed to with PEA engineering and third-party implementation partners: eRespond\u2192OMS APIs, GIS\u2192OMS ingest, and SAP-facing read contracts that had to stay true under load while vendor roadmaps and internal releases moved at different speeds. The goal stayed simple: drift shows up in logs and queues before it becomes folklore in three different apps.",
     },
+    /* What I focused on */
     strategyTitle: "What I contributed",
     strategyIntro:
       "Utility work is cross-functional by default. eRespond, SAP, GIS, SCADA, and ADMS each had PEA owners and external implementation partners. The bullets below are what I shipped and owned in production\u2014APIs from eRespond into OMS, scheduled GIS\u2192OMS ingestion, warehouse joins, and reporting alignment\u2014while keeping contracts, cutovers, and defect heat legible across internal teams and vendor engineers in the same room.",
@@ -136,6 +142,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
       "Co-developed warehouse-backed Power BI for ETR and planned outages with the reliability team\u2014same warehouse keys field staff already trusted in OMS, so metrics stayed defensible in review meetings.",
       "Hardened contracts, refresh rules, and monitoring so disagreements hit logs and dashboards before branches heard three different restoration stories.",
     ],
+    /* Problem */
     problemSection: {
       title: "From intake to readout",
       paragraphs: [
@@ -218,6 +225,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
         body: "I stayed on the integration layer: eRespond\u2192OMS APIs, GIS\u2192OMS ingestion, OMS/GIS/SAP read contracts, warehouse fields, and Power BI alignment to the authoritative outage record\u2014the seam where drift becomes visible before it becomes folklore. SCADA acquisition and SAP ERP foundations lived with other owners and vendor teams; I ran joint cutovers, dependency mapping, and defect triage when their release trains and mine did not line up.",
       },
     ],
+    /* How it shipped */
     approachTitle: "How I kept the hub honest",
     approach: [
       "Named every consumer\u2019s OMS key and refresh rule so partial failures showed up in logs and ops queues instead of cloning divergent rows.",
@@ -229,6 +237,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
       label:
         "Back to PEA E‑Service — citizen portal alongside this OMS reliability stack →",
     },
+    /* Impact */
     results: [
       {
         value: "Single truth",

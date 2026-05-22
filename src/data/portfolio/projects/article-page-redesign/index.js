@@ -8,6 +8,7 @@ import { articlePageRedesignCaseStudyVariant } from "./variants.js";
 const baseArticlePageRedesignCaseStudy = {
   /* Header / intro */
   eyebrow: "Newsroom Systems · Reader Experience · Monetization · Performance",
+  /* Media */
   featuredImg: "images/portfolio/article-redesign/featured-image.png",
   featuredImgWebp: "images/portfolio/article-redesign/featured-image.webp",
   featuredImageCompact: true,
@@ -17,6 +18,7 @@ const baseArticlePageRedesignCaseStudy = {
     href: "https://www.dallasnews.com/business/airlines/2025/10/08/staffing-shortages-cause-more-us-flight-delays-as-government-shutdown-reaches-7th-day/",
     label: "The Dallas Morning News",
   },
+  /* Project frame */
   task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
   focus: [
     "Article frontend & Arc XP PageBuilder",
@@ -26,6 +28,7 @@ const baseArticlePageRedesignCaseStudy = {
     "Analytics & instrumentation (GA4 · Datadog · BlueConic)",
   ],
   context: "The Dallas Morning News",
+  /* Stack */
   techStack: [
     {
       label: "Arc XP",
@@ -64,8 +67,8 @@ const baseArticlePageRedesignCaseStudy = {
       href: "https://graphql.org/",
     },
   ],
-  /* Impact */
   ImpactTitle: "Impact (team program — my contribution was implementation)",
+  /* Impact */
   results: [
     {
       value: "-9.91%",
@@ -111,6 +114,7 @@ const baseArticlePageRedesignCaseStudy = {
     "I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out incrementally behind feature flags from September through full deployment by year-end.",
   ],
   /* Article stack */
+  /* System design */
   overviewSystemDesign: {
     sectionTitle: "Article stack",
     intro:
@@ -192,6 +196,7 @@ const baseArticlePageRedesignCaseStudy = {
     },
   },
   /* What I built */
+  /* What I focused on */
   strategyTitle: "What I built",
   strategyBullets: null,
   pillars: [
@@ -217,6 +222,7 @@ const baseArticlePageRedesignCaseStudy = {
     },
   ],
   /* Reflection */
+  /* How it shipped */
   approachTitle: "What I learned",
   approach: [
     "Lazy-loading the comment widget protects LCP but delays first interaction. We settled on an intersection-observer trigger near the midpoint of the article as the tradeoff. That pattern — defer cost, then measure where engagement actually starts — carried over to GAM slots and the newsletter CTA.",
@@ -263,6 +269,7 @@ const baseArticlePageRedesignCaseStudy = {
 
 export const articlePageRedesignProject = {
   ...getMissionGalleryManifestRow("article-page-redesign"),
+  /* Export */
   caseStudy: {
     ...baseArticlePageRedesignCaseStudy,
     ...articlePageRedesignCaseStudyVariant,

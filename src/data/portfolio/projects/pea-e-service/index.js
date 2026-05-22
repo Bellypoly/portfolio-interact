@@ -8,11 +8,13 @@ import { peaEServiceCaseStudyVariant } from "./variants.js";
 const basePeaEServiceCaseStudy = {
   /* Header / intro */
   eyebrow: "Public Infrastructure · Service Systems",
+  /* Media */
   featuredImg: "images/portfolio/pea-e-service/featured-image.png",
   featuredImgWebp: "images/portfolio/pea-e-service/featured-image.webp",
   featuredImageAlt:
     "PEA E\u2011Service banner — purple E\u2011SERVICE branding; apply for electricity and water; three service paths (individual, organization, check request status); laptop and phone mockups; footer with eservice.pea.co.th and 1129 PEA Contact Center",
   featuredImageCompact: true,
+  /* Project frame */
   task: "Design and build the user experience for PEA's public e-service portal: application flows for electricity and water connections, status tracking, and service requests — with accessibility, mobile-first design, and integration with PEA's backend systems.",
   focus: [
     "UX design",
@@ -21,6 +23,7 @@ const basePeaEServiceCaseStudy = {
     "Public sector integration",
   ],
   context: "Provincial Electricity Authority of Thailand (PEA)",
+  /* Stack */
   techStack: [
     {
       label: "PEA",
@@ -55,6 +58,7 @@ const basePeaEServiceCaseStudy = {
     "PEA E-Service is the public portal for electricity and water connection applications, status tracking, and service requests. I designed the user flows, built the frontend, and ensured accessibility and mobile compatibility.",
   ],
   /* System goals */
+  /* What I focused on */
   strategyTitle: "System goals",
   pillars: [
     {
@@ -71,6 +75,7 @@ const basePeaEServiceCaseStudy = {
     },
   ],
   /* How I shipped it */
+  /* How it shipped */
   approachTitle: "How I shipped it",
   approach: [
     "Collaborated with PEA teams on requirements, designed wireframes and prototypes, developed the frontend, and tested for accessibility and usability.",
@@ -79,5 +84,6 @@ const basePeaEServiceCaseStudy = {
 
 export const peaEServiceProject = {
   ...getMissionGalleryManifestRow("pea-e-service"),
+  /* Export */
   caseStudy: { ...basePeaEServiceCaseStudy, ...peaEServiceCaseStudyVariant },
 };

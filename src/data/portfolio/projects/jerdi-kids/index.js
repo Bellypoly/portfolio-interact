@@ -8,12 +8,14 @@ import { jerdiKidsCaseStudyVariant } from "./variants.js";
 const baseJerdiKidsCaseStudy = {
   /* Header / intro */
   eyebrow: "System design · UI/UX · Development · QR & BLE · Social impact",
+  /* Media */
   featuredImg: "images/portfolio/jerdi/featured-image.png",
   featuredImgWebp: "images/portfolio/jerdi/featured-image.webp",
   featuredImageAlt:
     "JerDi hero — Stay Connected Stay Safe tagline, phone showing Finding JerDi-Kid map UI with Navigate and Play Sound, QR wristband, Found notification, Quick Find QR callout, family in park",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
+  /* Project frame */
   task: "Design and build a community-driven safety net: QR wristbands any passerby can scan with a camera, BLE bands heard by receivers you place where coverage matters (caregiver phones, tablets on a school bus, fixed gateways)—one notification backbone for families, call centers, and authorities. I owned caregiver UI/UX (alerts, maps, status), the wristband face (QR legibility and finish, consistent with the app), and hands-on engineering—the web platform and app UI in production code with integrations, not handoff-only mocks.",
   focus: [
     "System architecture",
@@ -23,6 +25,7 @@ const baseJerdiKidsCaseStudy = {
     "Community platform design",
   ],
   context: "Young Technopreneur program — Samart × NSTDA BIC (2017)",
+  /* Stack */
   techStack: [
     {
       label: "QR codes",
@@ -66,6 +69,7 @@ const baseJerdiKidsCaseStudy = {
     },
   ],
   /* What I did */
+  /* What I focused on */
   strategyTitle: "What I did",
   strategyIntro:
     "My role covered system architecture for both QR and beacon flows, hands-on software development on the web platform and app, BLE hardware evaluation, UI/UX for the app and the wearable surface, and how those pieces read as one product.",
@@ -88,6 +92,7 @@ const baseJerdiKidsCaseStudy = {
     },
   ],
   /* Competition context */
+  /* How it shipped */
   approachTitle: "The competition",
   approach: [
     "The Young Technopreneur program is a collaboration between Samart Group and NSTDA BIC designed to turn early-stage tech ideas into fundable businesses. It runs 48 hours of business training, an Idea-to-Market BootCamp, field research, and mentorship from marketing, finance, and technology experts.",
@@ -118,5 +123,6 @@ const baseJerdiKidsCaseStudy = {
 
 export const jerdiKidsProject = {
   ...getMissionGalleryManifestRow("jerdi-kids"),
+  /* Export */
   caseStudy: { ...baseJerdiKidsCaseStudy, ...jerdiKidsCaseStudyVariant },
 };

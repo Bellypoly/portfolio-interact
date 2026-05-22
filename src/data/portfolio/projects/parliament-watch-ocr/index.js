@@ -8,15 +8,18 @@ import { parliamentWatchOcrCaseStudyVariant } from "./variants.js";
 const baseParliamentWatchOcrCaseStudy = {
   /* Header / intro */
   eyebrow: "Civic Tech · OCR · Open Government Records",
+  /* Media */
   featuredImg: "images/portfolio/parliament-watch-ocr/featured-image.png",
   featuredImgWebp: "images/portfolio/parliament-watch-ocr/featured-image.webp",
   featuredImageAlt:
     "Parliament Watch — eight Thai party-style logos in two rows, linked by thin white network lines, on a soft blurred bookshelf background; includes Move Forward, Pheu Thai, and related civic-party marks",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
+  /* Project frame */
   task: "Build an OCR pipeline to extract structured voting data from Thai parliament PDF documents — scanned government templates with Thai numerals, handwriting, mixed table layouts, and embedded images — so downstream visualizations and analysis could run on clean, machine-readable records.",
   focus: ["Document OCR", "Data engineering", "Civic technology"],
   context: "Parliament Watch (open-source civic tech, Thailand)",
+  /* Stack */
   techStack: [
     {
       label: "Python",
@@ -59,6 +62,7 @@ const baseParliamentWatchOcrCaseStudy = {
     },
   ],
   /* What I built */
+  /* What I focused on */
   strategyTitle: "What I built",
   pillars: [
     {
@@ -75,11 +79,13 @@ const baseParliamentWatchOcrCaseStudy = {
     },
   ],
   /* How I approached it */
+  /* How it shipped */
   approachTitle: "How I approached it",
   approach: [
     "I treated each PDF page as an image-first problem: detect table regions, segment cells, then run OCR per cell rather than full-page text extraction. This handled the inconsistent layouts and inline noise (stamps, handwriting) much better than document-level OCR.",
     "I built validation checks against known MP rosters and motion counts so extraction errors surfaced immediately rather than propagating silently into the visualization layer.",
   ],
+  /* Impact */
   results: null,
   /* Final related surface */
   relatedProject: {
@@ -91,6 +97,7 @@ const baseParliamentWatchOcrCaseStudy = {
 
 export const parliamentWatchOcrProject = {
   ...getMissionGalleryManifestRow("parliament-watch-ocr"),
+  /* Export */
   caseStudy: {
     ...baseParliamentWatchOcrCaseStudy,
     ...parliamentWatchOcrCaseStudyVariant,

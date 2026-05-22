@@ -4,6 +4,7 @@ export const rdfdCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
     // eyebrow: "Data journalism · Machine learning",
+    /* Project frame */
     task: "Develop ML models for detecting fake data in civic systems — analyze patterns in transportation data to identify fraudulent activities and inform public reporting.",
   }),
 });

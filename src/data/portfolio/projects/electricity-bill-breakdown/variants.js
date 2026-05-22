@@ -37,6 +37,7 @@ export const electricityBillBreakdownApproachFigureGrid = Object.freeze({
 
 export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
   swe: Object.freeze({
+    /* Stack */
     techStack: [
       {
         label: "FigJam",
@@ -49,6 +50,7 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
     ],
   }),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     focus: [
       "Energy literacy",
       "Public-interest explanation",
@@ -66,6 +68,7 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
     ],
     overviewFigures: electricityBillBreakdownOverviewFigureGrid,
     /* What I shaped */
+    /* What I focused on */
     strategyTitle: "What I shaped",
     strategyIntro:
       "My contribution focused on how readers moved through layered utility concepts—and whether the explanations still held up technically against real billing and tariff systems.",
@@ -91,12 +94,14 @@ export const electricityBillBreakdownCaseStudyVariants = Object.freeze({
       },
     ],
     /* Reflection */
+    /* How it shipped */
     approachTitle: "How PEA experience shaped my contribution",
     approach: [
       "My earlier work at [[/#work-pea|PEA (Provincial Electricity Authority of Thailand)]] provided practical context for how billing systems, outage management, consumption data, and customer-facing dashboards connect operational infrastructure to the numbers consumers ultimately see on a monthly bill.",
       "That experience helped ground the explainer in real utility-system behavior rather than abstract pricing descriptions, while translating engineering and regulatory concepts into language non-specialist audiences could still follow.",
     ],
     approachFigures: electricityBillBreakdownApproachFigureGrid,
+    /* Impact */
     results: null,
   }),
 });

@@ -3,8 +3,10 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const peaEServiceCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     eyebrow: "Public Infrastructure · Service Systems",
 
+    /* Media */
     featuredImg: "images/portfolio/pea-e-service/featured-image.png",
     featuredImgWebp: "images/portfolio/pea-e-service/featured-image.webp",
 
@@ -15,6 +17,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
     featuredImageObjectPosition: "center center",
     featuredImageObjectPositionMd: "center 35%",
 
+    /* Project frame */
     task: "Nobody should need an org chart to apply for power or water. Co-design the software and UX so fragmented utility and government systems still feel like one product: shared authentication, honest handoffs, and citizen-facing language that explains who moves next.",
 
     focus: [
@@ -27,6 +30,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
     context:
       "PEA (Provincial Electricity Authority), PWA (Provincial Waterworks Authority of Thailand), Ministry of Interior, Department of Lands, Department of Highways, Ministry of Energy, and synchronized GIS reference services — Thailand public-sector e-service ecosystem",
 
+    /* Stack */
     techStack: [
       { label: "Web", href: "https://developer.mozilla.org/en-US/docs/Web" },
       { label: "Laravel", href: "https://laravel.com/" },
@@ -38,6 +42,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
       { label: "Selenium", href: "https://www.selenium.dev/" },
     ],
 
+    /* Impact */
     results: [
       {
         value: "One portal",
@@ -57,6 +62,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
     ],
     resultsLabelCase: "sentence",
 
+    /* Overview */
     overview: [
       "Public utilities already had the data. The harder problem was making fragmented electricity, water, land, energy, and GIS-linked workflows feel understandable as one public-facing journey.",
 
@@ -77,6 +83,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
       },
     ],
 
+    /* System design */
     overviewSystemDesign: {
       sectionTitle: "How I told the system story",
 
@@ -96,6 +103,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
         "Vertical diagram showing party type flowing into a shared authenticated e-service portal, then branching into five operational tracks: PEA electricity, PWA water, Interior/Lands/Highways GIS-backed validation, Ministry of Energy solar policy, and power producer workflows.",
     },
 
+    /* What I focused on */
     strategyTitle: "What I shaped",
 
     strategyIntro:
@@ -121,6 +129,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
       },
     ],
 
+    /* How it shipped */
     approachTitle: "How it landed",
     approach: [
       "Shipped hub-and-spoke information architecture with progressive disclosure: ask only what the task needs, keep electricity and water visually related, and load spatial checks only when workflows touch land, access, or route evidence.",
@@ -134,6 +143,7 @@ export const peaEServiceCaseStudyVariants = Object.freeze({
       slug: "outage-management-system",
       label: "Related story: PEA Outage Management & Reliability Platform",
     },
+    /* Footer */
     footerTagline:
       "Thai utilities already had the data. The hard part was making fragmented systems read as one journey. With PWA (Provincial Waterworks Authority of Thailand), I helped unify PEA (Provincial Electricity Authority), registry, land, highway, Ministry of Energy (including solar with PEA), and synchronized GIS layers into one authenticated portal—while PPIM (Power Producer Information Management System) kept producer programs in their own operational lane.",
   }),

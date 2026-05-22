@@ -9,6 +9,7 @@ const baseElectricityBillBreakdownCaseStudy = {
   /* Header / intro */
   eyebrow:
     "Civic explainer · Energy systems · Public-interest information design",
+  /* Media */
   featuredImg: "images/portfolio/electricity-bill-breakdown/featured-image.jpg",
   featuredImgWebp:
     "images/portfolio/electricity-bill-breakdown/featured-image.webp",
@@ -16,6 +17,7 @@ const baseElectricityBillBreakdownCaseStudy = {
     "JustPow — Electricity BiLL BREAKDOWN on light textured paper: yellow lightning bolt and BiLL accent, English subtitle on where your monthly bill goes and who gets paid, ring of gray energy lifecycle line icons",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
+  /* Project frame */
   task: "Design a public-facing explainer that translates Thai electricity billing structures, tariffs, and fuel-adjustment charges into accessible civic information—helping readers without a utility background understand how regulatory decisions and infrastructure costs shape the final bill they receive each month.",
   focus: [
     "User-flow design",
@@ -31,6 +33,7 @@ const baseElectricityBillBreakdownCaseStudy = {
     "I brought firsthand utility-system context from my time at PEA (Provincial Electricity Authority of Thailand) — outage management, billing integrations, real-time consumption dashboards — which gave me the mental model to connect what appears on a PDF bill to the engineering and regulatory reality underneath.",
   ],
   /* What I shaped */
+  /* What I focused on */
   strategyTitle: "What I shaped",
   strategyIntro:
     "My lane: flow architecture and domain-grounded information design. Engineering (WordPress / Elementor) was handled by the team; I owned how users move through the content and whether the explanations hold up technically.",
@@ -49,18 +52,22 @@ const baseElectricityBillBreakdownCaseStudy = {
     },
   ],
   /* Reflection */
+  /* How it shipped */
   approachTitle: "How [[/#work-pea|PEA]] experience shaped my contribution",
   approach: [
     "At [[/#work-pea|PEA]] I worked on the systems that generate bills — outage tracking, consumption data pipelines, customer-facing dashboards. That gave me a practical sense of what the numbers on a bill actually represent and where the gaps between engineering data and consumer-facing language create confusion.",
     "I used that context to keep terminology consistent with what Thai consumers see on real bills while explaining the engineering levers (variable fuel components, demand charges, cross-subsidy structures) in language that doesn't require a utility background.",
   ],
+  /* Impact */
   results: null,
+  /* Footer */
   footerTagline:
     "Civic explainer for Thai electricity bills—progressive flow from one honest question (\u201cwhat am I paying for?\u201d) to tariffs, Ft, and fairness.",
 };
 
 export const electricityBillBreakdownProject = {
   ...getMissionGalleryManifestRow("electricity-bill-breakdown"),
+  /* Export */
   caseStudy: {
     ...baseElectricityBillBreakdownCaseStudy,
     ...electricityBillBreakdownCaseStudyVariant,

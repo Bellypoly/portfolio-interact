@@ -9,14 +9,17 @@ const baseDynamicPaywallCaseStudy = {
   /* Header / intro */
   eyebrow: "Product · Monetization · AI",
   // Case-study featured strip (gallery uses img/imgWebp thumbnails above)
+  /* Media */
   featuredImg: "images/portfolio/dynamic-paywall/featured-image.png",
   featuredImgWebp: "images/portfolio/dynamic-paywall/featured-image.webp",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center top",
   featuredImageObjectPositionMd: "50% 20%",
+  /* Project frame */
   task: "Integrate Sophi's ML paywall into DMN's Arc XP frontend and subscription paths. Wire JavaScript and BlueConic so on-page behavior matches Sophi's decisions; instrument GA4; ship with feature flags and kill switches for safe rollout and reliable model feedback.",
   focus: ["Machine Learning paywall", "Analytics", "Frontend integration"],
   context: "The Dallas Morning News",
+  /* Stack */
   techStack: [
     {
       label: "Arc XP",
@@ -56,6 +59,7 @@ const baseDynamicPaywallCaseStudy = {
     "The metrics in the Impact section (+22% conversion, +15% more subscription starts) were referenced in the DMN employee town hall on August 13, 2025.",
   ],
   /* What I did */
+  /* What I focused on */
   strategyTitle: "What I did",
   strategyIntro: Object.freeze([
     "My role was integrating Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows, instrumenting analytics, and rolling out safely with feature flags. The system adjusted when and how paywalls appeared per visit based on reader behavior and content context.",
@@ -69,7 +73,6 @@ const baseDynamicPaywallCaseStudy = {
     "After first launch, GA4 and Sophi didn't always agree — we traced which analytics definitions and events needed tuning versus which model inputs had to change so dashboards and the learning loop matched real reader behavior.",
   ],
   pillars: null,
-  /* System design */
   systemDesign: {
     intro:
       "Those four pieces connect into a single feedback loop — every visit generates data that makes the next paywall decision smarter.",
@@ -81,6 +84,7 @@ const baseDynamicPaywallCaseStudy = {
       "User behavior flows down, analytics flows back up — the loop never stops learning.",
   },
   /* Production findings */
+  /* How it shipped */
   approachTitle: "What I found in production",
   approachIntro:
     "As the feedback loop matured, a clear pattern emerged in the data:",
@@ -99,12 +103,14 @@ const baseDynamicPaywallCaseStudy = {
     slug: "subscription-checkout-activation",
     label: "See how the checkout and onboarding system converts this intent →",
   },
+  /* Footer */
   footerTagline:
     "Sophi ML paywall integrated into Arc XP—per-visit gating decisions tied to reader behavior, analytics instrumentation, and controlled newsroom rollout.",
 };
 
 export const dynamicPaywallProject = {
   ...getMissionGalleryManifestRow("dynamic-paywall"),
+  /* Export */
   caseStudy: {
     ...baseDynamicPaywallCaseStudy,
     ...dynamicPaywallCaseStudyVariant,

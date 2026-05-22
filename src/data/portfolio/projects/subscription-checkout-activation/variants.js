@@ -3,10 +3,13 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     eyebrow: "Reader revenue · Newsroom systems · Conversion infrastructure",
 
+    /* Project frame */
     task: "Rebuild a fragmented newsroom subscription funnel into a single evidence-driven checkout system—reducing reader drop-off, resolving identity-state failures, and using production analytics to guide iterative UX decisions.",
 
+    /* Media */
     featuredImg: "images/portfolio/subscription-checkout/featured-image.png",
     featuredImgWebp:
       "images/portfolio/subscription-checkout/featured-image.webp",
@@ -21,6 +24,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
 
     context: "The Dallas Morning News",
 
+    /* Stack */
     techStack: [
       {
         label: "Arc XP",
@@ -58,6 +62,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
       },
     ],
 
+    /* Overview */
     overviewTitle: "Overview",
     overview: [
       {
@@ -81,6 +86,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
         "Dig into the AI-powered dynamic paywall — it sits at the top of this funnel →",
     },
 
+    /* System design */
     overviewSystemDesign: {
       sectionTitle: "The pipeline",
       intro:
@@ -104,6 +110,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
         "Flow from the dynamic paywall through single-page checkout, Arc XP identity, success, 3-step onboarding, to engagement",
     },
 
+    /* Problem */
     problemSection: {
       title: "Version 1: 3 pages, 3 chances to leave",
       listGroups: [
@@ -164,6 +171,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
       },
     },
 
+    /* Checkout section */
     checkoutSection: {
       title: "Version 2: Single-page checkout",
       lead: 'The first pass rewrote the architecture. We collapsed the 3-page flow into a single React-driven surface, unified 3 payment providers behind one abstraction, and wired deterministic identity resolution into the entry point. It shipped as the "Single Page Checkout" and moved digital subscriptions materially within the first month.',
@@ -220,6 +228,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
       },
     },
 
+    /* Clarity section */
     claritySection: {
       title: "Version 3: What Clarity showed us",
       lead: "V2 worked: strong subscription lift, clean architecture, unified payments. We could have stopped. Instead I wired Microsoft Clarity into production — session replay and tap heatmaps on the exact DOM readers touched — because shipping is not the same as knowing. The friction readers hit in V2 was not a design oversight or a missing feature; it was my own engineering choices showing up as UX problems. Iterating on that evidence — progress bar, payment affordance, benefits chrome — stacked another conversion uplift on the V2 launch.",
@@ -308,6 +317,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
       figureColumns: 3,
     },
 
+    /* Impact */
     impactAfterV2: {
       title: "Impact after V2 launch",
       intro:
@@ -330,6 +340,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
       ],
     },
 
+    /* How it shipped */
     approachTitle: "What I learned",
     approach: [
       "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — three pages meant three round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",

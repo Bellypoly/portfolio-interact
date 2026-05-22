@@ -10,6 +10,7 @@ import { vote62EctReport69CaseStudyVariant } from "./variants.js";
 export const vote62CaseStudyBase = {
   /* Header / intro */
   eyebrow: "Civic Tech · OCR · ETL · Data Engineering · Data Storytelling",
+  /* Media */
   featuredImg: "images/portfolio/vote62/featured-image.png",
   featuredImgWebp: "images/portfolio/vote62/featured-image.webp",
   featuredImageAlt:
@@ -18,6 +19,7 @@ export const vote62CaseStudyBase = {
   featuredImageObjectPosition: "center center",
   featuredImageCaption:
     "==Thailand's Election Commission publishes election returns primarily as fixed-layout PDFs rather than structured datasets. VOTE62 (2026) reconstructed those fragmented records into validated election datasets for public-interest reporting, verification workflows, and civic-data analysis.==",
+  /* Project frame */
   task: "ECT Report 69 is where the public sees the count—but not in a form spreadsheets or databases can ingest. I owned the pipeline that turns those official returns into structured, auditable datasets: layout-aware OCR, Thai/Arabic numeral normalization, hard checks on totals, and a release path where humans only touch rows that validation actually flags.",
   focus: [
     "OCR & document parsing",
@@ -26,6 +28,7 @@ export const vote62CaseStudyBase = {
     "Data storytelling",
   ],
   context: "VOTE62 — OpenDream × iLaw × Rocket Media Lab",
+  /* Stack */
   techStack: [
     { label: "Python", href: "" },
     {
@@ -80,6 +83,7 @@ export const vote62CaseStudyBase = {
   ],
 
   /* Building reliable election data from PDFs */
+  /* What I focused on */
   strategyTitle: "Building reliable election data from PDFs",
   strategyIntro:
     "VOTE62 was bigger than one extraction workflow: partners shaped how election records became usable election records. My contribution focused on the reconstruction layer—Python, OCR, table reconstruction, validation, and rerunnable processing workflows—so reconstructed records could still be traced back to the official PDFs they came from.",
@@ -113,6 +117,7 @@ export const vote62CaseStudyBase = {
   ],
 
   /* Validation / approach */
+  /* How it shipped */
   approachTitle: "Trust beats a clean-looking lie",
   approach: [
     "I insisted validation be allowed to say \u201cno\u201d: totals that do not reconcile, candidate rows that disagree with ballot counts, and tokens that are not plausible digits stay visible as warnings—not auto-smoothed into a tidy fiction.",
@@ -127,6 +132,7 @@ export const vote62CaseStudyBase = {
   galleryBlock: {
     title: "Messy human input → OCR output → validated output",
     figureColumns: 3,
+    /* Media */
     images: [
       {
         img: "images/portfolio/vote62/ocr-failure-example.png",
@@ -210,5 +216,6 @@ export const vote62CaseStudyBase = {
 
 export const vote62EctReport69Project = {
   ...getMissionGalleryManifestRow("vote62"),
+  /* Export */
   caseStudy: { ...vote62CaseStudyBase, ...vote62EctReport69CaseStudyVariant },
 };

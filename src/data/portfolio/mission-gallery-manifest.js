@@ -203,7 +203,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioYear: 2020,
     portfolioLabel: "Thesis",
     anchorId: "portfolio-federated-learning-energy",
-    name: "On Simulating Energy Consumption of Federated Learning Systems",
+    name: "Simulating Energy Consumption in Federated Learning Systems",
     desc: "MATLAB simulation study: federated learning energy use under NOMA — compute vs radio, sweepable regimes, reproducible figures.",
     img: "images/portfolio/federated-learning-energy/thumbnail.png",
     imgWebp: "images/portfolio/federated-learning-energy/thumbnail.webp",

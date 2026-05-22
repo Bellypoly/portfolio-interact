@@ -4,12 +4,14 @@ export const mapMagicCaseStudyVariants = Object.freeze({
   swe: Object.freeze({
     /* Header / intro */
     eyebrow: "Geospatial Platform · Routing · Maps",
+    /* Media */
     featuredImg: "images/portfolio/map-magic/featured-image.png",
     featuredImgWebp: "images/portfolio/map-magic/featured-image.webp",
     featuredImageAlt:
       "MapMagic app promo — logo above two phones: map list (Silom Complex) and satellite view over an aerial golden-hour city; orange location pin focal point",
     featuredImageCompact: true,
     featuredImageObjectPosition: "center center",
+    /* Project frame */
     task: "Turn OpenStreetMap from a respectable starting line into a Thailand-native map platform: proprietary tiles and POI, dependable REST APIs for partners and first-party Android, internal capture/QA loops that fed production indexes, and routing that respected our graph and cost models—not whatever a generic global router imagines a soi should do.",
     focus: [
       "Map platform & APIs",
@@ -18,6 +20,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       "Geospatial UX",
     ],
     context: "THiNKNET Co., Ltd. · MapMagic (consumer brand: THiNKNET Maps)",
+    /* Stack */
     techStack: [
       {
         label: "THiNKNET",
@@ -85,6 +88,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       "My footprint was deliberately split: I owned the map API surface partners and the Android client actually called—REST contracts, tiles, search and geocoding, embed patterns that did not snap when data churned. I built the web and mobile back-office loops that moved field capture and QA into production tiles and search indexes. And I put serious time into the routing stack—graph usage, cost models, and algorithm behavior on OSM-derived geometry edited for Thailand—so previews and turn-by-turn did not fantasize turns the asphalt would refuse.",
     ],
     /* What I did */
+    /* What I focused on */
     strategyTitle: "What I built",
     strategyIntro:
       "Two audiences, one database. Partners wanted map capabilities that felt boring in the best way—predictable REST, embeddings that did not rot when tiles revved, errors a human could action from a log. Ops wanted to move geometry and POIs from motorcycles and desk QA into production without playing telephone. OpenStreetMap bought us honesty on day one; the craft was everything we layered on top. Routing sat in the uncomfortable center—bad graph math does not hide behind copywriting, it shows up as a nonsense turn someone tries to drive.",
@@ -103,6 +107,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       },
     ],
     /* How I shipped it */
+    /* How it shipped */
     approachTitle: "How I shipped it",
     approach: [
       "Shipped hardened REST contracts, embedding patterns, rate limits, and attribution so partner embeds and first-party Android stayed upright when POIs and tiles moved underneath.",
@@ -141,10 +146,13 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       caption:
         "2018-era MapMagic Android—the pocket half of the same stack (REST, tiles, routing) that desk-side QC guarded. Legacy web back-office UIs from that period are not pictured here.",
     },
+    /* Impact */
     results: null,
   }),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     eyebrow: "Geospatial Platform · Routing · Field Operations",
+    /* Media */
     featuredImg: "images/portfolio/map-magic/featured-image.png",
     featuredImgWebp: "images/portfolio/map-magic/featured-image.webp",
 
@@ -157,6 +165,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       label: "THiNKNET Maps",
     },
 
+    /* Project frame */
     task: "Turn OpenStreetMap from a respectable starting line into a Thailand-native map platform: proprietary tiles and POI, dependable REST APIs for partners and first-party Android, internal capture and QA loops feeding production indexes, and routing that respected our graph and cost models—not whatever a generic global router imagines a soi should do.",
 
     focus: [
@@ -168,6 +177,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
 
     context: "THiNKNET Co., Ltd. · MapMagic (consumer brand: THiNKNET Maps)",
 
+    /* Stack */
     techStack: [
       {
         label: "THiNKNET Maps",
@@ -191,6 +201,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       },
     ],
 
+    /* Overview */
     overviewTitle: "Overview",
 
     overview: [
@@ -202,6 +213,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       "Today, most people encounter the stack through THiNKNET Maps, where users can swap basemap moods without changing the road network underneath.",
     ],
 
+    /* System design */
     overviewSystemDesign: {
       sectionTitle: "Operational map stack",
       intro:
@@ -231,6 +243,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
         "Flow from Android field capture through QA review, production map data, REST APIs, and routing into THiNKNET Maps and partner applications.",
     },
 
+    /* Problem */
     problemSection: {
       title: "The challenge",
       paragraphs: [
@@ -240,6 +253,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       ],
     },
 
+    /* What I focused on */
     strategyTitle: "What I built",
 
     pillars: [
@@ -261,6 +275,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       },
     ],
 
+    /* How it shipped */
     approachTitle: "How I shipped it",
 
     approach: [
@@ -309,6 +324,7 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       label:
         "Same geospatial foundation applied to marketplace discovery and job search →",
     },
+    /* Footer */
     footerTagline:
       "Thailand map infrastructure I helped build—REST APIs, proprietary tiles and POI, Android field capture, and routing that survives real Bangkok traffic—not demo coordinates.",
   }),

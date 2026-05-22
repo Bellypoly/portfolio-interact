@@ -9,5 +9,6 @@ const baseMapMagicCaseStudy = {};
 
 export const mapMagicProject = {
   ...getMissionGalleryManifestRow("map-magic"),
+  /* Export */
   caseStudy: { ...baseMapMagicCaseStudy, ...mapMagicCaseStudyVariant },
 };

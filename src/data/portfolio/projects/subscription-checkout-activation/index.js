@@ -8,10 +8,12 @@ import { subscriptionCheckoutActivationCaseStudyVariant } from "./variants.js";
 const subscriptionCheckoutActivationCaseStudyBase = {
   /* Header / intro */
   eyebrow: "Reader revenue · Newsroom systems · Conversion infrastructure",
+  /* Media */
   featuredImg: "images/portfolio/subscription-checkout/featured-image.png",
   featuredImgWebp: "images/portfolio/subscription-checkout/featured-image.webp",
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
+  /* Project frame */
   task: "Replace a leaking 3-page, server-rendered checkout with a single React surface, unify Braintree, Stripe, and Apple Pay behind one payment abstraction, and implement deterministic Arc XP identity resolution at email entry — then iterate with Microsoft Clarity in production so evidence, not assumptions, drove the V3 UX fixes.",
   focus: [
     "Checkout & payments system",
@@ -19,6 +21,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
     "Post-purchase onboarding",
   ],
   context: "The Dallas Morning News",
+  /* Stack */
   techStack: [
     {
       label: "Arc XP",
@@ -37,7 +40,6 @@ const subscriptionCheckoutActivationCaseStudyBase = {
     { label: "React", href: "https://react.dev/" },
   ],
 
-  /* Impact */
   ImpactTitle: "Impact",
   earlyImpactIntro:
     "Subscription metrics from the same internal milestone referenced elsewhere in this case study — first after the V2 single-page launch, then after the Clarity-driven V3 iteration on that same surface.",
@@ -81,6 +83,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   ],
 
   /* The pipeline */
+  /* System design */
   overviewSystemDesign: {
     sectionTitle: "The pipeline",
     intro:
@@ -105,6 +108,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   },
 
   /* Version 1: problem */
+  /* Problem */
   problemSection: {
     title: "Version 1: 3 pages, 3 chances to leave",
     listGroups: [
@@ -169,6 +173,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   },
 
   /* Version 2: single-page checkout */
+  /* Checkout section */
   checkoutSection: {
     title: "Version 2: Single-page checkout",
     lead: "The first pass rewrote the checkout architecture. We collapsed a fragmented 3-page flow into a single React-driven surface, unified multiple payment providers behind one interface, and wired deterministic identity resolution directly into the entry point. It shipped as the “Single Page Checkout” and materially increased digital subscriptions within the first month.",
@@ -199,6 +204,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
     figureColumns: 1,
   },
   /* Impact after V2 */
+  /* Impact */
   impactAfterV2: {
     title: "Impact after V2 launch",
     intro:
@@ -241,6 +247,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   },
 
   /* Version 3: Clarity-driven iteration */
+  /* Clarity section */
   claritySection: {
     title: "Version 3: What Clarity showed us",
     lead: "V2 worked: strong subscription lift, clean architecture, unified payments. We could have stopped. Instead I wired Microsoft Clarity into production — session replay and tap heatmaps on the exact DOM readers touched — because shipping is not the same as knowing. The friction readers hit in V2 was not a design oversight or a missing feature; it was my own engineering choices showing up as UX problems. Iterating on that evidence — progress bar, payment affordance, benefits chrome — stacked another conversion uplift on the V2 launch.",
@@ -353,6 +360,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
   },
 
   /* Reflection */
+  /* How it shipped */
   approachTitle: "What I learned",
   approach: [
     "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — 3 pages meant 3 round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
@@ -411,6 +419,7 @@ const subscriptionCheckoutActivationCaseStudyBase = {
 
 export const subscriptionCheckoutActivationProject = {
   ...getMissionGalleryManifestRow("subscription-checkout-activation"),
+  /* Export */
   caseStudy: {
     ...subscriptionCheckoutActivationCaseStudyBase,
     ...subscriptionCheckoutActivationCaseStudyVariant,

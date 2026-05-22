@@ -4,8 +4,10 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const vote62CaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     eyebrow:
       "Civic data · Election transparency · OCR · Open government records",
+    /* Project frame */
     task: "Transform government-published ECT election PDFs into structured datasets for civic-data platforms, public-interest analysis, and newsroom reporting. ",
     focus: [
       "Election records",

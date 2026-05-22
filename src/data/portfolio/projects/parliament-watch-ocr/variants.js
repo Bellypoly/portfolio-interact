@@ -19,6 +19,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
 
   /* Header / intro */
   eyebrow: "Civic data · Parliamentary transparency · Open government records",
+  /* Project frame */
   task: "",
   focus: [
     "Public-records normalization",
@@ -26,6 +27,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
     "Validation methodology",
   ],
   context: "Parliamentary transparency and civic-data initiative, Thailand",
+  /* Stack */
   techStack: Object.freeze([
     { label: "Python", href: "" },
     {
@@ -58,6 +60,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   }),
 
   /* Why it matters */
+  /* Overview */
   overviewTitle: "Why it matters",
   overview: Object.freeze([
     "Legislative voting records published by government institutions are foundational ==public-interest data==. When those records exist only as PDFs and semi-structured documents, meaningful analysis becomes difficult not only for journalists and researchers, but also for the public trying to understand how elected representatives actually vote.",
@@ -96,6 +99,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   ]),
 
   /* Contribution */
+  /* What I focused on */
   strategyTitle: "Contribution",
   strategyIntro: Object.freeze([
     "I turned parliamentary voting PDFs into analysis-ready records and public visualization inputs. This work included OCR-assisted extraction, semi-structured document parsing, Thai script and numeral normalization, data validation workflows, and open-data exports.",
@@ -106,6 +110,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   strategyOutro: "",
 
   /* Extraction workflow */
+  /* System design */
   overviewSystemDesign: Object.freeze({
     sectionTitle: "Extraction workflow",
     intro: "",
@@ -163,6 +168,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   strategyAppend: Object.freeze([]),
 
   /* Validation & data quality */
+  /* How it shipped */
   approachTitle: "Validation & data quality",
   approach: Object.freeze([
     "I developed validation checks against published lists of Members of Parliament (MPs), expected parliamentary vote counts, and published motion records so extraction failures surfaced immediately instead of silently propagating downstream into analysis and visualization workflows.",
@@ -171,6 +177,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   ]),
 
   /* Data limitations */
+  /* Ambiguity section */
   ambiguitySection: Object.freeze({
     title: "Data limitations",
     body: Object.freeze([
@@ -204,6 +211,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
 
   /* Broader impact */
   deferredImpactTitle: "Impact",
+  /* Impact */
   deferredImpactLead: Object.freeze([
     "The extraction pipeline made previously difficult-to-search parliamentary records usable for:",
     Object.freeze({
@@ -233,6 +241,7 @@ const PARLIAMENT_WATCH_CASE_STUDY = Object.freeze({
   ]),
 
   /* Same open data, other civic surfaces */
+  /* Future / next steps */
   futureBlock: Object.freeze({
     title: "Broader Civic-Data Ecosystem",
     body: Object.freeze([

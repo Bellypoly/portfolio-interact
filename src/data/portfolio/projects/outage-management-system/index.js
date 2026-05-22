@@ -8,6 +8,7 @@ import { outageManagementSystemCaseStudyVariant } from "./variants.js";
 const baseOutageManagementSystemCaseStudy = {
   /* Header / intro */
   eyebrow: "Public sector · OMS · Multi-system integration",
+  /* Media */
   featuredImg: "images/portfolio/outage-management-system/featured-oms-hub.png",
   featuredImgWebp:
     "images/portfolio/outage-management-system/featured-oms-hub.webp",
@@ -16,6 +17,7 @@ const baseOutageManagementSystemCaseStudy = {
   featuredImageCompact: true,
   featuredImageObjectPosition: "center center",
   featuredImageObjectPositionMd: "center 35%",
+  /* Project frame */
   task: "Make outage data one continuous story: a single outage id should travel from intake through the Outage Management System (OMS) into mapping, field and grid operations, and reporting\u2014including ETR (estimated time of restoration)\u2014and still join cleanly when storms, SAP backlog, or late GIS exports stress the pipe. I stayed on the integration layer: APIs between eRespond and OMS (the same class of work as GIS (geographic information system)\u2192OMS), scheduled GIS shapefile ingestion, warehouse fields, and reporting alignment\u2014not SCADA (supervisory control and data acquisition) acquisition or deep SAP ERP core work. That work sat at the intersection of Provincial Electricity Authority (PEA) engineering, reliability, and vendor-led programs, so clear contracts and calm cutovers mattered as much as code.",
   focus: [
     "API integration",
@@ -24,6 +26,7 @@ const baseOutageManagementSystemCaseStudy = {
     "Reliability reporting",
   ],
   context: "Provincial Electricity Authority of Thailand (PEA)",
+  /* Stack */
   techStack: [
     {
       label: "PEA",
@@ -78,6 +81,7 @@ const baseOutageManagementSystemCaseStudy = {
     "This was PEA\u2019s first OMS deployment, so the work included vendor coordination, data migration, and training\u2014not just code. The result was a system that could handle Thailand\u2019s monsoon season outages without losing track of individual incidents.",
   ],
   /* What I did */
+  /* What I focused on */
   strategyTitle: "What I did",
   strategyIntro:
     "Integration work is invisible until it breaks. I focused on contracts that held up under load, data flows that stayed clean, and monitoring that caught issues before they became outages.",
@@ -96,11 +100,13 @@ const baseOutageManagementSystemCaseStudy = {
     },
   ],
   /* How I shipped it */
+  /* How it shipped */
   approachTitle: "How I shipped it",
   approach: [
     "Started with outage lifecycle mapping and API contracts, then built ETL pipelines, monitoring, and validation around the integrations before production cutovers. Load testing mattered because the hard part was not moving one outage record—it was keeping the same outage coherent as systems updated at different speeds.",
     "Documented contracts and operational flows so future changes could be made without rediscovering the system.",
   ],
+  /* Footer */
   footerTagline: [
     "At Thailand’s Provincial Electricity Authority (PEA), when maps, outage records, and work systems fell out of sync during the same faultd on the same fault, control rooms and branches fell back to phone calls and spreadsheets.",
     "I owned the integration boundary so one outage identity held across OMS, GIS, SAP ERP, and reporting: APIs from eRespond into OMS, scheduled GIS shapefiles into OMS, read contracts for downstream consumers, and warehouse-backed reporting Power BI aligned to the outage lifecycle crews and reliability teams already depended on.",
@@ -109,6 +115,7 @@ const baseOutageManagementSystemCaseStudy = {
 
 export const outageManagementSystemProject = {
   ...getMissionGalleryManifestRow("outage-management-system"),
+  /* Export */
   caseStudy: {
     ...baseOutageManagementSystemCaseStudy,
     ...outageManagementSystemCaseStudyVariant,

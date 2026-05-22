@@ -3,20 +3,24 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const dynamicPaywallCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
+    /* Header / intro */
     eyebrow: "NEWSROOM SYSTEMS · MONETIZATION · AI",
 
+    /* Media */
     featuredImg: "images/portfolio/dynamic-paywall/featured-image.png",
     featuredImgWebp: "images/portfolio/dynamic-paywall/featured-image.webp",
     featuredImageCompact: true,
     featuredImageObjectPosition: "center top",
     featuredImageObjectPositionMd: "50% 20%",
 
+    /* Project frame */
     task: "Integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription paths. Wire JavaScript and BlueConic so on-page behavior matches Sophi’s decisions; instrument GA4; ship with feature flags and kill switches for safe rollout and trustworthy model feedback.",
 
     focus: ["Adaptive paywall systems", "Analytics", "Frontend integration"],
 
     context: "The Dallas Morning News (DMN)",
 
+    /* Stack */
     techStack: [
       {
         label: "Arc XP",
@@ -44,11 +48,13 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
       },
     ],
 
+    /* Impact */
     results: [
       { value: "+22%", label: "Conversion rate" },
       { value: "+15%", label: "More subscription starts" },
     ],
 
+    /* Overview */
     overviewTitle: "Overview",
 
     overview: [
@@ -59,6 +65,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
       "The metrics in the Impact section (+22% conversion, +15% more subscription starts) were referenced in the DMN employee town hall on August 13, 2025.",
     ],
 
+    /* What I focused on */
     strategyTitle: "What I did",
 
     strategyIntro: [
@@ -95,6 +102,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
         "User behavior flows down, analytics flows back up — the loop never stops learning.",
     },
 
+    /* How it shipped */
     approachTitle: "What I found in production",
 
     approachIntro:
@@ -119,6 +127,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
         "See how the checkout and onboarding system converts this intent →",
     },
 
+    /* Footer */
     footerTagline:
       "Adaptive Sophi paywall integrated into Arc XP—per-visit gating decisions tied to reader behavior, analytics instrumentation, and controlled newsroom rollout.",
   }),
