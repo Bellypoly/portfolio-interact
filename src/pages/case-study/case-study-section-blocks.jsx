@@ -3,11 +3,12 @@ import { CaseStudyDashBulletList } from "./case-study-dash-bullet-list";
 import { CaseStudyResultsList } from "./case-study-renderers";
 
 /** Stat grid used by checkout / clarity `sectionResults` (and similar). */
-export function CaseStudySectionStatRows({ rows }) {
+export function CaseStudySectionStatRows({ rows, labelCase }) {
   return (
     <CaseStudyResultsList
       rows={rows}
       className="project-case-study__results mt-6"
+      labelCase={labelCase}
     />
   );
 }

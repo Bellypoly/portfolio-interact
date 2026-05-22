@@ -18,7 +18,10 @@ export function CaseStudyCheckoutSection({ cs, slug, baseUrl }) {
       sectionId={`${slug}-checkout`}
     >
       <CaseStudySectionLead lead={cs.checkoutSection.lead} />
-      <CaseStudySectionStatRows rows={cs.checkoutSection.sectionResults} />
+      <CaseStudySectionStatRows
+        rows={cs.checkoutSection.sectionResults}
+        labelCase={cs.checkoutSection.resultsLabelCase}
+      />
       <CaseStudySectionBulletList items={cs.checkoutSection.bullets} />
       {cs.checkoutSection.flowDiagram ? (
         <CaseStudyCaptionedFigure
@@ -52,7 +55,10 @@ export function CaseStudyClaritySection({
   return (
     <CaseStudySection title={cs.claritySection.title} sectionId={`${slug}-clarity`}>
       <CaseStudySectionLead lead={cs.claritySection.lead} />
-      <CaseStudySectionStatRows rows={cs.claritySection.sectionResults} />
+      <CaseStudySectionStatRows
+        rows={cs.claritySection.sectionResults}
+        labelCase={cs.claritySection.resultsLabelCase}
+      />
       {cs.claritySection.figures?.length ? (
         <CaseStudyFigures
           embedded

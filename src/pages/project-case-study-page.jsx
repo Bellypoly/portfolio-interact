@@ -231,6 +231,7 @@ export default function ProjectCaseStudyPage() {
         <CaseStudyResultsList
           rows={cs.results}
           className={`project-case-study__results${cs.deferredImpactLead?.length ? " mt-6 md:mt-8" : ""}`}
+          labelCase={cs.resultsLabelCase}
         />
       ) : null}
       {cs.impactChart ? (

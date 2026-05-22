@@ -80,6 +80,7 @@ const baseLocalElectionsHubCaseStudy = {
         "Layout and semantics suited to heavy-traffic election-night publishing",
     },
   ],
+  resultsLabelCase: "sentence",
 
   /* Overview */
 

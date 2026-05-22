@@ -108,6 +108,7 @@ export function CaseStudyEarlyImpactSection({
               <CaseStudyResultsList
                 rows={group.rows}
                 className="project-case-study__results project-case-study__results--in-group"
+                labelCase={group.resultsLabelCase ?? cs.resultsLabelCase}
               />
             </div>
           ))}
@@ -116,6 +117,7 @@ export function CaseStudyEarlyImpactSection({
         <CaseStudyResultsList
           rows={cs.results}
           className={`project-case-study__results${cs.earlyImpactIntro ? " mt-4 md:mt-6" : ""}`}
+          labelCase={cs.resultsLabelCase}
         />
       )}
       {cs.earlyImpactCredits?.length ? (

@@ -9,10 +9,23 @@ import { CaseStudyDashBulletList } from "./case-study-dash-bullet-list";
 import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
 
 /** Reusable value/label stat rows (`cs.results`, impact blocks, deferred impact). */
-export function CaseStudyResultsList({ rows, className }) {
+export function CaseStudyResultsList({
+  rows,
+  className,
+  labelCase = "uppercase",
+}) {
   if (!rows?.length) return null;
+  const listClassName = [
+    className ?? "project-case-study__results",
+    labelCase === "sentence"
+      ? "project-case-study__results--label-sentence"
+      : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <ul className={className ?? "project-case-study__results"} role="list">
+    <ul className={listClassName} role="list">
       {rows.map((row, i) => (
         <li key={`${row.label}-${i}`} className="project-case-study__result">
           <span className="project-case-study__result-value">{row.value}</span>
@@ -36,6 +49,7 @@ export function CaseStudyImpactBlock({ block, baseUrl, sectionId }) {
       <CaseStudyResultsList
         rows={block.rows}
         className="project-case-study__results mt-6 md:mt-8"
+        labelCase={block.resultsLabelCase}
       />
       <CaseStudyCaptionedFigure
         baseUrl={baseUrl}

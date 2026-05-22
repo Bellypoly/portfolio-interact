@@ -850,6 +850,11 @@
   @apply font-medium uppercase text-stone-600;
 }
 
+.project-case-study__results--label-sentence .project-case-study__result-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 @media (min-width: 768px) {
   .project-case-study__result-label {
     font-size: var(--cs-text-overline-md);
