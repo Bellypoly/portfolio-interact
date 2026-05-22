@@ -190,7 +190,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioYear: 2020,
     portfolioLabel: "Thesis",
     anchorId: "portfolio-rdfd",
-    name: "RDFD — Discovering Fake Drivers",
+    name: "Discovering Fake Drivers Based on Temporal Driving Behaviors",
     desc: "ML proof-of-concept: inferring shared or spoofed driver accounts from how people actually drive over time—not a single login check.",
     img: "images/portfolio/rdfd/thumbnail.jpg",
     imgWebp: "images/portfolio/rdfd/thumbnail.webp",

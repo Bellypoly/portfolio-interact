@@ -1,5 +1,5 @@
 /**
- * RDFD — Discovering Fake Drivers — portfolio entry + case study.
+ * Discovering Fake Drivers Based on Temporal Driving Behaviors — portfolio entry + case study.
  */
 
 import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js";
