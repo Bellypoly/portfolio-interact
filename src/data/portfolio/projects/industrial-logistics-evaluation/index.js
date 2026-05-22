@@ -6,19 +6,27 @@ import { getMissionGalleryManifestRow } from "../../mission-gallery-manifest.js"
 import { industrialLogisticsEvaluationCaseStudyVariant } from "./variants.js";
 
 const baseIndustrialLogisticsEvaluationCaseStudy = {
-  /* Header / intro */
   eyebrow: "Research · Logistics · IEOM 2016",
+
   featuredImg:
     "images/portfolio/industrial-logistics-evaluation/featured-image.jpg",
+
   featuredImgWebp:
     "images/portfolio/industrial-logistics-evaluation/featured-image.webp",
+
   featuredImageAlt:
-    "LPI radar chart — Thailand, Singapore, and Malaysia 2014 compared on timeliness, customs, international shipments, and logistics competence; Thailand map and forklift illustration",
+    "LPI radar chart comparing Thailand, Singapore, and Malaysia across timeliness, customs, international shipments, and logistics competence; Thailand map and forklift illustration",
+
   featuredImageCompact: true,
+
   featuredImageObjectPosition: "center center",
-  task: "Evaluate logistics performance at a printing and packaging company in Thailand — map the operation against World Bank LPI dimensions, quantify where cost, lead time, and service reliability break down, and frame actionable improvement paths.",
+
+  task: "Evaluate how logistics friction actually appears inside a Thai printing and packaging operation — where warehouse flow, outbound shipping, tracking, and infrastructure constraints stop matching the clean assumptions inside national logistics rankings.",
+
   focus: ["Operations research", "LPI benchmarking", "Case study methodology"],
+
   context: "IEOM 2016 · Academic research (Thailand)",
+
   techStack: [
     {
       label: "MATLAB",
@@ -41,11 +49,35 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
       href: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
     },
   ],
-  /* Overview */
+
+  results: [
+    {
+      value: "Shop-floor lens",
+      label:
+        "National LPI dimensions translated into receiving, warehousing, scheduling, and outbound-shipping processes.",
+    },
+    {
+      value: "Regional benchmark",
+      label:
+        "Thailand’s 2014 logistics profile compared against Singapore and Malaysia to surface operational gaps.",
+    },
+    {
+      value: "Improvement paths",
+      label:
+        "Recommendations separated warehouse-level fixes from infrastructure and policy constraints.",
+    },
+  ],
+  resultsLabelCase: "sentence",
+
   overviewTitle: "Overview",
+
   overview: [
-    "Printing and packaging sits where make-to-order pressure, material handling, and outbound distribution meet. “Logistics performance” is never one headline number—it depends which LPI dimensions you measure and whether you stay at national averages or walk the shop floor.",
-    "This paper applies the World Bank LPI framework to one Thai company and asks: which dimensions (timeliness, customs, infrastructure, service quality, tracking, international shipments) actually constrain this business, and what does the gap between Thailand's national LPI score and shop-floor reality look like?",
+    "National logistics scores flatten reality. A warehouse floor does not. Printing and packaging sits where make-to-order pressure, material handling, and outbound distribution meet.",
+
+    "“Logistics performance” is never one headline number—it depends which LPI dimensions you measure and whether you stay at national averages or walk the shop floor.",
+
+    "This study applies the World Bank Logistics Performance Index (LPI) framework to one Thai printing and packaging operation and asks: which dimensions actually constrain the business, and what does the gap between Thailand’s national LPI score and shop-floor reality look like?",
+
     {
       text: "Full paper (IEOM 2016 proceedings): ",
       externalLink: {
@@ -56,29 +88,41 @@ const baseIndustrialLogisticsEvaluationCaseStudy = {
       after: "",
     },
   ],
-  /* What I evaluated */
+
   strategyTitle: "What I evaluated",
+
   pillars: [
     {
-      title: "LPI dimension mapping",
+      title: "Operational mapping",
+
       body: "Mapped the six World Bank LPI dimensions to specific operational touch-points inside the company — receiving, warehousing, production scheduling, and outbound shipping — so each score connects to an observable process, not an abstract national average.",
     },
+
     {
-      title: "Gap analysis",
-      body: "Compared the company's performance against Thailand's 2014 LPI scores and regional peers (Singapore, Malaysia) to identify where domestic infrastructure, customs friction, and internal process gaps compound.",
+      title: "Constraint analysis",
+
+      body: "Compared the company’s performance against Thailand’s 2014 LPI scores and regional peers such as Singapore and Malaysia to identify where domestic infrastructure, customs friction, and internal process gaps compound.",
     },
+
     {
-      title: "Improvement framing",
-      body: "Closed with concrete recommendations: which dimensions the company can influence directly (warehouse throughput, tracking), which require policy or infrastructure change, and where the biggest cost-to-improvement leverage sits.",
+      title: "Improvement leverage",
+
+      body: "Closed with concrete recommendations: which dimensions the company could influence directly, such as warehouse throughput and tracking, which required policy or infrastructure change, and where the biggest cost-to-improvement leverage sat.",
     },
   ],
-  /* How I approached it */
+
   approachTitle: "How I approached it",
+
   approach: [
-    "I used a structured case-study methodology: site observation, operational data, and stakeholder interviews to ground the LPI scores in what actually happens on the warehouse floor and the loading dock.",
-    "I kept the paper readable across audiences — operations managers, logistics academics, and Thai industrial SME stakeholders — with explicit assumptions and data tables rather than opaque scoring.",
+    "Used a structured case-study methodology: site observation, operational data, and stakeholder interviews to ground LPI scores in what actually happens on the warehouse floor and the loading dock.",
+
+    "Kept the paper readable across audiences — operations managers, logistics academics, and Thai industrial SME stakeholders — with explicit assumptions and data tables rather than opaque scoring.",
   ],
-  results: null,
+
+  outcome:
+    "IEOM 2016 — logistics performance at a Thai printing and packaging firm via the World Bank LPI: tie national scores to warehouse flow, loading-dock reality, regional benchmarks, and improvement leverage.",
+
+  projectUrl: "https://ieomsociety.org/ieom_2016/pdfs/672.pdf",
 };
 
 export const industrialLogisticsEvaluationProject = {
