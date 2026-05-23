@@ -246,7 +246,7 @@ const baseLocalElectionsHubCaseStudy = {
   ],
 
   /* Business outcome */
-  businessOutcome:
+  outcome:
     "The hub became a shared election-results platform — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
 
   /* Final related surface */

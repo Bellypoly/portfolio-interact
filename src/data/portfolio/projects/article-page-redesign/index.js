@@ -229,8 +229,8 @@ const baseArticlePageRedesignCaseStudy = {
     "Shipping layout, ads, commenting, and reader-state in one coordinated rollout instead of parallel tracks meant fewer integration surprises, but every feature-flag combination needed its own test matrix. Unit and integration coverage across render-branch permutations was the hardest part of the project.",
   ],
   /* Outcome / result */
-  businessOutcomeSectionTitle: "Deployment outcome",
-  businessOutcome:
+  outcomeSectionTitle: "Deployment outcome",
+  outcome:
     "One implementation surface in production, rolled out incrementally with product, design, and ads from September through full deployment by year-end.",
   showcase: {
     title: "The result",

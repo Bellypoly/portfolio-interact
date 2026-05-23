@@ -13,20 +13,16 @@ const SeniorFullStack = ({ showLiveDot }) => (
     title="Senior Full-Stack Developer"
     org="The Dallas Morning News / Hearst"
     where="Dallas, Texas"
-    description="Built and scaled a data-driven subscription and content platform powering acquisition, conversion, and engagement for millions of readers."
+    description="Built and scaled newsroom systems for subscriptions, engagement, experimentation, and digital storytelling serving millions of readers."
     triggerLabel="Mission logs"
     bullets={[
-      "AI-driven dynamic paywall: +22% conversion, +15% subscription starts via per-visit decisioning and controlled rollout.",
-
-      "Subscription checkout redesign: simplified multi-step flow into a single-page experience; +14% lift (month one), +7% sustained.",
-
-      "Article experience & monetization: reduced ad density 9.91% with no revenue loss; increased reading time (+4.73%) and engagement (+4.09%).",
-
-      "Engagement systems (commenting): +38% engagement; up to 85% higher interaction on enabled content.",
-
-      "Deterministic reader identity (anonymous → registered → subscriber): eliminated paywall-to-checkout drop-offs.",
-
-      "Performance & reliability: improved Core Web Vitals (LCP, CLS); migrated 55% off legacy architecture; enabled zero-downtime releases via feature flags.",
+      "ML-driven dynamic paywall: +22% conversion, +15% subscription starts via per-visit decisioning, GA4 instrumentation, and controlled rollout behind feature flags.",
+      "Subscription checkout redesign: rebuilt fragmented multi-page flows into a deterministic single-page React checkout with unified Braintree, Stripe, and Apple Pay orchestration; +14% lift (month one), +7% sustained.",
+      "Local Elections Hub rebuild: helped transform fragmented election pages into a shared React- and Arc XP–driven platform for live election results, mobile-first race navigation, and election-night newsroom publishing workflows.",
+      "Article experience & monetization: reduced ad density 9.91% with no revenue loss; increased reading time (+4.73%) and engagement (+4.09%) while improving Core Web Vitals (CLS, LCP).",
+      "Engagement systems (Viafoura commenting): +38% engagement growth through integrated commenting and reader interaction features.",
+      "Deterministic reader identity (anonymous → registered → subscriber): eliminated paywall-to-checkout drop-offs and stabilized subscription state across Arc XP flows.",
+      "Performance & reliability: improved Core Web Vitals (LCP, CLS) and supported migration away from legacy rendering infrastructure through feature flags, rollout safeguards, and zero-downtime release practices.",
     ]}
     portfolioAnchor={[
       "portfolio-dmn",
@@ -46,8 +42,9 @@ const DataEngineer = () => (
     where="Chiang Mai, Thailand"
     description="Built and automated ETL workflows in Python to process customer data across AWS, MongoDB, and MySQL."
     bullets={[
-      "Designed and automated ETL pipelines in Python to ingest, validate, and transform customer data across AWS, MongoDB, and MySQL — enabling marketing teams to cut ad spend waste through cleaner targeting datasets.",
-      "Hardened cloud infrastructure (AWS, DynamoDB, MySQL, MongoDB) for pipeline reliability and fault tolerance, supporting enterprise-scale reporting under production SLAs.",
+      "Built automated ETL pipelines (Python, AWS, MongoDB, MySQL) for customer-data ingestion, validation, and reporting workflows, reducing manual processing and improving marketing data quality.",
+      "Developed cloud-backed reporting infrastructure across DynamoDB, MySQL, and MongoDB to support fault-tolerant analytics pipelines, operational monitoring, and SLA-driven reporting workloads.",
+      "Designed backend workflows for large-scale customer segmentation, campaign reporting, and data synchronization across distributed marketing systems.",
     ]}
   />
 );
@@ -60,17 +57,12 @@ const FullStackII = () => (
     where="Bangkok, Thailand"
     description="Built and integrated a nationwide geospatial Outage Management System (OMS), transforming GIS network data into operational systems to improve grid reliability, real-time outage response, and customer-facing services across Thailand's provincial electricity network."
     bullets={[
-      "Geospatial data ingestion: designed APIs and data pipelines to ingest and transform GIS shapefiles into structured network models for outage tracking.",
-
-      "Spatial modeling: mapped GIS topology (feeders, transformers, service areas) to operational entities, enabling accurate outage localization and restoration workflows.",
-
-      "System integration: engineered data synchronization across GIS, OMS, and SAP ERP to maintain consistent outage IDs, lifecycle state, and estimated time to restoration (ETR).",
-
-      "Data pipelines: built pipelines using ArcGIS and Oracle to serve real-time dashboards for grid monitoring and operational decision-making.",
-
-      "Analytics layer: developed Power BI dashboards for outage tracking (ETR, planned outages), aligning spatial and operational data through modeling and DAX.",
-
-      "Customer-facing systems: enabled integration with PEA E-Service, allowing outage and service data to be surfaced to end users.",
+      "Geospatial data ingestion: designed APIs and ETL pipelines (ArcGIS, Oracle, field devices) to ingest GIS shapefiles and transform utility-network topology into structured outage-management workflows.",
+      "Spatial modeling: mapped GIS topology (feeders, transformers, service areas) to operational entities, enabling accurate outage localization, restoration workflows, and planned-outage coordination.",
+      "System integration: developed REST/SOAP integration services (C#, Laravel, Python) connecting OMS, GIS, SAP ERP, ADMS, and operational systems to synchronize outage IDs, lifecycle states, restoration timing (ETR), and reporting workflows.",
+      "Operational analytics: aligned outage and planned-work data across OMS, GIS, SAP ERP, and Power BI systems so dashboards, maps, and field workflows reflected consistent outage states.",
+      "Data pipelines & reporting: built ArcGIS- and Oracle-backed pipelines powering real-time operational dashboards, outage monitoring, and utility decision-making at production scale.",
+      "Production operations: supported integration cutovers, synchronization debugging, and deployment coordination alongside utility operations teams and third-party implementation partners.",
     ]}
     portfolioAnchor={[
       "portfolio-pea",
@@ -86,7 +78,7 @@ const SoftwareEng = () => (
     title="Software Engineer"
     org="THiNKNET Co., Ltd." // (JobThai / MapMagic)"
     where="Bangkok, Thailand"
-    description="Built search and geospatial systems powering job discovery and location-based services for millions of users."
+    description="Built geospatial search and mapping systems powering location-based job discovery for millions of users."
     bullets={[
       "Integrated Elasticsearch into a high-traffic job search system, improving query performance and ranking relevance at scale.",
 
@@ -94,9 +86,9 @@ const SoftwareEng = () => (
 
       "Built location-based job discovery features on OpenStreetMap, enabling geographic and proximity-based search.",
 
-      "Developed interactive geospatial visualizations using Laravel, D3.js, and modern JavaScript, improving responsiveness and engagement.",
+      "Developed interactive geospatial visualizations using Laravel, D3.js, and modern JavaScript, improving map usability and location-based discovery.",
 
-      "Built resume creation and employer tools, streamlining hiring workflows and increasing platform retention.",
+      "Built resume creation and employer tools, streamlining hiring workflows across one of Thailand’s largest recruitment platforms.",
     ]}
     portfolioAnchor={[
       "portfolio-thinknet",

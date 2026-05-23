@@ -184,7 +184,7 @@ export const vote62CaseStudyBase = {
     outro:
       "without manual reconstruction from thousands of government-published documents.",
   },
-  businessOutcome:
+  outcome:
     "My contribution was not a prettier spreadsheet—it was shifting labor from wholesale retyping toward a workflow where machines handled bulk extraction, validation determined what was safe to publish, and humans intervened only where checks actually flagged uncertainty.",
 
   /* Final sections */

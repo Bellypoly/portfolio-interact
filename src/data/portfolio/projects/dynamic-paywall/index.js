@@ -96,7 +96,7 @@ const baseDynamicPaywallCaseStudy = {
   flourishEmbed: "https://flo.uri.sh/visualisation/28171634/embed",
   flourishCaption: "",
   /* Outcome / result */
-  businessOutcome:
+  outcome:
     "The result is a paywall that gets smarter every day — continuously balancing subscription conversion against reader engagement, one visit at a time. The +22% conversion lift and +15% more subscription starts reflect a system that learns, not just a feature that shipped.",
   /* Final related surface */
   relatedProject: {

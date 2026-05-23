@@ -293,9 +293,9 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
     ],
 
     /* Outcome / result */
-    businessOutcomeSectionTitle: "Deployment outcome",
+    outcomeSectionTitle: "Deployment outcome",
 
-    businessOutcome:
+    outcome:
       "One coordinated article surface in production — layout, monetization, commenting, reader-state branching, and instrumentation rolled out incrementally behind feature flags from September through full deployment by year-end.",
 
     showcase: {

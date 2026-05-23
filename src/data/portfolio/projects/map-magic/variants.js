@@ -314,9 +314,9 @@ export const mapMagicCaseStudyVariants = Object.freeze({
       ],
     },
 
-    businessOutcomeSectionTitle: "Infrastructure outcome",
+    outcomeSectionTitle: "Infrastructure outcome",
 
-    businessOutcome:
+    outcome:
       "Thailand map infrastructure I helped build: REST map APIs, proprietary tiles and POI, Android field capture, and routing that survives real Bangkok traffic—not demo coordinates.",
 
     relatedProject: {

@@ -724,19 +724,19 @@ export default function ProjectCaseStudyPage() {
           </CaseStudySection>
         ) : null}
 
-        {cs.businessOutcome || cs.businessOutcomeBullets?.length ? (
+        {cs.outcome || cs.outcomeBullets?.length ? (
           <CaseStudySection
-            title={cs.businessOutcomeSectionTitle ?? "Outcome"}
+            title={cs.outcomeSectionTitle ?? "Outcome"}
             sectionId={`${slug}-outcome`}
           >
-            {cs.businessOutcome ? (
+            {cs.outcome ? (
               <p className="project-case-study__p">
-                {renderCaseStudyInlineRich(cs.businessOutcome)}
+                {renderCaseStudyInlineRich(cs.outcome)}
               </p>
             ) : null}
-            {cs.businessOutcomeBullets?.length ? (
+            {cs.outcomeBullets?.length ? (
               <CaseStudyDashBulletList
-                items={cs.businessOutcomeBullets}
+                items={cs.outcomeBullets}
                 className="mt-4 md:mt-5"
                 renderBullet={(b) => renderCaseStudyInlineRich(b)}
               />
