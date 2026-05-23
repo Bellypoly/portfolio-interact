@@ -20,6 +20,24 @@ function missionGalleryHref(slug) {
   return `${import.meta.env.BASE_URL}mission/${slug}`;
 }
 
+function missionGalleryLink(slug, label) {
+  return `<a href='${missionGalleryHref(slug)}' title='Mission Gallery - ${label} case study' aria-label='Open ${label} case study'>🔗</a>`;
+}
+
+function externalSourceLine(announcementHref, caseStudyHref, label) {
+  return `<span class="mt-2 block">Source: <a href='${announcementHref}' target='_blank' rel='noreferrer'>${label}</a> <a href='${caseStudyHref}' target='_blank' rel='noreferrer' aria-label='Open INMA case study'>🔗</a>.</span>`;
+}
+
+const INMA_ORGANIZATION = "International News Media Association";
+const INMA_2024_ANNOUNCEMENT =
+  "https://www.inma.org/press-release.cfm?article=INMA-unveils-40-first--place-winners-at-the-Global-Media-Awards";
+const INMA_2024_CASE_STUDY =
+  "https://www.inma.org/best-practice/Advertising-Sales-and-Retention/2024-566/Digital-Replica-Revenue-Growth-to-Future-Proof-Local-Journalism";
+const INMA_2023_ANNOUNCEMENT =
+  "https://www.inma.org/blogs/main/post.cfm/inma-announces-finalists-for-2023-global-media-awards";
+const LOCALGRAF_CASE_STUDY =
+  "https://www.inma.org/best-practice/Best-Product-Iteration/2023-641/LocalGraf-Internal-database-linking-from-inside-stories";
+
 function withYearSpan(bullets) {
   return (
     bullets?.map((b) =>
@@ -87,11 +105,11 @@ const ACHIEVEMENT_ITEMS = [
     sortYear: 2024,
     title: "3rd Place (Global) — Best Idea to Grow Advertising Sales",
     time: "2024",
-    org: "INMA Global Media Awards 2024 (International News Media Association)",
+    org: `INMA Global Media Awards (${INMA_ORGANIZATION})`,
     where: "The Dallas Morning News",
     badges: ["Organization Award"],
     missionLogs: [
-      `Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems <a href='${missionGalleryHref("subscription-checkout-activation")}' title='Mission Gallery - subscription case study'>🔗</a>, paywall optimization <a href='${missionGalleryHref("dynamic-paywall")}' title='Mission Gallery - paywall case study'>🔗</a>, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. → Source: <a href='https://www.inma.org/blogs/main/post.cfm/inma-unveils-40-first-place-winners-at-the-global-media-awards-with-helsingin-sanomat-taking-the-top-prize' target='_blank' rel='noreferrer'>INMA winners announcement</a>.`,
+      `Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems ${missionGalleryLink("subscription-checkout-activation", "subscription")}, paywall optimization ${missionGalleryLink("dynamic-paywall", "paywall")}, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. ${externalSourceLine(INMA_2024_ANNOUNCEMENT, INMA_2024_CASE_STUDY, "INMA award announcement")}`,
     ],
   },
   {
@@ -102,7 +120,7 @@ const ACHIEVEMENT_ITEMS = [
     where: "The Dallas Morning News",
     badges: ["Organization Award"],
     missionLogs: [
-      `LocalGraf - Internal Database Linking From Inside Stories: Worked on newsroom entity-linking infrastructure connecting people, organizations, events, and places across article content and structured databases to power editorial discovery, contextual story relationships, and reusable newsroom knowledge systems <a href='${missionGalleryHref("article-page-redesign")}' title='Mission Gallery - article redesign case study'>🔗</a>. → Source: <a href='https://www.inma.org/best-practice/Best-Product-Iteration/2023-641/LocalGraf-Internal-database-linking-from-inside-stories' target='_blank' rel='noreferrer'>INMA finalist case study</a>.`,
+      `LocalGraf - Internal Database Linking From Inside Stories: Worked on newsroom entity-linking infrastructure connecting people, organizations, events, and places across article content and structured databases to power editorial discovery, contextual story relationships, and reusable newsroom knowledge systems ${missionGalleryLink("article-page-redesign", "article redesign")}.${externalSourceLine(INMA_2023_ANNOUNCEMENT, LOCALGRAF_CASE_STUDY, "INMA finalist announcement")}`,
     ],
   },
   {

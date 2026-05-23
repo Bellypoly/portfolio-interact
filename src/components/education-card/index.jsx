@@ -47,6 +47,22 @@ function MissionLogFloatTrigger({ open, setOpen, onDismissOutside, children }) {
   );
 }
 
+function useMissionLogState() {
+  const [openIndex, setOpenIndex] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const dismiss = useCallback(() => {
+    setIsOpen(false);
+    setOpenIndex(null);
+  }, []);
+
+  const toggleDetail = useCallback((idx) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
+  }, []);
+
+  return { openIndex, isOpen, setIsOpen, dismiss, toggleDetail };
+}
+
 function TimelineExpandableBulletList({
   items,
   inFloat,
@@ -123,17 +139,7 @@ const EducationCard = React.memo(function EducationCard({
   collapsible = false,
   showMissionLog = false,
 }) {
-  const [openBulletIndex, setOpenBulletIndex] = useState(null);
-  const [isMissionLogOpen, setIsMissionLogOpen] = useState(false);
-
-  const dismissMissionLog = useCallback(() => {
-    setIsMissionLogOpen(false);
-    setOpenBulletIndex(null);
-  }, []);
-
-  const toggleBulletDetail = useCallback((idx) => {
-    setOpenBulletIndex((prev) => (prev === idx ? null : idx));
-  }, []);
+  const missionLog = useMissionLogState();
 
   return (
     <div
@@ -165,15 +171,15 @@ const EducationCard = React.memo(function EducationCard({
       </div>
       {showMissionLog && bullets.length > 0 ? (
         <MissionLogFloatTrigger
-          open={isMissionLogOpen}
-          setOpen={setIsMissionLogOpen}
-          onDismissOutside={dismissMissionLog}
+          open={missionLog.isOpen}
+          setOpen={missionLog.setIsOpen}
+          onDismissOutside={missionLog.dismiss}
         >
           <TimelineExpandableBulletList
             items={bullets}
             inFloat
-            openIndex={openBulletIndex}
-            onToggleDetail={toggleBulletDetail}
+            openIndex={missionLog.openIndex}
+            onToggleDetail={missionLog.toggleDetail}
             summaryNoDetailAsHtml={false}
           />
         </MissionLogFloatTrigger>
@@ -181,8 +187,8 @@ const EducationCard = React.memo(function EducationCard({
         <TimelineExpandableBulletList
           items={bullets}
           inFloat={false}
-          openIndex={openBulletIndex}
-          onToggleDetail={toggleBulletDetail}
+          openIndex={missionLog.openIndex}
+          onToggleDetail={missionLog.toggleDetail}
           summaryNoDetailAsHtml={false}
         />
       ) : null}
@@ -199,17 +205,7 @@ const AchievementCard = React.memo(function AchievementCard({
   missionLogs = [],
   badges = [],
 }) {
-  const [openMissionLogIndex, setOpenMissionLogIndex] = useState(null);
-  const [isMissionLogOpen, setIsMissionLogOpen] = useState(false);
-
-  const dismissMissionLog = useCallback(() => {
-    setIsMissionLogOpen(false);
-    setOpenMissionLogIndex(null);
-  }, []);
-
-  const toggleMissionDetail = useCallback((idx) => {
-    setOpenMissionLogIndex((prev) => (prev === idx ? null : idx));
-  }, []);
+  const missionLog = useMissionLogState();
 
   const portfolioHash = firstPortfolioHashFragment(portfolioAnchor);
 
@@ -243,15 +239,15 @@ const AchievementCard = React.memo(function AchievementCard({
       </div>
       {missionLogs.length > 0 ? (
         <MissionLogFloatTrigger
-          open={isMissionLogOpen}
-          setOpen={setIsMissionLogOpen}
-          onDismissOutside={dismissMissionLog}
+          open={missionLog.isOpen}
+          setOpen={missionLog.setIsOpen}
+          onDismissOutside={missionLog.dismiss}
         >
           <TimelineExpandableBulletList
             items={missionLogs}
             inFloat
-            openIndex={openMissionLogIndex}
-            onToggleDetail={toggleMissionDetail}
+            openIndex={missionLog.openIndex}
+            onToggleDetail={missionLog.toggleDetail}
             summaryNoDetailAsHtml
           />
         </MissionLogFloatTrigger>
