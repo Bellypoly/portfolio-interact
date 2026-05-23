@@ -86,13 +86,23 @@ const ACHIEVEMENT_ITEMS = [
   {
     sortYear: 2024,
     title: "3rd Place (Global) — Best Idea to Grow Advertising Sales",
-    portfolioAnchor: ["portfolio-paywall", "portfolio-subscription"],
     time: "2024",
     org: "INMA Global Media Awards 2024 (International News Media Association)",
     where: "The Dallas Morning News",
     badges: ["Organization Award"],
     missionLogs: [
-      "Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems, paywall optimization, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. Source: <a href='https://www.inma.org/blogs/main/post.cfm/inma-unveils-40-first-place-winners-at-the-global-media-awards-with-helsingin-sanomat-taking-the-top-prize' target='_blank' rel='noreferrer'>INMA winners announcement</a>.",
+      `Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems <a href='${missionGalleryHref("subscription-checkout-activation")}' title='Mission Gallery - subscription case study'>🔗</a>, paywall optimization <a href='${missionGalleryHref("dynamic-paywall")}' title='Mission Gallery - paywall case study'>🔗</a>, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. → Source: <a href='https://www.inma.org/blogs/main/post.cfm/inma-unveils-40-first-place-winners-at-the-global-media-awards-with-helsingin-sanomat-taking-the-top-prize' target='_blank' rel='noreferrer'>INMA winners announcement</a>.`,
+    ],
+  },
+  {
+    sortYear: 2023,
+    title: "Finalist - Best Product Iteration",
+    time: "2023",
+    org: "INMA Global Media Awards",
+    where: "The Dallas Morning News",
+    badges: ["Organization Award"],
+    missionLogs: [
+      `LocalGraf - Internal Database Linking From Inside Stories: Worked on newsroom entity-linking infrastructure connecting people, organizations, events, and places across article content and structured databases to power editorial discovery, contextual story relationships, and reusable newsroom knowledge systems <a href='${missionGalleryHref("article-page-redesign")}' title='Mission Gallery - article redesign case study'>🔗</a>. → Source: <a href='https://www.inma.org/best-practice/Best-Product-Iteration/2023-641/LocalGraf-Internal-database-linking-from-inside-stories' target='_blank' rel='noreferrer'>INMA finalist case study</a>.`,
     ],
   },
   {
