@@ -3,9 +3,6 @@ import { ACTIVE_MISSION_GALLERY_VERSION } from "../../mission-gallery-version-co
 export const articlePageRedesignCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
-    // eyebrow:
-    //   "Newsroom Systems · Reader Experience · Monetization · Performance",
-    // task: "Optimize article surfaces for data-driven storytelling: PageBuilder (React), analytics integration, Core Web Vitals, and reader engagement metrics for civic platforms and newsroom data reports.",
     /* Header / intro */
     eyebrow:
       "Newsroom Systems · Reader Experience · Monetization · Performance",
@@ -23,7 +20,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
     },
 
     /* Project frame */
-    task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
+    task: "Rebuild the Dallas Morning News article experience after AMP — redesigning the reading surface, monetization flow, engagement systems, and performance architecture into one coherent story-first platform.",
 
     focus: [
       "Article frontend & Arc XP PageBuilder",
@@ -126,7 +123,7 @@ export const articlePageRedesignCaseStudyVariants = Object.freeze({
 
       "AMP optimized distribution. Losing it meant rebuilding responsibility: layout stability, monetization behavior, reader-state orchestration, engagement instrumentation, and performance all returned to the article surface itself.",
 
-      "I rebuilt the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out incrementally behind feature flags from September through full deployment by year-end.",
+      "As part of the article redesign effort after AMP, I contributed to rebuilding the PageBuilder surface end to end: component-based single-column layout, lazy GAM slot injection at content breakpoints, Viafoura with an Arc auth bridge and GA4 event forwarding, and reader-state branching for paywall, regiwall, and newsletter CTAs — rolled out incrementally behind feature flags from September through full deployment by year-end.",
     ],
 
     /* Article stack */

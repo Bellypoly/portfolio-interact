@@ -726,7 +726,7 @@ export default function ProjectCaseStudyPage() {
 
         {cs.businessOutcome || cs.businessOutcomeBullets?.length ? (
           <CaseStudySection
-            title={cs.businessOutcomeSectionTitle ?? "Business outcome"}
+            title={cs.businessOutcomeSectionTitle ?? "Outcome"}
             sectionId={`${slug}-outcome`}
           >
             {cs.businessOutcome ? (

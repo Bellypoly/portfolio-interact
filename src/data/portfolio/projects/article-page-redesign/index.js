@@ -19,7 +19,7 @@ const baseArticlePageRedesignCaseStudy = {
     label: "The Dallas Morning News",
   },
   /* Project frame */
-  task: "Senior Full Stack Engineer on the article surface — PageBuilder (React), GAM, Core Web Vitals, Viafoura commenting, paywall-aware reader flows, and GA4, Datadog, and BlueConic instrumentation — in partnership with product, design, and ads.",
+  task: "Rebuild the Dallas Morning News article experience after AMP — redesigning the reading surface, monetization flow, engagement systems, and performance architecture into one coherent story-first platform.",
   focus: [
     "Article frontend & Arc XP PageBuilder",
     "Ads & monetization (GAM)",

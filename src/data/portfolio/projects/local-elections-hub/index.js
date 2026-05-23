@@ -25,7 +25,7 @@ const baseLocalElectionsHubCaseStudy = {
   featuredImageObjectPosition: "center center",
 
   /* Project frame */
-  task: "Full-stack engineer on the Local Elections Hub: owned the frontend architecture and implementation for the 2022 rebuild — turning a loose, module-based hub into a component-driven, data-aware system for real-time results, election-night traffic, and mobile-first reading.",
+  task: "Part of the engineering team behind the 2022 Local Elections Hub rebuild — helping transform fragmented election pages into a reusable, data-driven system for live results, mobile scanning, and election-night publishing.",
 
   focus: [
     "Frontend architecture (React · Arc XP)",
@@ -60,7 +60,6 @@ const baseLocalElectionsHubCaseStudy = {
     },
   ],
 
-
   /* Impact */
   results: [
     {
@@ -85,12 +84,11 @@ const baseLocalElectionsHubCaseStudy = {
   ],
   resultsLabelCase: "sentence",
 
-
   /* Overview */
   overviewTitle: "Overview",
 
   overview: [
-    "Election night is deadline journalism: readers refresh, editors watch the same tables, and a fragmented hub burns trust fast. After AMP and alongside broader Arc XP work, I rebuilt the hub as one coherent, data-driven system—counties, races, and candidates mapped to reusable components instead of a bespoke page per contest.",
+    "Election night is deadline journalism: readers refresh, editors watch the same tables, and a fragmented hub burns trust fast. After AMP and alongside broader Arc XP work, the hub was rebuilt into one coherent, data-driven system — counties, races, and candidates mapped to shared components instead of bespoke pages per contest.",
   ],
 
   /* Data to UI */
@@ -118,7 +116,6 @@ const baseLocalElectionsHubCaseStudy = {
     diagramAlt:
       "Flow from election data through normalization to component registry and responsive render with anchor navigation",
   },
-
 
   /* Problem */
   problemSection: {
@@ -245,13 +242,12 @@ const baseLocalElectionsHubCaseStudy = {
   approach: [
     "Election night is the worst time to discover layout thrash or unbounded lists. I biased toward stable shells (reserved row height where possible), bounded “view more” paths, and client navigation so the server wasn't replaying full pages for every county hop.",
 
-    "The hard part wasn't a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns.",
+    "The hard part wasn't a single component — it was consistency: one mental model for editors and readers across counties, with the same components whether data arrived fast or trickled in during live returns. Visual hierarchy prioritized fast scanning on election night while still supporting deeper county- and race-level exploration.",
   ],
 
   /* Business outcome */
-
   businessOutcome:
-    "The hub became a reusable election-results surface — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
+    "The hub became a shared election-results platform — built for real-time data, mobile majority traffic, and repeat reuse across cycles rather than a fragile set of bespoke modules.",
 
   /* Final related surface */
 
@@ -264,7 +260,7 @@ const baseLocalElectionsHubCaseStudy = {
 
   /* Footer */
   footerTagline:
-    "Elections hub rebuilt for Arc XP—typed race data, county anchors, lightweight viz, and mobile-first grids for live returns.",
+    "Election-results platform rebuilt for Arc XP — structured race data, lightweight visualization, county navigation, and mobile-first layouts for live election coverage.",
 };
 
 export const localElectionsHubProject = {

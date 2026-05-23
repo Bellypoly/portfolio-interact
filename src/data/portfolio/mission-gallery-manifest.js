@@ -22,7 +22,7 @@ const MISSION_GALLERY_ROWS = [
     portfolioLabel: "Civic tech",
     anchorId: "portfolio-vote69",
     name: "VOTE62 — Structured election data from ECT PDF records",
-    desc: "400 Thai constituencies rebuilt from ECT tally PDFs into validated structured datasets so public-interest projects run on structure, not hand-typed spreadsheets.",
+    desc: "OCR + validation pipeline rebuilding Thai election datasets from scanned ECT PDFs.",
     hideFooterTagline: true,
     cardImagePosition: "center center",
     img: "images/portfolio/vote62/thumbnail.png",
@@ -94,12 +94,12 @@ const MISSION_GALLERY_ROWS = [
     portfolioLabel: "Product",
     companyBadge: "DMN",
     anchorId: "portfolio-paywall",
-    name: "AI-Powered Dynamic Paywall",
+    name: "ML-Powered Dynamic Paywall",
     desc: "Sophi ML paywall on Arc XP—gate, meter, or let stories through per visit while GA4 and flags keep rollout safe.",
     cardImageFit: "top-clip",
     img: "images/portfolio/dynamic-paywall/thumbnail.png",
     imgWebp: "images/portfolio/dynamic-paywall/thumbnail.webp",
-    alt: "Dallas Morning News site with paywall modal and analytics chart — AI-powered dynamic paywall",
+    alt: "Dallas Morning News site with paywall modal and analytics chart — ML-powered dynamic paywall",
   },
   {
     slug: "map-magic",
@@ -188,7 +188,6 @@ const MISSION_GALLERY_ROWS = [
     slug: "rdfd",
     portfolioGroup: "research",
     portfolioYear: 2020,
-    portfolioLabel: "Thesis",
     anchorId: "portfolio-rdfd",
     name: "Discovering Fake Drivers Based on Temporal Driving Behaviors",
     desc: "ML proof-of-concept: inferring shared or spoofed driver accounts from how people actually drive over time—not a single login check.",
@@ -272,25 +271,29 @@ const MISSION_GALLERY_ORDER = Object.freeze({
     "photo-competition-my-hometown",
   ]),
   "data-reporter": Object.freeze([
-    // TIER 1: Identity-defining civic/public-interest data work.
+    // ACT 1 — Civic/public-interest data storytelling.
     "vote62",
     "parliament-watch-ocr",
-    "electricity-bill-breakdown",
     "local-elections-hub",
-    "outage-management-system",
-    // TIER 2: Newsroom/product engineering and audience systems.
+
+    // ACT 2 — Recent professional newsroom/product experience.
+    "article-page-redesign",
     "dynamic-paywall",
     "subscription-checkout-activation",
-    "article-page-redesign",
 
-    // TIER 3: Technical platform depth (GIS, infra, analytics, ML).
+    // ACT 3 — Systems, GIS, and explanatory infrastructure.
+    "electricity-bill-breakdown",
+    "outage-management-system",
     "map-magic",
     "jobthai",
     "pea-e-service",
+
+    // ACT 4 — Research + analytical depth.
     "industrial-logistics-evaluation",
     "federated-learning-energy",
     "rdfd",
-    // TIER 4: Personal/creative signal.
+
+    // ACT 5 — Human-centered + creative range.
     "jerdi-kids",
     "photo-competition-my-hometown",
   ]),

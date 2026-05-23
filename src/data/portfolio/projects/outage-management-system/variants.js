@@ -79,19 +79,21 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
     ],
     /* Overview */
     overview: [
-      "This case study pairs with PEA E\u2011Service: where E\u2011Service faces citizens, this stack keeps branches, control rooms, and reliability pointed at the same outage when something trips or a planned outage is on the calendar.",
-      "Outage truth arrives from many places\u2014real-time power grid monitoring, eRespond (where operators log faults, planned outages, and live ETR in lists and on the map), GIS, SAP ERP. Without deliberate seams, those feeds drift: different status on the map, different geometry in OMS, different restoration time on the phone.",
-      "I kept OMS as the hub everyone could join. That meant shipping APIs between eRespond and OMS for intake and lifecycle fields, and running GIS shapefile ingestion on a schedule\u2014two faces of the same integration problem.",
+      "This case study pairs with PEA E-Service: where E-Service faces citizens, this stack keeps branches, control rooms, and reliability teams pointed at the same outage when something trips or a planned outage is on the calendar.",
+      "Outage truth arrives from many places — real-time power grid monitoring, eRespond (where operators log faults, planned outages, and live ETR in lists and on the map), GIS, SAP ERP. Without deliberate seams, those feeds drift: different status on the map, different geometry in OMS, different restoration time on the phone.",
+      "I kept OMS as the operational hub other systems could align around. That meant shipping APIs between eRespond and OMS for intake and lifecycle fields, and running GIS shapefile ingestion on a schedule — both solving the same integration problem from different operational entry points.",
       "From there I aligned what PEA Map, ADMS, SAP, and Power BI read from OMS so ETR and planned-outage screens matched what the field was actually doing.",
-      "On intake, eRespond and SAP both need to land on the outage id OMS owns. I built the eRespond\u2192OMS APIs; with SAP ERP owners I held the line on SAP planned-work contracts. After crews close the job, the same SAP posts time, labor, materials, and billing to that outage id so operations and finance never invent a parallel story.",
-      "I ran that plane\u2014APIs, GIS jobs, contracts, reporting\u2014with PEA reliability and operations alongside third-party implementation partners, in the same cadence as cutovers, joint defect triage, and production fire drills.",
+      "On intake, eRespond and SAP both needed to land on the outage ID OMS owned. I built the eRespond → OMS APIs and worked with SAP ERP owners to keep planned-work contracts and outage lifecycle fields synchronized. After crews closed the job, the same SAP flow posted labor, materials, billing, and restoration timing back to that outage ID so operations and finance never invented parallel stories.",
+      "Each integration crossed organizational boundaries — operations, GIS, outage management, ERP, and field-response teams all depended on the same outage lifecycle staying synchronized.",
+      "I worked across that integration layer — APIs, GIS jobs, contracts, and reporting — alongside PEA reliability teams, operations staff, and third-party implementation partners in the same cadence as cutovers, joint defect triage, and production fire drills.",
       {
         text: "Real-time SCADA data was integrated through existing middleware, including ",
         externalLink: {
           href: "https://docs.tibco.com/pub/adr3/7.3.2/doc/adr3/html/Concepts_guide/Overview_of_TIBCO_Adapters.htm",
           label: "TIBCO-based adapters",
         },
-        after: ", coordinated through the teams that operated that middleware.",
+        after:
+          ", coordinated through the teams responsible for operating that middleware.",
       },
       {
         text: "Real-time dashboard: ",

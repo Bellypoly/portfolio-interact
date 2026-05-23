@@ -91,11 +91,11 @@
 /* --- Subtitle: same hover-reveal motion as index.css (parent is the card link) --- */
 
 .project-card__subtitle {
-  @apply mt-1 block max-w-full;
+  @apply mt-4 block max-w-full;
 }
 
 .project-card__subtitle-reveal {
-  @apply block h-[4rem] max-w-full overflow-hidden align-bottom [contain:layout_style];
+  @apply block h-[3rem] max-w-full overflow-hidden align-bottom [contain:layout_style];
 }
 
 .project-card__subtitle-reveal__track {

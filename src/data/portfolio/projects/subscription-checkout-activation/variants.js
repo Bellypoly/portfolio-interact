@@ -7,7 +7,7 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
     eyebrow: "Reader revenue · Newsroom systems · Conversion infrastructure",
 
     /* Project frame */
-    task: "Rebuild a fragmented newsroom subscription funnel into a single evidence-driven checkout system—reducing reader drop-off, resolving identity-state failures, and using production analytics to guide iterative UX decisions.",
+    task: "Help rebuild the Dallas Morning News subscription funnel into a single evidence-driven checkout system — reducing reader drop-off, resolving identity-state failures, and using production analytics to guide iterative UX decisions.",
 
     /* Media */
     featuredImg: "images/portfolio/subscription-checkout/featured-image.png",
@@ -75,8 +75,8 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
         after:
           " — more readers than ever were reaching the moment they wanted to subscribe. But the checkout they hit was 3 server-rendered pages with no shared client state: member info, payment, password. Every navigation was a full round-trip, a fresh DOM, and another chance for the reader to close the tab.",
       },
-      "I rebuilt the pipeline in 2 engineering passes. The first collapsed 3 pages into a single React surface, unified 3 payment providers — Braintree, Stripe, and Apple Pay — behind one tokenization interface, and wrote deterministic identity resolution against Arc XP so the system could distinguish new visitors, existing accounts, and active subscribers, all at the email-entry boundary.",
-      "The second pass instrumented Microsoft Clarity tap heatmaps in production to show that some of my own earlier engineering choices had become the UX bottleneck. I shipped fixes directly against that evidence.",
+      "As part of a engineering team rebuilding the subscription funnel, I implemented major parts of 2 engineering passes. The first collapsed 3 pages into a single React surface, unified Braintree, Stripe, and Apple Pay behind one tokenization interface, and implemented deterministic identity resolution against Arc XP so the system could distinguish new visitors, existing accounts, and active subscribers at the email-entry boundary.",
+      "The second pass instrumented Microsoft Clarity tap heatmaps in production and revealed that some of my own earlier implementation choices had become the UX bottleneck. I shipped fixes directly against that behavioral evidence.",
       "Subscription systems are also newsroom systems. Every friction point between a reader and a story affects how journalism is discovered, supported, and sustained. This project focused on reducing technical and behavioral barriers between reader intent and newsroom engagement.",
     ],
 
@@ -343,12 +343,12 @@ export const subscriptionCheckoutActivationCaseStudyVariants = Object.freeze({
     /* How it shipped */
     approachTitle: "What I learned",
     approach: [
-      "This project looked like one problem and turned out to be three. Version 1 was an architecture failure — three pages meant three round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
+      "The subscription drop-off looked like a checkout problem, but the real failures lived in architecture, identity state, and production UX behavior. Version 1 was an architecture failure — three pages meant three round-trips, zero shared client state, and an identity layer that treated every visitor the same. Version 2 solved the structure and the plumbing: single surface, unified payments, deterministic identity. The metrics confirmed it shipped clean.",
       "Version 3 was the humbling part. The progress bar I added for wayfinding was being used as navigation. The payment gating I built for backend safety was making inputs look broken. Clarity did not surface someone else's mistakes — it surfaced mine. The takeaway is not simply “test more”; engineering decisions have UX consequences you cannot predict from code alone, and the honest way to find them is to instrument production and let real sessions push back.",
     ],
 
     showcase: {
-      title: "The result",
+      title: "OUTCOME",
       desktop: {
         img: "images/portfolio/subscription-checkout/checkout-single-page-v3.png",
         imgWebp:
