@@ -59,6 +59,20 @@ const MISSION_GALLERY_ROWS = [
     link: "https://electricity-bill-breakdown.justpow.co/",
   },
   {
+    slug: "what-cooking-th",
+    portfolioGroup: "professional",
+    portfolioYear: 2026,
+    portfolioLabel: "Playground",
+    anchorId: "portfolio-what-cooking-th",
+    name: "What's Cooking, Thailand?",
+    desc: "A playful interactive map that transforms Thailand's average temperatures into a Human Survival Index - from AC Weather to Human Air Fryer.",
+    cardImagePosition: "center center",
+    img: "images/portfolio/what-cooking-th/thumbnail.png",
+    imgWebp: "images/portfolio/what-cooking-th/thumbnail.webp",
+    alt: "What's Cooking, Thailand? thumbnail with sunny watercolor Thailand heat-map styling and the tagline from AC Weather to Human Air Fryer",
+    link: "https://bellypoly.github.io/weather-calendar/",
+  },
+  {
     slug: "local-elections-hub",
     portfolioGroup: "professional",
     portfolioYear: 2022,
@@ -275,25 +289,28 @@ const MISSION_GALLERY_ORDER = Object.freeze({
     "vote62",
     "parliament-watch-ocr",
     "local-elections-hub",
+    "electricity-bill-breakdown",
 
-    // ACT 2 — Recent professional newsroom/product experience.
+    // ACT 2 — Newsroom product + audience systems.
     "article-page-redesign",
     "dynamic-paywall",
     "subscription-checkout-activation",
 
-    // ACT 3 — Systems, GIS, and explanatory infrastructure.
-    "electricity-bill-breakdown",
+    // ACT 3 — Systems, GIS, infrastructure.
     "outage-management-system",
     "map-magic",
     "jobthai",
     "pea-e-service",
 
-    // ACT 4 — Research + analytical depth.
+    // ACT 4 — Experimental / editorial interactives.
+    "what-cooking-th",
+
+    // ACT 5 — Research + analytical depth.
     "industrial-logistics-evaluation",
     "federated-learning-energy",
     "rdfd",
 
-    // ACT 5 — Human-centered + creative range.
+    // ACT 6 — Human-centered + creative range.
     "jerdi-kids",
     "photo-competition-my-hometown",
   ]),

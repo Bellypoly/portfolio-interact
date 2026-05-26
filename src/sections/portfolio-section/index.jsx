@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../../components/project-card";
+import { hasPortfolioProjectSlug } from "../../data/portfolio/load-portfolio-project.js";
 import {
   EDU_TIMELINE_FILTER,
   EDU_TIMELINE_FILTER_LABEL,
@@ -99,7 +100,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
               imgWebp={imgWebp}
               alt={alt}
               link={link}
-              slug={slug}
+              slug={hasPortfolioProjectSlug(slug) ? slug : undefined}
               imageFit={cardImageFit}
               imagePosition={cardImagePosition}
               contextLabel={portfolioLabel}

@@ -25,7 +25,7 @@ const ProjectCard = React.memo(function ProjectCard({
   /** "top-clip" = 100% width, natural height, top-aligned, bottom clipped; default "cover" */
   imageFit = "cover",
   imagePosition,
-  /** Mission Gallery context tag (Product, Civic tech, …) */
+  /** Mission Gallery context tag (Product, Civic tech, ...) */
   contextLabel,
   /** Employer / org shorthand when present (e.g. DMN, PEA, thnknet) */
   companyBadge,
@@ -33,6 +33,7 @@ const ProjectCard = React.memo(function ProjectCard({
   groupBadge,
 }) {
   const base = import.meta.env.BASE_URL;
+  const hasMissionRoute = Boolean(slug);
   const isTopClip = imageFit === "top-clip";
   const imgClass = [
     "project-card__image",
@@ -107,7 +108,7 @@ const ProjectCard = React.memo(function ProjectCard({
                 {desc}
               </span>
               <span className="project-card__subtitle-reveal__line">
-                Show Mission →
+                {hasMissionRoute ? "Show Mission ->" : "Visit Project ->"}
               </span>
             </span>
           </span>
@@ -116,7 +117,7 @@ const ProjectCard = React.memo(function ProjectCard({
     </>
   );
 
-  if (slug) {
+  if (hasMissionRoute) {
     return (
       <Link
         to={`/mission/${slug}`}
