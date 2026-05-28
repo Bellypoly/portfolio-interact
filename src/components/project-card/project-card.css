@@ -108,8 +108,8 @@
 }
 
 .project-card__subtitle-reveal__line {
-  @apply block max-h-none min-h-[4rem] max-w-full shrink-0 overflow-hidden font-robotomono text-site-body font-normal leading-snug text-white/90 transition-colors duration-150;
-  @apply [-webkit-box-orient:vertical] [-webkit-line-clamp:3] [display:-webkit-box];
+  @apply block max-h-none min-h-[3rem] max-w-full shrink-0 overflow-hidden font-roboto text-site-body font-normal leading-snug text-white/90 transition-colors duration-150;
+  @apply [-webkit-box-orient:vertical] [-webkit-line-clamp:2] [display:-webkit-box];
 }
 
 .project-card__subtitle-reveal__line:last-child {

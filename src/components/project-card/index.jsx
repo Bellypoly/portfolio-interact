@@ -108,7 +108,7 @@ const ProjectCard = React.memo(function ProjectCard({
                 {desc}
               </span>
               <span className="project-card__subtitle-reveal__line">
-                {hasMissionRoute ? "Show Mission ->" : "Visit Project ->"}
+                {hasMissionRoute ? "Show Mission →" : "Visit Project →"}
               </span>
             </span>
           </span>
