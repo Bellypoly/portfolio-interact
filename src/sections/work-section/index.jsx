@@ -16,7 +16,7 @@ const SeniorFullStack = ({ showLiveDot }) => (
     description="Built and scaled newsroom systems for subscriptions, engagement, experimentation, and digital storytelling serving millions of readers."
     triggerLabel="Mission logs"
     bullets={[
-      "ML-driven dynamic paywall: +22% conversion, +15% subscription starts via per-visit decisioning, GA4 instrumentation, and controlled rollout behind feature flags.",
+      "Dynamic paywall & reader access: +22% conversion, +15% subscription starts through per-visit decisioning, GA4 instrumentation, and controlled rollout behind feature flags.",
       "Subscription checkout redesign: rebuilt fragmented multi-page flows into a deterministic single-page React checkout with unified Braintree, Stripe, and Apple Pay orchestration; +14% lift (month one), +7% sustained.",
       "Local Elections Hub rebuild: helped transform fragmented election pages into a shared React- and Arc XP–driven platform for live election results, mobile-first race navigation, and election-night newsroom publishing workflows.",
       "Article experience & monetization: reduced ad density 9.91% with no revenue loss; increased reading time (+4.73%) and engagement (+4.09%) while improving Core Web Vitals (CLS, LCP).",

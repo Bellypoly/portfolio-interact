@@ -28,7 +28,7 @@ export const outageManagementSystemCaseStudyVariants = Object.freeze({
       "Operational reliability",
     ],
     context:
-      "PEA (Thailand) \u2014 OMS reliability: eRespond\u2192OMS and GIS\u2192OMS integration, SAP touchpoints, warehouse reporting; delivered with PEA teams and third-party implementation partners",
+      "Provincial Electricity Authority (PEA)(Thailand) \u2014 OMS reliability: eRespond\u2192OMS and GIS\u2192OMS integration, SAP touchpoints, warehouse reporting; delivered with PEA teams and third-party implementation partners",
     /* Stack */
     techStack: [
       {

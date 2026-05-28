@@ -4,7 +4,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
   swe: Object.freeze({}),
   "data-reporter": Object.freeze({
     /* Header / intro */
-    eyebrow: "NEWSROOM SYSTEMS · MONETIZATION · Machine Learning",
+    eyebrow: "NEWSROOM SYSTEMS · MONETIZATION · MACHINE LEARNING",
 
     /* Media */
     featuredImg: "images/portfolio/dynamic-paywall/featured-image.png",
@@ -14,8 +14,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
     featuredImageObjectPositionMd: "50% 20%",
 
     /* Project frame */
-    task: "Integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows — wiring JavaScript, BlueConic, and GA4 instrumentation so reader-state behavior, analytics, and paywall decisions stayed aligned in production, then shipping behind feature flags and kill switches for safe rollout and trustworthy feedback signals.",
-
+    task: "Integrated a machine learning-driven paywall into DMN’s Arc XP frontend and subscription flows — wiring JavaScript, BlueConic, and GA4 instrumentation so reader-state behavior, analytics, and access decisions stayed aligned in production, then shipping behind feature flags and kill switches for safe rollout and trustworthy feedback signals.",
     context: "The Dallas Morning News (DMN)",
 
     /* Stack */
@@ -67,12 +66,12 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
     strategyTitle: "HOW I BROUGHT IT TO PRODUCTION",
 
     strategyIntro: [
-      "My role: integrate Sophi’s ML paywall into DMN’s Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags.",
-      "The answer was Sophi — an ML-driven dynamic paywall that decides per-visit whether to gate, meter, or let content through, learning from every interaction. Here’s how I brought it to production:",
+      "My role: integrate a dynamic paywall into DMN’s Arc XP frontend and subscription flows, instrument analytics, and roll out safely with feature flags.",
+      "The answer was an ML-driven paywall powered by Sophi — dynamically deciding when to gate, meter, or open content based on reader behavior. Here’s how I brought it to production:",
     ],
 
     strategyBullets: [
-      "I integrated Sophi’s decisioning layer into frontend rendering and subscription flows so paywall responses followed user behavior and content context in real time.",
+      "I integrated the decisioning layer into frontend rendering and subscription flows so paywall responses followed user behavior and content context in real time.",
 
       "I designed user-state handling across new visitors, returning readers, and subscribers so gating logic and messaging stayed consistent.",
 
@@ -80,7 +79,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
 
       "I supported controlled rollout with feature flags and kill switches to limit risk and protect editorial trust. The rollout needed to balance subscription growth with reader trust so aggressive gating never disrupted core newsroom coverage.",
 
-      "After first launch, GA4 and Sophi didn’t always agree — we traced which analytics definitions and events needed tuning versus which model inputs had to change so dashboards and the learning loop matched real reader behavior.",
+      "After first launch, GA4 and the model outputs didn’t always agree — we traced which analytics definitions and events needed tuning versus which inputs had to change so dashboards and the learning loop matched real reader behavior.",
     ],
 
     pillars: null,
@@ -127,7 +126,7 @@ export const dynamicPaywallCaseStudyVariants = Object.freeze({
 
     /* Footer */
     footerTagline:
-      "Adaptive Sophi paywall integrated into Arc XP—per-visit gating decisions tied to reader behavior, analytics instrumentation, and controlled newsroom rollout.",
+      "Adaptive ML paywall integrated into Arc XP—per-visit gating decisions tied to reader behavior, analytics instrumentation, and controlled newsroom rollout.",
   }),
 });
 
