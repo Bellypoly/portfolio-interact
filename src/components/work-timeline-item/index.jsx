@@ -77,22 +77,53 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
   /** One gallery `#id`, or several — each id must be unique in the document. */
   portfolioAnchor,
   showLiveDot = false,
+  bulletKey,
+  activeBulletKey,
+  setActiveBulletKey,
 }) {
   const [isHovering, setIsHovering] = useState(false);
   const desktopWrapRef = useRef(null);
   const mobileWrapRef = useRef(null);
   const hideTimeoutRef = useRef(null);
+  const hasSharedBulletState =
+    bulletKey && typeof setActiveBulletKey === "function";
+  const isBulletOpen = hasSharedBulletState
+    ? activeBulletKey === bulletKey
+    : isHovering;
 
-  const handleHoverEnter = () => {
+  const clearHideTimeout = () => {
     if (hideTimeoutRef.current) {
       clearTimeout(hideTimeoutRef.current);
       hideTimeoutRef.current = null;
     }
-    setIsHovering(true);
   };
+
+  const openBullet = () => {
+    if (hasSharedBulletState) {
+      setActiveBulletKey(bulletKey);
+    } else {
+      setIsHovering(true);
+    }
+  };
+
+  const closeBullet = () => {
+    if (hasSharedBulletState) {
+      setActiveBulletKey((key) => (key === bulletKey ? null : key));
+    } else {
+      setIsHovering(false);
+    }
+  };
+
+  const handleHoverEnter = () => {
+    clearHideTimeout();
+    openBullet();
+  };
+
   const handleHoverLeave = () => {
-    if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
-    hideTimeoutRef.current = setTimeout(() => setIsHovering(false), 150);
+    clearHideTimeout();
+    hideTimeoutRef.current = setTimeout(() => {
+      closeBullet();
+    }, 150);
   };
 
   useEffect(
@@ -108,7 +139,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
         wrapRef.current &&
         !wrapRef.current.contains(document.activeElement)
       ) {
-        setIsHovering(false);
+        closeBullet();
       }
     });
   };
@@ -122,8 +153,15 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
   };
 
   const bulletProps = {
-    isOpen: isHovering,
-    onToggle: () => setIsHovering((v) => !v),
+    isOpen: isBulletOpen,
+    onToggle: () => {
+      clearHideTimeout();
+      if (!hasSharedBulletState) {
+        setIsHovering((v) => !v);
+        return;
+      }
+      setActiveBulletKey((key) => (key === bulletKey ? null : bulletKey));
+    },
     onOpen: handleHoverEnter,
     onClose: handleHoverLeave,
     triggerLabel,

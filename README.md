@@ -1,126 +1,60 @@
-# Interactive Resume
+# Interactive Portfolio
 
-A modern, interactive resume built with React, Framer Motion, and Tailwind CSS. This project creates an immersive scrolling experience where users walk through a parallax landscape while viewing resume content.
+React/Vite portfolio for Suwaphit Buabuthr. The site combines a scroll-driven resume, mission gallery, and case-study routes for selected projects.
 
-## Features
+## Stack
 
-- **Interactive Parallax Scrolling**: Multi-layer parallax background with animated character walking
-- **Smooth Animations**: Powered by Framer Motion for fluid transitions and motion
-- **Responsive Design**: Built with Tailwind CSS for mobile-first responsive design
-- **Dynamic Content Panels**: Content updates as you progress through the experience
-- **Modern Stack**: React + Vite for fast development and optimized builds
-
-## Technology Stack
-
-_(Same idea as “what runs this site?” — here's what this project uses.)_
-
-| Category         | Technology             | Purpose                                               |
-| ---------------- | ---------------------- | ----------------------------------------------------- |
-| **UI framework** | React 18               | Components, hooks, DOM rendering                      |
-| **Build / dev**  | Vite 5                 | Dev server, HMR, production bundles                   |
-| **Styling**      | Tailwind CSS 3         | Utility-first CSS, design tokens                      |
-| **Animation**    | Framer Motion 10       | Scroll-linked motion, springs, layout animations      |
-| **CSS pipeline** | PostCSS + Autoprefixer | Tailwind processing, vendor prefixes                  |
-| **Utilities**    | classcat               | Conditional class names (e.g. content panel, markers) |
-
-- **Entry**: `index.html` → `src/main.jsx` → `space-resume.jsx`
-- **Fonts**: Google Fonts (Orbitron, Silkscreen, etc.) + Material Symbols Rounded
-- **No backend**: Static SPA; resume PDF and images live in `public/`
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Installation
-
-1. Clone or download this project
-2. Navigate to the project directory
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-### Development
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:5173`
-
-### Building for Production
-
-Build the project:
-
-```bash
-npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview
-```
-
-## Project Structure
-
-```
-├── public/                 # Static assets
-│   ├── images/            # Image assets
-│   └── RESUME_*.pdf       # Resume PDF files
-├── src/
-│   ├── space-resume.jsx    # Main interactive resume component
-│   ├── space-resume.css    # Layout styles (Tailwind @apply)
-│   ├── main.jsx           # React app entry point
-│   └── index.css          # Global styles with Tailwind
-├── package.json           # Dependencies and scripts
-├── vite.config.js         # Vite configuration
-├── tailwind.config.js     # Tailwind CSS configuration
-└── postcss.config.js      # PostCSS configuration
-```
-
-## Customization
-
-### Adding Your Content
-
-1. **Profile Information**: Edit the `SECTIONS` array in `src/space-resume.jsx`
-2. **Images**: Add your images to `public/images/` and `public/images/portfolio/`
-3. **Resume PDF**: Add your resume as `public/resume-suwaphit.pdf`
-4. **Styling**: Modify colors and styling in the component or Tailwind config
-
-### Asset Requirements
-
-- **Profile Picture**: `public/images/profile-pic.webp` and `public/images/profile-pic-2.webp` / `profile-pic-2.png` (see astronaut ID card)
-- **Portfolio Images**: `public/images/portfolio/*.jpg`
-- **Resume PDF**: `public/resume-suwaphit.pdf`
+| Area | Tools |
+| --- | --- |
+| UI | React 18, React Router |
+| Motion | Framer Motion |
+| Styling | Tailwind CSS, PostCSS, shared design tokens |
+| Build | Vite |
+| Tests | Node test runner |
+| Deploy | GitHub Pages workflow in `.github/workflows/deploy.yml` |
 
 ## Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+```bash
+npm run dev
+npm run dev:prod
+npm run lint
+npm test
+npm run build
+npm run preview
+```
 
-## Browser Support
+`npm run dev:prod` starts Vite with `import.meta.env.DEV` forced false so production-only branches can be previewed locally.
 
-This project uses modern JavaScript features and CSS. Supported browsers:
+## Structure
 
-- Chrome/Edge 88+
-- Firefox 78+
-- Safari 14+
+```text
+src/
+  app-router.jsx                         # SPA routes
+  space-resume.jsx                       # Main scroll-driven resume shell
+  components/                            # Reusable UI components
+  sections/                              # Resume and gallery sections
+  pages/case-study/                      # Case-study renderers
+  data/portfolio/                        # Mission gallery and case-study data
+  utils/                                 # Scroll, starfield, color, and anchor helpers
+public/
+  images/                                # Static image assets
+  resume-suwaphit.pdf                    # Resume PDF
+```
 
-## License
+## Content Notes
 
-This project is open source and available under the MIT License.
+- Mission gallery ordering lives in `src/data/portfolio/mission-gallery-manifest.js`.
+- Case-study route loaders live in `src/data/portfolio/load-portfolio-project.js`.
+- Work timeline entries live in `src/sections/work-section/index.jsx`.
+- The active site version is controlled by `VITE_SITE_VERSION` or the `?v=` query parameter.
 
-## Development Notes
+## Verification
 
-- The project includes development-only test components that show in development mode
-- All animations are optimized for performance using Framer Motion
-- The design is fully responsive and works on mobile devices
-- Scroll-based animations are implemented using `useScroll` and `useTransform`
+Run these before publishing changes:
+
+```bash
+npm run lint
+npm test
+npm run build
+```
