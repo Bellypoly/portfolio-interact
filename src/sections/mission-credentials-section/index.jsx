@@ -107,7 +107,7 @@ const ACHIEVEMENT_ITEMS = [
     time: "2024",
     org: `INMA Global Media Awards (${INMA_ORGANIZATION})`,
     where: "The Dallas Morning News",
-    badges: ["Organization Award"],
+    badges: ["Award"],
     missionLogs: [
       `Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems ${missionGalleryLink("subscription-checkout-activation", "subscription")}, paywall optimization ${missionGalleryLink("dynamic-paywall", "paywall")}, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. ${externalSourceLine(INMA_2024_ANNOUNCEMENT, INMA_2024_CASE_STUDY, "INMA award announcement")}`,
     ],
@@ -118,7 +118,7 @@ const ACHIEVEMENT_ITEMS = [
     time: "2023",
     org: "INMA Global Media Awards",
     where: "The Dallas Morning News",
-    badges: ["Organization Award"],
+    badges: ["Award"],
     missionLogs: [
       `LocalGraf - Internal Database Linking From Inside Stories: Worked on newsroom entity-linking infrastructure connecting people, organizations, events, and places across article content and structured databases to power editorial discovery, contextual story relationships, and reusable newsroom knowledge systems ${missionGalleryLink("article-page-redesign", "article redesign")}.${externalSourceLine(INMA_2023_ANNOUNCEMENT, LOCALGRAF_CASE_STUDY, "INMA finalist announcement")}`,
     ],
