@@ -5,13 +5,7 @@
 }
 
 .project-case-study__ux-compare-panels {
-  @apply grid grid-cols-1 gap-4;
-}
-
-@media (min-width: 768px) {
-  .project-case-study__ux-compare-panels {
-    @apply grid-cols-2 gap-7;
-  }
+  @apply grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-7;
 }
 
 .project-case-study__ux-compare-panel {

@@ -160,41 +160,27 @@
 
 /* --- Hover-reveal wiring on bullets --- */
 .timeline-bullet-btn-detail .hover-reveal-text {
-  @apply inline-block w-full max-w-full overflow-hidden text-[inherit] align-bottom [contain:layout_style];
+  @apply inline-block w-full max-w-full overflow-hidden text-[inherit] align-bottom [contain:layout_style] max-md:h-auto max-md:overflow-visible;
   line-height: 1.35;
   height: 1.35em;
 }
 .timeline-bullet-btn-detail .hover-reveal-text__track {
-  @apply w-full max-w-full;
+  @apply w-full max-w-full max-md:!transform-none max-md:leading-relaxed;
 }
 .timeline-bullet-btn-detail .hover-reveal-text__line {
-  @apply block shrink-0 overflow-hidden text-ellipsis max-w-full whitespace-nowrap;
+  @apply block shrink-0 overflow-hidden text-ellipsis max-w-full whitespace-nowrap max-md:h-auto max-md:whitespace-normal;
   line-height: 1.35;
   height: 1.35em;
   font-size: inherit;
 }
-
-/* --- Desktop: hover-reveal from button parent, not only inner span --- */
-@media (min-width: 768px) {
-  .timeline-bullet-btn-detail:hover .hover-reveal-text__track,
-  .timeline-bullet-btn-detail:focus-visible .hover-reveal-text__track,
-  .education-card__mission-log-btn:hover .hover-reveal-text__track,
-  .education-card__mission-log-btn:focus-visible .hover-reveal-text__track {
-    transform: translateY(-50%);
-  }
+.timeline-bullet-btn-detail .hover-reveal-text__line:last-child {
+  @apply max-md:hidden;
 }
 
-@media (max-width: 767px) {
-  .timeline-bullet-btn-detail .hover-reveal-text {
-    @apply overflow-visible h-auto;
-  }
-  .timeline-bullet-btn-detail .hover-reveal-text__track {
-    @apply leading-relaxed !transform-none;
-  }
-  .timeline-bullet-btn-detail .hover-reveal-text__line {
-    @apply whitespace-normal h-auto;
-  }
-  .timeline-bullet-btn-detail .hover-reveal-text__line:last-child {
-    @apply hidden;
-  }
+/* --- Desktop: hover-reveal from button parent, not only inner span --- */
+.timeline-bullet-btn-detail:hover .hover-reveal-text__track,
+.timeline-bullet-btn-detail:focus-visible .hover-reveal-text__track,
+.education-card__mission-log-btn:hover .hover-reveal-text__track,
+.education-card__mission-log-btn:focus-visible .hover-reveal-text__track {
+  @apply md:-translate-y-1/2;
 }

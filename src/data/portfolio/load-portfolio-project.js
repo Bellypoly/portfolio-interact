@@ -2,7 +2,7 @@
  * Dynamic import per slug for `/mission/:slug` (keeps case-study chunks out of the main bundle).
  * Slug keys must match `MISSION_GALLERY_MANIFEST` / `getMissionGalleryManifestRow` in `mission-gallery-manifest.js`.
  */
-const SLUG_LOADERS = {
+const SLUG_LOADERS = Object.freeze({
   "article-page-redesign": () =>
     import("./projects/article-page-redesign/index.js").then(
       (m) => m.articlePageRedesignProject,
@@ -58,13 +58,14 @@ const SLUG_LOADERS = {
     import("./projects/vote62/index.js").then(
       (m) => m.vote62EctReport69Project,
     ),
-};
+});
 
 export const PORTFOLIO_PROJECT_SLUGS = Object.freeze(Object.keys(SLUG_LOADERS));
+const PORTFOLIO_PROJECT_SLUG_SET = new Set(PORTFOLIO_PROJECT_SLUGS);
 
 /** @param {string | undefined} slug */
 export function hasPortfolioProjectSlug(slug) {
-  return Boolean(slug && SLUG_LOADERS[slug]);
+  return PORTFOLIO_PROJECT_SLUG_SET.has(slug);
 }
 
 /**

@@ -40,6 +40,11 @@ const LINKS = [
 ];
 
 const HIDDEN_MANTRA_LINE = "โอม ศรี คเณศายะ นะมะฮา";
+const FAB_CHEVRON_DELAYS = [0, 320, 640];
+const HIDDEN_MANTRA = Array.from(
+  { length: 9 },
+  () => HIDDEN_MANTRA_LINE,
+).join("\n");
 
 export default React.memo(function MissionCompleteSection() {
   const base = import.meta.env.BASE_URL;
@@ -126,11 +131,11 @@ export default React.memo(function MissionCompleteSection() {
       </div>
       <div className="mission-complete__fab-arrow" aria-hidden="true">
         <span className="mission-complete__fab-merge">
-          {[0, 1, 2].map((i) => (
+          {FAB_CHEVRON_DELAYS.map((delay) => (
             <span
-              key={i}
+              key={delay}
               className="mission-complete__fab-chevron"
-              style={{ animationDelay: `${i * 320}ms` }}
+              style={{ animationDelay: `${delay}ms` }}
             >
               arrow_right
             </span>
@@ -156,12 +161,7 @@ export default React.memo(function MissionCompleteSection() {
         hidden
         aria-hidden="true"
       >
-        {Array.from({ length: 9 }, (_, i) => (
-          <React.Fragment key={i}>
-            {HIDDEN_MANTRA_LINE}
-            {i < 8 ? "\n" : null}
-          </React.Fragment>
-        ))}
+        {HIDDEN_MANTRA}
       </div>
     </section>
   );

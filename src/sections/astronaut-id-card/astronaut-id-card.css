@@ -293,14 +293,8 @@
   @apply hidden sm:inline;
 }
 
-@media (min-width: 768px) {
-  .k--contact {
-    @apply bg-cyan-400 px-2;
-    color: darkslategrey !important;
-    box-shadow:
-      0 0 8px rgb(from var(--site-teal-cyan) r g b / 0.8),
-      0 0 16px rgb(from var(--site-teal-cyan) r g b / 0.5);
-  }
+.k--contact {
+  @apply md:bg-cyan-400 md:px-2 md:!text-[darkslategrey] md:shadow-[0_0_8px_rgb(from_var(--site-teal-cyan)_r_g_b_/_0.8),0_0_16px_rgb(from_var(--site-teal-cyan)_r_g_b_/_0.5)];
 }
 
 /* -----------------------------------------------------------------------------

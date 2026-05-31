@@ -14,9 +14,13 @@ test("manifest rows have unique slugs", () => {
   assert.equal(unique.size, slugs.length);
 });
 
-test("manifest rows all have route loaders", () => {
+test("manifest rows are routable or external", () => {
   for (const row of MISSION_GALLERY_MANIFEST) {
-    assert.equal(hasPortfolioProjectSlug(row.slug), true, row.slug);
+    assert.equal(
+      hasPortfolioProjectSlug(row.slug) || typeof row.link === "string",
+      true,
+      `${row.slug} must have a route loader or external link`,
+    );
   }
 });
 

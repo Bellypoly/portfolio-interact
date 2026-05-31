@@ -10,9 +10,11 @@ export default {
         "site-body": ["var(--site-font-body)", { lineHeight: "1.5rem" }],
         "site-lead": ["var(--site-font-lead)", { lineHeight: "1.625rem" }],
         "site-icon": ["var(--site-font-icon)", { lineHeight: "1" }],
-        "site-card-title": ["var(--site-font-card-title)", { lineHeight: "1.35" }],
+        "site-card-title": [
+          "var(--site-font-card-title)",
+          { lineHeight: "1.35" },
+        ],
         "site-job-title": ["var(--site-font-job-title)", { lineHeight: "1.2" }],
-        "site-section": ["var(--site-font-section)", { lineHeight: "1.2" }],
       },
       fontFamily: {
         georgia: ["Georgia", '"Times New Roman"', "Times", "ui-serif", "serif"],

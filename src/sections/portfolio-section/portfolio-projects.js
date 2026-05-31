@@ -1,5 +1,5 @@
 /**
- * Mission Gallery: display order + Education & Achievements timeline filter.
+ * Mission Gallery: display order + Mission Credentials timeline filter.
  *
  * Data: `src/data/portfolio/mission-gallery-manifest.js` (canonical gallery fields; case studies spread the same row).
  * Case study bodies load on `/mission/:slug` via `src/data/portfolio/load-portfolio-project.js`. Archived `squeeze-it` is
@@ -58,22 +58,21 @@ const MISSION_GALLERY_ORDERED_ACHIEVEMENT = MISSION_GALLERY_ORDERED_ALL.filter(
     EDU_TIMELINE_FILTER.achievement,
 );
 
+const MISSION_GALLERY_PROJECTS_BY_FILTER = Object.freeze({
+  [EDU_TIMELINE_FILTER.all]: MISSION_GALLERY_ORDERED_ALL,
+  [EDU_TIMELINE_FILTER.education]: MISSION_GALLERY_ORDERED_EDUCATION,
+  [EDU_TIMELINE_FILTER.achievement]: MISSION_GALLERY_ORDERED_ACHIEVEMENT,
+});
+
 /** @param {string} [timelineFilter] Values from `EDU_TIMELINE_FILTER` / edu timeline legend. */
 export function getMissionGalleryProjects(
   timelineFilter = EDU_TIMELINE_FILTER.all,
 ) {
-  if (
-    timelineFilter == null ||
-    timelineFilter === EDU_TIMELINE_FILTER.all
-  ) {
-    return MISSION_GALLERY_ORDERED_ALL;
-  }
-  if (timelineFilter === EDU_TIMELINE_FILTER.education) {
-    return MISSION_GALLERY_ORDERED_EDUCATION;
-  }
-  if (timelineFilter === EDU_TIMELINE_FILTER.achievement) {
-    return MISSION_GALLERY_ORDERED_ACHIEVEMENT;
-  }
+  if (timelineFilter == null) return MISSION_GALLERY_ORDERED_ALL;
+
+  const orderedProjects = MISSION_GALLERY_PROJECTS_BY_FILTER[timelineFilter];
+  if (orderedProjects) return orderedProjects;
+
   return MISSION_GALLERY_ORDERED_ALL.filter(
     (p) =>
       MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] === timelineFilter,

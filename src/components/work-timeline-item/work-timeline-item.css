@@ -1,7 +1,11 @@
-/* --- Work timeline item: base --- */
+/* --- Base --- */
 
 .work-timeline-item {
-  @apply border-b border-slate-600/80;
+  @apply border-b border-slate-600/80 transition duration-200;
+}
+
+.work-timeline-item--dimmed {
+  @apply opacity-20 blur-[1.5px] max-md:opacity-100 max-md:blur-none;
 }
 
 .work-section > div:last-child .work-timeline-item {
@@ -13,7 +17,7 @@
 }
 
 .work-timeline-item__left {
-  @apply flex flex-col gap-3;
+  @apply relative flex flex-col gap-3;
 }
 
 .work-timeline-item__label-row {
@@ -29,7 +33,7 @@
   @apply text-site-body leading-none;
 }
 
-/* --- Work timeline item: title + meta + body --- */
+/* --- Content --- */
 
 .work-timeline-item__title {
   @apply inline-flex items-start gap-2 font-orbitron text-site-job-title font-bold uppercase italic tracking-[0.12em] text-slate-100;
@@ -65,7 +69,7 @@
   @apply text-justify font-roboto text-site-lead font-normal leading-relaxed text-slate-300;
 }
 
-/* --- Portfolio link + bullet trigger (cyan; hover rust like case study) --- */
+/* --- Links + triggers --- */
 
 .work-timeline-item__portfolio-link,
 .work-timeline-item__bullet-trigger {
@@ -93,19 +97,14 @@
   @apply inline-block;
 }
 
-/* --- Desktop (min-width): hover-reveal on link/button parent --- */
-/* Width gate instead of hover:hover so hybrid touch + mouse still animates. */
-
-@media (min-width: 768px) {
-  .work-timeline-item__portfolio-link:hover .hover-reveal-text__track,
-  .work-timeline-item__portfolio-link:focus-visible .hover-reveal-text__track,
-  .work-timeline-item__bullet-trigger:hover .hover-reveal-text__track,
-  .work-timeline-item__bullet-trigger:focus-visible .hover-reveal-text__track {
-    @apply -translate-y-1/2;
-  }
+.work-timeline-item__portfolio-link:hover .hover-reveal-text__track,
+.work-timeline-item__portfolio-link:focus-visible .hover-reveal-text__track,
+.work-timeline-item__bullet-trigger:hover .hover-reveal-text__track,
+.work-timeline-item__bullet-trigger:focus-visible .hover-reveal-text__track {
+  @apply md:-translate-y-1/2;
 }
 
-/* --- Bullet detail popover --- */
+/* --- Popover trigger --- */
 
 .work-timeline-item__bullet-trigger-wrap {
   @apply relative block w-full;
@@ -123,29 +122,198 @@
   @apply mt-3 md:hidden;
 }
 
+/* --- Popover shell --- */
+
 .work-timeline-item__bullet-float {
-  @apply absolute left-0 top-full z-20 mt-2 rounded-lg p-4;
+  --work-bullet-float-desktop-gap: clamp(1.5rem, 0vw, 5.5rem);
+
+  @apply absolute z-[20] mt-0 max-h-[calc(100dvh-2rem)] overflow-hidden rounded-md p-4 font-quicksand text-white;
   @apply shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_0_0_2px_rgba(255,255,255,0.08),inset_0_0_0_10px_rgba(0,0,0,0.18)];
   @apply bg-[radial-gradient(circle_at_35%_25%,rgba(255,255,255,0.08),transparent_55%),linear-gradient(180deg,rgb(18,78,88),rgb(7,40,48))];
+  container-type: inline-size;
+  left: 1rem;
+  right: 1rem;
+  top: 5rem;
+  min-width: min(calc(100vw - 2rem), 100%);
+}
+
+@media (min-width: 768px) {
+  .work-timeline-item__bullet-float {
+    left: calc(100% + var(--work-bullet-float-desktop-gap));
+    right: auto;
+    top: 0;
+    width: calc(100% - var(--work-bullet-float-desktop-gap));
+    min-width: calc(100% - var(--work-bullet-float-desktop-gap));
+    max-width: calc(100% - var(--work-bullet-float-desktop-gap));
+    max-height: 100dvh;
+    transform: none;
+  }
+}
+
+.work-timeline-item__bullet-float--split {
+  @apply grid grid-cols-1 grid-rows-[auto_auto] gap-5;
+}
+
+.work-timeline-item__bullet-float--desktop {
+  @apply hidden md:block;
+}
+
+.work-timeline-item__bullet-float--mobile {
+  @apply static mb-4 mt-3 w-[90vw] max-h-none overflow-visible transform-none md:hidden;
+}
+
+.work-timeline-item__bullet-float--desktop.work-timeline-item__bullet-float--split {
+  @apply md:grid;
 }
 
 .work-timeline-item__bullet-trigger-wrap--label-row
   .work-timeline-item__bullet-float {
-  @apply -top-8 left-full ml-6 mt-0 w-auto min-w-[45vw] max-w-md;
+  @apply ml-0;
 }
 
-/* md+: viewport-centered panel (above sticky layers; below marker dock). */
-/* @media (min-width: 768px) {
-  .work-timeline-item__bullet-trigger-wrap .work-timeline-item__bullet-float {
-    @apply fixed left-1/2 top-1/2 z-[15000] max-h-screen min-w-[45vw] max-w-md m-5;
-    @apply -translate-y-1/2 overflow-x-hidden overflow-y-auto overscroll-contain;
-  }
-} */
+/* --- Popover layout --- */
+
+.work-timeline-item__bullet-section,
+.work-timeline-item__tech-section {
+  @apply min-h-0 min-w-0;
+}
+
+.work-timeline-item__bullet-float--split .work-timeline-item__bullet-section {
+  @apply flex flex-col;
+}
+
+.work-timeline-item__bullet-float--split .work-timeline-item__bullet-list {
+  @apply min-h-0 flex-1 overflow-y-auto;
+}
+
+/* --- Popover scrollbars --- */
 
 .work-timeline-item__bullet-list {
-  @apply m-0 list-inside list-disc space-y-2 p-0 font-robotomono font-light text-site-body leading-relaxed text-[var(--ink)] antialiased;
+  @apply m-0 list-none space-y-4 overflow-y-auto overscroll-contain p-0 pr-2 font-light text-site-body leading-relaxed text-white antialiased;
+  max-height: min(40rem, calc(100dvh - 6rem));
+  scrollbar-color: var(--site-teal-mid) var(--site-teal-primary);
+  scrollbar-width: thin;
 }
 
+.work-timeline-item__bullet-list::-webkit-scrollbar,
+.work-timeline-item__tech-list::-webkit-scrollbar {
+  width: 0.45rem;
+}
+
+.work-timeline-item__tech-list::-webkit-scrollbar-track {
+  background: rgba(6, 36, 43, 0.54);
+  border-radius: 999px;
+}
+
+.work-timeline-item__tech-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(55, 151, 156, 0.82),
+    rgba(18, 90, 99, 0.72)
+  );
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(186, 230, 253, 0.12);
+}
+
+.work-timeline-item__tech-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(68, 177, 178, 0.9),
+    rgba(25, 112, 120, 0.82)
+  );
+}
+
+.work-timeline-item__bullet-list::-webkit-scrollbar-track {
+  background: rgba(3, 24, 30, 0.72);
+  border-radius: 999px;
+}
+
+.work-timeline-item__bullet-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(34, 118, 126, 0.86),
+    rgba(9, 64, 72, 0.82)
+  );
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(125, 211, 252, 0.08);
+}
+
+.work-timeline-item__bullet-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(42, 136, 143, 0.92),
+    rgba(13, 78, 86, 0.88)
+  );
+}
+
+/* --- Highlights --- */
+
 .work-timeline-item__bullet {
-  @apply p-2 font-light;
+  @apply relative flex gap-3 pl-5 font-light;
+}
+
+.work-timeline-item__bullet::before {
+  @apply absolute left-0 top-[0.62em] block h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(34,211,238,0.65)];
+  content: "";
+}
+
+.work-timeline-item__bullet-content {
+  @apply grid min-w-0 gap-1.5;
+}
+
+.work-timeline-item__bullet-title-row {
+  @apply min-w-0;
+}
+
+.work-timeline-item__bullet-label {
+  @apply font-bold text-white;
+}
+
+.work-timeline-item__bullet-link {
+  @apply text-cyan-200 underline decoration-cyan-200/45 underline-offset-4 transition-colors duration-150;
+}
+
+.work-timeline-item__bullet-link:hover,
+.work-timeline-item__bullet-link:focus-visible {
+  @apply text-[var(--site-editorial-rust)] decoration-[var(--site-editorial-rust)];
+}
+
+.work-timeline-item__bullet-metric {
+  @apply mt-0.5 block font-bold text-cyan-300;
+}
+
+.work-timeline-item__bullet-detail {
+  @apply mt-0.5 leading-relaxed text-slate-300;
+}
+
+.work-timeline-item__bullet-subtle {
+  @apply text-slate-400;
+}
+
+.work-timeline-item__bullet-heading {
+  @apply mb-2 flex items-center gap-2 font-robotomono text-[0.75rem] font-bold uppercase tracking-[0.28em] text-cyan-300;
+}
+
+/* --- Technologies --- */
+
+.work-timeline-item__tech-section {
+  @apply border-t lg:border-t-0 border-cyan-200/15 bg-transparent pr-2 pt-1;
+}
+
+.work-timeline-item__tech-list {
+  @apply m-0 flex list-none flex-wrap gap-2 p-0;
+}
+
+.work-timeline-item__tech-chip {
+  @apply rounded bg-cyan-100/10 px-3 py-1.5 text-site-caption font-bold leading-none text-cyan-100 shadow-[inset_0_0_0_1px_rgba(125,211,252,0.08)];
+}
+
+@media (min-width: 1024.02px) {
+  .work-timeline-item__bullet-float--split {
+    @apply grid-cols-[minmax(0,1fr)_10rem] grid-rows-none gap-0 p-2;
+  }
+
+  .work-timeline-item__bullet-float--split .work-timeline-item__bullet-section {
+    @apply py-2 pl-2 pr-3;
+  }
 }

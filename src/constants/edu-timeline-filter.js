@@ -1,5 +1,5 @@
 /**
- * Education & Achievements legend (.edu-timeline__legend) and Mission Gallery
+ * Mission Credentials legend (.edu-timeline__legend) and Mission Gallery
  * use the same filter values.
  */
 export const EDU_TIMELINE_FILTER = {

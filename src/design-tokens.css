@@ -79,14 +79,12 @@
   --site-font-icon: 1.25rem;
   --site-font-card-title: 1rem;
   --site-font-job-title: 1.25rem;
-  --site-font-section: 1.5rem;
 }
 
 @media (min-width: 768px) {
   :root {
     --site-font-card-title: 1.125rem;
     --site-font-job-title: 1.5rem;
-    --site-font-section: 1.875rem;
   }
 }
 

@@ -9,7 +9,7 @@ import {
   EDU_TIMELINE_FILTER,
   EDU_TIMELINE_FILTER_LABEL,
 } from "../../constants/edu-timeline-filter.js";
-import "./education-achievements-section.css";
+import "./mission-credentials-section.css";
 
 const TITLE = {
   education: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.education],
@@ -181,17 +181,21 @@ function buildTimelineRows(educationItems, achievementItems) {
 }
 
 const TIMELINE_ROWS = buildTimelineRows(EDUCATION_ITEMS, ACHIEVEMENT_ITEMS);
+const TIMELINE_RENDER_ROWS = TIMELINE_ROWS.map((row) => ({
+  ...row,
+  educationItems: row.educationItems.map((item) => ({
+    ...item,
+    bullets: withYearSpan(item.bullets),
+  })),
+}));
 
 function SectionTitle() {
   return (
-    <h2 className="section-title edu-title">
-      <span className="edu-title__lead">
-        <span className="edu-title__education">{TITLE.education}</span>
-        <span className="edu-title__amp" aria-hidden="true">
-          &amp;
-        </span>
+    <h2 className="section-title mission-credentials-title">
+      <span className="mission-credentials-title__mission">Mission</span>
+      <span className="mission-credentials-title__credentials">
+        Credentials
       </span>
-      <span className="edu-title__achievement">{TITLE.achievement}</span>
     </h2>
   );
 }
@@ -271,7 +275,7 @@ function TimelineLegend({ value, onChange }) {
   );
 }
 
-export default React.memo(function EducationAchievementsSection({
+export default React.memo(function MissionCredentialsSection({
   timelineFilter = EDU_TIMELINE_FILTER.all,
   onTimelineFilterChange,
 }) {
@@ -290,7 +294,7 @@ export default React.memo(function EducationAchievementsSection({
         <div className="edu-timeline__inner">
           <div className="edu-timeline__body">
             <AnimatePresence initial={false} mode="sync">
-              {TIMELINE_ROWS.map((row) => {
+              {TIMELINE_RENDER_ROWS.map((row) => {
                 const educationItems = row.educationItems ?? [];
                 const achievementItems = row.achievementItems ?? [];
                 const showEducationCol =
@@ -345,7 +349,7 @@ export default React.memo(function EducationAchievementsSection({
                                   org={education.org}
                                   where={education.where}
                                   badges={education.badges ?? []}
-                                  bullets={withYearSpan(education.bullets)}
+                                  bullets={education.bullets}
                                   showMissionLog={true}
                                 />
                               ))}

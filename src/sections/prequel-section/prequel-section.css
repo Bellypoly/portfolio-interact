@@ -39,14 +39,12 @@
   @apply inline tracking-normal;
 }
 
-@media (max-width: 768px) {
-  .prequel-section__title-bold {
-    @apply text-[clamp(3rem,10vw+1.75rem,5rem)];
-  }
+.prequel-section__title-bold {
+  @apply max-md:text-[clamp(3rem,10vw+1.75rem,5rem)];
+}
 
-  .prequel-section__title-accent {
-    @apply text-[clamp(3.5rem,12vw+2rem,6rem)];
-  }
+.prequel-section__title-accent {
+  @apply max-md:text-[clamp(3.5rem,12vw+2rem,6rem)];
 }
 
 .prequel-section__body {

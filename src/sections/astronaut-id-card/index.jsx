@@ -15,6 +15,12 @@ const SKILL_CHIP_DELAY_AFTER_BIO = 200;
 const SCREW_IDS = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
 const STAR_DOT_COUNT = 32;
 const HUD_DIMS = { w: 1000, h: 80 };
+const DEFAULT_ROLE = [
+  "Sr. Full-Stack",
+  "Software Engineer",
+  "Data Visualization",
+];
+const DEFAULT_LOCATION = ["Earth (US)", "Relocation & Remote ✅"];
 
 let hasCardRevealCompletedOnce = false;
 
@@ -22,6 +28,32 @@ const DEFAULT_PARAGRAPHS = [
   "I design and build scalable, distributed systems across front-end, back-end, and cloud infrastructure—building platforms where product experience and resilient engineering move in orbit together.",
   "I specialize in complex, real-time systems: content delivery, personalization engines, subscription platforms, and data-intensive applications. I architect production-grade APIs and event-driven services that handle high-volume traffic with low latency—transforming complex data into clear, interactive experiences.",
   "My work centers on clean architecture, performance optimization, and observability. I build reliable, fault-tolerant software that scales smoothly, stays measurable under pressure, and enables teams to ship with confidence",
+];
+const DEFAULT_SKILLS = [
+  "React",
+  "JavaScript",
+  "TypeScript",
+  "Node.js",
+  "Python",
+  "SQL",
+  "PostgreSQL",
+  "Oracle / PL/SQL",
+  "GraphQL",
+  "REST/SOAP APIs",
+  "AWS",
+  "CI/CD",
+  "Data Visualization",
+  "D3.js",
+  "GIS",
+  "ArcGIS",
+  "OpenStreetMap",
+  "Elasticsearch",
+  "Power BI",
+  "Datadog",
+  "GA4",
+  "BlueConic",
+  "Sophi AI",
+  "Arc XP",
 ];
 
 // --- Card reveal hook ---
@@ -114,32 +146,15 @@ export default function AstronautCard({
   fname = "SUWAPHIT",
   lname = "BUABUTHR",
   callsign = "BELLE",
-  role = ["Sr. Full-Stack", "Software Engineer", "Data Visualization"],
+  role = DEFAULT_ROLE,
   email = "suwaphit.b@gmail.com",
   tel = "+1 (806) 283-2312",
   linkedin = "https://www.linkedin.com/in/suwaphit-buabuthr/",
   resume = "./resume-suwaphit.pdf",
-  location = ["Earth (US)", "Relocation & Remote ✅"],
+  location = DEFAULT_LOCATION,
   paragraphs = DEFAULT_PARAGRAPHS,
   contact = "Contact",
-  skills = [
-    "React",
-    "JavaScript",
-    "Node.js",
-    "Python",
-    "R",
-    "PostgreSQL",
-    "API",
-    "AWS",
-    "CI/CD",
-    "Git",
-    "Data Visualization",
-    "ArcGIS",
-    "Datadog",
-    "GA4",
-    "BlueConic",
-    "Sophi AI",
-  ],
+  skills = DEFAULT_SKILLS,
 }) {
   const [flipped, setFlipped] = useState(false);
   const [show, setShow] = useState(false);

@@ -5,13 +5,7 @@
 }
 
 .project-case-study__ba-compare-row + .project-case-study__ba-compare-row {
-  @apply mt-9;
-}
-
-@media (min-width: 768px) {
-  .project-case-study__ba-compare-row + .project-case-study__ba-compare-row {
-    @apply mt-12;
-  }
+  @apply mt-9 md:mt-12;
 }
 
 .project-case-study__ba-row-title {

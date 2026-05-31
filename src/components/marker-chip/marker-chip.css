@@ -43,10 +43,8 @@
 }
 
 /* Retracted (mobile): below viewport; shown = slide up. */
-@media (max-width: 767px) {
-  .marker-chip-group.marker-chip-group--dock-retracted {
-    transform: translate3d(0, 100%, 0);
-  }
+.marker-chip-group.marker-chip-group--dock-retracted {
+  @apply max-md:translate-y-full;
 }
 
 @media (prefers-reduced-motion: reduce) {

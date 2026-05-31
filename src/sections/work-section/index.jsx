@@ -1,5 +1,5 @@
-import React, { lazy, Suspense, useState } from "react";
-import { motion, useTransform } from "framer-motion";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { motion, useMotionValueEvent, useTransform } from "framer-motion";
 import WorkTimelineItem from "../../components/work-timeline-item";
 import "./work-section.css";
 
@@ -9,22 +9,97 @@ const JourneyRoute = lazy(() => import("../../components/journey-route"));
 const WORK_ITEMS = [
   {
     id: "work-dallas",
-    time: "Nov 2021 - Present",
+    time: "Nov 2021 - Apr 2026",
     showLiveDot: true,
     title: "Senior Full-Stack Developer",
     org: "The Dallas Morning News / Hearst",
-    where: "Dallas, Texas",
+    where: "Dallas, Texas, USA",
     description:
       "Built and scaled newsroom systems for subscriptions, engagement, experimentation, and digital storytelling serving millions of readers.",
     triggerLabel: "Mission logs",
+    technologies: [
+      // Languages
+      "TypeScript",
+      "Python",
+      "PHP",
+
+      // Frontend
+      "React",
+
+      // Backend & APIs
+      "Node.js",
+      "GraphQL",
+      "REST APIs",
+
+      // Cloud & DevOps
+      "AWS",
+      "CI/CD",
+
+      // Data
+      "BigQuery",
+      "GA4",
+
+      // Media & Audience Platforms
+      "Arc XP",
+      "BlueConic",
+      "Sailthru",
+
+      // Payments
+      "Braintree",
+      "Stripe",
+    ],
     bullets: [
-      "Dynamic paywall & reader access: +22% conversion, +15% subscription starts through per-visit decisioning, GA4 instrumentation, and controlled rollout behind feature flags.",
-      "Subscription checkout redesign: rebuilt fragmented multi-page flows into a deterministic single-page React checkout with unified Braintree, Stripe, and Apple Pay orchestration; +14% lift (month one), +7% sustained.",
-      "Local Elections Hub rebuild: helped transform fragmented election pages into a shared React- and Arc XP\u2013driven platform for live election results, mobile-first race navigation, and election-night newsroom publishing workflows.",
-      "Article experience & monetization: reduced ad density 9.91% with no revenue loss; increased reading time (+4.73%) and engagement (+4.09%) while improving Core Web Vitals (CLS, LCP).",
-      "Engagement systems (Viafoura commenting): +38% engagement growth through integrated commenting and reader interaction features.",
-      "Deterministic reader identity (anonymous \u2192 registered \u2192 subscriber): eliminated paywall-to-checkout drop-offs and stabilized subscription state across Arc XP flows.",
-      "Performance & reliability: improved Core Web Vitals (LCP, CLS) and supported migration away from legacy rendering infrastructure through feature flags, rollout safeguards, and zero-downtime release practices.",
+      {
+        label: "Dynamic Paywall & Reader Access",
+        slug: "dynamic-paywall",
+        metric: "+22% conversion • +15% subscription starts",
+        detail:
+          "Integrated per-visit decisioning, GA4 instrumentation, and controlled rollout behind feature flags.",
+      },
+      {
+        label: "Subscription Checkout Redesign",
+        slug: "subscription-checkout-activation",
+        metric: "+14% lift (month one) • +7% sustained",
+        detail:
+          "Rebuilt fragmented multi-page flows into a deterministic single-page React checkout with unified Braintree, Stripe, and Apple Pay orchestration.",
+      },
+      {
+        label: "Local Elections Hub Rebuild",
+        slug: "local-elections-hub",
+        detail:
+          "Helped transform fragmented election pages into a shared React- and Arc XP-driven platform for live election results, mobile-first race navigation, and election-night newsroom publishing workflows.",
+      },
+      {
+        label: "LocalGraf Knowledge Graph",
+        // slug: "localgraf",
+        detail:
+          "Connected people, organizations, events, and places across newsroom content and structured editorial data to improve discovery, navigation, and story relationships.",
+      },
+      {
+        label: "Article Experience & Monetization",
+        slug: "article-page-redesign",
+        metric: "-9.91% ad density • +4.73% reading time • +4.09% engagement",
+        detail:
+          "Improved Core Web Vitals (CLS, LCP) while maintaining revenue performance.",
+      },
+      {
+        label: "Engagement Systems (Viafoura)",
+        slug: "article-page-redesign",
+        metric: "+38% engagement growth",
+        detail: "Integrated commenting and reader-interaction features.",
+      },
+      {
+        label: "Deterministic Reader Identity",
+        subtle: "(anonymous -> registered -> subscriber)",
+        detail:
+          "Eliminated paywall-to-checkout drop-offs and stabilized subscription state across Arc XP flows.",
+      },
+      {
+        label: "Performance & Reliability",
+        slug: "article-page-redesign",
+        detail:
+          "Improved Core Web Vitals (LCP, CLS) and supported migration away from legacy rendering infrastructure through feature flags, rollout safeguards, and zero-downtime release practices.",
+      },
     ],
     portfolioAnchor: [
       "portfolio-dmn",
@@ -36,34 +111,117 @@ const WORK_ITEMS = [
   },
   {
     id: "work-chiangmai",
-    time: "May 2020 \u2013 Mar 2021",
+    time: "May 2020 - Mar 2021",
     title: "Data Engineer",
-    org: "Freelance",
+    org: "I GEAR GEEK Co., Ltd.",
     where: "Chiang Mai, Thailand",
     description:
-      "Built and automated ETL workflows in Python to process customer data across AWS, MongoDB, and MySQL.",
-    bullets: [
-      "Built automated ETL pipelines (Python, AWS, MongoDB, MySQL) for customer-data ingestion, validation, and reporting workflows, reducing manual processing and improving marketing data quality.",
-      "Developed cloud-backed reporting infrastructure across DynamoDB, MySQL, and MongoDB to support fault-tolerant analytics pipelines, operational monitoring, and SLA-driven reporting workloads.",
-      "Designed backend workflows for large-scale customer segmentation, campaign reporting, and data synchronization across distributed marketing systems.",
+      "Built data pipelines and analytics infrastructure supporting customer intelligence, marketing operations, and reporting workflows.",
+    technologies: [
+      // Languages
+      "Python",
+      "SQL",
+      // Data Engineering
+      "ETL",
+      "Data Pipelines",
+      // Databases
+      "MongoDB",
+      "MySQL",
+      "DynamoDB",
+      // Cloud
+      "AWS",
+      // Analytics
+      "Customer Segmentation",
+      "Reporting",
     ],
+    bullets: [
+      {
+        label: "Data Ingestion & Transformation",
+        detail:
+          "Built automated ETL pipelines using Python, AWS, MongoDB, and MySQL to ingest, validate, and transform customer data for reporting, audience analysis, and marketing operations.",
+      },
+      {
+        label: "Analytics Infrastructure",
+        detail:
+          "Developed cloud-backed data and reporting infrastructure across DynamoDB, MySQL, and MongoDB, supporting fault-tolerant analytics pipelines, operational monitoring, and SLA-driven reporting workloads.",
+      },
+      {
+        label: "Customer Intelligence & Segmentation",
+        detail:
+          "Designed backend workflows for customer segmentation, campaign reporting, and cross-system data synchronization, enabling audience targeting while improving data quality and reducing manual processing across distributed marketing platforms.",
+      },
+    ],
+    portfolioAnchor: [],
   },
   {
     id: "work-pea",
-    time: "Jul 2016 \u2013 Jul 2019",
+    time: "Jul 2016 - Jul 2019",
     title: "Full Stack Developer II",
     org: "PEA (Provincial Electricity Authority)",
     where: "Bangkok, Thailand",
+
     description:
-      "Built and integrated a nationwide geospatial Outage Management System (OMS), transforming GIS network data into operational systems to improve grid reliability, real-time outage response, and customer-facing services across Thailand's provincial electricity network.",
-    bullets: [
-      "Geospatial data ingestion: designed APIs and ETL pipelines (ArcGIS, Oracle, field devices) to ingest GIS shapefiles and transform utility-network topology into structured outage-management workflows.",
-      "Spatial modeling: mapped GIS topology (feeders, transformers, service areas) to operational entities, enabling accurate outage localization, restoration workflows, and planned-outage coordination.",
-      "System integration: developed REST/SOAP integration services (C#, Laravel, Python) connecting OMS, GIS, SAP ERP, ADMS, and operational systems to synchronize outage IDs, lifecycle states, restoration timing (ETR), and reporting workflows.",
-      "Operational analytics: aligned outage and planned-work data across OMS, GIS, SAP ERP, and Power BI systems so dashboards, maps, and field workflows reflected consistent outage states.",
-      "Data pipelines & reporting: built ArcGIS- and Oracle-backed pipelines powering real-time operational dashboards, outage monitoring, and utility decision-making at production scale.",
-      "Production operations: supported integration cutovers, synchronization debugging, and deployment coordination alongside utility operations teams and third-party implementation partners.",
+      "Built and integrated a nationwide geospatial Outage Management System (OMS), transforming GIS network data into operational systems supporting outage response, grid reliability, and customer services across Thailand's provincial electricity network.",
+
+    technologies: [
+      // Languages
+      "Python",
+      "PHP",
+      "C#",
+      "SQL",
+
+      // GIS & Utility Systems
+      "ArcGIS",
+      "OMS",
+      "SAP ERP",
+
+      // Backend & APIs
+      "REST APIs",
+      "SOAP",
+      "Laravel",
+
+      // Data
+      "Oracle",
+      "PL/SQL",
+      "ETL",
+
+      // Analytics
+      "Power BI",
     ],
+
+    bullets: [
+      {
+        label: "Geospatial Network Modeling",
+        slug: "outage-management-system",
+        detail:
+          "Transformed GIS network topology, including feeders, transformers, and service areas, into operational outage-management workflows supporting outage localization and restoration activities.",
+      },
+      {
+        label: "OMS & Enterprise Integration",
+        slug: "outage-management-system",
+        detail:
+          "Developed integration services connecting OMS, GIS, SAP ERP, ADMS, and operational systems to synchronize outage lifecycle data, restoration timing (ETR), and utility reporting workflows.",
+      },
+      {
+        label: "Operational Analytics & Decision Support",
+        slug: "outage-management-system",
+        detail:
+          "Built ArcGIS- and Oracle-backed data pipelines powering real-time dashboards, outage monitoring, planned-work coordination, and utility decision-making at production scale.",
+      },
+      {
+        label: "Customer-Facing Utility Systems",
+        slug: "pea-e-service",
+        detail:
+          "Supported outage visibility, service coordination, and energy-information systems used by utility staff and customers across high-volume public-service platforms.",
+      },
+      {
+        label: "Production Operations & Deployment",
+        slug: "outage-management-system",
+        detail:
+          "Supported integration cutovers, synchronization debugging, deployment coordination, and outage-response operations alongside utility teams and third-party implementation partners.",
+      },
+    ],
+
     portfolioAnchor: [
       "portfolio-pea",
       "portfolio-outage-ms",
@@ -72,19 +230,67 @@ const WORK_ITEMS = [
   },
   {
     id: "work-thinknet",
-    time: "Jul 2014 \u2013 Jun 2016",
-    title: "Software Engineer",
+    time: "Jul 2014 - Jun 2016",
+    title: "Senior Software Engineer",
     org: "THiNKNET Co., Ltd.",
     where: "Bangkok, Thailand",
+
     description:
-      "Built geospatial search and mapping systems powering location-based job discovery for millions of users.",
-    bullets: [
-      "Integrated Elasticsearch into a high-traffic job search system, improving query performance and ranking relevance at scale.",
-      "Geospatial platform (MapMagic): designed APIs and data pipelines to process ~2M+ GIS records into structured location-based search and mapping services.",
-      "Built location-based job discovery features on OpenStreetMap, enabling geographic and proximity-based search.",
-      "Developed interactive geospatial visualizations using Laravel, D3.js, and modern JavaScript, improving map usability and location-based discovery.",
-      "Built resume creation and employer tools, streamlining hiring workflows across one of Thailand\u2019s largest recruitment platforms.",
+      "Built geospatial search, mapping, and recruitment-platform systems powering location-based job discovery across one of Thailand's largest employment marketplaces.",
+
+    technologies: [
+      // Languages
+      "PHP",
+      "JavaScript",
+      "SQL",
+
+      // Backend
+      "Laravel",
+      "Elasticsearch",
+      "REST APIs",
+
+      // GIS & Mapping
+      "OpenStreetMap",
+      "GIS",
+      "MapMagic",
+
+      // Visualization
+      "D3.js",
     ],
+
+    bullets: [
+      {
+        label: "Search & Discovery Platform",
+        slug: "jobthai",
+        detail:
+          "Integrated Elasticsearch into a high-traffic job-search platform, improving search performance, ranking relevance, and discovery experiences at scale.",
+      },
+      {
+        label: "MapMagic Geospatial Platform",
+        slug: "map-magic",
+        detail:
+          "Designed APIs and geospatial data pipelines processing more than 2 million GIS records into location-based search, routing, and mapping services.",
+      },
+      {
+        label: "Location-Based Job Discovery",
+        slug: "jobthai",
+        detail:
+          "Built geographic and proximity-based job-search capabilities using OpenStreetMap, enabling location-aware employment discovery.",
+      },
+      {
+        label: "Interactive Geospatial Visualization",
+        slug: "map-magic",
+        detail:
+          "Developed map-based visualizations and user experiences using Laravel, D3.js, and modern JavaScript, improving usability and engagement.",
+      },
+      {
+        label: "Recruitment Workflow Systems",
+        slug: "jobthai",
+        detail:
+          "Built resume-creation and employer-management tools supporting hiring workflows across one of Thailand's largest recruitment platforms.",
+      },
+    ],
+
     portfolioAnchor: ["portfolio-thinknet", "portfolio-map-magic"],
   },
 ];
@@ -107,6 +313,7 @@ function WorkSectionTitle() {
 
 const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
   const [activeBulletKey, setActiveBulletKey] = useState(null);
+  const wrapperRef = useRef(null);
   const opacity = useTransform(
     sectionProgress,
     [0, 0.2, 0.9, 1],
@@ -114,8 +321,57 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
   );
   const y = useTransform(sectionProgress, [0, 0.25], [24, 0]);
 
+  useMotionValueEvent(sectionProgress, "change", (value) => {
+    if (value <= 0.02 || value >= 0.98) {
+      setActiveBulletKey(null);
+    }
+  });
+
+  useEffect(() => {
+    if (activeBulletKey == null) return undefined;
+
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return undefined;
+
+    let frameId = 0;
+    const closeIfWrapperIsOutsideViewport = () => {
+      frameId = 0;
+      const rect = wrapper.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+        setActiveBulletKey(null);
+      }
+    };
+
+    const scheduleViewportCheck = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(closeIfWrapperIsOutsideViewport);
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) {
+        setActiveBulletKey(null);
+      }
+    });
+
+    observer.observe(wrapper);
+    window.addEventListener("scroll", scheduleViewportCheck, { passive: true });
+    window.addEventListener("resize", scheduleViewportCheck);
+    scheduleViewportCheck();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", scheduleViewportCheck);
+      window.removeEventListener("resize", scheduleViewportCheck);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, [activeBulletKey]);
+
   return (
-    <motion.div className="work-section-wrapper" style={{ opacity }}>
+    <motion.div
+      ref={wrapperRef}
+      className="work-section-wrapper"
+      style={{ opacity }}
+    >
       <div className="work-section-title-row">
         <WorkSectionTitle />
       </div>
@@ -130,7 +386,8 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
                 <WorkTimelineItem
                   {...item}
                   bulletKey={id}
-                  activeBulletKey={activeBulletKey}
+                  isBulletOpen={activeBulletKey === id}
+                  isDimmed={activeBulletKey != null && activeBulletKey !== id}
                   setActiveBulletKey={setActiveBulletKey}
                 />
               </div>
@@ -138,7 +395,9 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
           </div>
         </motion.div>
         <div className="work-section-col work-section-col--right">
-          <div className="work-section-journey">
+          <div
+            className={`work-section-journey${activeBulletKey != null ? " work-section-journey--dimmed" : ""}`}
+          >
             <Suspense
               fallback={
                 <div

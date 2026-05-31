@@ -55,6 +55,10 @@ const baseArticlePageRedesignCaseStudy = {
       href: "https://support.google.com/analytics/answer/10089681",
     },
     {
+      label: "BigQuery",
+      href: "https://cloud.google.com/bigquery",
+    },
+    {
       label: "Datadog",
       href: "https://www.datadoghq.com/",
     },

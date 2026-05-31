@@ -2,11 +2,11 @@ import React, { useMemo } from "react";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../../components/project-card";
-import { hasPortfolioProjectSlug } from "../../data/portfolio/load-portfolio-project.js";
 import {
   EDU_TIMELINE_FILTER,
   EDU_TIMELINE_FILTER_LABEL,
 } from "../../constants/edu-timeline-filter.js";
+import { hasPortfolioProjectSlug } from "../../data/portfolio/load-portfolio-project.js";
 import { getMissionGalleryProjects } from "./portfolio-projects";
 
 const PortfolioSection = React.memo(function PortfolioSection({
@@ -92,6 +92,9 @@ const PortfolioSection = React.memo(function PortfolioSection({
           portfolioLabel,
           companyBadge,
         }) => {
+          const missionSlug = hasPortfolioProjectSlug(slug)
+            ? slug
+            : undefined;
           const card = (
             <ProjectCard
               name={name}
@@ -100,7 +103,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
               imgWebp={imgWebp}
               alt={alt}
               link={link}
-              slug={hasPortfolioProjectSlug(slug) ? slug : undefined}
+              slug={missionSlug}
               imageFit={cardImageFit}
               imagePosition={cardImagePosition}
               contextLabel={portfolioLabel}

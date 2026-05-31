@@ -1,7 +1,7 @@
 /* Work section */
 
 .work-section-wrapper {
-  @apply w-full min-w-0;
+  @apply relative w-full min-w-0;
 }
 
 .work-section-title-row {
@@ -23,7 +23,11 @@
 
 .work-section-journey {
   @apply mx-auto mt-8 flex w-full min-w-0 max-w-full items-center justify-center overflow-hidden px-2;
-  @apply sm:px-0 md:mt-12 md:max-w-lg;
+  @apply transition duration-200 sm:px-0 md:mt-12 md:max-w-lg;
+}
+
+.work-section-journey--dimmed {
+  @apply opacity-45 blur-[1.5px] max-md:opacity-100 max-md:blur-none;
 }
 
 .work-section-journey .journey-route-globe {

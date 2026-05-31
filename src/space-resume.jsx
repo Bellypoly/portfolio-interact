@@ -59,8 +59,8 @@ import {
 const PrequelSection = lazy(() => import("./sections/prequel-section"));
 const RocketSection = lazy(() => import("./sections/rocket-section"));
 const WorkSection = lazy(() => import("./sections/work-section"));
-const EducationAchievementsSection = lazy(
-  () => import("./sections/education-achievements-section"),
+const MissionCredentialsSection = lazy(
+  () => import("./sections/mission-credentials-section"),
 );
 const PortfolioSection = lazy(() => import("./sections/portfolio-section"));
 const MissionGalleryGateSection = lazy(
@@ -95,6 +95,142 @@ function useMouseParallax(axisX, axisY, range) {
   const y = useTransform(axisY, [-1, 1], [-range, range]);
   return [x, y];
 }
+
+const MobileScrollBeginButton = React.memo(function MobileScrollBeginButton({
+  crawlMobileScrollHintOpacity,
+  crawlMobileScrollHintY,
+  crawlProgress,
+}) {
+  const { onMobileScrollToBegin, mobileHintInteractive } =
+    useMobileScrollBeginHint(crawlProgress);
+
+  return (
+    <motion.div
+      className="crawl-scroll-begin"
+      style={{
+        opacity: crawlMobileScrollHintOpacity,
+        y: crawlMobileScrollHintY,
+        pointerEvents: mobileHintInteractive ? "auto" : "none",
+      }}
+    >
+      <button
+        type="button"
+        className="crawl-scroll-begin__btn"
+        tabIndex={mobileHintInteractive ? 0 : -1}
+        onClick={onMobileScrollToBegin}
+        aria-label="Scroll to begin journey"
+      >
+        <span className="crawl-scroll-begin__label">
+          Scroll to Begin Journey
+        </span>
+        <span className="material-symbols-rounded crawl-scroll-begin__chevron">
+          keyboard_arrow_down
+        </span>
+      </button>
+    </motion.div>
+  );
+});
+
+const SpaceBackdrop = React.memo(function SpaceBackdrop({
+  bgNebulaOpacity,
+  starFill,
+  starLayers,
+  starViewport,
+  starsByLayer,
+  preferSimpleMotion,
+  prefersReducedMotion,
+  bottomBlurOpacity,
+  crawlMobileScrollHintOpacity,
+  crawlMobileScrollHintY,
+  crawlOpacity,
+  crawlHeaderTop,
+  crawlY,
+  crawlProgress,
+}) {
+  return (
+    <>
+      <motion.div
+        className="app-bg-nebula"
+        style={{ opacity: bgNebulaOpacity }}
+        aria-hidden="true"
+      />
+      <motion.div className="app-starfield" style={{ "--star-fill": starFill }}>
+        {!prefersReducedMotion ? (
+          <div className="app-shooting-stars">
+            <ShootingStar delay={0} />
+            <ShootingStar delay={5} />
+            <ShootingStar delay={10} />
+          </div>
+        ) : null}
+        {starLayers.map(({ key, cls, mx, my, scrollY }) => (
+          <motion.div
+            key={key}
+            className={`app-star-layer ${cls}`}
+            style={{ x: mx, y: my }}
+          >
+            <motion.svg
+              viewBox={`0 0 ${starViewport.width} ${starViewport.height}`}
+              style={{ y: scrollY }}
+            >
+              {!preferSimpleMotion ? (
+                <>
+                  <defs>
+                    <filter
+                      id={`space-resume-star-glow-${key}`}
+                      x="-25%"
+                      y="-25%"
+                      width="150%"
+                      height="150%"
+                      colorInterpolationFilters="sRGB"
+                    >
+                      <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="0.85"
+                        result="blur"
+                      />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <g filter={`url(#space-resume-star-glow-${key})`}>
+                    {starsByLayer[key].map((s, i) => (
+                      <Star key={i} {...s} />
+                    ))}
+                  </g>
+                </>
+              ) : (
+                <g>
+                  {starsByLayer[key].map((s, i) => (
+                    <Star key={i} {...s} />
+                  ))}
+                </g>
+              )}
+            </motion.svg>
+          </motion.div>
+        ))}
+        <motion.div
+          className="app-bottom-blur"
+          style={{ opacity: bottomBlurOpacity }}
+        >
+          <div className="app-bottom-blur__fill" aria-hidden />
+          <MobileScrollBeginButton
+            crawlMobileScrollHintOpacity={crawlMobileScrollHintOpacity}
+            crawlMobileScrollHintY={crawlMobileScrollHintY}
+            crawlProgress={crawlProgress}
+          />
+        </motion.div>
+        <OpeningCrawl
+          opacityMV={crawlOpacity}
+          headerTopMV={crawlHeaderTop}
+          yMV={crawlY}
+          crawlProgress={crawlProgress}
+        />
+      </motion.div>
+    </>
+  );
+});
 
 export default function SpaceResume() {
   const location = useLocation();
@@ -216,8 +352,6 @@ export default function SpaceResume() {
     [0, 0.03, 0.08, 0.12],
     [0, 0, 20, 40],
   );
-  const { onMobileScrollToBegin, mobileHintInteractive } =
-    useMobileScrollBeginHint(crawlProgress);
   const crawlHeaderTop = useTransform(
     crawlProgress,
     [0, 0.2, 1],
@@ -231,9 +365,9 @@ export default function SpaceResume() {
       { id: "rocket", title: " ", body: <RocketSection /> },
       {
         id: "education",
-        title: "Education & Achievements",
+        title: "Mission Credentials",
         body: (
-          <EducationAchievementsSection
+          <MissionCredentialsSection
             timelineFilter={eduTimelineFilter}
             onTimelineFilterChange={setEduTimelineFilter}
           />
@@ -731,106 +865,22 @@ export default function SpaceResume() {
         </div>
       )}
       <main className="app-main">
-        <motion.div
-          className="app-bg-nebula"
-          style={{ opacity: bgNebulaOpacity }}
-          aria-hidden="true"
+        <SpaceBackdrop
+          bgNebulaOpacity={bgNebulaOpacity}
+          starFill={starFill}
+          starLayers={starLayers}
+          starViewport={starViewport}
+          starsByLayer={starsByLayer}
+          preferSimpleMotion={preferSimpleMotion}
+          prefersReducedMotion={prefersReducedMotion}
+          bottomBlurOpacity={bottomBlurOpacity}
+          crawlMobileScrollHintOpacity={crawlMobileScrollHintOpacity}
+          crawlMobileScrollHintY={crawlMobileScrollHintY}
+          crawlOpacity={crawlOpacity}
+          crawlHeaderTop={crawlHeaderTop}
+          crawlY={crawlY}
+          crawlProgress={crawlProgress}
         />
-        <motion.div
-          className="app-starfield"
-          style={{ "--star-fill": starFill }}
-        >
-          {!prefersReducedMotion ? (
-            <div className="app-shooting-stars">
-              <ShootingStar delay={0} />
-              <ShootingStar delay={5} />
-              <ShootingStar delay={10} />
-            </div>
-          ) : null}
-          {starLayers.map(({ key, cls, mx, my, scrollY }) => (
-            <motion.div
-              key={key}
-              className={`app-star-layer ${cls}`}
-              style={{ x: mx, y: my }}
-            >
-              <motion.svg
-                viewBox={`0 0 ${starViewport.width} ${starViewport.height}`}
-                style={{ y: scrollY }}
-              >
-                {!preferSimpleMotion ? (
-                  <>
-                    <defs>
-                      <filter
-                        id={`space-resume-star-glow-${key}`}
-                        x="-25%"
-                        y="-25%"
-                        width="150%"
-                        height="150%"
-                        colorInterpolationFilters="sRGB"
-                      >
-                        <feGaussianBlur
-                          in="SourceGraphic"
-                          stdDeviation="0.85"
-                          result="blur"
-                        />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                      </filter>
-                    </defs>
-                    <g filter={`url(#space-resume-star-glow-${key})`}>
-                      {starsByLayer[key].map((s, i) => (
-                        <Star key={i} {...s} />
-                      ))}
-                    </g>
-                  </>
-                ) : (
-                  <g>
-                    {starsByLayer[key].map((s, i) => (
-                      <Star key={i} {...s} />
-                    ))}
-                  </g>
-                )}
-              </motion.svg>
-            </motion.div>
-          ))}
-          <motion.div
-            className="app-bottom-blur"
-            style={{ opacity: bottomBlurOpacity }}
-          >
-            <div className="app-bottom-blur__fill" aria-hidden />
-            <motion.div
-              className="crawl-scroll-begin"
-              style={{
-                opacity: crawlMobileScrollHintOpacity,
-                y: crawlMobileScrollHintY,
-                pointerEvents: mobileHintInteractive ? "auto" : "none",
-              }}
-            >
-              <button
-                type="button"
-                className="crawl-scroll-begin__btn"
-                tabIndex={mobileHintInteractive ? 0 : -1}
-                onClick={onMobileScrollToBegin}
-                aria-label="Scroll to begin journey"
-              >
-                <span className="crawl-scroll-begin__label">
-                  Scroll to Begin Journey
-                </span>
-                <span className="material-symbols-rounded crawl-scroll-begin__chevron">
-                  keyboard_arrow_down
-                </span>
-              </button>
-            </motion.div>
-          </motion.div>
-          <OpeningCrawl
-            opacityMV={crawlOpacity}
-            headerTopMV={crawlHeaderTop}
-            yMV={crawlY}
-            crawlProgress={crawlProgress}
-          />
-        </motion.div>
         <section className="app-section">
           <ProfileIcon crawlProgress={crawlProgress} />
           {SECTIONS.map((s, i) => {

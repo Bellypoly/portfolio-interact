@@ -1,37 +1,173 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 import HoverRevealText from "../hover-reveal-text";
 import {
   firstPortfolioHashFragment,
   scrollToPortfolioAnchor,
 } from "../../utils/flash-portfolio-anchor";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
+import {
+  rememberMissionScrollBeforeProject,
+  SPACE_RESUME_FROM_MISSION,
+} from "../../utils/space-resume-navigation";
 import "./work-timeline-item.css";
 
-// --- BulletPopover ---
+const POPOVER_HIDE_DELAY_MS = 150;
+
+function joinClassNames(...classNames) {
+  return classNames.filter(Boolean).join(" ");
+}
+
+function MissionLink({ slug, children }) {
+  if (!slug) return children;
+
+  return (
+    <Link
+      className="work-timeline-item__bullet-link"
+      to={`/mission/${slug}`}
+      state={{ [SPACE_RESUME_FROM_MISSION]: true }}
+      onClick={() => rememberMissionScrollBeforeProject()}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function BulletContent({ bullet }) {
+  if (typeof bullet === "string") return bullet;
+
+  return (
+    <div className="work-timeline-item__bullet-content">
+      <div className="work-timeline-item__bullet-title-row">
+        {bullet.label ? (
+          <MissionLink slug={bullet.slug}>
+            <strong className="work-timeline-item__bullet-label">
+              {bullet.label}
+            </strong>
+          </MissionLink>
+        ) : null}
+        {bullet.subtle ? (
+          <span className="work-timeline-item__bullet-subtle">
+            {" "}
+            {bullet.subtle}
+          </span>
+        ) : null}
+      </div>
+      {bullet.metric ? (
+        <span className="work-timeline-item__bullet-metric">
+          {bullet.metric}
+        </span>
+      ) : null}
+      {bullet.detail ? (
+        <div className="work-timeline-item__bullet-detail">{bullet.detail}</div>
+      ) : (
+        bullet.body
+      )}
+    </div>
+  );
+}
+
+function BulletList({ bullets }) {
+  return (
+    <ul className="work-timeline-item__bullet-list">
+      {bullets.map((bullet, index) => (
+        <li key={index} className="work-timeline-item__bullet">
+          <BulletContent bullet={bullet} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function TechnologyList({ technologies }) {
+  if (!technologies.length) return null;
+
+  return (
+    <section className="work-timeline-item__tech-section">
+      <h4 className="work-timeline-item__bullet-heading">Tech Stack</h4>
+      <ul className="work-timeline-item__tech-list">
+        {technologies.map((technology) => (
+          <li key={technology} className="work-timeline-item__tech-chip">
+            {technology}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function BulletPopover({
-  wrapRef,
-  isOpen,
-  onToggle,
-  onOpen,
-  onClose,
-  onBlur,
-  triggerLabel,
   bullets,
-  className,
+  className = "",
+  isOpen,
+  onClose,
+  onOpen,
+  onToggle,
+  portalRootRef,
+  technologies = [],
+  triggerLabel,
+  wrapRef,
 }) {
+  const panelRef = useRef(null);
+  const hasTechnologies = technologies.length > 0;
+  const isDesktopPanel = className.includes("--desktop");
+  const panelClass = joinClassNames(
+    "work-timeline-item__bullet-float",
+    hasTechnologies && "work-timeline-item__bullet-float--split",
+    isDesktopPanel
+      ? "work-timeline-item__bullet-float--desktop"
+      : "work-timeline-item__bullet-float--mobile",
+  );
+
+  const handleBlur = () => {
+    requestAnimationFrame(() => {
+      const activeElement = document.activeElement;
+
+      if (
+        wrapRef.current?.contains(activeElement) ||
+        panelRef.current?.contains(activeElement)
+      ) {
+        return;
+      }
+
+      onClose();
+    });
+  };
+
+  const panel = (
+    <div
+      ref={panelRef}
+      className={panelClass}
+      tabIndex={0}
+      onBlur={handleBlur}
+      onFocus={onOpen}
+      onMouseEnter={onOpen}
+      onMouseLeave={onClose}
+    >
+      <section className="work-timeline-item__bullet-section">
+        <BulletList bullets={bullets} />
+      </section>
+      <TechnologyList technologies={technologies} />
+    </div>
+  );
+
   return (
     <div
       ref={wrapRef}
-      className={`work-timeline-item__bullet-trigger-wrap ${className}`}
+      className={joinClassNames(
+        "work-timeline-item__bullet-trigger-wrap",
+        className,
+      )}
     >
       <button
         type="button"
         className="work-timeline-item__bullet-trigger"
-        onClick={(e) => {
-          e.stopPropagation();
+        onClick={(event) => {
+          event.stopPropagation();
           onToggle();
         }}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         onMouseEnter={() => {
           if (prefersHoverPopover()) onOpen();
         }}
@@ -42,76 +178,76 @@ function BulletPopover({
         <HoverRevealText revealText="Mission logs">
           {triggerLabel}
         </HoverRevealText>{" "}
-        →
+        &rarr;
       </button>
-      {isOpen && (
-        <div
-          className="work-timeline-item__bullet-float"
-          tabIndex={0}
-          onFocus={onOpen}
-          onMouseEnter={onOpen}
-          onMouseLeave={onClose}
-        >
-          <ul className="work-timeline-item__bullet-list">
-            {bullets.map((b, i) => (
-              <li key={i} className="work-timeline-item__bullet">
-                {b}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {isOpen &&
+        (isDesktopPanel
+          ? portalRootRef?.current && createPortal(panel, portalRootRef.current)
+          : panel)}
     </div>
   );
 }
 
-// --- WorkTimelineItem ---
 const WorkTimelineItem = React.memo(function WorkTimelineItem({
+  bulletKey,
+  bullets = [],
+  description,
+  isBulletOpen: sharedBulletOpen,
+  isDimmed = false,
+  org,
+  portfolioAnchor,
+  setActiveBulletKey,
+  showLiveDot = false,
+  technologies = [],
   time,
   title,
-  org,
-  where,
-  description,
-  bullets = [],
   triggerLabel = "Mission logs",
-  /** One gallery `#id`, or several — each id must be unique in the document. */
-  portfolioAnchor,
-  showLiveDot = false,
-  bulletKey,
-  activeBulletKey,
-  setActiveBulletKey,
+  where,
 }) {
   const [isHovering, setIsHovering] = useState(false);
   const desktopWrapRef = useRef(null);
   const mobileWrapRef = useRef(null);
+  const leftRef = useRef(null);
   const hideTimeoutRef = useRef(null);
+  const hasBullets = bullets.length > 0;
   const hasSharedBulletState =
     bulletKey && typeof setActiveBulletKey === "function";
-  const isBulletOpen = hasSharedBulletState
-    ? activeBulletKey === bulletKey
-    : isHovering;
+  const isBulletOpen = hasSharedBulletState ? sharedBulletOpen : isHovering;
 
   const clearHideTimeout = () => {
-    if (hideTimeoutRef.current) {
-      clearTimeout(hideTimeoutRef.current);
-      hideTimeoutRef.current = null;
-    }
+    if (!hideTimeoutRef.current) return;
+
+    clearTimeout(hideTimeoutRef.current);
+    hideTimeoutRef.current = null;
   };
 
   const openBullet = () => {
     if (hasSharedBulletState) {
       setActiveBulletKey(bulletKey);
-    } else {
-      setIsHovering(true);
+      return;
     }
+
+    setIsHovering(true);
   };
 
   const closeBullet = () => {
     if (hasSharedBulletState) {
       setActiveBulletKey((key) => (key === bulletKey ? null : key));
-    } else {
-      setIsHovering(false);
+      return;
     }
+
+    setIsHovering(false);
+  };
+
+  const toggleBullet = () => {
+    clearHideTimeout();
+
+    if (hasSharedBulletState) {
+      setActiveBulletKey((key) => (key === bulletKey ? null : bulletKey));
+      return;
+    }
+
+    setIsHovering((value) => !value);
   };
 
   const handleHoverEnter = () => {
@@ -121,9 +257,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
 
   const handleHoverLeave = () => {
     clearHideTimeout();
-    hideTimeoutRef.current = setTimeout(() => {
-      closeBullet();
-    }, 150);
+    hideTimeoutRef.current = setTimeout(closeBullet, POPOVER_HIDE_DELAY_MS);
   };
 
   useEffect(
@@ -133,88 +267,78 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
     [],
   );
 
-  const handleBlur = (wrapRef) => () => {
-    requestAnimationFrame(() => {
-      if (
-        wrapRef.current &&
-        !wrapRef.current.contains(document.activeElement)
-      ) {
-        closeBullet();
-      }
-    });
-  };
-
   const portfolioHash = firstPortfolioHashFragment(portfolioAnchor);
 
-  const handleRelatedClick = (e) => {
+  const handleRelatedClick = (event) => {
     if (!portfolioHash) return;
-    e.preventDefault();
+
+    event.preventDefault();
     scrollToPortfolioAnchor(portfolioAnchor);
   };
 
   const bulletProps = {
-    isOpen: isBulletOpen,
-    onToggle: () => {
-      clearHideTimeout();
-      if (!hasSharedBulletState) {
-        setIsHovering((v) => !v);
-        return;
-      }
-      setActiveBulletKey((key) => (key === bulletKey ? null : bulletKey));
-    },
-    onOpen: handleHoverEnter,
-    onClose: handleHoverLeave,
-    triggerLabel,
     bullets,
+    isOpen: isBulletOpen,
+    onClose: handleHoverLeave,
+    onOpen: handleHoverEnter,
+    onToggle: toggleBullet,
+    portalRootRef: leftRef,
+    technologies,
+    triggerLabel,
   };
 
   return (
-    <div className="work-timeline-item">
+    <div
+      className={joinClassNames(
+        "work-timeline-item",
+        isDimmed && "work-timeline-item--dimmed",
+      )}
+    >
       <div className="work-timeline-item__inner">
-        <div className="work-timeline-item__left">
+        <div ref={leftRef} className="work-timeline-item__left">
           <div className="work-timeline-item__label-row">
-            {time && <div className="work-timeline-item__label">[{time}]</div>}
-            {bullets.length > 0 && (
+            {time ? (
+              <div className="work-timeline-item__label">[{time}]</div>
+            ) : null}
+            {hasBullets ? (
               <BulletPopover
                 {...bulletProps}
                 wrapRef={desktopWrapRef}
-                onBlur={handleBlur(desktopWrapRef)}
                 className="work-timeline-item__bullet-trigger-wrap--label-row work-timeline-item__bullet-trigger-wrap--desktop"
               />
-            )}
+            ) : null}
           </div>
           <h3 className="work-timeline-item__title">
             {title}
-            {showLiveDot && (
+            {showLiveDot ? (
               <span
                 className="work-timeline-item__live-dot"
                 aria-hidden="true"
                 title="Current position"
               />
-            )}
+            ) : null}
           </h3>
-          {(org || where) && (
+          {org || where ? (
             <div className="work-timeline-item__meta">
               {org}
               {where ? (
                 <span className="work-timeline-item__meta-where">
                   {" "}
-                  • {where}
+                  &bull; {where}
                 </span>
               ) : null}
             </div>
-          )}
-          {description && (
+          ) : null}
+          {description ? (
             <p className="work-timeline-item__description">{description}</p>
-          )}
-          {bullets.length > 0 && (
+          ) : null}
+          {hasBullets ? (
             <BulletPopover
               {...bulletProps}
               wrapRef={mobileWrapRef}
-              onBlur={handleBlur(mobileWrapRef)}
               className="work-timeline-item__bullet-trigger-wrap--mobile"
             />
-          )}
+          ) : null}
           {portfolioHash ? (
             <div className="work-timeline-item__portfolio-link-block">
               <a
@@ -225,7 +349,7 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
                 <HoverRevealText revealText="Deployed missions">
                   Deployed missions
                 </HoverRevealText>{" "}
-                <span className="work-timeline-item__arrow">↓</span>
+                <span className="work-timeline-item__arrow">&darr;</span>
               </a>
             </div>
           ) : null}

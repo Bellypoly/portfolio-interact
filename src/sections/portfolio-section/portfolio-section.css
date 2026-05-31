@@ -7,7 +7,7 @@
 /* Title chrome aligned with .edu-title__education (Silkscreen, shadow stack). */
 
 .portfolio-section__title {
-  @apply col-span-full mb-3 mt-0 text-center font-silkscreen text-[clamp(3.35rem,6.5vw+1.5rem,4.5rem)] font-bold uppercase italic leading-[1.06] tracking-[0.04em] text-[var(--site-teal-accent)] md:mb-4;
+  @apply col-span-full mb-3 mt-0 text-center font-silkscreen text-[clamp(2.9rem,6.5vw+1.5rem,4.5rem)] font-bold uppercase italic leading-[1.06] tracking-[0.04em] text-[var(--site-teal-accent)] md:mb-4;
   @apply [text-shadow:1px_1px_0_rgba(45,95,120,0.85),2px_2px_0_rgba(45,95,120,0.8),3px_3px_0_rgba(45,95,120,0.75),4px_4px_0_rgba(45,95,120,0.7),5px_5px_0_rgba(45,95,120,0.65),6px_6px_0_rgba(45,95,120,0.6)];
 }
 
@@ -54,7 +54,7 @@
   @apply [text-shadow:1px_1px_0_rgba(140,95,40,0.45),2px_2px_0_rgba(140,95,40,0.28)];
 }
 
-/* Filtered gallery (Education & Achievements legend) — no matching tiles */
+/* Filtered gallery (Mission Credentials legend) — no matching tiles */
 .portfolio-section__filter-empty {
   @apply col-span-full mx-auto mb-10 max-w-md text-center font-roboto text-site-body leading-relaxed text-[var(--site-teal-mid)];
 }

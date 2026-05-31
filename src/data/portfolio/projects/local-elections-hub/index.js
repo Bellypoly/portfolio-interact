@@ -31,7 +31,7 @@ const baseLocalElectionsHubCaseStudy = {
     "Frontend architecture (React · Arc XP)",
     "Data-rich UI & visualization",
     "Performance & progressive disclosure",
-    "Accessibility & semantic HTML",
+    "Accessibility & HTML",
   ],
 
   context: "The Dallas Morning News",
@@ -55,8 +55,8 @@ const baseLocalElectionsHubCaseStudy = {
       href: "https://graphql.org/",
     },
     {
-      label: "Semantic HTML",
-      href: "https://developer.mozilla.org/en-US/docs/Glossary/Semantics",
+      label: "HTML & CSS",
+      href: "",
     },
   ],
 

@@ -69,7 +69,7 @@
 }
 
 .section-title {
-  @apply mt-8 font-roboto text-site-section font-bold text-cyan-400;
+  @apply mt-8 font-roboto font-bold text-cyan-400;
 }
 
 .app-section {
