@@ -45,7 +45,7 @@ import {
 } from "./utils/space-resume-scroll";
 import { consumeMissionScrollRestore } from "./utils/space-resume-navigation";
 import { usePreferSimpleMotion } from "./hooks/use-prefer-simple-motion";
-import { EDU_TIMELINE_FILTER } from "./constants/edu-timeline-filter.js";
+import { PORTFOLIO_FILTER } from "./constants/portfolio-filter.js";
 import {
   SECTION_COUNT,
   PREQUEL_SECTION_INDEX,
@@ -234,10 +234,11 @@ const SpaceBackdrop = React.memo(function SpaceBackdrop({
 
 export default function SpaceResume() {
   const location = useLocation();
+  const restoredMissionScrollRef = useRef(false);
 
   const preferSimpleMotion = usePreferSimpleMotion();
-  const [eduTimelineFilter, setEduTimelineFilter] = useState(
-    EDU_TIMELINE_FILTER.all,
+  const [portfolioFilter, setPortfolioFilter] = useState(
+    PORTFOLIO_FILTER.all,
   );
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
     typeof window !== "undefined"
@@ -254,13 +255,9 @@ export default function SpaceResume() {
   }, []);
 
   useEffect(() => {
-    const hasFragment =
-      typeof window !== "undefined" && window.location.hash.length > 1;
     const y = consumeMissionScrollRestore();
-    if (hasFragment) {
-      return;
-    }
     if (y == null) return;
+    restoredMissionScrollRef.current = true;
     const apply = () => window.scrollTo(0, y);
     apply();
     const raf = requestAnimationFrame(() => {
@@ -275,6 +272,11 @@ export default function SpaceResume() {
   }, []);
 
   useEffect(() => {
+    if (restoredMissionScrollRef.current) {
+      restoredMissionScrollRef.current = false;
+      return undefined;
+    }
+
     const id = (location.hash ?? "").replace(/^#/, "").trim();
     if (!id) return undefined;
     let cancelled = false;
@@ -366,12 +368,7 @@ export default function SpaceResume() {
       {
         id: "education",
         title: "Mission Credentials",
-        body: (
-          <MissionCredentialsSection
-            timelineFilter={eduTimelineFilter}
-            onTimelineFilterChange={setEduTimelineFilter}
-          />
-        ),
+        body: <MissionCredentialsSection />,
       },
       {
         id: "pre-gallery",
@@ -383,13 +380,13 @@ export default function SpaceResume() {
         title: "Mission Gallery",
         body: (
           <PortfolioSection
-            timelineFilter={eduTimelineFilter}
-            onTimelineFilterChange={setEduTimelineFilter}
+            timelineFilter={portfolioFilter}
+            onTimelineFilterChange={setPortfolioFilter}
           />
         ),
       },
     ],
-    [eduTimelineFilter],
+    [portfolioFilter],
   );
 
   const jumpingToRef = useRef(null);

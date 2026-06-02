@@ -138,7 +138,7 @@
   @apply flex w-full min-w-0 cursor-pointer flex-row flex-nowrap items-center gap-2 text-left text-site-body text-slate-300 md:flex-row-reverse;
 }
 .timeline-bullet-btn__summary {
-  @apply flex-1 min-w-0 break-words;
+  @apply flex-1 min-w-0 break-words pt-[0.25rem];
 }
 .education-card .material-symbols-rounded {
   @apply text-site-icon;

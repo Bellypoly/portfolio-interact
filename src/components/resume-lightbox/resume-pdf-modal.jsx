@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { createPortal } from "react-dom";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 
 const ResumePdfModal = memo(function ResumePdfModal({ pdfHref, onClose }) {
   return createPortal(
@@ -41,8 +42,7 @@ const ResumePdfModal = memo(function ResumePdfModal({ pdfHref, onClose }) {
             <a
               className="resume-lightbox__pdf-hint-link"
               href={pdfHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...EXTERNAL_LINK_PROPS}
               onClick={(e) => e.stopPropagation()}
             >
               Open in new tab

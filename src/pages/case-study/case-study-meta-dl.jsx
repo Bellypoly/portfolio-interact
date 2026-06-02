@@ -1,4 +1,5 @@
 import React from "react";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 
 function normalizeStackItems(techStack) {
   if (!techStack) return [];
@@ -31,8 +32,7 @@ function StackEntry({ item, index }) {
       key={href + label}
       href={href}
       className="project-case-study__stack-link"
-      target="_blank"
-      rel="noopener noreferrer"
+      {...EXTERNAL_LINK_PROPS}
     >
       {label}
     </a>

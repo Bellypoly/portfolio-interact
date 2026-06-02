@@ -1,3 +1,5 @@
+import { clamp } from "./math.js";
+
 /**
  * Scroll metrics for SpaceResume (debug HUD).
  */
@@ -83,7 +85,7 @@ export function getSectionScrollSpyDebug(
     let throughPct = null;
     if (h > 0) {
       const raw = ((probeY - r.top) / h) * 100;
-      throughPct = Math.max(0, Math.min(100, raw));
+      throughPct = clamp(raw, 0, 100);
     }
     rows.push({
       index: i,

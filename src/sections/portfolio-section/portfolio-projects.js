@@ -1,5 +1,5 @@
 /**
- * Mission Gallery: display order + Mission Credentials timeline filter.
+ * Mission Gallery: display order + gallery filters.
  *
  * Data: `src/data/portfolio/mission-gallery-manifest.js` (canonical gallery fields; case studies spread the same row).
  * Case study bodies load on `/mission/:slug` via `src/data/portfolio/load-portfolio-project.js`. Archived `squeeze-it` is
@@ -9,25 +9,44 @@
  *
  * `portfolioLabel` is the small gallery tag; stick to this set: Product, Competition, Thesis,
  * Paper, Academic, Marketplace, Platform, Civic tech, Public sector.
- * Optional `companyBadge` (manifest): short employer/org tag on the card (e.g. DMN, PEA, thnknet).
  */
 
 import { MISSION_GALLERY_MANIFEST } from "../../data/portfolio/mission-gallery-manifest.js";
-import { EDU_TIMELINE_FILTER } from "../../constants/edu-timeline-filter.js";
+import { PORTFOLIO_FILTER } from "../../constants/portfolio-filter.js";
 
-/** Slug -> education | achievement. Slugs not listed are work-only tiles (visible when timeline filter is All). */
-const MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG = {
-  "federated-learning-energy": EDU_TIMELINE_FILTER.education,
-  rdfd: EDU_TIMELINE_FILTER.education,
-  "industrial-logistics-evaluation": EDU_TIMELINE_FILTER.education,
-  "dynamic-paywall": EDU_TIMELINE_FILTER.achievement,
-  "subscription-checkout-activation": EDU_TIMELINE_FILTER.achievement,
-  "jerdi-kids": EDU_TIMELINE_FILTER.achievement,
-  "photo-competition-my-hometown": EDU_TIMELINE_FILTER.achievement,
+/** Slug -> gallery browsing category. Slugs not listed are visible in All only. */
+const MISSION_GALLERY_FILTER_BY_SLUG = {
+  "dynamic-paywall": PORTFOLIO_FILTER.product,
+  "subscription-checkout-activation": PORTFOLIO_FILTER.product,
+  "article-page-redesign": PORTFOLIO_FILTER.product,
+  "local-elections-hub": PORTFOLIO_FILTER.product,
+  "map-magic": PORTFOLIO_FILTER.product,
+  jobthai: PORTFOLIO_FILTER.product,
+
+  "industrial-logistics-evaluation": PORTFOLIO_FILTER.research,
+  rdfd: PORTFOLIO_FILTER.research,
+  "federated-learning-energy": PORTFOLIO_FILTER.research,
+
+  vote62: PORTFOLIO_FILTER.civicData,
+  "parliament-watch-ocr": PORTFOLIO_FILTER.civicData,
+  "electricity-bill-breakdown": PORTFOLIO_FILTER.civicData,
+  "what-cooking-th": PORTFOLIO_FILTER.civicData,
+  "outage-management-system": PORTFOLIO_FILTER.civicData,
+  "pea-e-service": PORTFOLIO_FILTER.civicData,
+
+  "jerdi-kids": PORTFOLIO_FILTER.awards,
+  "photo-competition-my-hometown": PORTFOLIO_FILTER.awards,
 };
 
+function missionGalleryFilterForProject(project) {
+  return MISSION_GALLERY_FILTER_BY_SLUG[project.slug ?? ""] ?? null;
+}
+
 /** Built once: manifest is static for the lifetime of the app shell. */
-const MISSION_GALLERY_ORDERED_ALL = MISSION_GALLERY_MANIFEST;
+const MISSION_GALLERY_ORDERED_ALL = MISSION_GALLERY_MANIFEST.map((project) => ({
+  ...project,
+  portfolioFilter: missionGalleryFilterForProject(project),
+}));
 
 if (import.meta.env.DEV) {
   import("../../data/portfolio/load-portfolio-project.js").then(
@@ -46,27 +65,31 @@ if (import.meta.env.DEV) {
   );
 }
 
-const MISSION_GALLERY_ORDERED_EDUCATION = MISSION_GALLERY_ORDERED_ALL.filter(
-  (p) =>
-    MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] ===
-    EDU_TIMELINE_FILTER.education,
-);
-
-const MISSION_GALLERY_ORDERED_ACHIEVEMENT = MISSION_GALLERY_ORDERED_ALL.filter(
-  (p) =>
-    MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] ===
-    EDU_TIMELINE_FILTER.achievement,
-);
+function filterMissionGalleryProjects(filter) {
+  return MISSION_GALLERY_ORDERED_ALL.filter(
+    (p) => p.portfolioFilter === filter,
+  );
+}
 
 const MISSION_GALLERY_PROJECTS_BY_FILTER = Object.freeze({
-  [EDU_TIMELINE_FILTER.all]: MISSION_GALLERY_ORDERED_ALL,
-  [EDU_TIMELINE_FILTER.education]: MISSION_GALLERY_ORDERED_EDUCATION,
-  [EDU_TIMELINE_FILTER.achievement]: MISSION_GALLERY_ORDERED_ACHIEVEMENT,
+  [PORTFOLIO_FILTER.all]: MISSION_GALLERY_ORDERED_ALL,
+  [PORTFOLIO_FILTER.product]: filterMissionGalleryProjects(
+    PORTFOLIO_FILTER.product,
+  ),
+  [PORTFOLIO_FILTER.research]: filterMissionGalleryProjects(
+    PORTFOLIO_FILTER.research,
+  ),
+  [PORTFOLIO_FILTER.civicData]: filterMissionGalleryProjects(
+    PORTFOLIO_FILTER.civicData,
+  ),
+  [PORTFOLIO_FILTER.awards]: filterMissionGalleryProjects(
+    PORTFOLIO_FILTER.awards,
+  ),
 });
 
-/** @param {string} [timelineFilter] Values from `EDU_TIMELINE_FILTER` / edu timeline legend. */
+/** @param {string} [timelineFilter] Values from `PORTFOLIO_FILTER`. */
 export function getMissionGalleryProjects(
-  timelineFilter = EDU_TIMELINE_FILTER.all,
+  timelineFilter = PORTFOLIO_FILTER.all,
 ) {
   if (timelineFilter == null) return MISSION_GALLERY_ORDERED_ALL;
 
@@ -74,7 +97,6 @@ export function getMissionGalleryProjects(
   if (orderedProjects) return orderedProjects;
 
   return MISSION_GALLERY_ORDERED_ALL.filter(
-    (p) =>
-      MISSION_GALLERY_EDU_ACH_TAG_BY_SLUG[p.slug ?? ""] === timelineFilter,
+    (p) => p.portfolioFilter === timelineFilter,
   );
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import cc from "classcat";
 import ResumeLightboxLink from "../../components/resume-lightbox";
+import { assetUrl } from "../../utils/asset-url";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 import "./mission-complete-section.css";
 
 const CONTACT = {
@@ -47,8 +49,6 @@ const HIDDEN_MANTRA = Array.from(
 ).join("\n");
 
 export default React.memo(function MissionCompleteSection() {
-  const base = import.meta.env.BASE_URL;
-
   return (
     <section className="mission-complete" aria-label="End of transmission">
       <div className="mission-complete__content">
@@ -84,9 +84,7 @@ export default React.memo(function MissionCompleteSection() {
                   ? "mission-complete__link--primary"
                   : "mission-complete__link--ghost",
               ]);
-              const anchorExtras = external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {};
+              const anchorExtras = external ? EXTERNAL_LINK_PROPS : {};
               const inner = (
                 <>
                   {icon ? (
@@ -144,10 +142,10 @@ export default React.memo(function MissionCompleteSection() {
       </div>
       <div className="mission-complete__land" aria-hidden="true">
         <picture>
-          <source srcSet={`${base}images/land.webp`} type="image/webp" />
+          <source srcSet={assetUrl("images/land.webp")} type="image/webp" />
           <img
             className="mission-complete__land-img"
-            src={`${base}images/land.png`}
+            src={assetUrl("images/land.png")}
             alt=""
             width={1536}
             height={233}

@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import cc from "classcat";
 import Star from "../star";
 import { usePreferSimpleMotion } from "../../hooks/use-prefer-simple-motion";
 import {
@@ -117,10 +118,8 @@ export default function SpaceVoidShell({
 
   const [mx, my] = useMouseParallax(mouseX, mouseY, PARALLAX_PX);
 
-  const rootClass = ["space-void-shell", className].filter(Boolean).join(" ");
-  const contentClass = ["space-void-shell__content", contentClassName]
-    .filter(Boolean)
-    .join(" ");
+  const rootClass = cc(["space-void-shell", className]);
+  const contentClass = cc(["space-void-shell__content", contentClassName]);
 
   return (
     <Root className={rootClass} {...rootProps}>

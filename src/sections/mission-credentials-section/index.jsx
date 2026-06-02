@@ -1,31 +1,22 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import cc from "classcat";
 import {
   EducationCard,
   AchievementCard,
 } from "../../components/education-card";
-import {
-  EDU_TIMELINE_FILTER,
-  EDU_TIMELINE_FILTER_LABEL,
-} from "../../constants/edu-timeline-filter.js";
 import "./mission-credentials-section.css";
 
-const TITLE = {
-  education: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.education],
-  achievement: EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.achievement],
-};
-
-function missionGalleryHref(slug) {
-  return `${import.meta.env.BASE_URL}mission/${slug}`;
-}
-
 function missionGalleryLink(slug, label) {
-  return `<a href='${missionGalleryHref(slug)}' title='Mission Gallery - ${label} case study' aria-label='Open ${label} case study'>🔗</a>`;
+  return { type: "missionLink", slug, label };
 }
 
-function externalSourceLine(announcementHref, caseStudyHref, label) {
-  return `<span class="mt-2 block">Source: <a href='${announcementHref}' target='_blank' rel='noreferrer'>${label}</a> <a href='${caseStudyHref}' target='_blank' rel='noreferrer' aria-label='Open INMA case study'>🔗</a>.</span>`;
+function externalSourceLine(announcementHref, label) {
+  return { type: "externalSourceLine", href: announcementHref, label };
+}
+
+function timelineYear(year) {
+  return { type: "year", value: `[${year}]` };
 }
 
 const INMA_ORGANIZATION = "International News Media Association";
@@ -40,12 +31,14 @@ const LOCALGRAF_CASE_STUDY =
 
 function withYearSpan(bullets) {
   return (
-    bullets?.map((b) =>
-      b.replace(
+    bullets?.map((b) => {
+      if (typeof b !== "string") return b;
+
+      return b.replace(
         /\[\d{4}\]/g,
         (m) => `<span class="timeline-bullet-year">${m}</span>`,
-      ),
-    ) ?? []
+      );
+    }) ?? []
   );
 }
 
@@ -59,8 +52,24 @@ const EDUCATION_ITEMS = [
     org: "Texas Tech University",
     where: "Lubbock, TX, USA",
     bullets: [
-      `On Simulating Energy Consumption of Federated Learning Systems : [2020] <a href='${missionGalleryHref("federated-learning-energy")}' title='Mission Gallery — case study'>🔗</a> Pioneered simulations of federated edge learning systems using NOMA protocols in MATLAB, exploring the energy and time trade-offs that shape the future of distributed AI. Leveraged convolutional neural networks (CNNs) to minimize loss functions and optimize model performance, uncovering new strategies for efficient, scalable AI workloads. `,
-      `Discovering Fake Drivers Based on Temporal Driving Behaviors : [2020] <a href='${missionGalleryHref("rdfd")}' title='Mission Gallery — case study'>🔗</a> Built classification models and optimized data pipelines, demonstrating proficiency in large-scale feature extraction and pattern recognition.`,
+      {
+        summary: "On Simulating Energy Consumption of Federated Learning Systems",
+        detail: [
+          timelineYear(2020),
+          " ",
+          missionGalleryLink("federated-learning-energy", "federated learning energy"),
+          " Pioneered simulations of federated edge learning systems using NOMA protocols in MATLAB, exploring the energy and time trade-offs that shape the future of distributed AI. Leveraged convolutional neural networks (CNNs) to minimize loss functions and optimize model performance, uncovering new strategies for efficient, scalable AI workloads. ",
+        ],
+      },
+      {
+        summary: "Discovering Fake Drivers Based on Temporal Driving Behaviors",
+        detail: [
+          timelineYear(2020),
+          " ",
+          missionGalleryLink("rdfd", "fake driver detection"),
+          " Built classification models and optimized data pipelines, demonstrating proficiency in large-scale feature extraction and pattern recognition.",
+        ],
+      },
       "Face-masked Recognition Model : [2020] Augmented the Labeled Faces in the Wild (LFW) dataset with simulated face-mask images to address the challenge of masked face recognition during COVID-19. Built and tested a computer vision model that improved robustness against facial occlusions, advancing research into more reliable recognition systems.",
       "Power Consumption Observation on Mobile Web Application : [2019] Developed a React Native mobile application framework to measure and analyze real-time power consumption across mobile websites and devices. Implemented background data collection, local caching, and visualization features to assess battery usage patterns. Applied machine-learning models to predict browsing behavior and identify privacy-related risks, advancing research into energy-efficient, high-performance mobile experiences.",
     ],
@@ -76,7 +85,18 @@ const EDUCATION_ITEMS = [
     badges: ["Publication"],
     bullets: [
       "Development of Logistics Evaluation System for Industrial Thailand Performance : [2018] Created a decision-support system using causal loop modeling to evaluate Thailand's Logistics Performance Indexes (LPIs). Research outcomes provided insights for policymakers and were applied as guidelines to enhance national industrial logistics performance.",
-      `Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand : [2016] Developed a decision-support model for Thailand's top printing and packaging industry, focusing on logistics performance improvement. Led the creation of a model to evaluate and enhance key indicators in cost, time, and reliability, delivering actionable strategies to boost industry competitiveness.<a href='${missionGalleryHref("industrial-logistics-evaluation")}' title='Mission Gallery — case study'>🔗</a>`,
+      {
+        summary:
+          "Industrial Logistic Performance Evaluation | A Case of Printing and Packaging Company in Thailand",
+        detail: [
+          timelineYear(2016),
+          " Developed a decision-support model for Thailand's top printing and packaging industry, focusing on logistics performance improvement. Led the creation of a model to evaluate and enhance key indicators in cost, time, and reliability, delivering actionable strategies to boost industry competitiveness.",
+          missionGalleryLink(
+            "industrial-logistics-evaluation",
+            "industrial logistics evaluation",
+          ),
+        ],
+      },
     ],
   },
   {
@@ -104,23 +124,44 @@ const ACHIEVEMENT_ITEMS = [
   {
     sortYear: 2024,
     title: "3rd Place (Global) — Best Idea to Grow Advertising Sales",
+    titleHref: INMA_2024_CASE_STUDY,
     time: "2024",
     org: `INMA Global Media Awards (${INMA_ORGANIZATION})`,
     where: "The Dallas Morning News",
     badges: ["Award"],
     missionLogs: [
-      `Digital Replica Revenue Growth to Future Proof Local Journalism: Work aligns with subscription systems ${missionGalleryLink("subscription-checkout-activation", "subscription")}, paywall optimization ${missionGalleryLink("dynamic-paywall", "paywall")}, and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. ${externalSourceLine(INMA_2024_ANNOUNCEMENT, INMA_2024_CASE_STUDY, "INMA award announcement")}`,
+      {
+        summary:
+          "Digital Replica Revenue Growth to Future Proof Local Journalism",
+        detail: [
+          "Work aligns with subscription systems ",
+          missionGalleryLink("subscription-checkout-activation", "subscription"),
+          ", paywall optimization ",
+          missionGalleryLink("dynamic-paywall", "paywall"),
+          ", and reader-revenue growth through product and monetization engineering. Execution focus: Replica growth strategy combined print-to-digital transition, hybrid subscription packaging, and stronger digital ad value. Attribution: Organization/project recognition - contributed to initiatives within the award-winning work. ",
+          externalSourceLine(INMA_2024_ANNOUNCEMENT, "INMA award announcement"),
+        ],
+      },
     ],
   },
   {
     sortYear: 2023,
     title: "Finalist - Best Product Iteration",
+    titleHref: LOCALGRAF_CASE_STUDY,
     time: "2023",
-    org: "INMA Global Media Awards",
+    org: `INMA Global Media Awards (${INMA_ORGANIZATION})`,
     where: "The Dallas Morning News",
     badges: ["Award"],
     missionLogs: [
-      `LocalGraf - Internal Database Linking From Inside Stories: Worked on newsroom entity-linking infrastructure connecting people, organizations, events, and places across article content and structured databases to power editorial discovery, contextual story relationships, and reusable newsroom knowledge systems ${missionGalleryLink("article-page-redesign", "article redesign")}.${externalSourceLine(INMA_2023_ANNOUNCEMENT, LOCALGRAF_CASE_STUDY, "INMA finalist announcement")}`,
+      {
+        summary: "LocalGraf - Internal Database Linking From Inside Stories",
+        detail: [
+          "Worked on newsroom entity-linking infrastructure connecting people, organizations, events, and places across article content and structured databases to power editorial discovery, contextual story relationships, and reusable newsroom knowledge systems ",
+          missionGalleryLink("article-page-redesign", "article redesign"),
+          ".",
+          externalSourceLine(INMA_2023_ANNOUNCEMENT, "INMA finalist announcement"),
+        ],
+      },
     ],
   },
   {
@@ -143,7 +184,8 @@ const ACHIEVEMENT_ITEMS = [
     sortYear: 2018,
     title:
       "Consolation Prize — Young Technopreneur Innovative Business Plan Development Competition 2018",
-    portfolioAnchor: "portfolio-jerdi",
+    titleHref: "/mission/jerdi-kids",
+    // portfolioAnchor: "portfolio-jerdi",
     time: "2017",
     org: "Samart Innovation Awards 2017",
     where: "Bangkok, Thailand",
@@ -201,6 +243,7 @@ function SectionTitle() {
 }
 
 const EASE_PANEL = [0.22, 1, 0.36, 1];
+const ACHIEVEMENT_INTRO_START_PROGRESS = 0.26;
 
 function timelineColumnTransition(reduceMotion) {
   return reduceMotion
@@ -208,88 +251,63 @@ function timelineColumnTransition(reduceMotion) {
     : { type: "tween", duration: 0.38, ease: EASE_PANEL };
 }
 
-function timelineRowTransition(reduceMotion) {
+function timelineRowIntroTransition(reduceMotion, delay) {
   return reduceMotion
     ? { duration: 0 }
     : {
         layout: { type: "tween", duration: 0.42, ease: EASE_PANEL },
-        opacity: { type: "tween", duration: 0.34, ease: EASE_PANEL },
-        y: { type: "tween", duration: 0.34, ease: EASE_PANEL },
+        opacity: { type: "tween", duration: 0.68, delay, ease: EASE_PANEL },
+        y: { type: "tween", duration: 0.68, delay, ease: EASE_PANEL },
       };
 }
 
-function TimelineLegend({ value, onChange }) {
-  const reduceMotion = useReducedMotion();
-  const spring = reduceMotion
-    ? { duration: 0 }
-    : { type: "spring", stiffness: 420, damping: 32, mass: 0.85 };
-
-  const btn = (id, label, className) => (
-    <motion.button
-      key={id}
-      type="button"
-      layout
-      className={cc([
-        "edu-timeline__legend-btn",
-        className,
-        value === id && "edu-timeline__legend-btn--active",
-      ])}
-      aria-pressed={value === id}
-      onClick={() => onChange(id)}
-      whileHover={reduceMotion ? undefined : { scale: 1.04 }}
-      whileTap={reduceMotion ? undefined : { scale: 0.96 }}
-      transition={spring}
-    >
-      {label}
-    </motion.button>
-  );
-
-  return (
-    <div
-      className="edu-timeline__legend"
-      role="group"
-      aria-labelledby="edu-timeline-legend-prefix"
-    >
-      <span
-        id="edu-timeline-legend-prefix"
-        className="edu-timeline__legend-prefix"
-      >
-        {"filter : "}
-      </span>
-      {btn(
-        EDU_TIMELINE_FILTER.all,
-        EDU_TIMELINE_FILTER_LABEL[EDU_TIMELINE_FILTER.all],
-        "edu-timeline__legend-btn--all",
-      )}
-      {btn(
-        EDU_TIMELINE_FILTER.education,
-        TITLE.education,
-        "edu-timeline__legend-btn--education",
-      )}
-      {btn(
-        EDU_TIMELINE_FILTER.achievement,
-        TITLE.achievement,
-        "edu-timeline__legend-btn--achievement",
-      )}
-    </div>
-  );
-}
-
 export default React.memo(function MissionCredentialsSection({
-  timelineFilter = EDU_TIMELINE_FILTER.all,
-  onTimelineFilterChange,
+  sectionProgress,
 }) {
+  const [hasAchievementIntroPlayed, setHasAchievementIntroPlayed] =
+    useState(false);
+  const [shouldStaggerTimelineRows, setShouldStaggerTimelineRows] =
+    useState(false);
+  const hasAchievementIntroPlayedRef = useRef(false);
   const reduceMotion = useReducedMotion();
   const tCol = timelineColumnTransition(reduceMotion);
-  const tRow = timelineRowTransition(reduceMotion);
+
+  useEffect(() => {
+    const playTimelineIntro = () => {
+      if (hasAchievementIntroPlayedRef.current) return;
+
+      hasAchievementIntroPlayedRef.current = true;
+      setHasAchievementIntroPlayed(true);
+      setShouldStaggerTimelineRows(true);
+    };
+
+    if (!sectionProgress?.on) {
+      hasAchievementIntroPlayedRef.current = true;
+      setHasAchievementIntroPlayed(true);
+      setShouldStaggerTimelineRows(false);
+      return undefined;
+    }
+
+    if (sectionProgress.get?.() >= ACHIEVEMENT_INTRO_START_PROGRESS) {
+      playTimelineIntro();
+    }
+
+    return sectionProgress.on("change", (value) => {
+      if (value >= ACHIEVEMENT_INTRO_START_PROGRESS) {
+        playTimelineIntro();
+      } else if (value <= 0.02) {
+        hasAchievementIntroPlayedRef.current = false;
+        setHasAchievementIntroPlayed(false);
+        setShouldStaggerTimelineRows(false);
+      }
+    });
+  }, [sectionProgress]);
+
+  let timelineRowIntroIndex = 0;
 
   return (
     <div className="edu-section">
       <SectionTitle />
-      <TimelineLegend
-        value={timelineFilter}
-        onChange={onTimelineFilterChange}
-      />
       <div className="edu-timeline">
         <div className="edu-timeline__inner">
           <div className="edu-timeline__body">
@@ -297,12 +315,8 @@ export default React.memo(function MissionCredentialsSection({
               {TIMELINE_RENDER_ROWS.map((row) => {
                 const educationItems = row.educationItems ?? [];
                 const achievementItems = row.achievementItems ?? [];
-                const showEducationCol =
-                  educationItems.length > 0 &&
-                  timelineFilter !== EDU_TIMELINE_FILTER.achievement;
-                const showAchievementCol =
-                  achievementItems.length > 0 &&
-                  timelineFilter !== EDU_TIMELINE_FILTER.education;
+                const showEducationCol = educationItems.length > 0;
+                const showAchievementCol = achievementItems.length > 0;
 
                 if (!showEducationCol && !showAchievementCol) return null;
 
@@ -311,6 +325,10 @@ export default React.memo(function MissionCredentialsSection({
                 const achievementOnlyRow =
                   showAchievementCol && !showEducationCol;
                 const showDot = showEducationCol || showAchievementCol;
+                const rowIntroDelay = shouldStaggerTimelineRows
+                  ? timelineRowIntroIndex * 0.13
+                  : 0;
+                timelineRowIntroIndex += 1;
 
                 return (
                   <motion.div
@@ -323,10 +341,17 @@ export default React.memo(function MissionCredentialsSection({
                       row.timelineAchievementFirstOnMobile &&
                         "edu-timeline__row--achievement-first-mobile",
                     ])}
-                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={false}
+                    animate={
+                      reduceMotion || hasAchievementIntroPlayed
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0, y: 36 }
+                    }
                     exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
-                    transition={tRow}
+                    transition={timelineRowIntroTransition(
+                      reduceMotion,
+                      rowIntroDelay,
+                    )}
                   >
                     <AnimatePresence initial={false} mode="wait">
                       {showEducationCol ? (
@@ -387,6 +412,7 @@ export default React.memo(function MissionCredentialsSection({
                                 <AchievementCard
                                   key={`${row.sortYear}-ach-${achievement.title}-${i}`}
                                   title={achievement.title}
+                                  titleHref={achievement.titleHref}
                                   portfolioAnchor={achievement.portfolioAnchor}
                                   time={achievement.time}
                                   org={achievement.org}

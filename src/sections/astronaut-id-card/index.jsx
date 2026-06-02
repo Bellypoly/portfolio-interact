@@ -5,11 +5,12 @@ import {
   TYPING_INITIAL_DELAY,
 } from "../../hooks/use-typing-words";
 import ResumeLightboxLink from "../../components/resume-lightbox";
+import { assetUrl } from "../../utils/asset-url";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 import { seededRandom } from "../../utils/random";
 import "./astronaut-id-card.css";
 
 // --- Constants ---
-const BASE = import.meta.env.BASE_URL;
 const SKILL_CHIP_INTERVAL = 60;
 const SKILL_CHIP_DELAY_AFTER_BIO = 200;
 const SCREW_IDS = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
@@ -104,7 +105,7 @@ const TransmissionLinks = memo(function TransmissionLinks({
   variant,
 }) {
   const isMobile = variant === "mobile";
-  const linkProps = { target: "_blank", rel: "noopener noreferrer" };
+  const linkProps = EXTERNAL_LINK_PROPS;
   return (
     <>
       <a className="transmission-link" href={`mailto:${email}`} {...linkProps}>
@@ -212,11 +213,11 @@ export default function AstronautCard({
         <div className="badge">
           <picture>
             <source
-              srcSet={`${BASE}images/rocket-icon.webp`}
+              srcSet={assetUrl("images/rocket-icon.webp")}
               type="image/webp"
             />
             <img
-              src={`${BASE}images/rocket-icon.png`}
+              src={assetUrl("images/rocket-icon.png")}
               alt="Rocket Icon"
               className="badge-rocket__Img"
               draggable="false"
@@ -242,11 +243,11 @@ export default function AstronautCard({
               aria-hidden="true"
             >
               <source
-                srcSet={`${BASE}images/${profileSrc}.webp`}
+                srcSet={assetUrl(`images/${profileSrc}.webp`)}
                 type="image/webp"
               />
               <img
-                src={`${BASE}images/${profileSrc}.png`}
+                src={assetUrl(`images/${profileSrc}.png`)}
                 alt="astronaut id card"
                 draggable="false"
               />

@@ -4,7 +4,7 @@
  *
  * Display order comes from the active Mission Gallery version (`ACTIVE_MISSION_GALLERY_VERSION`).
  *
- * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel → companyBadge? →
+ * Row shape (omit optional keys when unused): slug → portfolioGroup → portfolioYear → portfolioLabel →
  * hideFooterTagline? (when true, `/mission/:slug` omits the footer tagline; gallery tiles still use `desc`) → anchorId? →
  * name → desc → cardImageFit? → cardImagePosition? → img → imgWebp → alt → link?
  *
@@ -77,7 +77,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2022,
     portfolioLabel: "Product",
-    companyBadge: "DMN",
     anchorId: "portfolio-local-elections-hub",
     name: "Local Elections Hub",
     desc: "Reusable election-results platform powering live race tracking, vote visualizations, and mobile-first coverage.",
@@ -91,7 +90,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2019,
     portfolioLabel: "Public sector",
-    companyBadge: "PEA",
     anchorId: "portfolio-outage-ms",
     name: "Outage Management & Reliability Platform",
     desc: "Geospatial outage platform coordinating restoration systems, operational data, and grid response during high-volume events.",
@@ -106,7 +104,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2025,
     portfolioLabel: "Product",
-    companyBadge: "DMN",
     anchorId: "portfolio-paywall",
     name: "Personalized Reader Access Platform",
     desc: "Adaptive paywall system personalizing article access through per-visit reader decisions and controlled experimentation.",
@@ -120,7 +117,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2018,
     portfolioLabel: "Platform",
-    companyBadge: "thnknet",
     anchorId: "portfolio-map-magic",
     name: "MapMagic",
     desc: "Thailand mapping infrastructure I helped build—REST APIs, custom map tiles, POI systems, field Android capture, and routing designed for real Bangkok traffic.",
@@ -134,7 +130,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2019,
     portfolioLabel: "Marketplace",
-    companyBadge: "thnknet",
     anchorId: "portfolio-thinknet",
     name: "JobThai",
     desc: "Thailand’s national job platform—Elasticsearch search, resume workflows, and map-based filters aligned with real commuting patterns across BTS/MRT corridors and industrial estates.",
@@ -148,7 +143,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2025,
     portfolioLabel: "Product",
-    companyBadge: "DMN",
     anchorId: "portfolio-article-redesign",
     name: "Article Experience & Engagement Optimization",
     desc: "Optimized article experiences through engagement systems, monetization strategy, and performance engineering.",
@@ -162,7 +156,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2025,
     portfolioLabel: "Product",
-    companyBadge: "DMN",
     anchorId: "portfolio-subscription",
     name: "Evidence-Driven Redesign of a News Subscription Funnel",
     desc: "Rebuilt a fragmented three-step checkout into a unified React flow refined through behavioral evidence and experimentation.",
@@ -176,7 +169,6 @@ const MISSION_GALLERY_ROWS = [
     portfolioGroup: "professional",
     portfolioYear: 2019,
     portfolioLabel: "Public sector",
-    companyBadge: "PEA",
     anchorId: "portfolio-pea-eservice",
     name: "PEA E\u2011Service",
     desc: "Unified utility services into a single authenticated platform spanning electricity, water, GIS, energy, and public-sector workflows.",

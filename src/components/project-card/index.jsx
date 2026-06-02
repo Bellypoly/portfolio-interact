@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import cc from "classcat";
 import {
   rememberMissionScrollBeforeProject,
   SPACE_RESUME_FROM_MISSION,
 } from "../../utils/space-resume-navigation";
+import { assetUrl } from "../../utils/asset-url";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 import "./project-card.css";
 
 /** 1:1 tiles; matches `aspect-square` + `object-cover`. Grid: 1 / 2 / 3 / 4 cols (`portfolio-section.css`). */
@@ -13,6 +16,16 @@ const CARD_IMG_ATTRS = {
   sizes:
     "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1535px) 33vw, 25vw",
 };
+
+function ProjectCardBadge({ className, label }) {
+  if (!label) return null;
+
+  return (
+    <span className={cc(["project-card__badge", className])}>
+      {label}
+    </span>
+  );
+}
 
 const ProjectCard = React.memo(function ProjectCard({
   name,
@@ -27,23 +40,23 @@ const ProjectCard = React.memo(function ProjectCard({
   imagePosition,
   /** Mission Gallery context tag (Product, Civic tech, ...) */
   contextLabel,
-  /** Employer / org shorthand when present (e.g. DMN, PEA, thnknet) */
-  companyBadge,
+  /** Mission Gallery filter category for color syncing. */
+  portfolioFilter,
   /** Second pill when present (e.g. Research) */
   groupBadge,
 }) {
-  const base = import.meta.env.BASE_URL;
   const hasMissionRoute = Boolean(slug);
   const isTopClip = imageFit === "top-clip";
-  const imgClass = [
+  const imgClass = cc([
     "project-card__image",
     isTopClip ? "project-card__image--top-clip" : null,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ]);
   const mediaClass = isTopClip
     ? "project-card__media project-card__media--top-clip"
     : "project-card__media";
+  const badgeCategoryClass = portfolioFilter
+    ? `project-card__badge--${portfolioFilter}`
+    : null;
 
   const posStyle = imagePosition
     ? { objectPosition: imagePosition }
@@ -51,9 +64,9 @@ const ProjectCard = React.memo(function ProjectCard({
 
   const imageEl = imgWebp ? (
     <picture>
-      <source srcSet={`${base}${imgWebp}`} type="image/webp" />
+      <source srcSet={assetUrl(imgWebp)} type="image/webp" />
       <img
-        src={`${base}${img}`}
+        src={assetUrl(img)}
         alt={alt || name}
         className={imgClass}
         style={posStyle}
@@ -64,7 +77,7 @@ const ProjectCard = React.memo(function ProjectCard({
     </picture>
   ) : (
     <img
-      src={`${base}${img}`}
+      src={assetUrl(img)}
       alt={alt || name}
       className={imgClass}
       style={posStyle}
@@ -77,23 +90,16 @@ const ProjectCard = React.memo(function ProjectCard({
   const body = (
     <>
       <div className={mediaClass}>
-        {contextLabel || companyBadge || groupBadge ? (
+        {contextLabel || groupBadge ? (
           <div className="project-card__badges">
-            {contextLabel ? (
-              <span className="project-card__badge project-card__badge--context">
-                {contextLabel}
-              </span>
-            ) : null}
-            {companyBadge ? (
-              <span className="project-card__badge project-card__badge--company">
-                {companyBadge}
-              </span>
-            ) : null}
-            {groupBadge ? (
-              <span className="project-card__badge project-card__badge--research">
-                {groupBadge}
-              </span>
-            ) : null}
+            <ProjectCardBadge
+              className={cc(["project-card__badge--context", badgeCategoryClass])}
+              label={contextLabel}
+            />
+            <ProjectCardBadge
+              className={cc(["project-card__badge--research", badgeCategoryClass])}
+              label={groupBadge}
+            />
           </div>
         ) : null}
         {imageEl}
@@ -133,8 +139,7 @@ const ProjectCard = React.memo(function ProjectCard({
   return (
     <a
       href={link}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...EXTERNAL_LINK_PROPS}
       className="project-card"
     >
       {body}

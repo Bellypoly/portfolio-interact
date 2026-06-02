@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
+import cc from "classcat";
 import HoverRevealText from "../hover-reveal-text";
 import {
   firstPortfolioHashFragment,
@@ -14,10 +15,6 @@ import {
 import "./work-timeline-item.css";
 
 const POPOVER_HIDE_DELAY_MS = 150;
-
-function joinClassNames(...classNames) {
-  return classNames.filter(Boolean).join(" ");
-}
 
 function MissionLink({ slug, children }) {
   if (!slug) return children;
@@ -112,13 +109,13 @@ function BulletPopover({
   const panelRef = useRef(null);
   const hasTechnologies = technologies.length > 0;
   const isDesktopPanel = className.includes("--desktop");
-  const panelClass = joinClassNames(
+  const panelClass = cc([
     "work-timeline-item__bullet-float",
     hasTechnologies && "work-timeline-item__bullet-float--split",
     isDesktopPanel
       ? "work-timeline-item__bullet-float--desktop"
       : "work-timeline-item__bullet-float--mobile",
-  );
+  ]);
 
   const handleBlur = () => {
     requestAnimationFrame(() => {
@@ -155,10 +152,10 @@ function BulletPopover({
   return (
     <div
       ref={wrapRef}
-      className={joinClassNames(
+      className={cc([
         "work-timeline-item__bullet-trigger-wrap",
         className,
-      )}
+      ])}
     >
       <button
         type="button"
@@ -289,10 +286,10 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
 
   return (
     <div
-      className={joinClassNames(
+      className={cc([
         "work-timeline-item",
         isDimmed && "work-timeline-item--dimmed",
-      )}
+      ])}
     >
       <div className="work-timeline-item__inner">
         <div ref={leftRef} className="work-timeline-item__left">
@@ -330,7 +327,9 @@ const WorkTimelineItem = React.memo(function WorkTimelineItem({
             </div>
           ) : null}
           {description ? (
-            <p className="work-timeline-item__description">{description}</p>
+            <div className="work-timeline-item__description-wrap">
+              <p className="work-timeline-item__description">{description}</p>
+            </div>
           ) : null}
           {hasBullets ? (
             <BulletPopover

@@ -34,6 +34,16 @@ test("manifest rows use current footer visibility key", () => {
   }
 });
 
+test("manifest rows do not include retired company badges", () => {
+  for (const row of MISSION_GALLERY_MANIFEST) {
+    assert.equal(
+      Object.hasOwn(row, "companyBadge"),
+      false,
+      `${row.slug} includes retired companyBadge`,
+    );
+  }
+});
+
 test("manifest map points at same row objects", () => {
   const row = MISSION_GALLERY_MANIFEST[0];
   assert.ok(row?.slug);

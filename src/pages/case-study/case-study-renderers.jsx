@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import cc from "classcat";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 import CaseStudyAsciiDiagram from "./case-study-ascii-diagram";
 import CaseStudyBeforeAfterCompare from "./case-study-before-after-compare";
 import CaseStudyCaptionedFigure from "./case-study-captioned-figure";
@@ -15,14 +17,12 @@ export function CaseStudyResultsList({
   labelCase = "uppercase",
 }) {
   if (!rows?.length) return null;
-  const listClassName = [
+  const listClassName = cc([
     className ?? "project-case-study__results",
     labelCase === "sentence"
       ? "project-case-study__results--label-sentence"
       : null,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ]);
 
   return (
     <ul className={listClassName} role="list">
@@ -421,8 +421,7 @@ export function renderCaseStudyParagraph(paragraph, key, baseUrl) {
         <a
           href={paragraph.externalLink.href}
           className="project-case-study__inline-link"
-          target="_blank"
-          rel="noopener noreferrer"
+          {...EXTERNAL_LINK_PROPS}
         >
           {paragraph.externalLink.label}
         </a>
@@ -472,8 +471,7 @@ export function renderReferenceFigureCaption(caption) {
         <a
           href={caption.externalLink.href}
           className="project-case-study__inline-link"
-          target="_blank"
-          rel="noopener noreferrer"
+          {...EXTERNAL_LINK_PROPS}
         >
           {caption.externalLink.label}
         </a>

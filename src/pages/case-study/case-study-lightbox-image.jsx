@@ -1,5 +1,6 @@
 import React, { useState, memo } from "react";
 import { createPortal } from "react-dom";
+import cc from "classcat";
 import { useModalPortalLock } from "../../hooks/use-modal-portal-lock";
 import "./case-study-lightbox-image.css";
 
@@ -107,14 +108,12 @@ function CaseStudyLightboxImage({
 
   useModalPortalLock(open, () => setOpen(false));
 
-  const triggerClasses = [
+  const triggerClasses = cc([
     "project-case-study__lightbox-trigger",
     "cs-lightbox__trigger",
     fillFeatured && "project-case-study__lightbox-trigger--featured h-full",
     triggerClassName,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ]);
 
   const thumbImgProps = {
     src: fullSrc,

@@ -1,5 +1,10 @@
 import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { motion, useMotionValueEvent, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useTransform,
+} from "framer-motion";
 import WorkTimelineItem from "../../components/work-timeline-item";
 import "./work-section.css";
 
@@ -15,7 +20,7 @@ const WORK_ITEMS = [
     org: "The Dallas Morning News / Hearst",
     where: "Dallas, Texas, USA",
     description:
-      "Built and scaled newsroom systems for subscriptions, engagement, experimentation, and digital storytelling serving millions of readers.",
+      "Built and scaled newsroom platforms for subscriptions, audience growth, engagement, experimentation, and digital storytelling, contributing to subscription conversion, reader retention, and content discovery for millions of readers.",
     triggerLabel: "Mission logs",
     technologies: [
       // Languages
@@ -31,6 +36,12 @@ const WORK_ITEMS = [
       "GraphQL",
       "REST APIs",
 
+      // Testing & Quality
+      "Playwright",
+      "Cypress",
+      "Postman",
+      "Test Automation",
+
       // Cloud & DevOps
       "AWS",
       "CI/CD",
@@ -38,6 +49,7 @@ const WORK_ITEMS = [
       // Data
       "BigQuery",
       "GA4",
+      "Looker Studio",
 
       // Media & Audience Platforms
       "Arc XP",
@@ -131,7 +143,6 @@ const WORK_ITEMS = [
       // Cloud
       "AWS",
       // Analytics
-      "Customer Segmentation",
       "Reporting",
     ],
     bullets: [
@@ -180,6 +191,11 @@ const WORK_ITEMS = [
       "SOAP",
       "Laravel",
 
+      // Testing & Quality
+      "Selenium",
+      "JMeter",
+      "Integration Testing",
+
       // Data
       "Oracle",
       "PL/SQL",
@@ -187,6 +203,8 @@ const WORK_ITEMS = [
 
       // Analytics
       "Power BI",
+
+      "OWASP",
     ],
 
     bullets: [
@@ -296,6 +314,7 @@ const WORK_ITEMS = [
 ];
 
 const SECTION_TITLE_CHARS = ["\ufe41", "w", "o", "r", "k", "\ufe42"];
+const WORK_ITEM_INTRO_START_PROGRESS = 0.32;
 
 function WorkSectionTitle() {
   return (
@@ -313,7 +332,9 @@ function WorkSectionTitle() {
 
 const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
   const [activeBulletKey, setActiveBulletKey] = useState(null);
+  const [hasIntroPlayed, setHasIntroPlayed] = useState(false);
   const wrapperRef = useRef(null);
+  const reduceMotion = useReducedMotion();
   const opacity = useTransform(
     sectionProgress,
     [0, 0.2, 0.9, 1],
@@ -322,6 +343,12 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
   const y = useTransform(sectionProgress, [0, 0.25], [24, 0]);
 
   useMotionValueEvent(sectionProgress, "change", (value) => {
+    if (value >= WORK_ITEM_INTRO_START_PROGRESS) {
+      setHasIntroPlayed(true);
+    } else if (value <= 0.02) {
+      setHasIntroPlayed(false);
+    }
+
     if (value <= 0.02 || value >= 0.98) {
       setActiveBulletKey(null);
     }
@@ -381,8 +408,26 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
           style={{ y }}
         >
           <div className="work-section">
-            {WORK_ITEMS.map(({ id, ...item }) => (
-              <div id={id} key={id}>
+            {WORK_ITEMS.map(({ id, ...item }, index) => (
+              <motion.div
+                id={id}
+                key={id}
+                initial={false}
+                animate={
+                  reduceMotion || hasIntroPlayed
+                    ? { opacity: 1, x: 0 }
+                    : { opacity: 0, x: -42 }
+                }
+                transition={
+                  reduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.68,
+                        delay: hasIntroPlayed ? index * 0.14 : 0,
+                        ease: [0.22, 1, 0.36, 1],
+                      }
+                }
+              >
                 <WorkTimelineItem
                   {...item}
                   bulletKey={id}
@@ -390,7 +435,7 @@ const WorkSection = React.memo(function WorkSection({ sectionProgress }) {
                   isDimmed={activeBulletKey != null && activeBulletKey !== id}
                   setActiveBulletKey={setActiveBulletKey}
                 />
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>

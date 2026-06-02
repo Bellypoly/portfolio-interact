@@ -1,33 +1,61 @@
 import React, { useMemo } from "react";
-import { motion, useReducedMotion, useTransform } from "framer-motion";
+import { motion, useTransform } from "framer-motion";
 import "./portfolio-section.css";
 import ProjectCard from "../../components/project-card";
 import {
-  EDU_TIMELINE_FILTER,
-  EDU_TIMELINE_FILTER_LABEL,
-} from "../../constants/edu-timeline-filter.js";
+  PORTFOLIO_FILTER,
+  PORTFOLIO_FILTER_LABEL,
+} from "../../constants/portfolio-filter.js";
 import { hasPortfolioProjectSlug } from "../../data/portfolio/load-portfolio-project.js";
 import { getMissionGalleryProjects } from "./portfolio-projects";
 
+function PortfolioFilterLegend({ value, onChange }) {
+  const filterIds = [
+    PORTFOLIO_FILTER.all,
+    PORTFOLIO_FILTER.product,
+    PORTFOLIO_FILTER.research,
+    PORTFOLIO_FILTER.civicData,
+    PORTFOLIO_FILTER.awards,
+  ];
+
+  return (
+    <div
+      className="portfolio-section__filter-legend"
+    >
+      <label
+        id="portfolio-filter-label"
+        className="portfolio-section__filter-label"
+        htmlFor="portfolio-filter-select"
+      >
+        {"filter : "}
+      </label>
+      <select
+        id="portfolio-filter-select"
+        className={`portfolio-section__filter-select portfolio-section__filter-select--${value}`}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      >
+        {filterIds.map((id) => (
+          <option key={id} value={id}>
+            {PORTFOLIO_FILTER_LABEL[id]}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
 const PortfolioSection = React.memo(function PortfolioSection({
   sectionProgress,
-  timelineFilter = EDU_TIMELINE_FILTER.all,
+  timelineFilter = PORTFOLIO_FILTER.all,
   onTimelineFilterChange,
 }) {
   /** Section scroll 0→1 (see `LandingSectionContent` useScroll). Ramp in briefly, then hold at 1 for the rest of the pass so the grid stays legible while the section is on screen. */
   const opacity = useTransform(sectionProgress, [0, 0.1, 1], [0, 1, 1]);
-  const reduceMotion = useReducedMotion();
-  const spring = reduceMotion
-    ? { duration: 0 }
-    : { type: "spring", stiffness: 420, damping: 32, mass: 0.85 };
-
   const missionProjects = useMemo(
     () => getMissionGalleryProjects(timelineFilter),
     [timelineFilter],
   );
-
-  const filterLabel =
-    EDU_TIMELINE_FILTER_LABEL[timelineFilter] ?? timelineFilter;
 
   return (
     <motion.div className="portfolio-section" style={{ opacity }}>
@@ -38,42 +66,17 @@ const PortfolioSection = React.memo(function PortfolioSection({
           _
         </span>
       </p>
-      {timelineFilter !== EDU_TIMELINE_FILTER.all ? (
-        <div className="portfolio-section__filter-bar">
-          <p className="portfolio-section__filter-current" aria-live="polite">
-            <span className="portfolio-section__filter-current-label">
-              Showing
-            </span>
-            <span
-              className={`portfolio-section__filter-current-value portfolio-section__filter-current-value--${timelineFilter}`}
-            >
-              {filterLabel}
-            </span>
-          </p>
-          {typeof onTimelineFilterChange === "function" ? (
-            <motion.button
-              type="button"
-              className="edu-timeline__legend-btn edu-timeline__legend-btn--all"
-              onClick={() => onTimelineFilterChange(EDU_TIMELINE_FILTER.all)}
-              whileHover={reduceMotion ? undefined : { scale: 1.04 }}
-              whileTap={reduceMotion ? undefined : { scale: 0.96 }}
-              transition={spring}
-            >
-              Reset filter
-            </motion.button>
-          ) : null}
-        </div>
+      {typeof onTimelineFilterChange === "function" ? (
+        <PortfolioFilterLegend
+          value={timelineFilter}
+          onChange={onTimelineFilterChange}
+        />
       ) : null}
       {missionProjects.length === 0 ? (
         <p className="portfolio-section__filter-empty">
-          No mission tiles match the Education &amp; Achievements filter above.
-          Use{" "}
-          <span className="portfolio-section__filter-empty-amp">
-            Reset filter
-          </span>{" "}
-          here or set the legend above to{" "}
-          <span className="portfolio-section__filter-empty-amp">All</span> to
-          see the full gallery.
+          No mission tiles match this filter. Use{" "}
+          <span className="portfolio-section__filter-empty-amp">All</span> to see
+          the full gallery.
         </p>
       ) : null}
       {missionProjects.map(
@@ -88,9 +91,9 @@ const PortfolioSection = React.memo(function PortfolioSection({
           slug,
           cardImageFit,
           cardImagePosition,
+          portfolioFilter,
           portfolioGroup,
           portfolioLabel,
-          companyBadge,
         }) => {
           const missionSlug = hasPortfolioProjectSlug(slug)
             ? slug
@@ -107,7 +110,7 @@ const PortfolioSection = React.memo(function PortfolioSection({
               imageFit={cardImageFit}
               imagePosition={cardImagePosition}
               contextLabel={portfolioLabel}
-              companyBadge={companyBadge}
+              portfolioFilter={portfolioFilter}
               groupBadge={
                 portfolioGroup === "research" ? "Research" : undefined
               }

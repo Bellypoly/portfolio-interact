@@ -3,6 +3,7 @@ import "./journey-route.css";
 import { geoOrthographic, geoPath, geoContains, geoInterpolate } from "d3-geo";
 import { transition } from "d3-transition";
 import { feature, mesh } from "topojson-client";
+import { clamp } from "../../utils/math";
 
 function readRootCssVar(name, fallback) {
   if (typeof document === "undefined") return fallback;
@@ -36,8 +37,7 @@ class Versor {
     return [
       Math.atan2(2 * (a * b + c * d), 1 - 2 * (b * b + c * c)) *
         (180 / Math.PI),
-      Math.asin(Math.max(-1, Math.min(1, 2 * (a * c - d * b)))) *
-        (180 / Math.PI),
+      Math.asin(clamp(2 * (a * c - d * b), -1, 1)) * (180 / Math.PI),
       Math.atan2(2 * (a * d + b * c), 1 - 2 * (c * c + d * d)) *
         (180 / Math.PI),
     ];
@@ -71,7 +71,7 @@ class Versor {
     if (dot < 0) ((a2 = -a2), (b2 = -b2), (c2 = -c2), (d2 = -d2), (dot = -dot));
     if (dot > 0.9995)
       return Versor.interpolateLinear([a1, b1, c1, d1], [a2, b2, c2, d2]);
-    const theta0 = Math.acos(Math.max(-1, Math.min(1, dot)));
+    const theta0 = Math.acos(clamp(dot, -1, 1));
     const x = new Array(4);
     const l = Math.hypot(
       (a2 -= a1 * dot),

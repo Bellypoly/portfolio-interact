@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { motion, useTransform, AnimatePresence } from "framer-motion";
 import AstronautCard from "../../sections/astronaut-id-card";
+import { assetUrl } from "../../utils/asset-url";
 import "./profile-icon.css";
 
 export default React.memo(function ProfileIcon({ crawlProgress }) {
@@ -29,11 +30,11 @@ export default React.memo(function ProfileIcon({ crawlProgress }) {
           <span className="radio-signal-wave" aria-hidden />
           <picture>
             <source
-              srcSet={`${import.meta.env.BASE_URL}images/profile-pic-2.webp`}
+              srcSet={assetUrl("images/profile-pic-2.webp")}
               type="image/webp"
             />
             <img
-              src={`${import.meta.env.BASE_URL}images/profile-pic-2.png`}
+              src={assetUrl("images/profile-pic-2.png")}
               alt="Profile"
               className="profile-icon-img"
               width={256}

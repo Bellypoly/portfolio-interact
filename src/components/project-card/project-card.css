@@ -53,7 +53,7 @@
 }
 
 .project-card__badge {
-  @apply max-w-[11rem] shrink-0 truncate rounded border border-white/20 bg-black/55 px-2 py-0.5 font-silkscreen text-site-micro font-normal uppercase tracking-[0.12em] backdrop-blur-sm;
+  @apply max-w-[11rem] shrink-0 truncate rounded border border-white/20 border-l-[3px] bg-black/55 px-2 py-0.5 font-silkscreen text-site-micro font-normal uppercase tracking-[0.12em] text-white backdrop-blur-sm;
   @apply shadow-[0_1px_2px_rgb(0_0_0/0.35)];
 }
 
@@ -61,12 +61,20 @@
   @apply text-[var(--site-teal-cyan)];
 }
 
-.project-card__badge--research {
-  @apply border-[rgb(var(--site-gold-rgb)/0.45)] text-[color-mix(in_srgb,var(--site-gold)_45%,#fde047_55%)];
+.project-card__badge--product {
+  @apply border-[#60a5fa99] border-l-[#60a5fa] bg-black/55 text-[#bfdbfe];
 }
 
-.project-card__badge--company {
-  @apply border-slate-400/40 bg-black/50 text-stone-100 normal-case tracking-[0.06em];
+.project-card__badge--research {
+  @apply border-[#fbbf2499] border-l-[#fbbf24] bg-black/55 text-[#fde68a];
+}
+
+.project-card__badge--civic-data {
+  @apply border-[#34d39999] border-l-[#34d399] bg-black/55 text-[#bbf7d0];
+}
+
+.project-card__badge--awards {
+  @apply border-[#fb718599] border-l-[#fb7185] bg-black/55 text-[#fecdd3];
 }
 
 .project-card__scrim {

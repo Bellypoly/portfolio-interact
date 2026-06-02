@@ -14,6 +14,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { loadPortfolioProjectBySlug } from "../data/portfolio/load-portfolio-project";
+import { EXTERNAL_LINK_PROPS } from "../utils/external-link-props";
 import { SPACE_RESUME_FROM_MISSION } from "../utils/space-resume-navigation";
 import HoverRevealText from "../components/hover-reveal-text";
 import CaseStudyPlaceholderBlock from "./case-study/case-study-placeholder-block";
@@ -827,8 +828,7 @@ export default function ProjectCaseStudyPage() {
             <a
               href={link}
               className="project-case-study__back project-case-study__cta project-case-study__cta--bar"
-              target="_blank"
-              rel="noopener noreferrer"
+              {...EXTERNAL_LINK_PROPS}
             >
               <span className="project-case-study__cta-play" aria-hidden="true">
                 ▶

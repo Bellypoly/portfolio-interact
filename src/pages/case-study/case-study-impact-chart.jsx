@@ -1,4 +1,6 @@
 import React from "react";
+import cc from "classcat";
+import { clamp } from "../../utils/math";
 
 /**
  * Simple horizontal bar chart for case-study metrics (percent-style values).
@@ -7,9 +9,7 @@ import React from "react";
 export default function CaseStudyImpactChart({ chart, className = "" }) {
   if (!chart?.groups?.length) return null;
 
-  const wrapClass = ["project-case-study__impact-chart", className]
-    .filter(Boolean)
-    .join(" ");
+  const wrapClass = cc(["project-case-study__impact-chart", className]);
 
   return (
     <div className={wrapClass}>
@@ -26,7 +26,7 @@ export default function CaseStudyImpactChart({ chart, className = "" }) {
         const multiGroup = chart.groups.length > 1;
         const barItems = group.bars.map((bar) => {
           const v = Number(bar.value) || 0;
-          const pct = Math.min(100, Math.round((v / max) * 100));
+          const pct = clamp(Math.round((v / max) * 100), 0, 100);
           return (
             <div key={bar.label} className="project-case-study__impact-bar-row">
               <div className="project-case-study__impact-bar-label">

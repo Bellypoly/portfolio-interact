@@ -1,4 +1,6 @@
 import React from "react";
+import cc from "classcat";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 import CaseStudyLightboxImage from "./case-study-lightbox-image";
 import { renderCaseStudyInlineRich } from "./case-study-inline-rich";
 
@@ -21,12 +23,10 @@ export default function CaseStudyFeaturedImage({
   source,
   lightboxAriaLabel,
 }) {
-  const wrapClass = [
+  const wrapClass = cc([
     "project-case-study__featured-wrap",
     compactHeight && "project-case-study__featured-wrap--compact",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ]);
 
   const useResponsivePos = Boolean(objectPositionMd);
 
@@ -37,12 +37,10 @@ export default function CaseStudyFeaturedImage({
       }
     : undefined;
 
-  const imgClassName = [
+  const imgClassName = cc([
     "project-case-study__featured-img",
     useResponsivePos && "project-case-study__featured-img--responsive-pos",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ]);
 
   const imgStyle =
     !useResponsivePos && objectPosition ? { objectPosition } : undefined;
@@ -76,8 +74,7 @@ export default function CaseStudyFeaturedImage({
           <a
             href={source.href}
             className="project-case-study__inline-link"
-            target="_blank"
-            rel="noopener noreferrer"
+            {...EXTERNAL_LINK_PROPS}
           >
             {source.label ?? source.href}
           </a>

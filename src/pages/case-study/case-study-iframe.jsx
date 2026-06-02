@@ -1,13 +1,12 @@
 import React from "react";
+import cc from "classcat";
 
 export default function CaseStudyIframe({ iframeEmbed, className = "" }) {
   if (!iframeEmbed?.src) return null;
 
   const { src, title = "Embedded document", minHeight } = iframeEmbed;
   const embedStyle = minHeight ? { minHeight } : undefined;
-  const wrapClassName = ["project-case-study__embed-wrap", className]
-    .filter(Boolean)
-    .join(" ");
+  const wrapClassName = cc(["project-case-study__embed-wrap", className]);
 
   return (
     <div className={wrapClassName}>

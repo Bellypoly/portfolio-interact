@@ -1,25 +1,11 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import cc from "classcat";
 import { useModalPortalLock } from "../../hooks/use-modal-portal-lock";
+import { assetUrl } from "../../utils/asset-url";
+import { externalLinkProps } from "../../utils/external-link-props";
 import ResumePdfModal from "./resume-pdf-modal";
 import { useInlinePdfLightbox } from "./use-inline-pdf-lightbox";
 import "./resume-lightbox.css";
-
-const BASE = import.meta.env.BASE_URL ?? "/";
-
-function assetUrl(relativePath) {
-  const path = relativePath.replace(/^\.\//, "").replace(/^\/+/, "");
-  const root = BASE.endsWith("/") ? BASE : `${BASE}/`;
-  return `${root}${path}`;
-}
-
-function externalLinkProps(props) {
-  return {
-    ...props,
-    target: "_blank",
-    rel: props.rel ?? "noopener noreferrer",
-  };
-}
 
 function modalTriggerProps(props) {
   const { target, rel, ...rest } = props;

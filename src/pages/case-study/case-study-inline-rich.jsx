@@ -1,14 +1,8 @@
 import React from "react";
-
-/** `[[href|label]]` links: open obvious cross-origin URLs in a new tab. */
-function isExternalDocumentHref(href) {
-  const h = href.trim().toLowerCase();
-  return (
-    h.startsWith("http://") ||
-    h.startsWith("https://") ||
-    h.startsWith("//")
-  );
-}
+import {
+  EXTERNAL_LINK_PROPS,
+  isExternalHref,
+} from "../../utils/external-link-props";
 
 function findItalicOpen(text, cursor) {
   for (let i = cursor; i < text.length; i += 1) {
@@ -236,14 +230,12 @@ export function renderCaseStudyInlineRich(text) {
       );
     }
     if (seg.type === "link") {
-      const openNewTab = isExternalDocumentHref(seg.href);
       return (
         <a
           key={`a-${si}`}
           href={seg.href}
           className="project-case-study__inline-link"
-          target={openNewTab ? "_blank" : undefined}
-          rel={openNewTab ? "noopener noreferrer" : undefined}
+          {...(isExternalHref(seg.href) ? EXTERNAL_LINK_PROPS : {})}
         >
           {renderCaseStudyInlineRich(seg.label)}
         </a>

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import cc from "classcat";
 import HoverRevealText from "../hover-reveal-text";
 import LocationOrg from "../location-org";
@@ -7,11 +8,20 @@ import {
   firstPortfolioHashFragment,
   scrollToPortfolioAnchor,
 } from "../../utils/flash-portfolio-anchor";
+import { EXTERNAL_LINK_PROPS } from "../../utils/external-link-props";
 import { prefersHoverPopover } from "../../utils/prefers-hover-popover";
+import {
+  rememberMissionScrollBeforeProject,
+  SPACE_RESUME_FROM_MISSION,
+} from "../../utils/space-resume-navigation";
 import "./education-card.css";
 
 /** Splits "Summary: detail html" mission bullets; otherwise whole string is summary only */
 function parseMissionBullet(html) {
+  if (typeof html !== "string") {
+    return { summary: html.summary, detail: html.detail ?? null };
+  }
+
   const m = html.match(/^(.*?): (.*)$/);
   return m ? { summary: m[1], detail: m[2] } : { summary: html, detail: null };
 }
@@ -61,6 +71,73 @@ function useMissionLogState() {
   }, []);
 
   return { openIndex, isOpen, setIsOpen, dismiss, toggleDetail };
+}
+
+function TimelineMissionLink({ label, slug }) {
+  return (
+    <Link
+      to={`/mission/${slug}`}
+      title={`Mission Gallery - ${label} case study`}
+      aria-label={`Open ${label} case study`}
+      state={{ [SPACE_RESUME_FROM_MISSION]: true }}
+      onClick={() => rememberMissionScrollBeforeProject()}
+    >
+      🔗
+    </Link>
+  );
+}
+
+function missionSlugFromHref(href) {
+  const match = /^\/mission\/([^/?#]+)/.exec(href ?? "");
+  return match?.[1] ?? null;
+}
+
+function MissionRouterLink({ children, className, slug }) {
+  return (
+    <Link
+      className={className}
+      to={`/mission/${slug}`}
+      state={{ [SPACE_RESUME_FROM_MISSION]: true }}
+      onClick={() => rememberMissionScrollBeforeProject()}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function TimelineRichNode({ node }) {
+  if (typeof node === "string") return node;
+
+  if (node.type === "missionLink") {
+    return <TimelineMissionLink slug={node.slug} label={node.label} />;
+  }
+
+  if (node.type === "year") {
+    return <span className="timeline-bullet-year">{node.value}</span>;
+  }
+
+  if (node.type === "externalSourceLine") {
+    return (
+      <span className="mt-2 block">
+        Source:{" "}
+        <a href={node.href} {...EXTERNAL_LINK_PROPS}>
+          {node.label}
+        </a>
+      </span>
+    );
+  }
+
+  return null;
+}
+
+function TimelineDetail({ detail }) {
+  if (Array.isArray(detail)) {
+    return detail.map((node, index) => (
+      <TimelineRichNode key={index} node={node} />
+    ));
+  }
+
+  return <span dangerouslySetInnerHTML={{ __html: detail }} />;
 }
 
 function TimelineExpandableBulletList({
@@ -117,10 +194,9 @@ function TimelineExpandableBulletList({
               </span>
             </button>
             {detail && isOpen ? (
-              <div
-                className="timeline-bullet-detail__expand"
-                dangerouslySetInnerHTML={{ __html: detail }}
-              />
+              <div className="timeline-bullet-detail__expand">
+                <TimelineDetail detail={detail} />
+              </div>
             ) : null}
           </li>
         );
@@ -198,6 +274,7 @@ const EducationCard = React.memo(function EducationCard({
 
 const AchievementCard = React.memo(function AchievementCard({
   title,
+  titleHref,
   portfolioAnchor,
   time,
   org,
@@ -208,6 +285,7 @@ const AchievementCard = React.memo(function AchievementCard({
   const missionLog = useMissionLogState();
 
   const portfolioHash = firstPortfolioHashFragment(portfolioAnchor);
+  const titleMissionSlug = missionSlugFromHref(titleHref);
 
   const handlePortfolioClick = useCallback(
     (e) => {
@@ -223,7 +301,26 @@ const AchievementCard = React.memo(function AchievementCard({
       {time ? (
         <div className="edu-achievement-card__year timeline-time">[{time}]</div>
       ) : null}
-      <h4 className="edu-achievement-card__title">{title}</h4>
+      <h4 className="edu-achievement-card__title">
+        {titleMissionSlug ? (
+          <MissionRouterLink
+            className="edu-achievement-card__title-link"
+            slug={titleMissionSlug}
+          >
+            {title}
+          </MissionRouterLink>
+        ) : titleHref ? (
+          <a
+            className="edu-achievement-card__title-link"
+            href={titleHref}
+            {...EXTERNAL_LINK_PROPS}
+          >
+            {title}
+          </a>
+        ) : (
+          title
+        )}
+      </h4>
       {badges.length > 0 ? (
         <div className="edu-achievement-card__badges">
           {badges.map((badge, idx) => (

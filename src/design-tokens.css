@@ -30,12 +30,9 @@
   /* Mission gallery (rules near glyph) */
   --site-sky-pale: #daeef8;
 
-  /* Full-viewport modal scrim (résumé lightbox, …) — matches former Tailwind bg + blur-sm */
-  --site-modal-scrim-bg: rgb(28 25 23 / 0.9);
-  --site-modal-scrim-blur: 4px;
-
-  /* Astronaut ID: Profile → About Me slide-over shell (defaults to shared scrim; override to diverge) */
-  --site-modal-scrim-bg: rgb(28 25 23 / 0.5);
+  /* Shared full-viewport modal scrim. */
+  --site-modal-scrim-rgb: 28 25 23;
+  --site-modal-scrim-bg: rgb(var(--site-modal-scrim-rgb) / 0.5);
   --site-modal-scrim-blur: 4px;
 
   /* Case study: editorial */
@@ -69,7 +66,7 @@
   --site-neutral-text-hover: #45413e;
   --site-neutral-text-active: #3a3633;
 
-  /* Type scale — Tailwind `text-site-*` (tailwind.config.js) or var(--site-font-*). Hero / crawl may keep local clamps. */
+  /* Type scale - Tailwind `text-site-*` (tailwind.config.js) or var(--site-font-*). Hero / crawl may keep local clamps. */
   --site-font-micro: 0.625rem;
   --site-font-note: 0.75rem;
   --site-font-caption: 0.875rem;
@@ -77,13 +74,13 @@
   --site-font-lead: 1.125rem;
   /* Material / UI glyphs (fixed size; not tied to job-title breakpoint). */
   --site-font-icon: 1.25rem;
-  --site-font-card-title: 1rem;
-  --site-font-job-title: 1.25rem;
+  --site-font-card-title: var(--site-font-body);
+  --site-font-job-title: var(--site-font-icon);
 }
 
 @media (min-width: 768px) {
   :root {
-    --site-font-card-title: 1.125rem;
+    --site-font-card-title: var(--site-font-lead);
     --site-font-job-title: 1.5rem;
   }
 }

@@ -17,6 +17,80 @@
   @apply col-span-full mb-12 mt-0 text-center font-silkscreen text-site-caption uppercase tracking-[0.22em] text-[var(--site-teal-mid)] md:mb-14;
 }
 
+/* Gallery filter */
+.portfolio-section__filter-legend {
+  @apply col-span-full -mt-8 mb-10 flex flex-wrap items-center justify-start gap-x-3 gap-y-3 md:-mt-10 md:mb-12;
+}
+
+.portfolio-section__filter-label {
+  @apply mr-1 font-silkscreen text-site-caption uppercase tracking-[0.2em] text-[var(--site-teal-mid)];
+}
+
+.portfolio-section__filter-select {
+  @apply min-w-[13rem] rounded-lg border-2 border-[var(--site-neutral-text)] bg-white/80 px-4 py-2 pr-10 font-silkscreen text-site-body uppercase tracking-[0.14em] text-[var(--site-neutral-text)] shadow-sm outline-none transition-[border-color,box-shadow,color,background-color] duration-200;
+  @apply focus-visible:border-[var(--site-teal-primary)] focus-visible:shadow-[0_0_0_3px_rgb(var(--site-teal-accent-rgb)/0.35)];
+}
+
+.portfolio-section__filter-select--product {
+  @apply border-[var(--site-teal-accent)] text-[var(--site-teal-ink-900)];
+}
+
+.portfolio-section__filter-select--research {
+  @apply border-[var(--site-gold)] text-[var(--site-gold-ink)];
+}
+
+.portfolio-section__filter-select--civic-data {
+  @apply border-[var(--site-teal-mid)] text-[var(--site-teal-ink-800)];
+}
+
+.portfolio-section__filter-select--awards {
+  @apply border-[var(--site-editorial-rust)] text-[var(--site-editorial-rust)];
+}
+
+.portfolio-section__filter-btn {
+  @apply rounded-full border-2 bg-white/80 px-4 py-1.5 font-silkscreen text-site-caption uppercase tracking-[0.18em] shadow-sm transition-colors duration-200;
+}
+
+.portfolio-section__filter-btn--all {
+  @apply border-[var(--site-neutral-text)] text-[var(--site-neutral-text)];
+}
+
+.portfolio-section__filter-btn--product {
+  @apply border-[var(--site-teal-accent)] text-[var(--site-teal-accent)];
+}
+
+.portfolio-section__filter-btn--research {
+  @apply border-[var(--site-gold)] text-[var(--site-gold)];
+}
+
+.portfolio-section__filter-btn--civic-data {
+  @apply border-[var(--site-teal-mid)] text-[var(--site-teal-mid)];
+}
+
+.portfolio-section__filter-btn--awards {
+  @apply border-[var(--site-editorial-rust)] text-[var(--site-editorial-rust)];
+}
+
+.portfolio-section__filter-btn--active {
+  @apply bg-[var(--site-neutral-text)] text-white shadow-[0_2px_8px_rgb(0_0_0/0.12)];
+}
+
+.portfolio-section__filter-btn--product.portfolio-section__filter-btn--active {
+  @apply bg-[rgb(var(--site-teal-accent-rgb)/0.18)] text-[var(--site-teal-ink-900)];
+}
+
+.portfolio-section__filter-btn--research.portfolio-section__filter-btn--active {
+  @apply bg-[rgb(var(--site-gold-rgb)/0.22)] text-[var(--site-gold-ink)];
+}
+
+.portfolio-section__filter-btn--civic-data.portfolio-section__filter-btn--active {
+  @apply bg-[rgb(var(--site-teal-primary-rgb)/0.14)] text-[var(--site-teal-ink-800)];
+}
+
+.portfolio-section__filter-btn--awards.portfolio-section__filter-btn--active {
+  @apply bg-[rgb(var(--site-gold-ink-rgb)/0.16)] text-[var(--site-gold-ink)];
+}
+
 /* Shared filter: current value (legend colors) + optional reset (All chip) */
 .portfolio-section__filter-bar {
   @apply col-span-full -mt-6 mb-10 flex flex-wrap items-center justify-start gap-4 md:-mt-8 md:mb-12 md:gap-6;
