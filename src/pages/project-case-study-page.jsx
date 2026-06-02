@@ -2,9 +2,6 @@ import React, {
   Suspense,
   lazy,
   useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
 } from "react";
 import {
   Link,
@@ -13,7 +10,6 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { loadPortfolioProjectBySlug } from "../data/portfolio/load-portfolio-project";
 import { EXTERNAL_LINK_PROPS } from "../utils/external-link-props";
 import { SPACE_RESUME_FROM_MISSION } from "../utils/space-resume-navigation";
 import HoverRevealText from "../components/hover-reveal-text";
@@ -42,6 +38,11 @@ import {
 import CaseStudyIframe from "./case-study/case-study-iframe";
 import { resolveCaseStudyFooterTaglineParagraphs } from "./case-study/case-study-footer-tagline";
 import { renderCaseStudyInlineRich } from "./case-study/case-study-inline-rich";
+import {
+  useCaseStudyHeaderTitle,
+  usePortfolioProject,
+  useScrollToTopOnCaseStudy,
+} from "./case-study/use-project-case-study-page";
 import "./project-case-study.css";
 
 function lazyCaseStudySection(exportName) {
@@ -73,7 +74,13 @@ export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [project, setProject] = useState(undefined);
+  const project = usePortfolioProject(slug);
+  const hasCaseStudy = Boolean(project?.caseStudy);
+  const { showHeaderTitle, titleRef } = useCaseStudyHeaderTitle(
+    hasCaseStudy,
+    slug,
+  );
+  useScrollToTopOnCaseStudy(hasCaseStudy, slug);
 
   const resumeFromMission = Boolean(
     location.state?.[SPACE_RESUME_FROM_MISSION],
@@ -85,32 +92,6 @@ export default function ProjectCaseStudyPage() {
       navigate("/");
     }
   }, [navigate, resumeFromMission]);
-
-  useEffect(() => {
-    if (!slug) {
-      setProject(null);
-      return undefined;
-    }
-    let cancelled = false;
-    setProject(undefined);
-    loadPortfolioProjectBySlug(slug).then(
-      (p) => {
-        if (!cancelled) setProject(p);
-      },
-      () => {
-        if (!cancelled) setProject(null);
-      },
-    );
-    return () => {
-      cancelled = true;
-    };
-  }, [slug]);
-
-  useLayoutEffect(() => {
-    if (project?.caseStudy) {
-      window.scrollTo(0, 0);
-    }
-  }, [slug, project]);
 
   if (project === undefined) {
     return (
@@ -404,6 +385,14 @@ export default function ProjectCaseStudyPage() {
               ← Back to mission 🚀
             </HoverRevealText>
           </button>
+          <p
+            className={`project-case-study__header-title${
+              showHeaderTitle ? " project-case-study__header-title--visible" : ""
+            }`}
+            aria-hidden="true"
+          >
+            {name}
+          </p>
         </div>
       </header>
 
@@ -413,7 +402,11 @@ export default function ProjectCaseStudyPage() {
         tabIndex={-1}
       >
         <p className="project-case-study__eyebrow">{cs.eyebrow}</p>
-        <h1 id={`mission-${slug}-title`} className="project-case-study__title">
+        <h1
+          id={`mission-${slug}-title`}
+          ref={titleRef}
+          className="project-case-study__title"
+        >
           {name}
         </h1>
 
