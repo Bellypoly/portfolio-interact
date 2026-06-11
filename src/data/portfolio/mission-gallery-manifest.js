@@ -84,6 +84,7 @@ const MISSION_GALLERY_ROWS = [
     img: "images/portfolio/local-elections-hub/thumbnail.png",
     imgWebp: "images/portfolio/local-elections-hub/thumbnail.webp",
     alt: "Illustration — hand placing a marked ballot into a ballot box on a patterned background",
+    link: "https://www.dallasnews.com/voterguide/",
   },
   {
     slug: "outage-management-system",
@@ -111,6 +112,7 @@ const MISSION_GALLERY_ROWS = [
     img: "images/portfolio/dynamic-paywall/thumbnail.png",
     imgWebp: "images/portfolio/dynamic-paywall/thumbnail.webp",
     alt: "Dallas Morning News site with paywall modal and analytics chart — Personalized Reader Access Platform",
+    link: "https://www.dallasnews.com/",
   },
   {
     slug: "map-magic",
@@ -150,6 +152,7 @@ const MISSION_GALLERY_ROWS = [
     img: "images/portfolio/article-redesign/thumbnail.png",
     imgWebp: "images/portfolio/article-redesign/thumbnail.webp",
     alt: "Dallas Morning News article page — single-column reading layout",
+    link: "https://www.dallasnews.com/",
   },
   {
     slug: "subscription-checkout-activation",
@@ -163,6 +166,7 @@ const MISSION_GALLERY_ROWS = [
     img: "images/portfolio/subscription-checkout/thumbnail.png",
     imgWebp: "images/portfolio/subscription-checkout/thumbnail.webp",
     alt: "End-to-end subscription conversion: checkout, identity, onboarding — case study",
+    link: "https://dallasnews.com/single-page-checkout/?on=exit-intent-bbb&sku=DNP1&pc=APTVY2",
   },
   {
     slug: "pea-e-service",

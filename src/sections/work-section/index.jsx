@@ -168,7 +168,7 @@ const WORK_ITEMS = [
     id: "work-pea",
     time: "Jul 2016 - Jul 2019",
     title: "Full Stack Developer II",
-    org: "PEA (Provincial Electricity Authority)",
+    org: "Provincial Electricity Authority (PEA)",
     where: "Bangkok, Thailand",
 
     description:

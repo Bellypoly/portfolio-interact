@@ -121,14 +121,14 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [100.4942, 13.651],
-    company: "Studied at KMUTT (B.Eng.)",
+    company: "Studied at KMUTT (B.Eng.) in Computer Engineering",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "edu-kmutt-beng",
   },
   {
     coords: [100.5231, 13.8591],
-    company: "Studied at STOU",
+    company: "Studied at STOU (B.B.A.) in Marketing",
     location: "Nonthaburi, Thailand",
     country: "Thailand",
     anchor: "edu-stou",
@@ -142,14 +142,14 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [100.4942, 13.651],
-    company: "Studied at KMUTT (M.Sc.)",
+    company: "Studied at KMUTT (M.Sc.) in Robotics and Intelligent Systems",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "edu-kmutt",
   },
   {
     coords: [100.5018, 13.7563],
-    company: "PEA (Provincial Electricity Authority)",
+    company: "Provincial Electricity Authority (PEA)",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "work-pea",
