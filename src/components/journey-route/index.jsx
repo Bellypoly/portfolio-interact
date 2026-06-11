@@ -142,7 +142,7 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [100.4942, 13.651],
-    company: "Studied at KMUTT (M.Sc.) in Robotics and Intelligent Systems",
+    company: "Studied at KMUTT (M.Sc.) in Robotics and Technopreneurship",
     location: "Bangkok, Thailand",
     country: "Thailand",
     anchor: "edu-kmutt",
@@ -163,7 +163,7 @@ const JOURNEY_STOPS = [
   },
   {
     coords: [-101.8552, 33.5779],
-    company: "Studied at TTU",
+    company: "Studied at TTU (M.Sc.) in Computer Science",
     location: "Lubbock, Texas",
     country: "United States of America",
     anchor: "edu-ttu",
